@@ -413,7 +413,7 @@
 }
 
 .expert-courses {
-  padding: 2rem;
+  padding: 2rem 100px;
   text-align: center;
 
   .header {
@@ -507,4 +507,216 @@
       }
     }
   }
+}
+
+.testimonials-section {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    h2 {
+      font-size: 2rem;
+      color: #1e293b;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.125rem;
+      color: #475569;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  .testimonials-layout {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+
+    .main-testimonial {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      max-width: 668px;
+      background: white;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+      .testimonial-image-container {
+        height: 350px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+      }
+
+      .testimonial-content {
+        padding: 2rem;
+
+        h3 {
+          font-size: 1.5rem;
+          margin-bottom: 0.5rem;
+          color: #1e293b;
+        }
+
+        .testimonial-meta {
+          color: #64748b;
+          margin-bottom: 1rem;
+          font-size: 0.875rem;
+        }
+
+        .testimonial-quote {
+          color: #475569;
+          line-height: 1.6;
+          font-size: 1.125rem;
+          font-style: italic;
+        }
+      }
+    }
+
+    .side-testimonials {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .side-testimonial-card {
+        background: white;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        display: flex;
+        height: 100%;
+
+        .testimonial-image-container {
+          width: 50px;
+          min-width: 70px;
+          padding-left: 24px;
+          //   height: 100%;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+          }
+        }
+
+        .testimonial-content {
+          padding: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+          }
+
+          .testimonial-meta {
+            color: #64748b;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+          }
+
+          .testimonial-quote {
+            color: #475569;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            font-style: italic;
+          }
+        }
+      }
+    }
+  }
+
+  .view-more {
+    text-align: center;
+
+    .view-more-button {
+      background: none;
+      border: none;
+      color: #3b82f6;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #2563eb;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonials-section {
+    padding: 2rem 1rem;
+
+    .testimonials-layout {
+      flex-direction: column;
+
+      .main-testimonial {
+        .testimonial-image-container {
+          height: 250px;
+        }
+      }
+
+      .side-testimonials {
+        .side-testimonial-card {
+          flex-direction: column;
+          height: auto;
+
+          .testimonial-image-container {
+            width: 100%;
+            height: 150px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.section-title {
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.section-description {
+  color: #555;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.icon-container {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.icon-button {
+  border-radius: 50%;
+  min-width: 48px;
+  height: 48px;
+  padding: 0;
 }
