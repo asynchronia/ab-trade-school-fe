@@ -1,0 +1,112 @@
+.marquee-carousel-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 2rem 0;
+  position: relative;
+
+  .marquee-carousel-track {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    will-change: transform;
+    animation-timing-function: linear;
+    gap: 20px;
+    padding-left: 20px;
+  }
+
+  .marquee-card {
+    width: 400px;
+    flex-shrink: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .card-image-container {
+      position: relative;
+      height: 160px;
+      overflow: hidden;
+
+      .base-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .overlay-image {
+        position: absolute;
+        bottom: 0;
+        right: 50%;
+        transform: translateX(50%);
+        height: 90%;
+        object-fit: contain;
+        object-position: bottom right;
+      }
+
+      .bookmark-icon {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: rgba(255, 255, 255, 0.8);
+        color: #333;
+
+        &:hover {
+          background: white;
+        }
+      }
+    }
+
+    .card-content {
+      padding: 1rem;
+      flex-grow: 1;
+
+      .card-title {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: #333;
+        font-size: 1.25rem;
+      }
+
+      .card-description {
+        color: #666;
+        font-size: 0.9rem;
+        line-height: 1.4;
+      }
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-top: 1px solid #eee;
+
+      .watch-button {
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 0.5rem 1.25rem;
+        font-size: 0.8rem;
+        background-color: #1976d2;
+        color: white;
+
+        &:hover {
+          background-color: #1565c0;
+        }
+      }
+
+      .time-indicator {
+        display: flex;
+        align-items: center;
+        color: #666;
+        font-size: 0.8rem;
+
+        svg {
+          margin-right: 4px;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
