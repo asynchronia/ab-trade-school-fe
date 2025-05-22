@@ -112,7 +112,7 @@ const LoginPage = () => {
           >
             <Box sx={{ maxWidth: '500px', width: '100%', mx: 'auto' }}>
               <Typography variant="h5" fontWeight="bold" gutterBottom>
-                Register your profile
+                Sign in to your profile
               </Typography>
 
               <Typography variant="body2" color="text.secondary" gutterBottom>

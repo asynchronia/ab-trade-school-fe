@@ -26,6 +26,7 @@ import {
     Typography,
 } from '@mui/material';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import abLogo2 from '../assets/ab-logo2.svg';
 import baseImg1 from '../assets/baseImg1.svg';
 import baseImg2 from '../assets/baseImg2.svg';
@@ -473,6 +474,7 @@ const LandingPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('Basic Knowledge');
   const [selectedLevel, setSelectedLevel] = useState('Beginner');
   const [selectedLanguage, setSelectedLanguage] = useState('English');
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -567,6 +569,7 @@ const LandingPage = () => {
                   padding: 12,
                   marginBottom: '20px',
                 }}
+                onClick={() => navigate('/signup')}
                 title={' Start Learning Now'}
               />
               <Button
@@ -577,7 +580,7 @@ const LandingPage = () => {
                   padding: 12,
                   marginBottom: '20px',
                 }}
-                title={' Start Learning Now'}
+                title={'Saved videos'}
               />
             </Stack>
 
