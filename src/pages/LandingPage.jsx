@@ -8,6 +8,8 @@ import {
     Box,
     Card,
     CardContent,
+    CardMedia,
+    Chip,
     Container,
     Divider,
     Grid,
@@ -19,60 +21,57 @@ import {
     List,
     ListItem,
     ListItemIcon,
+    Paper,
     Stack,
     Typography,
 } from '@mui/material';
 import { useState } from 'react';
-import abLogo2 from '../../assets/ab-logo2.svg';
-import baseImg1 from '../../assets/baseImg1.svg';
-import baseImg2 from '../../assets/baseImg2.svg';
-import baseImg3 from '../../assets/baseImg3.svg';
-import bg1 from '../../assets/bg1.svg';
-import bg2 from '../../assets/bg2.svg';
-import bg3 from '../../assets/bg3.svg';
-import bgImage3 from '../../assets/bgImg3.svg';
-import cardIcon1 from '../../assets/cardIcon1.svg';
-import cardIcon2 from '../../assets/cardIcon2.svg';
-import cardIcon3 from '../../assets/cardIcon3.svg';
-import cardImage1 from '../../assets/cardImg1.svg';
-import cardImage2 from '../../assets/cardImg2.svg';
-import cardImage3 from '../../assets/cardImg3.svg';
-import cardImage4 from '../../assets/cardImg4.svg';
-import cardImage5 from '../../assets/cardImg5.svg';
-import galleryImage1 from '../../assets/galleryImage1.svg';
-import galleryImage2 from '../../assets/galleryImage2.svg';
-import galleryImage3 from '../../assets/galleryImage3.svg';
-import galleryImage4 from '../../assets/galleryImage4.svg';
-import galleryImage5 from '../../assets/galleryImage5.svg';
-import heroSectionImg from '../../assets/heroSectionImg.svg';
-import mainTestimonialImage from '../../assets/mainTestimonialImage.svg';
-import marketImg1 from '../../assets/marketImg1.svg';
-import marketImg2 from '../../assets/marketImg2.svg';
-import overImg1 from '../../assets/overImg1.svg';
-import overImg2 from '../../assets/overImg2.svg';
-import overImg3 from '../../assets/overImg3.svg';
-import person1 from '../../assets/person1.svg';
-import person2 from '../../assets/person2.svg';
-import person3 from '../../assets/person3.svg';
-import portfolioOverImg from '../../assets/portfolioOverImg.svg';
-import rightCircle from '../../assets/rightCircle.svg';
-import rightImg2 from '../../assets/rightImg2.svg';
-import testimonial1Image from '../../assets/testimonial1Image.svg';
-import testimonial2Image from '../../assets/testimonial2Image.svg';
-import testimonial3Image from '../../assets/testimonial3Image.svg';
-import webinar1 from '../../assets/webinar1.svg';
-import webinar2 from '../../assets/webinar2.svg';
-import webinar3 from '../../assets/webinar3.svg';
-import Button from '../../components/Button/Button';
-import CardCarousel from '../../components/CardCorousel/CardCarousel';
-import CustomDropdown from '../../components/Customdropdown/Customdropdown';
-import Navbar from '../../components/Navbar/Navbar';
-import TrackCard from '../../components/TrackCard/TrackCard';
-import WebinarCardCarousel, {
-    default as WebinarCard,
-    default as WebinarCarousel,
-} from '../../components/WebinarCard/WebinarCard';
-import './LandingPage.scss';
+import abLogo2 from '../assets/ab-logo2.svg';
+import baseImg1 from '../assets/baseImg1.svg';
+import baseImg2 from '../assets/baseImg2.svg';
+import baseImg3 from '../assets/baseImg3.svg';
+import bg1 from '../assets/bg1.svg';
+import bg2 from '../assets/bg2.svg';
+import bg3 from '../assets/bg3.svg';
+import bgImage3 from '../assets/bgImg3.svg';
+import cardIcon1 from '../assets/cardIcon1.svg';
+import cardIcon2 from '../assets/cardIcon2.svg';
+import cardIcon3 from '../assets/cardIcon3.svg';
+import cardImage1 from '../assets/cardImg1.svg';
+import cardImage2 from '../assets/cardImg2.svg';
+import cardImage3 from '../assets/cardImg3.svg';
+import cardImage4 from '../assets/cardImg4.svg';
+import cardImage5 from '../assets/cardImg5.svg';
+import galleryImage1 from '../assets/galleryImage1.svg';
+import galleryImage2 from '../assets/galleryImage2.svg';
+import galleryImage3 from '../assets/galleryImage3.svg';
+import galleryImage4 from '../assets/galleryImage4.svg';
+import galleryImage5 from '../assets/galleryImage5.svg';
+import heroSectionImg from '../assets/heroSectionImg.svg';
+import mainTestimonialImage from '../assets/mainTestimonialImage.svg';
+import marketImg1 from '../assets/marketImg1.svg';
+import marketImg2 from '../assets/marketImg2.svg';
+import overImg1 from '../assets/overImg1.svg';
+import overImg2 from '../assets/overImg2.svg';
+import overImg3 from '../assets/overImg3.svg';
+import person1 from '../assets/person1.svg';
+import person2 from '../assets/person2.svg';
+import person3 from '../assets/person3.svg';
+import portfolioOverImg from '../assets/portfolioOverImg.svg';
+import rightCircle from '../assets/rightCircle.svg';
+import rightImg2 from '../assets/rightImg2.svg';
+import testimonial1Image from '../assets/testimonial1Image.svg';
+import testimonial2Image from '../assets/testimonial2Image.svg';
+import testimonial3Image from '../assets/testimonial3Image.svg';
+import webinar1 from '../assets/webinar1.svg';
+import webinar2 from '../assets/webinar2.svg';
+import webinar3 from '../assets/webinar3.svg';
+import Button from '../components/Button/Button';
+import CardCarousel from '../components/CardCorousel/CardCarousel';
+import CustomDropdown from '../components/Customdropdown/Customdropdown';
+import Navbar from '../components/Navbar/Navbar';
+import TrackCard from '../components/TrackCard/TrackCard';
+import WebinarCard from '../components/WebinarCard/WebinarCard';
 
 const statsItem = [
   { number: '20+', label: 'Modules' },
@@ -81,11 +80,11 @@ const statsItem = [
 ];
 
 const features = [
-  { label: 'NISM-Backed', dotClass: 'dot--blue' },
-  { label: 'NSE Partnership', dotClass: 'dot--blue' },
-  { label: '#1 on TradingView', dotClass: 'dot--blue' },
-  { label: 'SEBI Compliant', dotClass: 'dot--blue' },
-  { label: '4.9/5 Rating', dotClass: 'dot--yellow' },
+  { label: 'NISM-Backed', dotClass: 'blue' },
+  { label: 'NSE Partnership', dotClass: 'blue' },
+  { label: '#1 on TradingView', dotClass: 'blue' },
+  { label: 'SEBI Compliant', dotClass: 'blue' },
+  { label: '4.9/5 Rating', dotClass: 'yellow' },
 ];
 
 const trackData = [
@@ -474,6 +473,7 @@ const LandingPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('Basic Knowledge');
   const [selectedLevel, setSelectedLevel] = useState('Beginner');
   const [selectedLanguage, setSelectedLanguage] = useState('English');
+
   return (
     <div>
       <Navbar user={false} />
@@ -636,77 +636,265 @@ const LandingPage = () => {
       </Box>
 
       {/* Cards section */}
-      <section className="track-section">
-        <div className="track-section__header">
-          <h2>Your Goals. Your Track.</h2>
-          <p>
+      <Box
+        component="section"
+        sx={{
+          py: 8,
+          px: 4,
+          backgroundColor: '#f9fafb',
+        }}
+      >
+        <Container maxWidth="md" sx={{ textAlign: 'center', mb: 4 }}>
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{
+              fontWeight: 700,
+              mb: 2,
+              color: '#111827',
+              fontSize: '2.25rem',
+            }}
+          >
+            Your Goals. Your Track.
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: '#6b7280',
+              lineHeight: 1.6,
+            }}
+          >
             Get on the fast track to smarter trading with learning paths built
             around your needs. Practical, structured, and guided by real-market
             expertise.
-          </p>
-        </div>
+          </Typography>
+        </Container>
 
-        <div className="track-section__features">
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: 2,
+            mb: 6,
+          }}
+        >
           {features.map((feature, idx) => (
-            <div className="feature-badge" key={idx}>
-              <span className={`dot ${feature.dotClass}`} />
+            <Paper
+              key={idx}
+              elevation={0}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: 'white',
+                px: 2,
+                py: 1,
+                borderRadius: '9999px',
+                fontSize: '0.875rem',
+                fontWeight: 500,
+                color: '#1f2937',
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+              }}
+            >
+              <Box
+                sx={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  mr: 1,
+                  backgroundColor:
+                    feature.dotClass === 'blue' ? '#3b82f6' : '#facc15',
+                }}
+              />
               {feature.label}
-            </div>
+            </Paper>
           ))}
-        </div>
+        </Box>
 
-        <div className="track-section__cards">
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: 2,
+          }}
+        >
           {trackData.map((item, index) => (
             <TrackCard key={index} {...item} />
           ))}
-        </div>
-      </section>
+        </Box>
+      </Box>
 
       {/* Instructor section */}
-      <section className="instructor-section">
-        <div className="instructor-section__header">
-          <h2>Learn from the Best</h2>
-          <p>
+      <Box
+        component="section"
+        sx={{
+          py: 7.5,
+          px: 2.5,
+          textAlign: 'left',
+        }}
+      >
+        <Container sx={{ mb: 5, textAlign: 'center' }}>
+          {' '}
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{
+              fontSize: '2rem',
+              fontWeight: 'bold',
+              mb: 1.25,
+            }}
+          >
+            Learn from the Best
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: '#555',
+              fontSize: '1rem',
+            }}
+          >
             Our instructors are seasoned market professionals with years of
             real-world trading experience.
-          </p>
-        </div>
-        <div className="instructor-section__cards">
+          </Typography>
+        </Container>
+
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: 3.75,
+          }}
+        >
           {instructors.map((instructor, idx) => (
-            <div className="instructor-card" key={idx}>
-              <div className="instructor-card__top">
-                <img
-                  src={instructor.bgImage}
+            <Card
+              key={idx}
+              sx={{
+                width: 320,
+                borderRadius: 3, // 12px
+                boxShadow: '0 10px 20px rgba(0, 0, 0, 0.05)',
+                transition: 'transform 0.3s',
+                '&:hover': {
+                  transform: 'translateY(-6px)',
+                },
+              }}
+            >
+              <Box sx={{ position: 'relative', height: 220 }}>
+                <CardMedia
+                  component="img"
+                  height="220"
+                  image={instructor.bgImage}
                   alt="Background"
-                  className="bg-img"
+                  sx={{ objectFit: 'cover' }}
                 />
-                <img
+                <Box
+                  component="img"
                   src={instructor.personImage}
                   alt={instructor.name}
-                  className="person-img"
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: '50%',
+                    transform: 'translate(-50%, 0%)',
+                    width: 320,
+                    objectFit: 'cover',
+                  }}
                 />
-                <span className="instructor-card__badge">
-                  {instructor.badge}
-                </span>
-              </div>
-              <div className="instructor-card__bottom">
-                <h3>{instructor.name}</h3>
-                <p className="role">{instructor.role}</p>
-                <p className="desc">{instructor.description}</p>
-                <div className="rating">
-                  {'★'.repeat(Math.floor(instructor.rating))}
-                  <span className="rating-score">
-                    &nbsp;{instructor.rating} ({instructor.reviews} reviews)
-                  </span>
-                </div>
-                <a className="profile-link" href="#">
+                <Chip
+                  label={instructor.badge}
+                  size="small"
+                  sx={{
+                    position: 'absolute',
+                    bottom: 12,
+                    left: 12,
+                    bgcolor: '#2563eb',
+                    color: 'white',
+                    fontSize: '0.75rem',
+                    borderRadius: 1.5, // 6px
+                  }}
+                />
+              </Box>
+
+              <CardContent sx={{ p: 2 }}>
+                {' '}
+                {/* 16px */}
+                <Typography
+                  variant="h6"
+                  component="h3"
+                  sx={{
+                    fontSize: '1.1rem',
+                    fontWeight: 600,
+                    mb: 0.5, // 4px
+                  }}
+                >
+                  {instructor.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: '#666',
+                    fontSize: '0.875rem',
+                    mb: 1.25, // 10px
+                  }}
+                >
+                  {instructor.role}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontSize: '0.875rem', // 14px
+                    lineHeight: 1.5,
+                    color: '#444',
+                    mb: 1.5, // 12px
+                  }}
+                >
+                  {instructor.description}
+                </Typography>
+                <Box sx={{ mb: 1.25 }}>
+                  {' '}
+                  {/* 10px */}
+                  <Typography
+                    variant="body2"
+                    component="span"
+                    sx={{
+                      fontSize: '0.85rem',
+                      color: '#facc15',
+                    }}
+                  >
+                    {'★'.repeat(Math.floor(instructor.rating))}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="span"
+                    sx={{
+                      fontSize: '0.85rem',
+                      color: '#555',
+                      ml: 0.5,
+                    }}
+                  >
+                    {instructor.rating} ({instructor.reviews} reviews)
+                  </Typography>
+                </Box>
+                <Link
+                  href="#"
+                  sx={{
+                    fontWeight: 500,
+                    color: '#2563eb',
+                    fontSize: '0.9rem',
+                    textDecoration: 'none',
+                    '&:hover': {
+                      textDecoration: 'underline',
+                    },
+                  }}
+                >
                   View Profile & Courses
-                </a>
-              </div>
-            </div>
+                </Link>
+              </CardContent>
+            </Card>
           ))}
-        </div>
-      </section>
+        </Box>
+      </Box>
 
       {/* Courses section */}
       <Box px={'100px'} py={6}>
@@ -948,67 +1136,256 @@ const LandingPage = () => {
       </Box>
 
       {/* Free courses section */}
-      <section className="expert-courses">
-        <div className="header">
-          <h2>
-            Get Started with <span>Free Expert Courses</span>
-          </h2>
-          <p>
+      <Box
+        component="section"
+        sx={{
+          py: 4,
+          px: 2,
+          maxWidth: 1200,
+          mx: 'auto',
+        }}
+      >
+        <Box sx={{ mb: 4, textAlign: 'center' }}>
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{
+              fontSize: '2rem',
+              color: '#1a365d',
+              mb: 1,
+            }}
+          >
+            Get Started with{' '}
+            <Box component="span" sx={{ color: 'primary.main' }}>
+              Free Expert Courses
+            </Box>
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: '#4a5568',
+              maxWidth: 600,
+              mx: 'auto',
+            }}
+          >
             Explore easy-to-follow courses designed to get you started right.
-          </p>
-        </div>
+          </Typography>
+        </Box>
 
         <CardCarousel cards={freeCourses} interval={2000} />
-      </section>
+      </Box>
 
       {/* Testimonial section */}
-      <section className="testimonials-section">
-        <div className="section-header">
-          <h2>Trusted By Traders</h2>
-          <p>
+      <Box
+        component="section"
+        sx={{
+          py: 8,
+          px: 4,
+          maxWidth: 1200,
+          mx: 'auto',
+        }}
+      >
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{
+              fontSize: '2rem',
+              color: '#1e293b',
+              mb: 2,
+              fontWeight: 700,
+            }}
+          >
+            Trusted By Traders
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: '1.125rem',
+              color: '#475569',
+              maxWidth: 600,
+              mx: 'auto',
+            }}
+          >
             Hear from our community of traders who have transformed their
             trading journey with our courses.
-          </p>
-        </div>
+          </Typography>
+        </Box>
 
-        <div className="testimonials-layout">
-          <div className="main-testimonial">
-            <div className="testimonial-image-container">
-              <img src={mainTestimonial.image} alt={mainTestimonial.name} />
-            </div>
-            <div className="testimonial-content">
-              <h3>{mainTestimonial.name}</h3>
-              <p className="testimonial-meta">
+        <Box sx={{ display: 'flex', gap: 4, mb: 6 }}>
+          {/* Main Testimonial */}
+          <Paper
+            elevation={3}
+            sx={{
+              flex: 2,
+              maxWidth: 668,
+              display: 'flex',
+              flexDirection: 'column',
+              borderRadius: '8px',
+              overflow: 'hidden',
+            }}
+          >
+            <Box
+              sx={{
+                width: '100%',
+                height: 350,
+                overflow: 'hidden',
+              }}
+            >
+              <Box
+                component="img"
+                src={mainTestimonial.image}
+                alt={mainTestimonial.name}
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                }}
+              />
+            </Box>
+            <Box sx={{ p: 4 }}>
+              <Typography
+                variant="h5"
+                component="h3"
+                sx={{
+                  mb: 1,
+                  color: '#1e293b',
+                  fontSize: '1.5rem',
+                }}
+              >
+                {mainTestimonial.name}
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: '#64748b',
+                  mb: 2,
+                  fontSize: '0.875rem',
+                }}
+              >
                 {mainTestimonial.role}, {mainTestimonial.location}
-              </p>
-              <p className="testimonial-quote">"{mainTestimonial.quote}"</p>
-            </div>
-          </div>
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: '#475569',
+                  lineHeight: 1.6,
+                  fontSize: '1.125rem',
+                  fontStyle: 'italic',
+                }}
+              >
+                "{mainTestimonial.quote}"
+              </Typography>
+            </Box>
+          </Paper>
 
-          <div className="side-testimonials">
+          {/* Side Testimonials */}
+          <Box
+            sx={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '10px',
+            }}
+          >
             {sideTestimonials.map((testimonial) => (
-              <div key={testimonial.id} className="side-testimonial-card">
-                <div className="testimonial-image-container">
-                  <img src={testimonial.image} alt={testimonial.name} />
-                </div>
-                <div className="testimonial-content">
-                  <h4>{testimonial.name}</h4>
-                  <p className="testimonial-meta">
+              <Paper
+                key={testimonial.id}
+                elevation={3}
+                sx={{
+                  borderRadius: '8px',
+                  overflow: 'hidden',
+                  display: 'flex',
+                  height: '100%',
+                }}
+              >
+                <Box
+                  sx={{
+                    width: 70,
+                    p: '24px 0 24px 24px',
+                    overflow: 'hidden',
+                    flex: 0.2,
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'fill',
+                      objectPosition: 'center',
+                    }}
+                  />
+                </Box>
+                <Box
+                  sx={{
+                    p: 3,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    flex: 0.8,
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    component="h4"
+                    sx={{
+                      mb: 1,
+                      color: '#1e293b',
+                      fontSize: '1.1rem',
+                    }}
+                  >
+                    {testimonial.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: '#64748b',
+                      mb: 1,
+                      fontSize: '0.75rem',
+                    }}
+                  >
                     {testimonial.role}, {testimonial.location}
-                  </p>
-                  <p className="testimonial-quote">"{testimonial.quote}"</p>
-                </div>
-              </div>
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: '#475569',
+                      lineHeight: 1.5,
+                      fontSize: '0.875rem',
+                      fontStyle: 'italic',
+                    }}
+                  >
+                    "{testimonial.quote}"
+                  </Typography>
+                </Box>
+              </Paper>
             ))}
-          </div>
-        </div>
+          </Box>
+        </Box>
 
-        <div className="view-more">
-          <button className="view-more-button">
+        <Box sx={{ textAlign: 'center' }}>
+          <Button
+            variant="text"
+            sx={{
+              color: '#3b82f6',
+              fontWeight: 600,
+              fontSize: '1rem',
+              px: 2,
+              py: 1,
+              '&:hover': {
+                color: '#2563eb',
+                backgroundColor: 'transparent',
+              },
+            }}
+          >
             Read More Success Stories →
-          </button>
-        </div>
-      </section>
+          </Button>
+        </Box>
+      </Box>
 
       {/* Gallery section */}
       <Box sx={{ maxWidth: 1100, mx: 'auto', textAlign: 'center', mt: 6 }}>

@@ -4,7 +4,7 @@ import { Box, Button, IconButton, Typography } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
 import './CardCarousel.scss';
 
-const CardCarousel = ({ cards, speed = 30 }) => {
+const CardCarousel = ({ cards }) => {
   const trackRef = useRef(null);
 
   useEffect(() => {

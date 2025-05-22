@@ -12,14 +12,14 @@ import {
     useMediaQuery,
     useTheme,
 } from '@mui/material';
-import appStore from '../../assets/appStore.svg';
-import com1 from '../../assets/com1.svg';
-import com2 from '../../assets/com2.svg';
-import com3 from '../../assets/com3.svg';
-import com4 from '../../assets/com4.svg';
-import playStore from '../../assets/playStore.svg';
-import qrCode from '../../assets/qrCode.svg';
-import signupImg from '../../assets/signupImg.svg';
+import appStore from '../assets/appStore.svg';
+import com1 from '../assets/com1.svg';
+import com2 from '../assets/com2.svg';
+import com3 from '../assets/com3.svg';
+import com4 from '../assets/com4.svg';
+import playStore from '../assets/playStore.svg';
+import qrCode from '../assets/qrCode.svg';
+import signupImg from '../assets/signupImg.svg';
 
 // Social media icons
 import FacebookIcon from '@mui/icons-material/Facebook';
