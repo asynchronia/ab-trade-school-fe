@@ -1,5 +1,8 @@
+import { Logout } from '@mui/icons-material';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import abLogo from '../../assets/ab-logo.svg';
+import avatar from '../../assets/avatar.png';
 import appLogo from '../../assets/logo.svg';
 import { dropdownData } from '../../utils/data';
 import Button from '../Button/Button';
@@ -7,6 +10,8 @@ import './Navbar.scss';
 
 const Navbar = ({ user }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navItems = [
     {
@@ -68,7 +73,7 @@ const Navbar = ({ user }) => {
                     </div>
                   ))}
                 </div>
-                <div className='filter-btn-container'>
+                <div className="filter-btn-container">
                   <button className="filter-button">Filter Now</button>
                 </div>
               </div>
@@ -78,12 +83,41 @@ const Navbar = ({ user }) => {
       </nav>
 
       <div className="right-section">
-        {!user && (
+        {!user ? (
           <div className="auth-buttons">
-            <Button title={'Signup'} variant="contained" />
-            <Button title={'Login'} variant="outlined" />
+            <Button
+              title="Signup"
+              variant="contained"
+              onClick={() => navigate('/signup')}
+            />
+            <Button
+              title="Login"
+              variant="outlined"
+              onClick={() => navigate('/login')}
+            />
+          </div>
+        ) : (
+          <div className="avatar-container">
+            {' '}
+            {/* Add this wrapper div */}
+            <img
+              src={avatar}
+              alt="avatar"
+              className="avatar"
+              onClick={() => setIsProfileMenuOpen((prev) => !prev)}
+            />
+            {isProfileMenuOpen && (
+              <div className="profile-menu">
+                <div className="profile-item">User name: John Doe</div>
+                <div className="profile-item">
+                  <Logout />{' '}
+                  Logout
+                </div>
+              </div>
+            )}
           </div>
         )}
+
         <img
           src={abLogo}
           alt="Powered by AliceBlue"
