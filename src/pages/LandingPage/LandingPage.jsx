@@ -25,54 +25,58 @@ import {
     Stack,
     Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import abLogo2 from '../assets/ab-logo2.svg';
-import baseImg1 from '../assets/baseImg1.svg';
-import baseImg2 from '../assets/baseImg2.svg';
-import baseImg3 from '../assets/baseImg3.svg';
-import bg1 from '../assets/bg1.svg';
-import bg2 from '../assets/bg2.svg';
-import bg3 from '../assets/bg3.svg';
-import bgImage3 from '../assets/bgImg3.svg';
-import cardIcon1 from '../assets/cardIcon1.svg';
-import cardIcon2 from '../assets/cardIcon2.svg';
-import cardIcon3 from '../assets/cardIcon3.svg';
-import cardImage1 from '../assets/cardImg1.svg';
-import cardImage2 from '../assets/cardImg2.svg';
-import cardImage3 from '../assets/cardImg3.svg';
-import cardImage4 from '../assets/cardImg4.svg';
-import cardImage5 from '../assets/cardImg5.svg';
-import galleryImage1 from '../assets/galleryImage1.svg';
-import galleryImage2 from '../assets/galleryImage2.svg';
-import galleryImage3 from '../assets/galleryImage3.svg';
-import galleryImage4 from '../assets/galleryImage4.svg';
-import galleryImage5 from '../assets/galleryImage5.svg';
-import heroSectionImg from '../assets/heroSectionImg.svg';
-import mainTestimonialImage from '../assets/mainTestimonialImage.svg';
-import marketImg1 from '../assets/marketImg1.svg';
-import marketImg2 from '../assets/marketImg2.svg';
-import overImg1 from '../assets/overImg1.svg';
-import overImg2 from '../assets/overImg2.svg';
-import overImg3 from '../assets/overImg3.svg';
-import person1 from '../assets/person1.svg';
-import person2 from '../assets/person2.svg';
-import person3 from '../assets/person3.svg';
-import portfolioOverImg from '../assets/portfolioOverImg.svg';
-import rightCircle from '../assets/rightCircle.svg';
-import rightImg2 from '../assets/rightImg2.svg';
-import testimonial1Image from '../assets/testimonial1Image.svg';
-import testimonial2Image from '../assets/testimonial2Image.svg';
-import testimonial3Image from '../assets/testimonial3Image.svg';
-import webinar1 from '../assets/webinar1.svg';
-import webinar2 from '../assets/webinar2.svg';
-import webinar3 from '../assets/webinar3.svg';
-import Button from '../components/Button/Button';
-import CardCarousel from '../components/CardCorousel/CardCarousel';
-import CustomDropdown from '../components/Customdropdown/Customdropdown';
-import Navbar from '../components/Navbar/Navbar';
-import TrackCard from '../components/TrackCard/TrackCard';
-import WebinarCard from '../components/WebinarCard/WebinarCard';
+import abLogo2 from '../../assets/ab-logo2.svg';
+import baseImg1 from '../../assets/baseImg1.svg';
+import baseImg2 from '../../assets/baseImg2.svg';
+import baseImg3 from '../../assets/baseImg3.svg';
+import bg1 from '../../assets/bg1.svg';
+import bg2 from '../../assets/bg2.svg';
+import bg3 from '../../assets/bg3.svg';
+import bgImage3 from '../../assets/bgImg3.svg';
+import cardIcon1 from '../../assets/cardIcon1.svg';
+import cardIcon2 from '../../assets/cardIcon2.svg';
+import cardIcon3 from '../../assets/cardIcon3.svg';
+import cardImage1 from '../../assets/cardImg1.svg';
+import cardImage2 from '../../assets/cardImg2.svg';
+import cardImage3 from '../../assets/cardImg3.svg';
+import cardImage4 from '../../assets/cardImg4.svg';
+import cardImage5 from '../../assets/cardImg5.svg';
+import galleryImage1 from '../../assets/galleryImage1.svg';
+import galleryImage2 from '../../assets/galleryImage2.svg';
+import galleryImage3 from '../../assets/galleryImage3.svg';
+import galleryImage4 from '../../assets/galleryImage4.svg';
+import galleryImage5 from '../../assets/galleryImage5.svg';
+import heroImg1 from '../../assets/heroImg1.svg';
+import heroImg2 from '../../assets/heroImg2.svg';
+import heroImg3 from '../../assets/heroImg3.svg';
+import heroImg4 from '../../assets/heroImg4.svg';
+import mainTestimonialImage from '../../assets/mainTestimonialImage.svg';
+import marketImg1 from '../../assets/marketImg1.svg';
+import marketImg2 from '../../assets/marketImg2.svg';
+import overImg1 from '../../assets/overImg1.svg';
+import overImg2 from '../../assets/overImg2.svg';
+import overImg3 from '../../assets/overImg3.svg';
+import person1 from '../../assets/person1.svg';
+import person2 from '../../assets/person2.svg';
+import person3 from '../../assets/person3.svg';
+import portfolioOverImg from '../../assets/portfolioOverImg.svg';
+import rightCircle from '../../assets/rightCircle.svg';
+import rightImg2 from '../../assets/rightImg2.svg';
+import testimonial1Image from '../../assets/testimonial1Image.svg';
+import testimonial2Image from '../../assets/testimonial2Image.svg';
+import testimonial3Image from '../../assets/testimonial3Image.svg';
+import webinar1 from '../../assets/webinar1.svg';
+import webinar2 from '../../assets/webinar2.svg';
+import webinar3 from '../../assets/webinar3.svg';
+import Button from '../../components/Button/Button';
+import CardCarousel from '../../components/CardCorousel/CardCarousel';
+import CustomDropdown from '../../components/Customdropdown/Customdropdown';
+import Navbar from '../../components/Navbar/Navbar';
+import TrackCard from '../../components/TrackCard/TrackCard';
+import WebinarCard from '../../components/WebinarCard/WebinarCard';
+import './LandingPage.scss';
 
 const statsItem = [
   { number: '20+', label: 'Modules' },
@@ -92,7 +96,7 @@ const trackData = [
   {
     title: 'Beginner',
     description:
-      'Master the fundamentals of trading and markets. Perfect for newcomers.',
+      'Master the fundamentals of trading and markets. Perfect for newcomers. ',
     buttonText: 'Explore Track',
     icon: cardImage1,
   },
@@ -475,6 +479,16 @@ const LandingPage = () => {
   const [selectedLevel, setSelectedLevel] = useState('Beginner');
   const [selectedLanguage, setSelectedLanguage] = useState('English');
   const navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const heroImages = [heroImg1, heroImg2, heroImg3, heroImg4];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
 
   return (
     <div>
@@ -570,7 +584,7 @@ const LandingPage = () => {
                   marginBottom: '20px',
                 }}
                 onClick={() => navigate('/signup')}
-                title={' Start Learning Now'}
+                title={'Start Learning Now'}
               />
               <Button
                 variant="outlined"
@@ -580,7 +594,8 @@ const LandingPage = () => {
                   padding: 12,
                   marginBottom: '20px',
                 }}
-                title={'Saved videos'}
+                title={'Saved Videos'}
+                onClick={() => navigate('/signup')}
               />
             </Stack>
 
@@ -604,36 +619,28 @@ const LandingPage = () => {
             md={6}
             sx={{ textAlign: 'right', position: 'relative', flex: 0.5 }}
           >
-            <Box
-              component="img"
-              src={heroSectionImg}
-              alt="Hero illustration"
-              sx={{
-                width: '100%',
-                maxWidth: 620,
-                mb: 2,
-              }}
-            />
-
-            {/* <Box
-              sx={{
-                position: 'absolute',
-                bottom: '30%',
-                right: 0,
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                px: 2,
-                py: 1,
-                borderRadius: 2,
-                textAlign: 'center',
-              }}
-            >
-              <Typography variant="h6" sx={{ color: '#d8b4fe' }}>
-                Trading market insights
-              </Typography>
-              <Typography fontWeight={600} sx={{ color: '#facc15' }}>
-                live on 20/06/2025 | 12:00PM
-              </Typography>
-            </Box> */}
+            <Box className="hero-image-container">
+              {heroImages.map((image, index) => (
+                <Box
+                  key={index}
+                  component="img"
+                  src={image}
+                  alt={`Hero illustration ${index + 1}`}
+                  className={`hero-image ${
+                    index === currentImageIndex
+                      ? 'active'
+                      : index === (currentImageIndex + 1) % heroImages.length
+                      ? 'next-up'
+                      : ''
+                  }`}
+                  sx={{
+                    width: '100%',
+                    maxWidth: 620,
+                    mb: 2,
+                  }}
+                />
+              ))}
+            </Box>
           </Grid>
         </Grid>
       </Box>
@@ -879,20 +886,25 @@ const LandingPage = () => {
                     {instructor.rating} ({instructor.reviews} reviews)
                   </Typography>
                 </Box>
-                <Link
-                  href="#"
-                  sx={{
-                    fontWeight: 500,
-                    color: '#2563eb',
-                    fontSize: '0.9rem',
-                    textDecoration: 'none',
-                    '&:hover': {
-                      textDecoration: 'underline',
-                    },
-                  }}
-                >
-                  View Profile & Courses
-                </Link>
+                <Box sx={{ textAlign: 'center', mt: 3 }}>
+                  <Link
+                    href="#"
+                    sx={{
+                      fontWeight: 500,
+                      color: '#2563eb',
+                      fontSize: '14px',
+                      p: 1,
+                      borderRadius: 1,
+                      textDecoration: 'none',
+                      textAlign: 'center',
+                      '&:hover': {
+                        backgroundColor: '#F6F6F6',
+                      },
+                    }}
+                  >
+                    View Profile & Courses
+                  </Link>
+                </Box>
               </CardContent>
             </Card>
           ))}
@@ -1372,7 +1384,7 @@ const LandingPage = () => {
 
         <Box sx={{ textAlign: 'center' }}>
           <Button
-            variant="text"
+            variant="outlined"
             sx={{
               color: '#3b82f6',
               fontWeight: 600,
@@ -1384,9 +1396,8 @@ const LandingPage = () => {
                 backgroundColor: 'transparent',
               },
             }}
-          >
-            Read More Success Stories →
-          </Button>
+            title={'Read More Success Stories'}
+          />
         </Box>
       </Box>
 
@@ -1532,7 +1543,7 @@ const LandingPage = () => {
                   Watch free videos, join expert webinars, and explore trading
                   insights all in one place.
                 </Typography>
-                <Button variant="contained" title="Start Learning Now" />
+                <Button variant="contained" size='large' title="Start Learning Now" />
               </Box>
             </Grid>
 
@@ -1560,7 +1571,7 @@ const LandingPage = () => {
           display: 'flex',
           flexWrap: 'wrap',
           gap: 2,
-          p: 4,
+          py: 4,
           backgroundColor: '#111827',
           color: '#FDF4EC',
           paddingLeft: '100px',

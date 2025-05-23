@@ -1,4 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
+import React from 'react';
 
 const TrackCard = ({ icon, title, description, buttonText }) => {
   return (
@@ -9,7 +10,6 @@ const TrackCard = ({ icon, title, description, buttonText }) => {
         borderRadius: '16px',
         width: '100%',
         maxWidth: 240,
-        height: 300,
         boxShadow: '0 6px 12px rgba(0, 0, 0, 0.06)',
         display: 'flex',
         flexDirection: 'column',
