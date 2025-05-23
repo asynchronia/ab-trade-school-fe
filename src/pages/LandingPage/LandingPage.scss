@@ -1,28 +1,33 @@
 .hero-image-container {
   position: relative;
   width: 100%;
-  height: 550px; 
+  height: 550px;
+  min-height: 300px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .hero-image {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 50%;
+    left: 50%;
     width: 100%;
     height: auto;
     opacity: 0;
-    transform: translateY(100%);
+    transform: translate(-50%, -50%) translateY(100%);
     transition: all 1s ease-in-out;
     z-index: 1;
+    max-width: 100%; // Ensure this is here
 
     &.active {
       opacity: 1;
-      transform: translateY(0);
+      transform: translate(-50%, -50%) translateY(0);
       z-index: 2;
     }
 
     &.next-up {
-      transform: translateY(100%);
+      transform: translate(-50%, -50%) translateY(100%);
       opacity: 0;
       z-index: 1;
     }
@@ -31,12 +36,6 @@
 
 @media (max-width: 900px) {
   .hero-image-container {
-    height: 300px;
-  }
-}
-
-@media (max-width: 600px) {
-  .hero-image-container {
-    height: 250px;
+    display: none;
   }
 }

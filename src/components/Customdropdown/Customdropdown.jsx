@@ -1,9 +1,17 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import React from 'react';
 
-const CustomDropdown = ({ label, options, value, onChange }) => {
+const CustomDropdown = ({ label, options, value, onChange, sx = {} }) => {
   return (
- <FormControl size="small" sx={{ minWidth: 160 }}>
+    <FormControl
+      size="small"
+      fullWidth
+      sx={{
+        maxWidth: { xs: '100%', sm: 160 },
+        flexGrow: 1,
+        ...sx, 
+      }}
+    >
       <InputLabel>{label}</InputLabel>
       <Select value={value} onChange={onChange} label={label}>
         {options.map((option) => (

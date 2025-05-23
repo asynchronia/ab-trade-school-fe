@@ -45,7 +45,10 @@ const LoginPage = () => {
     >
       {/* Main content */}
       <Container maxWidth="lg" disableGutters>
-        <Grid container>
+        <Grid
+          container
+          sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}
+        >
           <Grid
             item
             xs={12}
@@ -118,7 +121,7 @@ const LoginPage = () => {
               <Typography variant="body2" color="text.secondary" gutterBottom>
                 or{' '}
                 <Link href="/signup" underline="hover">
-                 Create your free account
+                  Create your free account
                 </Link>
               </Typography>
 
@@ -345,10 +348,13 @@ const LoginPage = () => {
               md={6}
               sx={{
                 textAlign: 'center',
+                mt: isMobile ? 4 : 0,
                 display: 'flex',
-                alignItems: 'start',
+                flex: 1,
+                alignItems: isMobile ? 'center' : 'start',
+                flexDirection: isMobile ? 'column' : 'row',
                 justifyContent: 'center',
-                gap: 10,
+                gap: isMobile ? 5 : 10,
               }}
             >
               <Box>

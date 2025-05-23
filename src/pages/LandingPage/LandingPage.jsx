@@ -350,7 +350,7 @@ const eventData = [
     img: galleryImage2,
     title: 'MEET & GREET',
     location: 'HYDERABAD',
-    rows: 1,
+    rows: 2,
     cols: 1,
   },
   {
@@ -498,11 +498,14 @@ const LandingPage = () => {
       <Box
         sx={{
           position: 'relative',
-          px: { xs: 4, md: 12 },
-          pt: 10,
-          minHeight: 600,
+          px: { xs: 2, sm: 4, md: 12 },
+          pt: { xs: 6, md: 10 },
+          pb: { xs: 4, md: 6 },
+          minHeight: { xs: 500, sm: 550, md: 600 },
           background: 'linear-gradient(135deg, #45108A, #3D065F, #200554)',
           overflow: 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
           color: 'white',
           zIndex: 1,
         }}
@@ -514,28 +517,30 @@ const LandingPage = () => {
           alt="Decorative circle"
           sx={{
             position: 'absolute',
-            right: -250,
+            right: { xs: -200, md: -250 },
             bottom: '15%',
-            width: 490,
-            height: 490,
+            width: { xs: 300, sm: 400, md: 490 },
+            height: { xs: 300, sm: 400, md: 490 },
             zIndex: 0,
+            display: { xs: 'none', sm: 'block' },
           }}
         />
 
         {/* Main Content */}
         <Grid
           container
-          spacing={6}
+          maxWidth={'1300px'}
+          spacing={{ xs: 4, md: 6 }}
           sx={{
             position: 'relative',
             zIndex: 1,
-            flexWrap: 'nowrap',
+            flexWrap: { xs: 'wrap', md: 'nowrap' },
             display: 'flex',
             alignContent: 'center',
             justifyContent: 'space-between',
           }}
         >
-          <Grid item xs={12} md={6} flex={0.5}>
+          <Grid item xs={12} md={6} sx={{ flex: { md: 0.5 } }}>
             <Typography
               variant="h3"
               fontWeight={700}
@@ -546,7 +551,9 @@ const LandingPage = () => {
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 fontWeight: 'bold',
-                fontSize: '3rem',
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                lineHeight: { xs: 1.2, md: 1.3 },
+                textAlign: { xs: 'center', md: 'left' },
               }}
             >
               Learn the Markets.
@@ -566,7 +573,13 @@ const LandingPage = () => {
 
             <Typography
               variant="subtitle1"
-              sx={{ mb: 4, color: '#e0e0e0', fontSize: '1.2rem' }}
+              sx={{
+                mb: 4,
+                color: '#e0e0e0',
+                fontSize: { xs: '1rem', md: '1.2rem' },
+                textAlign: { xs: 'center', md: 'left' },
+                lineHeight: 1.6,
+              }}
             >
               Start your trading journey with{' '}
               <span style={{ color: '#EB9D29' }}>20+ structured modules</span>{' '}
@@ -575,13 +588,22 @@ const LandingPage = () => {
               for both beginners and experienced traders.{' '}
             </Typography>
 
-            <Stack sx={{ display: 'flex', gap: 2, flexDirection: 'row' }}>
+            <Stack
+              sx={{
+                display: 'flex',
+                gap: 2,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: { xs: 'center', md: 'flex-start' },
+                mb: 4,
+              }}
+            >
               <Button
                 variant="contained"
                 style={{
                   backgroundColor: '#4AAF39',
                   padding: 12,
-                  marginBottom: '20px',
+                  width: { xs: '100%', sm: 'auto' },
                 }}
                 onClick={() => navigate('/signup')}
                 title={'Start Learning Now'}
@@ -592,17 +614,28 @@ const LandingPage = () => {
                   color: '#EB9D29',
                   borderColor: '#EB9D29',
                   padding: 12,
-                  marginBottom: '20px',
+                  width: { xs: '100%', sm: 'auto' },
                 }}
                 title={'Saved Videos'}
                 onClick={() => navigate('/signup')}
               />
             </Stack>
 
-            <Stack direction="row" spacing={6}>
+            <Stack
+              direction={'row'}
+              spacing={{ xs: 4, sm: 6 }}
+              sx={{
+                justifyContent: { xs: 'center', md: 'flex-start' },
+                textAlign: { xs: 'center', md: 'left' },
+              }}
+            >
               {statsItem.map((stat, index) => (
                 <Box key={index}>
-                  <Typography variant="h4" fontWeight={700}>
+                  <Typography
+                    variant="h4"
+                    fontWeight={700}
+                    sx={{ fontSize: { xs: '1.8rem', md: '2.125rem' } }}
+                  >
                     {stat.number}
                   </Typography>
                   <Typography variant="body2" sx={{ color: '#EB9D29' }}>
@@ -617,7 +650,12 @@ const LandingPage = () => {
             item
             xs={12}
             md={6}
-            sx={{ textAlign: 'right', position: 'relative', flex: 0.5 }}
+            sx={{
+              textAlign: { xs: 'center', md: 'right' },
+              position: 'relative',
+              flex: { md: 0.5 },
+              order: { xs: -1, md: 0 },
+            }}
           >
             <Box className="hero-image-container">
               {heroImages.map((image, index) => (
@@ -635,7 +673,7 @@ const LandingPage = () => {
                   }`}
                   sx={{
                     width: '100%',
-                    maxWidth: 620,
+                    maxWidth: { xs: 400, sm: 500, md: 620 },
                     mb: 2,
                   }}
                 />
@@ -649,12 +687,15 @@ const LandingPage = () => {
       <Box
         component="section"
         sx={{
-          py: 8,
-          px: 4,
+          py: { xs: 6, sm: 8 },
+          px: { xs: 2, sm: 4 },
           backgroundColor: '#f9fafb',
         }}
       >
-        <Container maxWidth="md" sx={{ textAlign: 'center', mb: 4 }}>
+        <Container
+          maxWidth="md"
+          sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}
+        >
           <Typography
             variant="h3"
             component="h2"
@@ -662,7 +703,11 @@ const LandingPage = () => {
               fontWeight: 700,
               mb: 2,
               color: '#111827',
-              fontSize: '2.25rem',
+              fontSize: {
+                xs: '1.75rem', // ~28px
+                sm: '2rem',
+                md: '2.25rem', // ~36px
+              },
             }}
           >
             Your Goals. Your Track.
@@ -672,6 +717,10 @@ const LandingPage = () => {
             sx={{
               color: '#6b7280',
               lineHeight: 1.6,
+              fontSize: {
+                xs: '0.95rem',
+                sm: '1rem',
+              },
             }}
           >
             Get on the fast track to smarter trading with learning paths built
@@ -680,13 +729,14 @@ const LandingPage = () => {
           </Typography>
         </Container>
 
+        {/* Features */}
         <Box
           sx={{
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'center',
-            gap: 2,
-            mb: 6,
+            gap: { xs: 1.5, sm: 2 },
+            mb: { xs: 4, md: 6 },
           }}
         >
           {features.map((feature, idx) => (
@@ -721,12 +771,21 @@ const LandingPage = () => {
           ))}
         </Box>
 
+        {/* Track Cards */}
         <Box
           sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            gap: 2,
+            maxWidth: '1300px',
+            mx: 'auto',
+            px: { xs: 2, sm: 4 },
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: '1fr 1fr 1fr',
+              md: '1fr 1fr 1fr 1fr',
+              lg: '1fr 1fr 1fr 1fr 1fr',
+            },
+            gap: { xs: 2, sm: 3 },
+            justifyItems: 'center', // Center the cards inside grid cells
           }}
         >
           {trackData.map((item, index) => (
@@ -739,18 +798,17 @@ const LandingPage = () => {
       <Box
         component="section"
         sx={{
-          py: 7.5,
-          px: 2.5,
+          py: { xs: 5, sm: 7.5 },
+          px: { xs: 2, sm: 4 },
           textAlign: 'left',
         }}
       >
         <Container sx={{ mb: 5, textAlign: 'center' }}>
-          {' '}
           <Typography
             variant="h3"
             component="h2"
             sx={{
-              fontSize: '2rem',
+              fontSize: { xs: '1.6rem', sm: '2rem' },
               fontWeight: 'bold',
               mb: 1.25,
             }}
@@ -761,7 +819,7 @@ const LandingPage = () => {
             variant="body1"
             sx={{
               color: '#555',
-              fontSize: '1rem',
+              fontSize: { xs: '0.95rem', sm: '1rem' },
             }}
           >
             Our instructors are seasoned market professionals with years of
@@ -774,15 +832,16 @@ const LandingPage = () => {
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'center',
-            gap: 3.75,
+            gap: { xs: 2.5, sm: 3.75 },
           }}
         >
           {instructors.map((instructor, idx) => (
             <Card
               key={idx}
               sx={{
-                width: 320,
-                borderRadius: 3, // 12px
+                width: { xs: '100%', sm: 320 },
+                maxWidth: 360,
+                borderRadius: 3,
                 boxShadow: '0 10px 20px rgba(0, 0, 0, 0.05)',
                 transition: 'transform 0.3s',
                 '&:hover': {
@@ -807,7 +866,8 @@ const LandingPage = () => {
                     bottom: 0,
                     left: '50%',
                     transform: 'translate(-50%, 0%)',
-                    width: 320,
+                    width: '100%',
+                    maxWidth: 320,
                     objectFit: 'cover',
                   }}
                 />
@@ -821,21 +881,20 @@ const LandingPage = () => {
                     bgcolor: '#2563eb',
                     color: 'white',
                     fontSize: '0.75rem',
-                    borderRadius: 1.5, // 6px
+                    borderRadius: 1.5,
                   }}
                 />
               </Box>
 
-              <CardContent sx={{ p: 2 }}>
-                {' '}
-                {/* 16px */}
+              <CardContent sx={{ p: { xs: 2, sm: 2.5 } }}>
                 <Typography
                   variant="h6"
                   component="h3"
                   sx={{
                     fontSize: '1.1rem',
                     fontWeight: 600,
-                    mb: 0.5, // 4px
+                    mb: 0.5,
+                    textAlign: 'center',
                   }}
                 >
                   {instructor.name}
@@ -845,7 +904,8 @@ const LandingPage = () => {
                   sx={{
                     color: '#666',
                     fontSize: '0.875rem',
-                    mb: 1.25, // 10px
+                    mb: 1,
+                    textAlign: 'center',
                   }}
                 >
                   {instructor.role}
@@ -853,17 +913,16 @@ const LandingPage = () => {
                 <Typography
                   variant="body2"
                   sx={{
-                    fontSize: '0.875rem', // 14px
+                    fontSize: '0.875rem',
                     lineHeight: 1.5,
                     color: '#444',
-                    mb: 1.5, // 12px
+                    mb: 1.5,
+                    textAlign: 'center',
                   }}
                 >
                   {instructor.description}
                 </Typography>
-                <Box sx={{ mb: 1.25 }}>
-                  {' '}
-                  {/* 10px */}
+                <Box sx={{ textAlign: 'center', mb: 1.25 }}>
                   <Typography
                     variant="body2"
                     component="span"
@@ -896,7 +955,6 @@ const LandingPage = () => {
                       p: 1,
                       borderRadius: 1,
                       textDecoration: 'none',
-                      textAlign: 'center',
                       '&:hover': {
                         backgroundColor: '#F6F6F6',
                       },
@@ -912,131 +970,197 @@ const LandingPage = () => {
       </Box>
 
       {/* Courses section */}
-      <Box px={'100px'} py={6}>
-        <Box textAlign={'center'} mb={4}>
-          <Typography variant="h4" fontWeight="bold" gutterBottom>
+      <Box px={{ xs: 2, sm: 3, md: 8, lg: '100px' }} py={{ xs: 4, sm: 6 }}>
+        {/* Heading */}
+        <Box textAlign="center" mb={4}>
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            gutterBottom
+            sx={{
+              fontSize: { xs: '1.7rem', sm: '2rem', md: '2.25rem' },
+            }}
+          >
             Master the Markets
           </Typography>
-          <Typography variant="subtitle1" color="text.secondary" mb={4}>
+          <Typography
+            variant="subtitle1"
+            color="text.secondary"
+            mb={4}
+            sx={{ fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' } }}
+          >
             Unlock your trading potential with trade school
           </Typography>
         </Box>
 
-        <Stack direction="row" spacing={2} mb={4} flexWrap="wrap">
+        {/* Filters */}
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          spacing={2}
+          mb={4}
+          justifyContent="center"
+          alignItems="stretch"
+          flexWrap="wrap"
+        >
           <CustomDropdown
             label="Categories"
             options={categories}
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
+            sx={{
+              minWidth: '150px',
+              flexGrow: 1,
+            }}
           />
           <CustomDropdown
             label="Level"
             options={levels}
             value={selectedLevel}
             onChange={(e) => setSelectedLevel(e.target.value)}
+            sx={{
+              minWidth: '150px',
+              flexGrow: 1,
+            }}
           />
           <CustomDropdown
             label="Language"
             options={languages}
             value={selectedLanguage}
             onChange={(e) => setSelectedLanguage(e.target.value)}
+            sx={{
+              minWidth: '150px',
+              flexGrow: 1,
+            }}
           />
         </Stack>
 
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          mb={2}
-        >
-          <Typography variant="h6" fontWeight="bold">
-            Basic Knowledge - Beginner - English
-          </Typography>
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Link
-              href="#"
-              underline="hover"
-              fontWeight="500"
-              color="text.primary"
-            >
-              See All
-            </Link>
-            <IconButton size="small">
-              <ArrowBackIos fontSize="small" />
-            </IconButton>
-            <IconButton size="small">
-              <ArrowForwardIos fontSize="small" />
-            </IconButton>
-          </Stack>
-        </Box>
-
-        <Box
-          display="flex"
-          justifyContent={'space-between'}
-          gap={2}
-          sx={{ paddingBottom: 2 }}
-        >
-          {paidCourses.map((course) => (
-            <Box
-              key={course.id}
+        <Box sx={{ maxWidth: '1300px', mx: 'auto', px: 2 }}>
+          {/* Section Header */}
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            mb={2}
+            flexWrap="wrap"
+            gap={2}
+          >
+            <Typography
+              variant="h6"
+              fontWeight="bold"
               sx={{
-                borderRadius: 2,
-                overflow: 'hidden',
-                width: 530,
-                height: 310,
+                fontSize: { xs: '1rem', sm: '1.1rem' },
                 flexGrow: 1,
-                // flexShrink: 0,
               }}
             >
-              <img
-                src={course.image}
-                alt={`Course ${course.id}`}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
+              Basic Knowledge - Beginner - English
+            </Typography>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Link
+                href="#"
+                underline="hover"
+                fontWeight="500"
+                color="text.primary"
+                sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }}
+              >
+                See All
+              </Link>
+              <IconButton size="small">
+                <ArrowBackIos fontSize="small" />
+              </IconButton>
+              <IconButton size="small">
+                <ArrowForwardIos fontSize="small" />
+              </IconButton>
+            </Stack>
+          </Box>
+
+          {/* Course Cards (Horizontal Scroll) */}
+          <Box
+            display="flex"
+            gap={2}
+            sx={{
+              pb: 2,
+              overflowX: 'auto',
+              scrollSnapType: 'x mandatory',
+            }}
+          >
+            {paidCourses.map((course) => (
+              <Box
+                key={course.id}
+                sx={{
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                  flexShrink: 0,
+                  scrollSnapAlign: 'start',
+                  width: {
+                    xs: 'calc(100vw - 40px)',
+                    sm: 'calc(100vw - 60px)',
+                    md: 530,
+                  },
+                  minWidth: {
+                    xs: 'calc(100vw - 40px)',
+                    sm: 'calc(100vw - 60px)',
+                    md: 400,
+                  },
+                  height: { xs: 250, sm: 280, md: 310 },
                 }}
-              />
-            </Box>
-          ))}
+              >
+                <img
+                  src={course.image}
+                  alt={`Course ${course.id}`}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </Box>
+            ))}
+          </Box>
         </Box>
       </Box>
 
       {/* Webinar section */}
-      <Box sx={{ py: 8, px: '100px' }}>
+      <Box
+        sx={{
+          py: { xs: 4, sm: 6, md: 8 },
+          px: { xs: 2, sm: 4, md: 6, lg: 12 },
+        }}
+      >
         <Container maxWidth="lg">
           <Grid
             container
-            spacing={4}
+            spacing={{ xs: 3, sm: 4, md: 6 }}
             alignItems="center"
-            justifyContent={'center'}
+            justifyContent="center"
           >
             <Grid item xs={12}>
-              <Box
-                sx={{
-                  textAlign: 'center',
-                  //   px: 2,
-                }}
-              >
+              <Box sx={{ textAlign: 'center' }}>
                 <Typography
-                  variant="h3"
+                  variant="h4"
                   component="h2"
                   sx={{
                     fontWeight: 'bold',
-                    mb: 1,
-                    fontSize: '26px',
+                    mb: { xs: 2, sm: 3 },
+                    fontSize: {
+                      xs: '1.5rem',
+                      sm: '1.8rem',
+                      md: '2.2rem',
+                      lg: '2.5rem',
+                    },
+                    lineHeight: { xs: 1.3, sm: 1.2 },
                   }}
                 >
-                  Webinar Programs - Online and Offline{' '}
+                  Webinar Programs - Online and Offline
                 </Typography>
                 <Typography
-                  variant="h6"
+                  variant="body1"
                   sx={{
                     color: 'text.secondary',
-                    maxWidth: '700px',
+                    maxWidth: { xs: '100%', sm: '600px', md: '700px' },
                     mx: 'auto',
-                    lineHeight: 1.6,
-                    fontSize: '18px',
+                    lineHeight: { xs: 1.5, sm: 1.6 },
+                    fontSize: { xs: '0.9rem', sm: '1rem', md: '1.125rem' },
+                    px: { xs: 2, sm: 0 },
                   }}
                 >
                   Learn trading through live simulations, workshops, and expert
@@ -1046,7 +1170,7 @@ const LandingPage = () => {
               </Box>
             </Grid>
 
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} sm={10} md={8} lg={10}>
               <WebinarCard webinars={webinarData} />
             </Grid>
           </Grid>
@@ -1057,7 +1181,7 @@ const LandingPage = () => {
       <Box
         sx={{
           py: 8,
-          px: '100px',
+          px: { lg: '100px', xs: 2, sm: 4 },
           my: '70px',
           backgroundImage: `url(${portfolioOverImg})`,
           backgroundSize: 'cover',
@@ -1092,9 +1216,17 @@ const LandingPage = () => {
 
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'center',
+              maxWidth: '1200px',
+              mx: 'auto',
+              px: { xs: 2, sm: 4 },
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: '1fr',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(3, 1fr)',
+              },
               gap: 3,
+              placeItems: 'center',
             }}
           >
             {portfolioCards.map((card) => (
@@ -1104,8 +1236,8 @@ const LandingPage = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   borderRadius: 2,
-                  maxWidth: '360px',
-
+                  width: '100%',
+                  maxWidth: 360,
                   boxShadow: 3,
                 }}
               >
@@ -1227,13 +1359,21 @@ const LandingPage = () => {
           </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', gap: 4, mb: 6 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            gap: 4,
+            mb: 6,
+          }}
+        >
           {/* Main Testimonial */}
           <Paper
             elevation={3}
             sx={{
               flex: 2,
-              maxWidth: 668,
+              width: '100%',
+              maxWidth: { md: '668px' },
               display: 'flex',
               flexDirection: 'column',
               borderRadius: '8px',
@@ -1254,7 +1394,7 @@ const LandingPage = () => {
                 sx={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover',
+                  objectFit: 'fill',
                   objectPosition: 'center',
                 }}
               />
@@ -1299,6 +1439,7 @@ const LandingPage = () => {
           <Box
             sx={{
               flex: 1,
+              width: '100%',
               display: 'flex',
               flexDirection: 'column',
               gap: '10px',
@@ -1402,7 +1543,15 @@ const LandingPage = () => {
       </Box>
 
       {/* Gallery section */}
-      <Box sx={{ maxWidth: 1100, mx: 'auto', textAlign: 'center', mt: 6 }}>
+      <Box
+        sx={{
+          maxWidth: 1100,
+          mx: 'auto',
+          textAlign: 'center',
+          mt: 6,
+          px: { xs: 2, sm: 3, md: 4 },
+        }}
+      >
         <Typography variant="h4" fontWeight="bold" gutterBottom>
           Dive Into Our Community
         </Typography>
@@ -1414,10 +1563,14 @@ const LandingPage = () => {
 
         <ImageList
           variant="quilted"
-          cols={4}
-          rows={3}
+          cols={{
+            xs: 1,
+            sm: 2,
+            md: 3,
+            lg: 4,
+          }}
           rowHeight={160}
-          sx={{ width: '100%', margin: '0 auto' }}
+          sx={{ width: '100%', margin: '0 auto' }} // Responsive padding
         >
           {eventData.map((item, index) =>
             item.type === 'text-card' ? (
@@ -1436,18 +1589,28 @@ const LandingPage = () => {
                   p: 2,
                 }}
               >
-                <Typography variant="h4" fontWeight="bold">
+                <Typography
+                  variant="h4"
+                  fontWeight="bold"
+                  sx={{
+                    fontSize: { xs: '2rem', sm: '2.5rem', md: 'h4.fontSize' },
+                  }}
+                >
                   58+
                 </Typography>
-                <Typography variant="subtitle1">
+                <Typography
+                  variant="subtitle1"
+                  sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}
+                >
                   MEET UPS IN 8 CITIES
                 </Typography>
               </Box>
             ) : (
               <ImageListItem
                 key={item.img}
-                cols={item.cols || 1}
-                rows={item.rows || 1}
+                // Ensure cols and rows are at least 1 for proper layout
+                cols={Math.max(1, item.cols || 1)}
+                rows={Math.max(1, item.rows || 1)}
                 sx={{ borderRadius: 2, overflow: 'hidden' }}
               >
                 <img
@@ -1511,7 +1674,7 @@ const LandingPage = () => {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           py: { xs: 6, md: 10 },
-          px: 0,
+          px: { xs: 2, md: 0 }, // add horizontal padding on xs
         }}
       >
         <Container maxWidth="xl">
@@ -1519,17 +1682,23 @@ const LandingPage = () => {
             container
             spacing={4}
             alignItems="center"
-            justifyContent={'center'}
+            justifyContent="center"
           >
             {/* Left content */}
             <Grid item xs={12} md={6} sx={{ flexGrow: 0 }}>
-              <Box sx={{ maxWidth: '100%', overflow: 'hidden' }}>
+              <Box
+                sx={{
+                  maxWidth: '100%',
+                  overflow: 'hidden',
+                  textAlign: { xs: 'center', md: 'left' },
+                }}
+              >
                 <Typography
                   variant="h4"
                   component="h1"
                   fontWeight="bold"
                   color="white"
-                  sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
+                  sx={{ fontSize: { xs: '1.8rem', md: '3rem' } }}
                   gutterBottom
                 >
                   Ready to Trade Smarter?
@@ -1538,12 +1707,19 @@ const LandingPage = () => {
                   variant="body1"
                   color="white"
                   mb={4}
-                  sx={{ fontSize: { xs: '16px', md: '20px' } }}
+                  sx={{ fontSize: { xs: '14px', md: '20px' } }}
                 >
                   Watch free videos, join expert webinars, and explore trading
                   insights all in one place.
                 </Typography>
-                <Button variant="contained" size='large' title="Start Learning Now" />
+                <Button
+                  variant="contained"
+                  size="large"
+                  title="Start Learning Now"
+                  sx={{ minWidth: { xs: '100%', sm: 'auto' } }} // full width button on xs
+                >
+                  Start Learning Now
+                </Button>
               </Box>
             </Grid>
 
@@ -1558,6 +1734,7 @@ const LandingPage = () => {
                   maxWidth: 500,
                   mx: 'auto',
                   display: 'block',
+                  mb: { xs: 4, md: 0 }, // spacing below image on mobile
                 }}
               />
             </Grid>
@@ -1568,60 +1745,81 @@ const LandingPage = () => {
       {/* Footer section */}
       <Box
         sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: 2,
-          py: 4,
           backgroundColor: '#111827',
           color: '#FDF4EC',
-          paddingLeft: '100px',
-          paddingRight: '100px',
+          display: 'flex',
+          justifyContent: 'center',
         }}
       >
-        <Box sx={{}}>
-          <img src={abLogo2} alt="logo" />
-          <Typography variant="h6" sx={{ fontSize: '12px', mt: 2 }}>
-            © 2025, Alice Blue Financial Services{' '}
-          </Typography>
-        </Box>
-
-        {footerLinks.map((section, index) => (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            maxWidth: '1300px',
+            flexWrap: 'wrap',
+            gap: 2,
+            py: 4,
+            px: { xs: 2, sm: 4, md: 10 },
+            flexDirection: { xs: 'column', md: 'row' },
+            alignItems: { xs: 'center', md: 'flex-start' },
+          }}
+        >
           <Box
-            key={index}
             sx={{
-              minWidth: '150px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              flex: 1,
+              textAlign: { xs: 'center', md: 'left' },
+              mb: { xs: 3, md: 0 },
             }}
           >
-            <Box>
-              <Typography
-                variant="subtitle1"
-                sx={{ fontWeight: 'bold', mb: 1 }}
-              >
-                {section.title}
-              </Typography>
-              <List dense disablePadding>
-                {section.subLinks.map((link, linkIndex) => (
-                  <ListItem key={linkIndex} disablePadding sx={{ py: 0.5 }}>
-                    <Link href={link.url} color="inherit" underline="hover">
-                      {link.text}
-                    </Link>
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
+            <img
+              src={abLogo2}
+              alt="logo"
+              style={{ maxWidth: 150, height: 'auto' }}
+            />
+            <Typography variant="h6" sx={{ fontSize: '12px', mt: 2 }}>
+              © 2025, Alice Blue Financial Services
+            </Typography>
           </Box>
-        ))}
+
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
+            {footerLinks.map((section, index) => (
+              <Box
+                key={index}
+                sx={{
+                  // minWidth: 150,
+                  flex: 1,
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
+              >
+                <Box>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ fontWeight: 'bold', mb: 1 }}
+                  >
+                    {section.title}
+                  </Typography>
+                  <List dense disablePadding>
+                    {section.subLinks.map((link, linkIndex) => (
+                      <ListItem key={linkIndex} disablePadding sx={{ py: 0.5 }}>
+                        <Link href={link.url} color="inherit" underline="hover">
+                          {link.text}
+                        </Link>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        </Box>
       </Box>
 
       {/* Footer notice section */}
       <Box
         sx={{
           backgroundColor: '#111827',
-          pl: '100px',
-          pr: '100px',
+          pt: 4,
+          px: { lg: '100px', xs: 2, sm: 4, md: 10 },
           fontFamily: 'Arial, sans-serif',
           fontSize: '14px',
           lineHeight: '1.5',
