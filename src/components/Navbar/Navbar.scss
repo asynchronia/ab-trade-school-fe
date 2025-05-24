@@ -1,3 +1,9 @@
+.navbar{
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
 .navbar-header {
   display: flex;
   align-items: center;
@@ -5,21 +11,33 @@
   top: 0;
   z-index: 1000;
   justify-content: space-between;
-  padding: 10px 100px;
+  padding: 10px 0;
   background-color: white;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 1300px) {
+    padding: 10px 20px;
+  }
 
   .logo-container {
     margin-right: 2.5rem;
 
     .app-logo {
       width: 140px;
+
+      @media (max-width: 900px) {
+        width: 120px;
+      }
     }
   }
 
   .main-nav {
     display: flex;
     gap: 20px;
+
+    @media (max-width: 900px) {
+      display: none;
+    }
 
     .nav-item {
       position: relative;
@@ -64,7 +82,6 @@
           display: flex;
           flex-direction: column;
           gap: 5px;
-          gap: 5px;
 
           h3 {
             font-weight: bold;
@@ -106,9 +123,17 @@
     align-items: center;
     gap: 1.5rem;
 
+    @media (max-width: 900px) {
+      gap: 0.5rem;
+    }
+
     .auth-buttons {
       display: flex;
       gap: 1rem;
+
+      @media (max-width: 900px) {
+        display: none;
+      }
 
       .signup-button {
         color: #374151;
@@ -137,10 +162,13 @@
       }
     }
 
-    /* Add position: relative to the avatar container */
     .avatar-container {
       position: relative;
       display: inline-block;
+
+      @media (max-width: 900px) {
+        display: none;
+      }
     }
 
     .avatar {
@@ -184,6 +212,10 @@
 
     .powered-by-logo {
       width: 90px;
+
+      @media (max-width: 900px) {
+        display: none;
+      }
     }
   }
 }
