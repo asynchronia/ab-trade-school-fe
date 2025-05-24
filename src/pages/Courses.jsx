@@ -1,11 +1,6 @@
-import {
-    Box,
-    Card,
-    CardContent,
-    CardMedia,
-    Grid,
-    Typography,
-} from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import marketImg1 from '../assets/marketImg1.svg';
+import marketImg2 from '../assets/marketImg2.svg';
 import Button from '../components/Button/Button';
 import Navbar from '../components/Navbar/Navbar';
 import SearchBar from '../components/Searchbar/Searchbar';
@@ -18,21 +13,63 @@ const dummyCourses = [
     instructor: 'Mr. Anish Kumar',
     duration: '4 Hours',
     modules: 4,
-    image: '/sample1.png',
+    image: marketImg1,
   },
   {
     title: 'Navigating Option Hedging',
     instructor: 'Mr. Rupesh',
     duration: '4 Hours',
     modules: 4,
-    image: '/sample2.png',
+    image: marketImg2,
   },
   {
     title: 'ANT web trading view',
     instructor: 'Mr. Anish Kumar',
     duration: '4 Hours',
     modules: 4,
-    image: '/sample3.png',
+    image: marketImg1,
+  },
+  {
+    title: '1ly options Hedging Tool Overview In Tamil',
+    instructor: 'Mr. Anish Kumar',
+    duration: '4 Hours',
+    modules: 4,
+    image: marketImg2,
+  },
+  {
+    title: 'Navigating Option Hedging',
+    instructor: 'Mr. Rupesh',
+    duration: '4 Hours',
+    modules: 4,
+    image: marketImg1,
+  },
+  {
+    title: 'ANT web trading view',
+    instructor: 'Mr. Anish Kumar',
+    duration: '4 Hours',
+    modules: 4,
+    image: marketImg2,
+  },
+  {
+    title: '1ly options Hedging Tool Overview In Tamil',
+    instructor: 'Mr. Anish Kumar',
+    duration: '4 Hours',
+    modules: 4,
+    image: marketImg1,
+  },
+  {
+    title: 'Navigating Option Hedging',
+    instructor: 'Mr. Rupesh',
+    duration: '4 Hours',
+    modules: 4,
+    image: marketImg2,
+  },
+  {
+    title: 'ANT web trading view',
+    instructor: 'Mr. Anish Kumar',
+    duration: '4 Hours',
+    modules: 4,
+    image: marketImg1,
   },
 ];
 
@@ -111,17 +148,17 @@ const CoursesPage = () => {
               sx={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: 2, // spacing between cards
-                justifyContent: 'flex-start', // or 'center' for centered layout
+                gap: 5, 
+                justifyContent: 'flex-start',
               }}
             >
               {dummyCourses.map((course, index) => (
                 <Box
                   key={index}
                   sx={{
-                    flex: '1 1 250px', // flex-grow | flex-shrink | flex-basis (min-width)
-                    minWidth: '250px', // minimum card width
-                    maxWidth: '100%', // ensures responsiveness
+                    flex: '1 1 250px', 
+                    maxWidth: '430px',
+                    width: '100%',
                   }}
                 >
                   <Card
