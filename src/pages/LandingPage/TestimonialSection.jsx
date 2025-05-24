@@ -167,7 +167,7 @@ const TestimonialsSection = () => {
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
-            gap: theme.spacing(1.25),
+            gap: theme.spacing(2),
           }}
         >
           {sideTestimonials.map((testimonial) => (
@@ -178,17 +178,18 @@ const TestimonialsSection = () => {
                 borderRadius: theme.shape.borderRadius.large,
                 overflow: 'hidden',
                 display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
                 height: '100%',
               }}
             >
               <Box
                 sx={{
-                  width: 70,
-                  p: `${theme.spacing(3)} 0 ${theme.spacing(3)} ${theme.spacing(
-                    3
-                  )}`,
+                  width: { xs: '100%', md: 70 },
+                  height: { xs: 120, md: 'auto' },
+                  p: { xs: 2, md: 1 },
+                  flexShrink: 0,
                   overflow: 'hidden',
-                  flex: 0.2,
+                  aspectRatio: '1 / 1',
                 }}
               >
                 <Box
@@ -198,18 +199,20 @@ const TestimonialsSection = () => {
                   sx={{
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
+                    objectFit: 'contain',
+                    objectPosition: 'left',
                   }}
                 />
               </Box>
+
+              {/* Content Box - will appear below image in mobile, right in desktop */}
               <Box
                 sx={{
-                  p: theme.spacing(3),
+                  p: theme.spacing(2),
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
-                  flex: 0.8,
+                  flex: 1, // Take remaining space
                 }}
               >
                 <Typography
