@@ -3,4 +3,5 @@ export const routes = {
   signup: '/signup',
   login: '/login',
   courses: '/courses',
+  webinars: '/webinars',
 };
