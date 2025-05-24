@@ -111,17 +111,17 @@ const CoursesPage = () => {
               sx={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: 2, // spacing between cards
-                justifyContent: 'flex-start', // or 'center' for centered layout
+                gap: 2, 
+                justifyContent: 'flex-start',
               }}
             >
               {dummyCourses.map((course, index) => (
                 <Box
                   key={index}
                   sx={{
-                    flex: '1 1 250px', // flex-grow | flex-shrink | flex-basis (min-width)
-                    minWidth: '250px', // minimum card width
-                    maxWidth: '100%', // ensures responsiveness
+                    flex: '1 1 250px',
+                    minWidth: '250px',
+                    maxWidth: '100%',
                   }}
                 >
                   <Card
