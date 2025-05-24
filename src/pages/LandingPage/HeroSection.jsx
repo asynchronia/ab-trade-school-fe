@@ -180,7 +180,7 @@ const HeroSection = () => {
               display: 'flex',
               gap: theme.spacing(2),
               flexDirection: 'row',
-              alignItems: 'center',
+              alignItems: 'stretch',
               justifyContent: {
                 xs: 'center',
                 md: 'flex-start',
