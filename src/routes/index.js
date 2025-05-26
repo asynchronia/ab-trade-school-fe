@@ -4,4 +4,5 @@ export const routes = {
   login: '/login',
   courses: '/courses',
   webinars: '/webinars',
+  viewCourse: '/courses/:courseId',
 };
