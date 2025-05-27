@@ -1,19 +1,25 @@
+import PauseIcon from '@mui/icons-material/Pause';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import {
     Box,
-    Card,
-    CardMedia,
     Container,
     Grid,
+    IconButton,
     Link,
     Typography,
     useMediaQuery,
 } from '@mui/material';
+import { useRef, useState } from 'react';
+import ReactPlayer from 'react-player';
 import webinar2 from '../assets/webinar2.svg';
 import CourseCard from '../components/CourseCard/CourseCard';
 import Navbar from '../components/Navbar/Navbar';
 import theme from '../utils/theme';
 
 const ViewCoursePage = () => {
+  const [playing, setPlaying] = useState(false);
+  const [videoStarted, setVideoStarted] = useState(false);
+  const playerRef = useRef(null);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const modules = [
@@ -64,25 +70,48 @@ const ViewCoursePage = () => {
       <Navbar />
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Box mb={4}>
-          <Card
+          <Box
             sx={{
-              borderRadius: theme.shape.borderRadius.large,
+              position: 'relative',
+              width: '100%',
+              height: isSmallScreen ? 200 : 550,
+              borderRadius: 2,
               overflow: 'hidden',
-              boxShadow: 3,
             }}
           >
-            <CardMedia
-              component="video"
-              src="https://www.w3schools.com/html/mov_bbb.mp4"
-              controls
-              poster={webinar2}
-              sx={{
-                height: isSmallScreen ? 200 : 600,
-                width: '100%',
-                objectFit: 'fill',
+            <ReactPlayer
+              ref={playerRef}
+              url="https://www.w3schools.com/html/mov_bbb.mp4"
+              playing={playing}
+              light={webinar2}
+              onClickPreview={() => {
+                setPlaying(true);
+                setVideoStarted(true);
               }}
+              width="100%"
+              height="100%"
+              style={{ objectFit: 'fill' }}
             />
-          </Card>
+
+            {videoStarted && (
+              <IconButton
+                onClick={() => setPlaying(!playing)}
+                sx={{
+                  position: 'absolute',
+                  bottom: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, 50%)',
+                  bgcolor: 'rgba(0,0,0,0.1)',
+                  color: 'white',
+                  '&:hover': {
+                    bgcolor: 'rgba(0,0,0,0.8)',
+                  },
+                }}
+              >
+                {playing ? <PauseIcon /> : <PlayArrowIcon />}
+              </IconButton>
+            )}
+          </Box>
           <Box
             sx={{
               display: 'flex',
