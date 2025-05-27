@@ -63,54 +63,54 @@ const theme = createTheme({
   },
   typography: {
     h1: {
-      fontSize: '3rem',
+      fontSize: '48px',
       fontWeight: 700,
       lineHeight: 1.2,
     },
     h2: {
-      fontSize: '2.25rem',
+      fontSize: '36px',
       fontWeight: 700,
       lineHeight: 1.3,
     },
     h3: {
-      fontSize: '1.75rem',
+      fontSize: '28px',
       fontWeight: 700,
       lineHeight: 1.3,
     },
     h4: {
-      fontSize: '1.5rem',
+      fontSize: '24px',
       fontWeight: 600,
       lineHeight: 1.4,
     },
     h5: {
-      fontSize: '1.25rem',
+      fontSize: '20px',
       fontWeight: 600,
       lineHeight: 1.4,
     },
     h6: {
-      fontSize: '1.1rem',
-      fontWeight: 600,
+      fontSize: '17.6px',
+    //   fontWeight: 600,
       lineHeight: 1.5,
     },
     subtitle1: {
-      fontSize: '1rem',
+      fontSize: '20px',
       fontWeight: 500,
       lineHeight: 1.6,
     },
     body1: {
-      fontSize: '1rem',
+      fontSize: '20px',
       lineHeight: 1.6,
     },
     body2: {
-      fontSize: '0.875rem',
+      fontSize: '14px',
       lineHeight: 1.5,
     },
     caption: {
-      fontSize: '0.75rem',
+      fontSize: '12px',
       lineHeight: 1.5,
     },
   },
-  spacing: (factor) => `${0.5 * factor}rem`,
+  spacing: (factor) => `${8 * factor}px`,
   shape: {
     borderRadius: {
       small: '4px',

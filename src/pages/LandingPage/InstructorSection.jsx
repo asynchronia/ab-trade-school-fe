@@ -94,7 +94,7 @@ const InstructorSection = () => {
             color: theme.colors.gray[600],
             fontSize: {
               xs: '0.95rem',
-              sm: theme.typography.body1.fontSize,
+              sm: theme.typography.h6.fontSize,
             },
           }}
         >

@@ -72,7 +72,7 @@ const TestimonialsSection = () => {
         <Typography
           variant="body1"
           sx={{
-            fontSize: theme.typography.body1.fontSize,
+            fontSize: theme.typography.h6.fontSize,
             color: theme.palette.grey[600],
             maxWidth: 600,
             mx: 'auto',
@@ -151,7 +151,7 @@ const TestimonialsSection = () => {
               sx={{
                 color: theme.palette.grey[600],
                 lineHeight: theme.typography.body1.lineHeight,
-                fontSize: theme.typography.body1.fontSize,
+                fontSize: theme.typography.h6.fontSize,
                 fontStyle: 'italic',
               }}
             >
@@ -259,12 +259,12 @@ const TestimonialsSection = () => {
           sx={{
             color: theme.palette.primary.main,
             fontWeight: theme.typography.fontWeightBold,
-            fontSize: theme.typography.body1.fontSize,
+            fontSize: theme.typography.body2.fontSize,
             px: theme.spacing(2),
             py: theme.spacing(1),
             '&:hover': {
-              color: theme.palette.primary.dark,
-              backgroundColor: 'transparent',
+              color: 'white',
+              backgroundColor: theme.palette.primary.main,
               borderColor: theme.palette.primary.dark,
             },
           }}

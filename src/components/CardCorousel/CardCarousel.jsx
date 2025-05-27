@@ -43,7 +43,7 @@ const CardCarousel = ({ cards }) => {
             </Box>
 
             <Box className="card-content">
-              <Typography variant="h5" className="card-title">
+              <Typography variant="h6" className="card-title">
                 {card.title}
               </Typography>
               <Typography variant="body1" className="card-description">

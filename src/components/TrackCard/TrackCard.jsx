@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
+import theme from '../../utils/theme';
 
 const TrackCard = ({ icon, title, description, buttonText }) => {
   return (
@@ -32,7 +33,7 @@ const TrackCard = ({ icon, title, description, buttonText }) => {
         component="h3"
         sx={{
           fontWeight: 600,
-          fontSize: { xs: '1.1rem', sm: '1.25rem' },
+          fontSize: theme.typography.h6.fontSize,
           mb: 1,
           textAlign: 'center',
         }}
@@ -43,7 +44,7 @@ const TrackCard = ({ icon, title, description, buttonText }) => {
       <Typography
         variant="body2"
         sx={{
-          fontSize: { xs: '0.9rem', sm: '0.95rem' },
+          fontSize: theme.typography.body2.fontSize,
           color: '#4b5563',
           mb: 3,
           textAlign: 'center',

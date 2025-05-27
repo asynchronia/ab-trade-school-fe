@@ -101,8 +101,8 @@ const GoalsSection = () => {
             color: theme.colors.text.secondary,
             lineHeight: theme.typography.body1.lineHeight,
             fontSize: {
-              xs: '0.95rem',
-              sm: theme.typography.body1.fontSize,
+              xs: theme.typography.body2.fontSize,
+              sm: theme.typography.h6.fontSize,
             },
           }}
         >

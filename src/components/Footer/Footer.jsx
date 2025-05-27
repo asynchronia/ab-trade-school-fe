@@ -1,7 +1,6 @@
 import {
     Box,
     Container,
-    Grid,
     Link,
     List,
     ListItem,
@@ -256,7 +255,6 @@ const Footer = () => {
               style={{
                 maxWidth: 150,
                 height: 'auto',
-                filter: 'brightness(0) invert(1)',
               }}
             />
             <Typography
