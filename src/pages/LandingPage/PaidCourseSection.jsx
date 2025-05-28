@@ -76,15 +76,10 @@ const PaidCourseSection = () => {
           Master the Markets
         </Typography>
         <Typography
-          variant="subtitle1"
           color="text.secondary"
           mb={theme.spacing(4)}
           sx={{
-            fontSize: {
-              xs: '0.9rem',
-              sm: theme.typography.body1.fontSize,
-              md: '1.1rem',
-            },
+            fontSize: theme.typography.h6.fontSize,
           }}
         >
           Unlock your trading potential with trade school

@@ -74,22 +74,16 @@ const WebinarSection = () => {
                     xs: theme.spacing(2),
                     sm: theme.spacing(3),
                   },
-                  fontSize: {
-                    xs: '1.5rem',
-                    sm: '1.8rem',
-                    md: '2.2rem',
-                    lg: '2.5rem',
-                  },
+                  fontSize: theme.typography.h3.fontSize,
                   lineHeight: {
-                    xs: 1.3,
-                    sm: 1.2,
+                    xs: 1.2,
+                    sm: 1.1,
                   },
                 }}
               >
                 Webinar Programs - Online and Offline
               </Typography>
               <Typography
-                variant="body1"
                 sx={{
                   color: 'text.secondary',
                   maxWidth: {
@@ -102,11 +96,7 @@ const WebinarSection = () => {
                     xs: theme.typography.body1.lineHeight,
                     sm: 1.6,
                   },
-                  fontSize: {
-                    xs: theme.typography.caption.fontSize,
-                    sm: theme.typography.body1.fontSize,
-                    md: '1.125rem',
-                  },
+                  fontSize: theme.typography.h6.fontSize,
                   px: {
                     xs: theme.spacing(2),
                     sm: 0,

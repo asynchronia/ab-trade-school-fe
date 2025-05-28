@@ -17,7 +17,7 @@ const ReadyToStartSection = () => {
         },
         px: {
           xs: theme.spacing(2),
-          md: 0,
+          lg: '30px',
         },
       }}
     >
@@ -56,13 +56,18 @@ const ReadyToStartSection = () => {
                 Ready to Trade Smarter?
               </Typography>
               <Typography
-                variant="body1"
+                // variant="body1"
                 color="common.white"
                 mb={theme.spacing(4)}
                 sx={{
                   fontSize: {
                     xs: theme.typography.caption.fontSize,
-                    md: '1.25rem',
+                    md: theme.typography.body1.fontSize,
+                  },
+                  width: {
+                    xs: '100%',
+                    sm: '80%',
+                    md: '70%',
                   },
                 }}
               >
@@ -94,7 +99,7 @@ const ReadyToStartSection = () => {
               sx={{
                 width: '100%',
                 maxWidth: 500,
-                mx: 'auto',
+                // mx: 'auto',
                 display: 'block',
                 mb: {
                   xs: theme.spacing(4),

@@ -125,7 +125,7 @@ const HeroSection = () => {
               },
               lineHeight: {
                 xs: 1.2,
-                md: 1.3,
+                md: 1.1,
               },
               textAlign: {
                 xs: 'center',
@@ -180,7 +180,7 @@ const HeroSection = () => {
               display: 'flex',
               gap: theme.spacing(2),
               flexDirection: 'row',
-              alignItems: 'center',
+              alignItems: 'stretch',
               justifyContent: {
                 xs: 'center',
                 md: 'flex-start',
@@ -241,8 +241,8 @@ const HeroSection = () => {
                   fontWeight={700}
                   sx={{
                     fontSize: {
-                      xs: '1.8rem',
-                      md: '2.125rem',
+                      xs: theme.typography.h3.fontSize,
+                      md: theme.typography.h2.fontSize,
                     },
                   }}
                 >
@@ -252,6 +252,10 @@ const HeroSection = () => {
                   variant="body2"
                   sx={{
                     color: theme.colors.secondary.main,
+                    fontSize: {
+                      xs: theme.typography.body2.fontSize,
+                      md: theme.typography.body1.fontSize,
+                    },
                   }}
                 >
                   {stat.label}

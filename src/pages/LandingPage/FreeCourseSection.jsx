@@ -53,11 +53,10 @@ const FreeCoursesSection = () => {
         }}
       >
         <Typography
-          variant="h3"
           component="h2"
           sx={{
             fontSize: theme.typography.h3.fontSize,
-            color: theme.palette.primary.dark,
+            color: '',
             mb: theme.spacing(1),
           }}
         >
@@ -65,7 +64,7 @@ const FreeCoursesSection = () => {
           <Box
             component="span"
             sx={{
-              color: 'primary.main',
+              color: '',
               fontWeight: theme.typography.fontWeightBold,
             }}
           >
@@ -73,12 +72,11 @@ const FreeCoursesSection = () => {
           </Box>
         </Typography>
         <Typography
-          variant="body1"
           sx={{
-            color: theme.palette.text.secondary,
             maxWidth: 600,
             mx: 'auto',
-            lineHeight: theme.typography.body1.lineHeight,
+            fontSize: theme.typography.h6.fontSize,
+            color: theme.palette.text.secondary,
           }}
         >
           Explore easy-to-follow courses designed to get you started right.

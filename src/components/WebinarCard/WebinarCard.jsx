@@ -1,6 +1,13 @@
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import { Box, Button, IconButton, Typography } from '@mui/material';
+import { AccessTime, CalendarToday, Translate } from '@mui/icons-material';
+import { Box, Button, Typography } from '@mui/material';
 import './WebinarCard.scss';
+
+const iconStyles = {
+  fontSize: '1.2rem',
+  color: '#555',
+  marginRight: '8px',
+  marginBottom: '4px',
+};
 
 const WebinarCard = ({ webinars }) => {
   return (
@@ -9,11 +16,7 @@ const WebinarCard = ({ webinars }) => {
         {webinars.map((webinar, index) => (
           <Box key={`${webinar.id}-${index}`} className="webinar-card">
             <Box className="image-container">
-              <img
-                src={webinar.image}
-                alt="Overlay"
-                className="image"
-              />
+              <img src={webinar.image} alt="Overlay" className="image" />
             </Box>
             <Box className="card-body">
               <Typography variant="h6" className="title">
@@ -26,14 +29,23 @@ const WebinarCard = ({ webinars }) => {
                 {webinar.speaker}
               </Typography>
               <Box className="info">
-                <Typography variant="body2">
-                  <strong>Time:</strong> {webinar.time}
+                <Typography
+                  variant="body2"
+                  sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                >
+                  <AccessTime sx={iconStyles} /> {webinar.time}
                 </Typography>
-                <Typography variant="body2">
-                  <strong>Date:</strong> {webinar.date}
+                <Typography
+                  variant="body2"
+                  sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                >
+                  <CalendarToday sx={iconStyles} /> {webinar.date}
                 </Typography>
-                <Typography variant="body2">
-                  <strong>Language:</strong> {webinar.language}
+                <Typography
+                  variant="body2"
+                  sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                >
+                  <Translate sx={iconStyles} /> {webinar.language}
                 </Typography>
               </Box>
               <Button variant="contained" className="reserve-button">
