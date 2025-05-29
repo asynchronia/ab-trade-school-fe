@@ -29,10 +29,10 @@ const TrackCard = ({ icon, title, description, buttonText }) => {
       />
 
       <Typography
-        variant="h6"
+        // variant="h6"
         component="h3"
         sx={{
-          fontWeight: 600,
+          fontWeight: theme.typography.h6.fontWeight,
           fontSize: theme.typography.h6.fontSize,
           mb: 1,
           textAlign: 'center',
@@ -42,7 +42,6 @@ const TrackCard = ({ icon, title, description, buttonText }) => {
       </Typography>
 
       <Typography
-        variant="body2"
         sx={{
           fontSize: theme.typography.body2.fontSize,
           color: '#4b5563',
@@ -58,16 +57,16 @@ const TrackCard = ({ icon, title, description, buttonText }) => {
         variant="contained"
         fullWidth
         sx={{
-          backgroundColor: '#1d4ed8',
+          backgroundColor: theme.colors.blue.main,
           color: 'white',
           px: 2,
           py: 1,
           borderRadius: '8px',
-          fontWeight: 500,
+          fontWeight: 400,
           textTransform: 'none',
-          fontSize: { xs: '0.85rem', sm: '0.9rem' },
+          fontSize: theme.typography.body2.fontSize,
           '&:hover': {
-            backgroundColor: '#1e40af',
+            backgroundColor: theme.colors.blue.dark,
           },
         }}
       >

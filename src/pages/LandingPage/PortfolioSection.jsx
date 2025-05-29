@@ -1,3 +1,4 @@
+import { ArrowForward, Check } from '@mui/icons-material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {
     Box,
@@ -62,6 +63,7 @@ const PortfolioSection = () => {
   return (
     <Box
       sx={{
+        position: 'relative',
         py: theme.spacing(8),
         px: {
           lg: '100px',
@@ -69,20 +71,40 @@ const PortfolioSection = () => {
           sm: theme.spacing(4),
         },
         my: theme.spacing(8.75),
-        backgroundImage: `url(${portfolioOverImg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundColor: '#45108A',
         display: 'flex',
         justifyContent: 'center',
+        overflow: 'hidden',
       }}
     >
+      {/* Gray overlay image */}
+      <Box
+        component="img"
+        src={portfolioOverImg}
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          filter: 'grayscale(100%) brightness(0.9)',
+          mixBlendMode: 'luminosity',
+        }}
+      />
+
+      {/* Content container */}
       <Box
         sx={{
+          position: 'relative',
+          zIndex: 1,
           width: '100%',
+          maxWidth: '1600px',
           px: theme.spacing(2),
           color: theme.colors.text.light,
         }}
       >
+        {/* Header section */}
         <Box textAlign="center" mb={theme.spacing(4)}>
           <Typography
             variant="h4"
@@ -90,16 +112,21 @@ const PortfolioSection = () => {
             sx={{
               fontWeight: theme.typography.fontWeightBold,
               mb: theme.spacing(2),
+              color: 'white',
             }}
           >
             Real Results. Real Trading
           </Typography>
-          <Typography variant="subtitle1">
+          <Typography
+            variant="subtitle1"
+            sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
+          >
             Our programs are designed to deliver measurable outcomes for your
             trading career
           </Typography>
         </Box>
 
+        {/* Cards grid */}
         <Box
           sx={{
             maxWidth: '1200px',
@@ -127,23 +154,34 @@ const PortfolioSection = () => {
                 borderRadius: theme.shape.borderRadius.medium,
                 width: '100%',
                 maxWidth: 360,
-                boxShadow: theme.shadows[3],
+                boxShadow: theme.shadows[5],
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(1px)',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  boxShadow: theme.shadows[8],
+                },
               }}
             >
               <CardContent
                 sx={{
                   flexGrow: 1,
                   p: theme.spacing(3),
+                  color: 'whitesmoke',
                 }}
               >
-                <img src={card.img} alt="" />
+                <img
+                  src={card.img}
+                  alt=""
+                  style={{ height: '48px', marginBottom: '16px' }}
+                />
                 <Typography
                   variant="h6"
                   component="h3"
                   sx={{
                     fontWeight: theme.typography.fontWeightBold,
                     mb: theme.spacing(2),
-                    color: 'primary.dark',
                   }}
                 >
                   {card.title}
@@ -178,7 +216,11 @@ const PortfolioSection = () => {
                           minWidth: 32,
                         }}
                       >
-                        <CheckCircleIcon color="primary" fontSize="small" />
+                        <Check
+                          color="#F59E0B"
+                          sx={{ color: '#F59E0B' }}
+                          fontSize="small"
+                        />
                       </ListItemIcon>
                       <Typography variant="body2">{benefit}</Typography>
                     </ListItem>
@@ -192,7 +234,17 @@ const PortfolioSection = () => {
                   pb: theme.spacing(2),
                 }}
               >
-                <Button variant="contained" title={card.ctaText} />
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: 'white',
+                    color: 'black',
+                    textTransform: 'capitalize',
+                  }}
+                  endIcon={<ArrowForward />}
+                  title={card.ctaText}
+                  fullWidth
+                />
               </Box>
             </Card>
           ))}
@@ -201,4 +253,5 @@ const PortfolioSection = () => {
     </Box>
   );
 };
+
 export default PortfolioSection;

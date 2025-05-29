@@ -28,6 +28,8 @@
       position: relative;
       height: 160px;
       overflow: hidden;
+      margin: 18px 18px 0 18px;
+      border-radius: 12px;
 
       .base-image {
         width: 100%;
@@ -49,12 +51,7 @@
         position: absolute;
         top: 8px;
         right: 8px;
-        background: rgba(255, 255, 255, 0.8);
-        color: #333;
-
-        &:hover {
-          background: white;
-        }
+        color: #fff;
       }
     }
 
@@ -63,10 +60,10 @@
       flex-grow: 1;
 
       .card-title {
-        font-weight: bold;
-        margin-bottom: 0.5rem;
+        font-weight: 500;
+        margin-bottom: 8px;
         color: #333;
-        font-size: 1.25rem;
+        font-size: 18px;
       }
 
       .card-description {
@@ -88,12 +85,10 @@
         font-weight: bold;
         padding: 0.5rem 1.25rem;
         font-size: 0.8rem;
-        background-color: #1976d2;
-        color: white;
-
-        &:hover {
-          background-color: #1565c0;
-        }
+        border: 1px solid #1565c0;
+        background-color: white;
+        color: #1565c0;
+        box-shadow: none;
       }
 
       .time-indicator {

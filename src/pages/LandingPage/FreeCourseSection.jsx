@@ -65,7 +65,7 @@ const FreeCoursesSection = () => {
             component="span"
             sx={{
               color: '',
-              fontWeight: theme.typography.fontWeightBold,
+              //   fontWeight: theme.typography.fontWeightBold,
             }}
           >
             Free Expert Courses
@@ -83,7 +83,7 @@ const FreeCoursesSection = () => {
         </Typography>
       </Box>
 
-      <CardCarousel cards={freeCourses} interval={2000} />
+      <CardCarousel cards={freeCourses} />
     </Box>
   );
 };

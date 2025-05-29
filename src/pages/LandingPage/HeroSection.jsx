@@ -1,3 +1,4 @@
+import { PlayCircle } from '@mui/icons-material';
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +18,7 @@ const HeroSection = () => {
   const statsItem = [
     { number: '20+', label: 'Modules' },
     { number: '1M+', label: 'Learners' },
-    { number: '0', label: 'Course Fee' },
+    { number: '0', span: '(Free)', label: 'Course Fee' },
   ];
 
   useEffect(() => {
@@ -119,7 +120,7 @@ const HeroSection = () => {
               WebkitTextFillColor: 'transparent',
               fontWeight: theme.typography.h3.fontWeight,
               fontSize: {
-                xs: theme.typography.h3.fontSize,
+                xs: theme.typography.h2.fontSize,
                 sm: '2.5rem',
                 md: '3rem',
               },
@@ -192,6 +193,10 @@ const HeroSection = () => {
               variant="contained"
               sx={{
                 backgroundColor: theme.colors.success.main,
+                fontSize: {
+                  xs: theme.typography.caption.fontSize,
+                  sm: theme.typography.body2.fontSize,
+                },
                 padding: theme.spacing(1.5),
                 width: {
                   xs: '100%',
@@ -204,8 +209,12 @@ const HeroSection = () => {
             <Button
               variant="outlined"
               sx={{
-                color: theme.colors.secondary.main,
-                borderColor: theme.colors.secondary.main,
+                color: 'white',
+                borderColor: 'white',
+                fontSize: {
+                  xs: theme.typography.caption.fontSize,
+                  sm: theme.typography.body2.fontSize,
+                },
                 padding: theme.spacing(1.5),
                 width: {
                   xs: '100%',
@@ -214,6 +223,7 @@ const HeroSection = () => {
               }}
               title={'Saved Videos'}
               onClick={() => navigate('/signup')}
+              startIcon={<PlayCircle />}
             />
           </Stack>
 
@@ -247,6 +257,9 @@ const HeroSection = () => {
                   }}
                 >
                   {stat.number}
+                  <span style={{ fontSize: '18px', marginLeft: '5px' }}>
+                    {stat.span && stat.span}
+                  </span>
                 </Typography>
                 <Typography
                   variant="body2"

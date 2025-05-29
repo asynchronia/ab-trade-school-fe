@@ -207,7 +207,7 @@ const Footer = () => {
       {/* Footer Links Section */}
       <Box
         sx={{
-          backgroundColor: theme.palette.grey[900],
+          backgroundColor: '#111827',
           color: theme.palette.common.white,
           display: 'flex',
           justifyContent: 'center',
@@ -333,10 +333,10 @@ const Footer = () => {
       {/* Footer Notice Section */}
       <Box
         sx={{
-          backgroundColor: theme.palette.grey[900],
+          backgroundColor: '#111827',
           pt: theme.spacing(4),
           px: {
-            lg: theme.spacing(12.5),  
+            lg: theme.spacing(12.5),
             xs: theme.spacing(2),
             sm: theme.spacing(4),
             md: theme.spacing(10),

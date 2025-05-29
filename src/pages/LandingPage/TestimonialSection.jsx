@@ -1,5 +1,6 @@
 import { Box, Paper, Typography } from '@mui/material';
 import mainTestimonialImage from '../../assets/mainTestimonialImage.svg';
+import mainTestimonialImg2 from '../../assets/mainTestimonialImg2.svg';
 import testimonial1Image from '../../assets/testimonial1Image.svg';
 import testimonial2Image from '../../assets/testimonial2Image.svg';
 import testimonial3Image from '../../assets/testimonial3Image.svg';
@@ -14,6 +15,8 @@ const TestimonialsSection = () => {
     quote:
       'The algo trading course transformed my approach to markets. I now have 3 automation strategies running that have been profitable for the last 6 months.',
     image: mainTestimonialImage,
+    profileImg: mainTestimonialImg2,
+    rating: '5',
   };
 
   const sideTestimonials = [
@@ -25,6 +28,7 @@ const TestimonialsSection = () => {
       quote:
         'After 3 months of trading, I was able to consistently apply the options strategies I learned. My monthly returns improved by 22%.',
       image: testimonial1Image,
+      rating: '5',
     },
     {
       id: 2,
@@ -34,6 +38,7 @@ const TestimonialsSection = () => {
       quote:
         'The risk management techniques I learned helped me survive the recent market volatility.',
       image: testimonial2Image,
+      rating: '4',
     },
     {
       id: 3,
@@ -43,6 +48,7 @@ const TestimonialsSection = () => {
       quote:
         'The beginner course gave me the confidence to start trading with real money.',
       image: testimonial3Image,
+      rating: '5',
     },
   ];
 
@@ -108,7 +114,7 @@ const TestimonialsSection = () => {
           <Box
             sx={{
               width: '100%',
-              height: 350,
+              height: { xs: 250, sm: 350 },
               overflow: 'hidden',
             }}
           >
@@ -124,39 +130,69 @@ const TestimonialsSection = () => {
               }}
             />
           </Box>
-          <Box sx={{ p: theme.spacing(4) }}>
-            <Typography
-              variant="h5"
-              component="h3"
+          <Box
+            sx={{
+              p: theme.spacing(4),
+              display: 'flex',
+              gap: 2,
+              alignItems: 'center',
+              flexDirection: { xs: 'column', sm: 'row' },
+              justifyContent: 'space-between',
+            }}
+          >
+            <Box
+              component={'img'}
+              src={mainTestimonialImg2}
               sx={{
-                mb: theme.spacing(1),
-                color: theme.palette.grey[800],
-                fontSize: theme.typography.h5.fontSize,
+                borderRadius: '50%',
+                width: { xs: '100%', md: 70 },
+                height: { xs: 120, md: 'auto' },
               }}
-            >
-              {mainTestimonial.name}
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                color: theme.palette.grey[500],
-                mb: theme.spacing(2),
-                fontSize: theme.typography.body2.fontSize,
-              }}
-            >
-              {mainTestimonial.role}, {mainTestimonial.location}
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                color: theme.palette.grey[600],
-                lineHeight: theme.typography.body1.lineHeight,
-                fontSize: theme.typography.h6.fontSize,
-                fontStyle: 'italic',
-              }}
-            >
-              "{mainTestimonial.quote}"
-            </Typography>
+            />
+            <Box>
+              <Typography
+                variant="body2"
+                component="span"
+                sx={{
+                  fontSize: '0.85rem',
+                  color: theme.colors.yellow.main,
+                }}
+              >
+                {'★'.repeat(Math.floor(mainTestimonial.rating))}
+              </Typography>
+              <Typography
+                variant="h5"
+                component="h3"
+                sx={{
+                  mb: theme.spacing(1),
+                  color: theme.palette.grey[800],
+                  fontSize: theme.typography.h5.fontSize,
+                }}
+              >
+                {mainTestimonial.name}
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: theme.palette.grey[500],
+                  mb: theme.spacing(2),
+                  fontSize: theme.typography.body2.fontSize,
+                }}
+              >
+                {mainTestimonial.role}, {mainTestimonial.location}
+              </Typography>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: theme.palette.grey[600],
+                  lineHeight: theme.typography.body1.lineHeight,
+                  fontSize: theme.typography.h6.fontSize,
+                  fontStyle: 'italic',
+                }}
+              >
+                "{mainTestimonial.quote}"
+              </Typography>
+            </Box>
           </Box>
         </Paper>
 
@@ -184,7 +220,7 @@ const TestimonialsSection = () => {
             >
               <Box
                 sx={{
-                  width: { xs: '100%', md: 70 },
+                  width: { md: 70 },
                   height: { xs: 120, md: 'auto' },
                   p: { xs: 2, md: 1 },
                   flexShrink: 0,
@@ -208,13 +244,23 @@ const TestimonialsSection = () => {
               {/* Content Box - will appear below image in mobile, right in desktop */}
               <Box
                 sx={{
-                  p: theme.spacing(2),
+                  p: theme.spacing(1),
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
-                  flex: 1, // Take remaining space
+                  flex: 1,
                 }}
               >
+                <Typography
+                  variant="body2"
+                  component="span"
+                  sx={{
+                    fontSize: '0.85rem',
+                    color: theme.colors.yellow.main,
+                  }}
+                >
+                  {'★'.repeat(Math.floor(testimonial.rating))}
+                </Typography>
                 <Typography
                   variant="h6"
                   component="h4"

@@ -21,7 +21,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import abLogo from '../../assets/ab-logo.svg';
 import avatar from '../../assets/avatar.png';
-import appLogo from '../../assets/logo.svg';
+import { default as appLogo, default as logo } from '../../assets/logo.svg';
 import { dropdownData } from '../../utils/data';
 import Button from '../Button/Button';
 import './Navbar.scss';
@@ -67,7 +67,7 @@ const Navbar = ({ user }) => {
     if (navItems.find((item) => item.id === itemId)?.hasDropdown) {
       setExpandedDrawerItem(expandedDrawerItem === itemId ? null : itemId);
     } else {
-    //   navigate(`/${itemId}`);
+      //   navigate(`/${itemId}`);
       setIsDrawerOpen(false);
     }
   };
@@ -83,7 +83,7 @@ const Navbar = ({ user }) => {
     >
       {/* Logo Section */}
       <Box sx={{ p: 2, borderBottom: '1px solid #e5e7eb' }}>
-        <img src={appLogo} alt="App Logo" style={{ width: '120px' }} />
+        <img src={logo} alt="App Logo" style={{ width: '120px' }} />
       </Box>
 
       {/* Navigation Items */}
@@ -327,7 +327,7 @@ const Navbar = ({ user }) => {
   );
 
   return (
-    <div className='navbar'>
+    <div className="navbar">
       <header className="navbar-header">
         <div className="logo-container">
           <img src={appLogo} alt="App Logo" className="app-logo" />
@@ -350,33 +350,48 @@ const Navbar = ({ user }) => {
                 </button>
 
                 {isDropdownOpen && item.hasDropdown && (
-                  <div className="dropdown-menu">
-                    <div className="dropdown-column">
-                      <h3>Categories</h3>
-                      {dropdownData.categories.map((category) => (
-                        <div key={category} className="dropdown-item">
-                          {category}
+                  <div className="dropdown-menu-new">
+                    <div className="dropdown-content">
+                      {/* Categories Column */}
+                      <div className="dropdown-column">
+                        <h3 className="column-header">Categories</h3>
+                        <div className="column-items">
+                          {dropdownData.categories.map((category) => (
+                            <div key={category} className="dropdown-item-new">
+                              {category}
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                    <div className="dropdown-column">
-                      <h3>Level</h3>
-                      {dropdownData.levels.map((level) => (
-                        <div key={level} className="dropdown-item">
-                          {level}
+                      </div>
+
+                      {/* Level Column */}
+                      <div className="dropdown-column">
+                        <h3 className="column-header">Level</h3>
+                        <div className="column-items">
+                          {dropdownData.levels.map((level) => (
+                            <div key={level} className="dropdown-item-new">
+                              {level}
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                    <div className="dropdown-column">
-                      <h3>Language</h3>
-                      {dropdownData.languages.map((language) => (
-                        <div key={language} className="dropdown-item">
-                          {language}
+                      </div>
+
+                      {/* Language Column */}
+                      <div className="dropdown-column">
+                        <h3 className="column-header">Language</h3>
+                        <div className="column-items">
+                          {dropdownData.languages.map((language) => (
+                            <div key={language} className="dropdown-item-new">
+                              {language}
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      </div>
                     </div>
-                    <div className="filter-btn-container">
-                      <button className="filter-button">Filter Now</button>
+
+                    {/* Filter Button */}
+                    <div className="filter-section">
+                      <button className="filter-button-new">Filter Now</button>
                     </div>
                   </div>
                 )}

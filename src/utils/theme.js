@@ -28,7 +28,7 @@ const theme = createTheme({
       accent: '#1e293b',
     },
     background: {
-      default: '#f9fafb',
+      default: '#d9dada',
       paper: '#ffffff',
       dark: '#111827',
     },
@@ -43,8 +43,10 @@ const theme = createTheme({
       main: '#4AAF39',
     },
     blue: {
-      main: '#2563eb',
-      light: '#3b82f6',
+      main: '#1E40AF',
+      dark: '#0f2a76',
+      primary: '#2563EB',
+      secondary: '#1843CE',
     },
     yellow: {
       main: '#facc15',
@@ -89,11 +91,11 @@ const theme = createTheme({
     },
     h6: {
       fontSize: '17.6px',
-    //   fontWeight: 600,
+      fontWeight: 500,
       lineHeight: 1.5,
     },
     subtitle1: {
-      fontSize: '20px',
+      fontSize: '16px',
       fontWeight: 500,
       lineHeight: 1.6,
     },

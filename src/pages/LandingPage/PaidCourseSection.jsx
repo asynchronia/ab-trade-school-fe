@@ -1,7 +1,6 @@
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
-import { Box, IconButton, Stack, Typography } from '@mui/material';
+import { Box, IconButton, Link, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import marketImg1 from '../../assets/marketImg1.svg';
 import marketImg2 from '../../assets/marketImg2.svg';
 import CustomDropdown from '../../components/Customdropdown/Customdropdown';
@@ -96,7 +95,7 @@ const PaidCourseSection = () => {
         flexWrap="wrap"
       >
         <CustomDropdown
-          label="Categories"
+          title="Categories"
           options={categories}
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
@@ -106,7 +105,7 @@ const PaidCourseSection = () => {
           }}
         />
         <CustomDropdown
-          label="Level"
+          title="Level"
           options={levels}
           value={selectedLevel}
           onChange={(e) => setSelectedLevel(e.target.value)}
@@ -116,7 +115,7 @@ const PaidCourseSection = () => {
           }}
         />
         <CustomDropdown
-          label="Language"
+          title="Language"
           options={languages}
           value={selectedLanguage}
           onChange={(e) => setSelectedLanguage(e.target.value)}
@@ -145,38 +144,76 @@ const PaidCourseSection = () => {
         >
           <Typography
             variant="h6"
-            fontWeight={theme.typography.fontWeightBold}
+            fontWeight={theme.typography.h6.fontWeight}
             sx={{
               fontSize: {
-                xs: theme.typography.body1.fontSize,
-                sm: '1.1rem',
+                xs: theme.typography.body2.fontSize,
+                sm: theme.typography.body1.fontSize,
               },
               flexGrow: 1,
             }}
           >
             Basic Knowledge - Beginner - English
           </Typography>
-          <Stack direction="row" spacing={theme.spacing(1)} alignItems="center">
+          <Stack direction="row" spacing={theme.spacing(2)} alignItems="center">
             <Link
               href="#"
-              underline="hover"
-              fontWeight={theme.typography.fontWeightMedium}
-              color="text.primary"
+              underline="always"
+              fontWeight={theme.typography.h6.fontWeight}
+              color={theme.colors.gray[500]}
               sx={{
                 fontSize: {
                   xs: theme.typography.caption.fontSize,
-                  sm: theme.typography.body1.fontSize,
+                  sm: theme.typography.subtitle1.fontSize,
                 },
               }}
             >
               See All
             </Link>
-            <IconButton size="small">
-              <ArrowBackIos fontSize="small" />
-            </IconButton>
-            <IconButton size="small">
-              <ArrowForwardIos fontSize="small" />
-            </IconButton>
+
+            <Box sx={{display: 'flex', gap: 1}}>
+              <IconButton
+                size="small"
+                sx={{
+                  width: 32,
+                  height: 32,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: 'black 1px solid',
+                  borderRadius: '50%',
+                  '& svg': {
+                    fontSize: '16px',
+                  },
+                  '&:hover': {
+                    bgcolor: '#f3f4f6',
+                  },
+                }}
+              >
+                <ArrowBackIos />
+              </IconButton>
+
+              <IconButton
+                size="small"
+                sx={{
+                  width: 32,
+                  height: 32,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: 'black 1px solid',
+                  borderRadius: '50%',
+                  '& svg': {
+                    fontSize: '16px',
+                  },
+                  '&:hover': {
+                    bgcolor: '#f3f4f6',
+                  },
+                }}
+              >
+                <ArrowForwardIos />
+              </IconButton>
+            </Box>
           </Stack>
         </Box>
 
@@ -198,16 +235,6 @@ const PaidCourseSection = () => {
                 overflow: 'hidden',
                 flexShrink: 0,
                 scrollSnapAlign: 'start',
-                width: {
-                  xs: `calc(100vw - ${theme.spacing(5)})`,
-                  sm: `calc(100vw - ${theme.spacing(7.5)})`,
-                  md: 530,
-                },
-                minWidth: {
-                  xs: `calc(100vw - ${theme.spacing(5)})`,
-                  sm: `calc(100vw - ${theme.spacing(7.5)})`,
-                  md: 400,
-                },
                 height: {
                   xs: 250,
                   sm: 280,
@@ -221,7 +248,7 @@ const PaidCourseSection = () => {
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover',
+                  objectFit: 'fill',
                 }}
               />
             </Box>

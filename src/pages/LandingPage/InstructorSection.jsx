@@ -5,9 +5,9 @@ import {
     CardMedia,
     Chip,
     Container,
+    Link,
     Typography,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
 import bg1 from '../../assets/bg1.svg';
 import bg2 from '../../assets/bg2.svg';
 import bg3 from '../../assets/bg3.svg';
@@ -155,15 +155,17 @@ const InstructorSection = () => {
               />
               <Chip
                 label={instructor.badge}
-                size="small"
+                size="medium"
                 sx={{
                   position: 'absolute',
-                  bottom: theme.spacing(1.5),
-                  left: theme.spacing(1.5),
-                  bgcolor: theme.colors.blue.main,
+                  bottom: 0,
+                  left: 0,
+                  bgcolor: theme.colors.blue.primary,
                   color: theme.colors.text.light,
-                  fontSize: theme.typography.caption.fontSize,
+                  fontSize: theme.typography.body2.fontSize,
                   borderRadius: theme.shape.borderRadius.medium,
+                  px: '10px',
+                  py: '10px ',
                 }}
               />
             </Box>
@@ -178,7 +180,6 @@ const InstructorSection = () => {
                 gap: theme.spacing(1),
               }}
             >
-
               <Box>
                 <Typography
                   variant="h6"
@@ -257,9 +258,11 @@ const InstructorSection = () => {
                   href="#"
                   sx={{
                     fontWeight: theme.typography.fontWeightMedium,
-                    color: theme.colors.blue.main,
-                    fontSize: theme.typography.caption.fontSize,
-                    alignSelf: 'flex-start',
+                    color: theme.colors.blue.dark,
+                    mt: '20px',
+                    fontSize: theme.typography.body2.fontSize,
+                    textAlign: 'center',
+                    textDecoration: 'none'
                   }}
                 >
                   View Profile & Courses
