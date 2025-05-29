@@ -66,7 +66,6 @@ const GoalsSection = () => {
           xs: theme.spacing(2),
           sm: theme.spacing(4),
         },
-        backgroundColor: theme.colors.background.default,
       }}
     >
       <Container

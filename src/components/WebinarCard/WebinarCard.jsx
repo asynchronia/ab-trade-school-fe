@@ -1,4 +1,9 @@
-import { AccessTime, CalendarToday, Translate } from '@mui/icons-material';
+import {
+    AccessTime,
+    CalendarToday,
+    LocationOn,
+    Translate,
+} from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
 import './WebinarCard.scss';
 
@@ -25,28 +30,48 @@ const WebinarCard = ({ webinars }) => {
               <Typography variant="body2" className="desc">
                 {webinar.description}
               </Typography>
-              <Typography variant="subtitle2" className="speaker">
-                {webinar.speaker}
-              </Typography>
+
               <Box className="info">
-                <Typography
-                  variant="body2"
-                  sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
-                >
-                  <AccessTime sx={iconStyles} /> {webinar.time}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
-                >
-                  <CalendarToday sx={iconStyles} /> {webinar.date}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
-                >
-                  <Translate sx={iconStyles} /> {webinar.language}
-                </Typography>
+                <Box>
+                  <Typography
+                    variant="body2"
+                    sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}
+                  >
+                    <AccessTime sx={iconStyles} /> {webinar.time}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                  >
+                    <Translate sx={iconStyles} /> {webinar.language}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Typography
+                    variant="body2"
+                    sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}
+                  >
+                    <CalendarToday sx={iconStyles} /> {webinar.date}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                  >
+                    {webinar.location === 'Online' ? (
+                      <Typography
+                      variant='body2'
+                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                      >
+                        <span className="online-badge"></span>{' '}
+                        {webinar.location}
+                      </Typography>
+                    ) : (
+                      <>
+                        <LocationOn sx={iconStyles} /> {webinar.location}
+                      </>
+                    )}
+                  </Typography>
+                </Box>
               </Box>
               <Button variant="contained" className="reserve-button">
                 Reserve Your Seat
