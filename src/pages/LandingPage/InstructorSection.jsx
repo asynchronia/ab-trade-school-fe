@@ -8,12 +8,12 @@ import {
     Link,
     Typography,
 } from '@mui/material';
-import bg1 from '../../assets/bg1.svg';
-import bg2 from '../../assets/bg2.svg';
+import bg1 from '../../assets/bg1.webp';
+import bg2 from '../../assets/bg2.webp';
 import bg3 from '../../assets/bg3.svg';
-import person1 from '../../assets/person1.svg';
-import person2 from '../../assets/person2.svg';
-import person3 from '../../assets/person3.svg';
+import person1 from '../../assets/person1.webp';
+import person2 from '../../assets/person2.webp';
+import person3 from '../../assets/person3.webp';
 import theme from '../../utils/theme';
 
 const InstructorSection = () => {

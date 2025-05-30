@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import webinar1 from '../../assets/webinar1.svg';
-import webinar2 from '../../assets/webinar2.svg';
+import webinar1 from '../../assets/webinar1.webP';
+import webinar2 from '../../assets/webinar2.webP';
 import webinar3 from '../../assets/webinar3.svg';
 import WebinarCard from '../../components/WebinarCard/WebinarCard';
 import theme from '../../utils/theme';

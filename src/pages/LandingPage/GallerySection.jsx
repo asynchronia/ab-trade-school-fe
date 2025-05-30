@@ -1,10 +1,10 @@
 import { LocationOn } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
-import galleryImage1 from '../../assets/galleryImage1.svg';
-import galleryImage2 from '../../assets/galleryImage2.svg';
-import galleryImage3 from '../../assets/galleryImage3.svg';
-import galleryImage4 from '../../assets/galleryImage4.svg';
-import galleryImage5 from '../../assets/galleryImage5.svg';
+import galleryImage1 from '../../assets/galleryImage1.webp';
+import galleryImage2 from '../../assets/galleryImage2.webp';
+import galleryImage3 from '../../assets/galleryImage3.webp';
+import galleryImage4 from '../../assets/galleryImage4.webp';
+import galleryImage5 from '../../assets/galleryImage5.webp';
 import theme from '../../utils/theme';
 
 const CommunitySection = () => {

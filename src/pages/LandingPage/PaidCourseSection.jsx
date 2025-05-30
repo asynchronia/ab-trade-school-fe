@@ -1,8 +1,8 @@
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 import { Box, IconButton, Link, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import marketImg1 from '../../assets/marketImg1.svg';
-import marketImg2 from '../../assets/marketImg2.svg';
+import marketImg1 from '../../assets/marketImg1.webp';
+import marketImg2 from '../../assets/marketImg2.webp';
 import CustomDropdown from '../../components/Customdropdown/Customdropdown';
 import theme from '../../utils/theme';
 
@@ -171,7 +171,7 @@ const PaidCourseSection = () => {
               See All
             </Link>
 
-            <Box sx={{display: 'flex', gap: 1}}>
+            <Box sx={{ display: 'flex', gap: 1 }}>
               <IconButton
                 size="small"
                 sx={{
@@ -182,7 +182,7 @@ const PaidCourseSection = () => {
                   justifyContent: 'center',
                   border: 'black 1px solid',
                   borderRadius: '50%',
-                  '& svg': {
+                  '& webp': {
                     fontSize: '16px',
                   },
                   '&:hover': {
@@ -203,7 +203,7 @@ const PaidCourseSection = () => {
                   justifyContent: 'center',
                   border: 'black 1px solid',
                   borderRadius: '50%',
-                  '& svg': {
+                  '& webp': {
                     fontSize: '16px',
                   },
                   '&:hover': {
