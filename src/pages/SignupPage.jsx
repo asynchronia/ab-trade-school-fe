@@ -32,10 +32,10 @@ const signupImg = '../assets/signupImg.svg';
 const qrCode = '../assets/qrCode.svg';
 const playStore = '../assets/playStore.svg';
 const appStore = '../assets/appStore.svg';
-const com1 = '../assets/com1.svg';
-const com2 = '../assets/com2.svg';
-const com3 = '../assets/com3.svg';
-const com4 = '../assets/com4.svg';
+const com1 = '../assets/com-1.svg';
+const com2 = '../assets/com-2.svg';
+const com3 = '../assets/com-3.svg';
+const com4 = '../assets/com-4.svg';
 
 const SignupPage = () => {
   const theme = useTheme();
