@@ -16,7 +16,7 @@ import WebinarSection from './WebinarSection';
 const LandingPage = () => {
   return (
     <div>
-      <Navbar user={false} />
+      <Navbar />
 
       {/* Hero Section */}
       <HeroSection />

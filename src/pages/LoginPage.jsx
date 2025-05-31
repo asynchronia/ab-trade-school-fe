@@ -1,4 +1,5 @@
 import {
+    Alert,
     Box,
     Button,
     Container,
@@ -12,14 +13,19 @@ import {
     useMediaQuery,
     useTheme,
 } from '@mui/material';
-import appStore from '../assets//appStore.svg';
-import com1 from '../assets//com1.svg';
-import com2 from '../assets//com2.svg';
-import com3 from '../assets//com3.svg';
-import com4 from '../assets//com4.svg';
-import playStore from '../assets//playStore.svg';
-import qrCode from '../assets//qrCode.svg';
-import signupImg from '../assets//signupImg.svg';
+import { Formik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import { loginSchema } from '../validations/LoginValidation';
+
+// Import your assets and icons
+import appStore from '../assets/appStore.svg';
+import com1 from '../assets/com1.svg';
+import com2 from '../assets/com2.svg';
+import com3 from '../assets/com3.svg';
+import com4 from '../assets/com4.svg';
+import playStore from '../assets/playStore.svg';
+import qrCode from '../assets/qrCode.svg';
+import signupImg from '../assets/signupImg.svg';
 
 // Social media icons
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -29,10 +35,34 @@ import TelegramIcon from '@mui/icons-material/Telegram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import { enqueueSnackbar } from 'notistack';
+import { loginReq } from '../service/auth.service';
 
 const LoginPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
+
+  const initialValues = {
+    email: '',
+    password: '',
+  };
+
+  const handleSubmit = async (values) => {
+    console.log(values);
+    try {
+      const response = await loginReq({
+        email: values?.email,
+        password: values?.password,
+      });
+      localStorage.setItem('user', response?.payload?.user)
+      enqueueSnackbar('User logged in successfully', { variant: 'success' });
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+      enqueueSnackbar(error?.message, { variant: 'error' });
+    }
+  };
 
   return (
     <Box
@@ -41,122 +71,167 @@ const LoginPage = () => {
         py: 5,
         display: 'flex',
         flexDirection: 'column',
+        minHeight: '100vh',
       }}
     >
       {/* Main content */}
       <Container maxWidth="lg" disableGutters>
-        <Grid
-          container
-          sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}
+        <Formik
+          initialValues={initialValues}
+          validationSchema={loginSchema}
+          onSubmit={handleSubmit}
+          validateOnBlur={true}
+          validateOnChange={false}
         >
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              display: 'flex',
-              flex: 0.5,
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              bgcolor: '#f0f4ff',
-              p: 4,
-              position: 'relative',
-            }}
-          >
-            <Box
-              sx={{
-                maxWidth: '100%',
-                textAlign: 'center',
-
-                mb: 4,
-              }}
-            >
-              <img
-                src={signupImg}
-                alt="Financial analytics illustration"
-                style={{ width: '100%', maxWidth: '400px' }}
-              />
-            </Box>
-
-            <Paper
-              elevation={2}
-              sx={{
-                p: 3,
-                borderRadius: 2,
-                textAlign: 'center',
-                width: '100%',
-                maxWidth: '450px',
-                background: 'white',
-              }}
-            >
-              <Typography variant="h6" fontWeight="bold" gutterBottom>
-                Start Learning. Keep Exploring. Grow Smarter.
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Unlock free access to expert-led webinars, trading videos, and
-                market insights. No fees. Just knowledge.
-              </Typography>
-            </Paper>
-          </Grid>
-
-          <Grid
-            item
-            xs={12}
-            md={12}
-            sx={{
-              p: 4,
-              borderLeft: isMobile ? 'none' : '1px dashed #ccc',
-              display: 'flex',
-              flex: 0.5,
-              flexDirection: 'column',
-              justifyContent: 'center',
-            }}
-          >
-            <Box sx={{ maxWidth: '500px', width: '100%', mx: 'auto' }}>
-              <Typography variant="h5" fontWeight="bold" gutterBottom>
-                Sign in to your profile
-              </Typography>
-
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                or{' '}
-                <Link href="/signup" underline="hover">
-                  Create your free account
-                </Link>
-              </Typography>
-
-              <Box sx={{ mt: 3 }}>
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  placeholder="Enter your phone number"
-                  variant="outlined"
-                />
-
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  size="large"
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <Grid
+                container
+                sx={{
+                  display: 'flex',
+                  flexDirection: isMobile ? 'column' : 'row',
+                }}
+              >
+                {/* Left Side - Image and Info */}
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
                   sx={{
-                    mt: 3,
-                    py: 1.5,
-                    borderRadius: 1,
-                    bgcolor: '#1a56db',
-                    '&:hover': {
-                      bgcolor: '#104bb9',
-                    },
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    bgcolor: '#f0f4ff',
+                    p: 4,
                   }}
                 >
-                  Login
-                </Button>
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
+                  <Box sx={{ maxWidth: '100%', textAlign: 'center', mb: 4 }}>
+                    <img
+                      src={signupImg}
+                      alt="Financial analytics illustration"
+                      style={{ width: '100%', maxWidth: '400px' }}
+                    />
+                  </Box>
+
+                  <Paper
+                    elevation={2}
+                    sx={{
+                      p: 3,
+                      borderRadius: 2,
+                      textAlign: 'center',
+                      width: '100%',
+                      maxWidth: '450px',
+                      background: 'white',
+                    }}
+                  >
+                    <Typography variant="h6" fontWeight="bold" gutterBottom>
+                      Start Learning. Keep Exploring. Grow Smarter.
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Unlock free access to expert-led webinars, trading videos,
+                      and market insights. No fees. Just knowledge.
+                    </Typography>
+                  </Paper>
+                </Grid>
+
+                {/* Right Side - Form */}
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  sx={{
+                    p: 4,
+                    borderLeft: isMobile ? 'none' : '1px dashed #ccc',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Box sx={{ maxWidth: '500px', width: '100%', mx: 'auto' }}>
+                    <Typography variant="h5" fontWeight="bold" gutterBottom>
+                      Sign in to your profile
+                    </Typography>
+
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      gutterBottom
+                    >
+                      or{' '}
+                      <Link href="/signup" underline="hover">
+                        Create your free account
+                      </Link>
+                    </Typography>
+
+                    <Box sx={{ mt: 3 }}>
+                      {/* Email Field */}
+                      <TextField
+                        fullWidth
+                        margin="normal"
+                        label="Email"
+                        placeholder="Enter your email"
+                        variant="outlined"
+                        name="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.email && Boolean(errors.email)}
+                        helperText={touched.email && errors.email}
+                      />
+                      {/* Password Field */}
+                      <TextField
+                        fullWidth
+                        margin="normal"
+                        label="Password"
+                        placeholder="Enter your password"
+                        variant="outlined"
+                        type="password"
+                        name="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.password && Boolean(errors.password)}
+                        helperText={touched.password && errors.password}
+                      />
+
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        type="submit"
+                        disabled={isSubmitting}
+                        sx={{
+                          mt: 3,
+                          py: 1.5,
+                          borderRadius: 1,
+                          bgcolor: '#1a56db',
+                          '&:hover': {
+                            bgcolor: '#104bb9',
+                          },
+                        }}
+                      >
+                        {isSubmitting ? 'Logging in...' : 'Login'}
+                      </Button>
+                    </Box>
+                  </Box>
+                </Grid>
+              </Grid>
+            </form>
+          )}
+        </Formik>
       </Container>
 
-      {/* Footer section - Same as signup page */}
+      {/* Footer section */}
       <Box
         sx={{
           borderTop: '1px solid #e0e0e0',
