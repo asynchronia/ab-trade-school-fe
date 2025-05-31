@@ -26,7 +26,7 @@ import { dropdownData } from '../../utils/data';
 import Button from '../Button/Button';
 import './Navbar.scss';
 
-const Navbar = ({ user }) => {
+const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -34,6 +34,7 @@ const Navbar = ({ user }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const user = localStorage.getItem('user');
 
   const navItems = [
     {
@@ -275,16 +276,20 @@ const Navbar = ({ user }) => {
           </Box>
         ) : (
           <Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-              <img
-                src={avatar}
-                alt="avatar"
-                style={{ width: '40px', height: '40px', borderRadius: '50%' }}
-              />
-              <Typography variant="body2" sx={{ color: '#374151' }}>
-                John Doe
-              </Typography>
-            </Box>
+            {!isMobile && (
+              <Box
+                sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}
+              >
+                <img
+                  src={avatar}
+                  alt="avatar"
+                  style={{ width: '40px', height: '40px', borderRadius: '50%' }}
+                />
+                <Typography variant="body2" sx={{ color: '#374151' }}>
+                  {user?.name}
+                </Typography>
+              </Box>
+            )}
             <ListItem
               button
               onClick={() => {
