@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
-import webinar2 from '../assets/webinar2.svg';
+import webinar2 from '../assets/webinar2.webp';
 import CourseCard from '../components/CourseCard/CourseCard';
 import Navbar from '../components/Navbar/Navbar';
 import theme from '../utils/theme';

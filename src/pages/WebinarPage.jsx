@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import webinar1 from '../assets/webinar1.svg';
-import webinar2 from '../assets/webinar2.svg';
+import webinar1 from '../assets/webinar1.webp';
+import webinar2 from '../assets/webinar2.webp';
 import webinar3 from '../assets/webinar3.svg';
 import Button from '../components/Button/Button';
 import Navbar from '../components/Navbar/Navbar';

@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import marketImg1 from '../assets/marketImg1.svg';
-import marketImg2 from '../assets/marketImg2.svg';
+import marketImg1 from '../assets/marketImg1.webp';
+import marketImg2 from '../assets/marketImg2.webp';
 import Button from '../components/Button/Button';
 import Navbar from '../components/Navbar/Navbar';
 import SearchBar from '../components/Searchbar/Searchbar';

@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
-import baseImg1 from '../../assets/baseImg1.svg';
-import baseImg2 from '../../assets/baseImg2.svg';
-import baseImg3 from '../../assets/baseImg3.svg';
+import baseImg1 from '../../assets/baseImg1.webp';
+import baseImg2 from '../../assets/baseImg2.webp';
+import baseImg3 from '../../assets/baseImg3.webp';
 import overImg1 from '../../assets/overImg1.svg';
 import overImg2 from '../../assets/overImg2.svg';
 import overImg3 from '../../assets/overImg3.svg';
