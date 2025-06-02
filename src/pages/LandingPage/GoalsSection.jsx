@@ -66,6 +66,7 @@ const GoalsSection = () => {
           xs: theme.spacing(2),
           sm: theme.spacing(4),
         },
+        backgroundColor: '#F9FAFB',
       }}
     >
       <Container
@@ -86,7 +87,7 @@ const GoalsSection = () => {
             mb: theme.spacing(2),
             color: theme.colors.text.primary,
             fontSize: {
-              xs: theme.typography.h4.fontSize, 
+              xs: theme.typography.h4.fontSize,
               sm: '2rem',
               md: theme.typography.h3.fontSize,
             },
@@ -141,7 +142,7 @@ const GoalsSection = () => {
               fontSize: theme.typography.body2.fontSize,
               fontWeight: theme.typography.fontWeightMedium,
               color: theme.colors.gray[700],
-            //   boxShadow: theme.shadows[1],
+              //   boxShadow: theme.shadows[1],
             }}
           >
             <Box

@@ -1,6 +1,7 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import marketImg1 from '../assets/marketImg1.webp';
-import marketImg2 from '../assets/marketImg2.webp';
+import marketImg1 from '../assets/marketImg1.jpg';
+import marketImg2 from '../assets/marketImg2.jpg';
+import marketImg3 from '../assets/marketImg3.jpg';
 import Button from '../components/Button/Button';
 import Navbar from '../components/Navbar/Navbar';
 import SearchBar from '../components/Searchbar/Searchbar';
@@ -27,28 +28,7 @@ const dummyCourses = [
     instructor: 'Mr. Anish Kumar',
     duration: '4 Hours',
     modules: 4,
-    image: marketImg1,
-  },
-  {
-    title: '1ly options Hedging Tool Overview In Tamil',
-    instructor: 'Mr. Anish Kumar',
-    duration: '4 Hours',
-    modules: 4,
-    image: marketImg2,
-  },
-  {
-    title: 'Navigating Option Hedging',
-    instructor: 'Mr. Rupesh',
-    duration: '4 Hours',
-    modules: 4,
-    image: marketImg1,
-  },
-  {
-    title: 'ANT web trading view',
-    instructor: 'Mr. Anish Kumar',
-    duration: '4 Hours',
-    modules: 4,
-    image: marketImg2,
+    image: marketImg3,
   },
   {
     title: '1ly options Hedging Tool Overview In Tamil',
@@ -69,7 +49,28 @@ const dummyCourses = [
     instructor: 'Mr. Anish Kumar',
     duration: '4 Hours',
     modules: 4,
+    image: marketImg3,
+  },
+  {
+    title: '1ly options Hedging Tool Overview In Tamil',
+    instructor: 'Mr. Anish Kumar',
+    duration: '4 Hours',
+    modules: 4,
     image: marketImg1,
+  },
+  {
+    title: 'Navigating Option Hedging',
+    instructor: 'Mr. Rupesh',
+    duration: '4 Hours',
+    modules: 4,
+    image: marketImg2,
+  },
+  {
+    title: 'ANT web trading view',
+    instructor: 'Mr. Anish Kumar',
+    duration: '4 Hours',
+    modules: 4,
+    image: marketImg3,
   },
 ];
 
