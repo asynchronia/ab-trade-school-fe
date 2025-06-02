@@ -53,17 +53,26 @@ const SignupPage = () => {
   const handleSubmit = async (values) => {
     try {
       const response = await signupReq({
-        name: values?.name,
         email: values?.email,
-        phone: values?.phone,
         password: values?.password,
+        name: values?.name,
+        phone: values?.phone,
       });
-      navigate('/login');
-      enqueueSnackbar(response?.message, { variant: 'success' });
-      console.log(response);
+
+      if (response?.success && response?.payload?.data) {
+        localStorage.setItem('user', JSON.stringify(response.payload.user));
+        enqueueSnackbar(response?.message, { variant: 'success' });
+        navigate('/');
+      } else {
+        enqueueSnackbar(response?.message || 'Login failed', {
+          variant: 'error',
+        });
+      }
     } catch (error) {
-      enqueueSnackbar(error.message, { variant: 'error' });
       console.log(error);
+      enqueueSnackbar(error?.message || 'Something went wrong', {
+        variant: 'error',
+      });
     }
   };
 
