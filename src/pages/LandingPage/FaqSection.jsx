@@ -79,8 +79,9 @@ const FAQSection = () => {
           key={index}
           sx={{
             mb: theme.spacing(2),
-            p: theme.spacing(1),
+            p: theme.spacing(2),
             borderRadius: theme.shape.borderRadius.medium,
+            bgcolor: 'rgba(0, 0, 0, 0.050)', 
             '&:before': {
               display: 'none',
             },

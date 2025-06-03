@@ -163,7 +163,7 @@ const InstructorSection = () => {
                   bgcolor: theme.colors.blue.primary,
                   color: theme.colors.text.light,
                   fontSize: theme.typography.body2.fontSize,
-                  borderRadius: theme.shape.borderRadius.medium,
+                  borderRadius: '0 8px 0 0',
                   px: '10px',
                   py: '10px ',
                 }}
@@ -236,20 +236,23 @@ const InstructorSection = () => {
                     component="span"
                     sx={{
                       fontSize: '0.85rem',
-                      color: theme.colors.yellow.main,
-                    }}
-                  >
-                    {'★'.repeat(Math.floor(instructor.rating))}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    component="span"
-                    sx={{
-                      fontSize: '0.85rem',
                       color: theme.colors.gray[600],
                       ml: theme.spacing(0.5),
                     }}
                   >
+                    {[...Array(5)].map((_, index) => (
+                      <span
+                        key={index}
+                        style={{
+                          color:
+                            index < Math.floor(instructor.rating)
+                              ? theme.colors.yellow.main
+                              : '#ccc',
+                        }}
+                      >
+                        ★
+                      </span>
+                    ))}{' '}
                     {instructor.rating} ({instructor.reviews} reviews)
                   </Typography>
                 </Box>
@@ -262,7 +265,7 @@ const InstructorSection = () => {
                     mt: '20px',
                     fontSize: theme.typography.body2.fontSize,
                     textAlign: 'center',
-                    textDecoration: 'none'
+                    textDecoration: 'none',
                   }}
                 >
                   View Profile & Courses
