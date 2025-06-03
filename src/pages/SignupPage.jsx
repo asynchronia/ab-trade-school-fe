@@ -25,10 +25,10 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import { enqueueSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
+import signupImg from '../assets/signupImg.svg';
 import { signupReq } from '../service/auth.service';
 
 // Import images
-const signupImg = '../assets/signupImg.svg';
 const qrCode = '../assets/qrCode.svg';
 const playStore = '../assets/playStore.svg';
 const appStore = '../assets/appStore.svg';
