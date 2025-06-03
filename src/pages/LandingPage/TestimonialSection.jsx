@@ -1,5 +1,5 @@
 import { Box, Paper, Typography } from '@mui/material';
-import mainTestimonialImage from '../../assets/mainTestimonialImage.svg';
+import mainTestimonialImage from '../../assets/mainTestimonialImage.webp';
 import mainTestimonialImg2 from '../../assets/mainTestimonialImg2.svg';
 import testimonial1Image from '../../assets/testimonial1Image.svg';
 import testimonial2Image from '../../assets/testimonial2Image.svg';

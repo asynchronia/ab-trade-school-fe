@@ -2,9 +2,9 @@ import { Box, Typography } from '@mui/material';
 import baseImg1 from '../../assets/baseImg1.webp';
 import baseImg2 from '../../assets/baseImg2.webp';
 import baseImg3 from '../../assets/baseImg3.webp';
-import overImg1 from '../../assets/overImg1.svg';
-import overImg2 from '../../assets/overImg2.svg';
-import overImg3 from '../../assets/overImg3.svg';
+import overImg1 from '../../assets/overImg1.webp';
+import overImg2 from '../../assets/overImg2.webp';
+import overImg3 from '../../assets/overImg3.webp';
 import CardCarousel from '../../components/CardCorousel/CardCarousel';
 import theme from '../../utils/theme';
 

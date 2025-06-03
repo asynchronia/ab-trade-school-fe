@@ -25,10 +25,10 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import { enqueueSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
+import signupImg from '../assets/signupImg.svg';
 import { signupReq } from '../service/auth.service';
 
 // Import images
-const signupImg = '../assets/signupImg.svg';
 const qrCode = '../assets/qrCode.svg';
 const playStore = '../assets/playStore.svg';
 const appStore = '../assets/appStore.svg';
@@ -53,17 +53,26 @@ const SignupPage = () => {
   const handleSubmit = async (values) => {
     try {
       const response = await signupReq({
-        name: values?.name,
         email: values?.email,
-        phone: values?.phone,
         password: values?.password,
+        name: values?.name,
+        phone: values?.phone,
       });
-      navigate('/login');
-      enqueueSnackbar(response?.message, { variant: 'success' });
-      console.log(response);
+
+      if (response?.success && response?.payload?.data) {
+        localStorage.setItem('user', JSON.stringify(response.payload.user));
+        enqueueSnackbar(response?.message, { variant: 'success' });
+        navigate('/');
+      } else {
+        enqueueSnackbar(response?.message || 'Login failed', {
+          variant: 'error',
+        });
+      }
     } catch (error) {
-      enqueueSnackbar(error.message, { variant: 'error' });
       console.log(error);
+      enqueueSnackbar(error?.message || 'Something went wrong', {
+        variant: 'error',
+      });
     }
   };
 
