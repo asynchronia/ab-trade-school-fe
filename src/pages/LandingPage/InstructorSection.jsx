@@ -240,12 +240,6 @@ const InstructorSection = () => {
                       ml: theme.spacing(0.5),
                     }}
                   >
-                    {console.log(
-                      'Rating:',
-                      instructor.rating,
-                      'Stars to fill:',
-                      Math.floor(instructor.rating)
-                    )}
                     {[...Array(5)].map((_, index) => (
                       <span
                         key={index}
