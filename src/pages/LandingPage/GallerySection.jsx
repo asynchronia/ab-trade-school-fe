@@ -211,10 +211,7 @@ const CommunitySection = () => {
                 position: 'relative',
                 borderRadius: theme.shape.borderRadius?.medium || 2,
                 overflow: 'hidden',
-                minHeight: {
-                  xs: 200,
-                  md: 'auto',
-                },
+                minHeight: { xs: 200, md: 'auto' },
                 '&::before': {
                   content: '""',
                   position: 'absolute',
@@ -222,8 +219,7 @@ const CommunitySection = () => {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background:
-                    'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%)',
+                  background: 'rgba(0, 0, 0, 0.5)',
                   zIndex: 1,
                 },
               }}
@@ -235,6 +231,7 @@ const CommunitySection = () => {
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
+                  opacity: 1,
                 }}
               />
               <Box

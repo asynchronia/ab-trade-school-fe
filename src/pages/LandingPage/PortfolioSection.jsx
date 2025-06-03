@@ -27,7 +27,7 @@ const PortfolioSection = () => {
         'Earn recognized certifications that validate your trading expertise. Our certifications are backed by NSE and industry partners.',
       benefits: [
         'NSE Certified Market Professional',
-        'NSM Department Certification',
+        'NISM Derivatives Certification',
         'Algo Trading Specialist',
       ],
       ctaText: 'Learn More',
@@ -37,9 +37,9 @@ const PortfolioSection = () => {
       img: cardIcon2,
       title: 'Simulated Portfolio',
       description:
-        'Practice with our state-of-the-art trading simulator with real-time data and track your virtual portfolio without real money.',
+        'Practice with our state-of-the-art trading simulator with real-time data and track your virtual portfolio without risking real money.',
       benefits: [
-        '$10,000.000 virtual capital',
+        '₹10,00,000 virtual capital',
         'Real-time market simulation',
         'Performance analytics dashboard',
       ],
@@ -157,11 +157,6 @@ const PortfolioSection = () => {
                 boxShadow: theme.shadows[5],
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
                 backdropFilter: 'blur(1px)',
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                '&:hover': {
-                  transform: 'translateY(-5px)',
-                  boxShadow: theme.shadows[8],
-                },
               }}
             >
               <CardContent
