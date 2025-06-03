@@ -1,4 +1,4 @@
-import CallMadeIcon from '@mui/icons-material/CallMade';
+import { CallReceived } from '@mui/icons-material';
 import {
     Accordion,
     AccordionDetails,
@@ -87,7 +87,7 @@ const FAQSection = () => {
           }}
         >
           <AccordionSummary
-            expandIcon={<CallMadeIcon />}
+            expandIcon={<CallReceived color={theme.colors.blue.secondary} />}
             sx={{
               '& .MuiAccordionSummary-content': {
                 alignItems: 'center',
