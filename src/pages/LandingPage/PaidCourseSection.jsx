@@ -1,8 +1,9 @@
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 import { Box, IconButton, Link, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import marketImg1 from '../../assets/marketImg1.webp';
-import marketImg2 from '../../assets/marketImg2.webp';
+import marketImg1 from '../../assets/marketImg1.jpg';
+import marketImg2 from '../../assets/marketImg2.jpg';
+import marketImg3 from '../../assets/marketImg3.jpg';
 import CustomDropdown from '../../components/Customdropdown/Customdropdown';
 import theme from '../../utils/theme';
 
@@ -19,6 +20,10 @@ const PaidCourseSection = () => {
     {
       id: 2,
       image: marketImg2,
+    },
+    {
+      id: 3,
+      image: marketImg3,
     },
   ];
 
@@ -86,45 +91,118 @@ const PaidCourseSection = () => {
       </Box>
 
       {/* Filters */}
-      <Stack
-        direction={{ xs: 'column', sm: 'row' }}
-        spacing={theme.spacing(2)}
-        mb={theme.spacing(4)}
-        justifyContent="center"
-        alignItems="stretch"
-        flexWrap="wrap"
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        mb={theme.spacing(2)}
+        sx={{
+          flexWrap: 'wrap',
+          gap: theme.spacing(2),
+        }}
       >
-        <CustomDropdown
-          title="Categories"
-          options={categories}
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          sx={{
-            minWidth: '150px',
-            flexGrow: 1,
-          }}
-        />
-        <CustomDropdown
-          title="Level"
-          options={levels}
-          value={selectedLevel}
-          onChange={(e) => setSelectedLevel(e.target.value)}
-          sx={{
-            minWidth: '150px',
-            flexGrow: 1,
-          }}
-        />
-        <CustomDropdown
-          title="Language"
-          options={languages}
-          value={selectedLanguage}
-          onChange={(e) => setSelectedLanguage(e.target.value)}
-          sx={{
-            minWidth: '150px',
-            flexGrow: 1,
-          }}
-        />
-      </Stack>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          spacing={theme.spacing(2)}
+          mb={theme.spacing(4)}
+          justifyContent="left"
+          alignItems="stretch"
+          flexWrap="wrap"
+        >
+          <CustomDropdown
+            title="Categories"
+            options={categories}
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            sx={{
+              minWidth: '150px',
+              flexGrow: 1,
+            }}
+          />
+          <CustomDropdown
+            title="Level"
+            options={levels}
+            value={selectedLevel}
+            onChange={(e) => setSelectedLevel(e.target.value)}
+            sx={{
+              minWidth: '150px',
+              flexGrow: 1,
+            }}
+          />
+          <CustomDropdown
+            title="Language"
+            options={languages}
+            value={selectedLanguage}
+            onChange={(e) => setSelectedLanguage(e.target.value)}
+            sx={{
+              minWidth: '150px',
+              flexGrow: 1,
+            }}
+          />
+        </Stack>
+        <Stack direction="row" spacing={theme.spacing(2)} alignItems="center">
+          <Link
+            href="#"
+            underline="always"
+            fontWeight={theme.typography.h6.fontWeight}
+            color={theme.colors.gray[500]}
+            sx={{
+              fontSize: {
+                xs: theme.typography.caption.fontSize,
+                sm: theme.typography.subtitle1.fontSize,
+              },
+            }}
+          >
+            See All
+          </Link>
+
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            <IconButton
+              size="small"
+              sx={{
+                width: 32,
+                height: 32,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid black',
+                borderRadius: '50%',
+                p: 0, // remove default padding
+                '& svg': {
+                  fontSize: '16px',
+                },
+                '&:hover': {
+                  bgcolor: '#f3f4f6',
+                },
+              }}
+            >
+              <ArrowBackIos fontSize="small" />
+            </IconButton>
+
+            <IconButton
+              size="small"
+              sx={{
+                width: 32,
+                height: 32,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: '1px solid black',
+                borderRadius: '50%',
+                p: 0,
+                '& svg': {
+                  fontSize: '16px',
+                },
+                '&:hover': {
+                  bgcolor: '#f3f4f6',
+                },
+              }}
+            >
+              <ArrowForwardIos fontSize="small" />
+            </IconButton>
+          </Box>
+        </Stack>
+      </Box>
 
       <Box
         sx={{
@@ -134,14 +212,7 @@ const PaidCourseSection = () => {
         }}
       >
         {/* Section Header */}
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          mb={theme.spacing(2)}
-          flexWrap="wrap"
-          gap={theme.spacing(2)}
-        >
+        <Box mb={theme.spacing(1)}>
           <Typography
             variant="h6"
             fontWeight={theme.typography.h6.fontWeight}
@@ -155,66 +226,6 @@ const PaidCourseSection = () => {
           >
             Basic Knowledge - Beginner - English
           </Typography>
-          <Stack direction="row" spacing={theme.spacing(2)} alignItems="center">
-            <Link
-              href="#"
-              underline="always"
-              fontWeight={theme.typography.h6.fontWeight}
-              color={theme.colors.gray[500]}
-              sx={{
-                fontSize: {
-                  xs: theme.typography.caption.fontSize,
-                  sm: theme.typography.subtitle1.fontSize,
-                },
-              }}
-            >
-              See All
-            </Link>
-
-            <Box sx={{ display: 'flex', gap: 1 }}>
-              <IconButton
-                size="small"
-                sx={{
-                  width: 32,
-                  height: 32,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: 'black 1px solid',
-                  borderRadius: '50%',
-                  '& webp': {
-                    fontSize: '16px',
-                  },
-                  '&:hover': {
-                    bgcolor: '#f3f4f6',
-                  },
-                }}
-              >
-                <ArrowBackIos />
-              </IconButton>
-
-              <IconButton
-                size="small"
-                sx={{
-                  width: 32,
-                  height: 32,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  border: 'black 1px solid',
-                  borderRadius: '50%',
-                  '& webp': {
-                    fontSize: '16px',
-                  },
-                  '&:hover': {
-                    bgcolor: '#f3f4f6',
-                  },
-                }}
-              >
-                <ArrowForwardIos />
-              </IconButton>
-            </Box>
-          </Stack>
         </Box>
 
         {/* Course Cards (Horizontal Scroll) */}
@@ -248,7 +259,7 @@ const PaidCourseSection = () => {
                 style={{
                   width: '100%',
                   height: '100%',
-                  objectFit: 'fill',
+                  objectFit: 'cover',
                 }}
               />
             </Box>

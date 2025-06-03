@@ -26,7 +26,7 @@ const TestimonialsSection = () => {
       role: 'Options Trader',
       location: 'Mumbai',
       quote:
-        'After 3 months of trading, I was able to consistently apply the options strategies I learned. My monthly returns improved by 22%.',
+        'After 3 months of training, I was able to consistently apply the options strategies I learned. My monthly returns improved by 22% and I finally have a structured approach to my trading.',
       image: testimonial1Image,
       rating: '5',
     },
@@ -36,7 +36,7 @@ const TestimonialsSection = () => {
       role: 'Futures Trader',
       location: 'Delhi',
       quote:
-        'The risk management techniques I learned helped me survive the recent market volatility.',
+        'The risk management techniques I learned helped me survive the recent market volatility. My drawdowns are now limited to 5% while my profitable trades increased.',
       image: testimonial2Image,
       rating: '4',
     },
@@ -46,7 +46,7 @@ const TestimonialsSection = () => {
       role: 'Beginner Trader',
       location: 'Chennai',
       quote:
-        'The beginner course gave me the confidence to start trading with real money.',
+        'As someone completely new to trading, the beginner course gave me the confidence to start. The simulator helped me practice without losing real money.',
       image: testimonial3Image,
       rating: '5',
     },
@@ -100,11 +100,12 @@ const TestimonialsSection = () => {
       >
         {/* Main Testimonial */}
         <Paper
-          elevation={3}
+          elevation={2}
           sx={{
             flex: 2,
             width: '100%',
-            maxWidth: { md: '668px' },
+            // maxWidth: { md: '600px' },
+            flexGrow: 0.5,
             display: 'flex',
             flexDirection: 'column',
             borderRadius: theme.shape.borderRadius.large,
@@ -114,7 +115,7 @@ const TestimonialsSection = () => {
           <Box
             sx={{
               width: '100%',
-              height: { xs: 250, sm: 350 },
+              //   height: { xs: 250, sm: 350 },
               overflow: 'hidden',
             }}
           >
@@ -145,8 +146,8 @@ const TestimonialsSection = () => {
               src={mainTestimonialImg2}
               sx={{
                 borderRadius: '50%',
-                width: { xs: '100%', md: 70 },
-                height: { xs: 120, md: 'auto' },
+                width: 70,
+                height: 'auto',
               }}
             />
             <Box>
@@ -187,7 +188,6 @@ const TestimonialsSection = () => {
                   color: theme.palette.grey[600],
                   lineHeight: theme.typography.body1.lineHeight,
                   fontSize: theme.typography.h6.fontSize,
-                  fontStyle: 'italic',
                 }}
               >
                 "{mainTestimonial.quote}"
@@ -199,7 +199,7 @@ const TestimonialsSection = () => {
         {/* Side Testimonials */}
         <Box
           sx={{
-            flex: 1,
+            flex: 0.5,
             width: '100%',
             display: 'flex',
             flexDirection: 'column',
@@ -245,6 +245,7 @@ const TestimonialsSection = () => {
               <Box
                 sx={{
                   p: theme.spacing(1),
+                  px: theme.spacing(2),
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
@@ -254,13 +255,23 @@ const TestimonialsSection = () => {
                 <Typography
                   variant="body2"
                   component="span"
-                  sx={{
-                    fontSize: '0.85rem',
-                    color: theme.colors.yellow.main,
-                  }}
+                  sx={{ fontSize: '0.85rem' }}
                 >
-                  {'★'.repeat(Math.floor(testimonial.rating))}
+                  {[...Array(5)].map((_, index) => (
+                    <span
+                      key={index}
+                      style={{
+                        color:
+                          index < Math.floor(testimonial.rating)
+                            ? theme.colors.yellow.main
+                            : '#ccc',
+                      }}
+                    >
+                      ★
+                    </span>
+                  ))}
                 </Typography>
+
                 <Typography
                   variant="h6"
                   component="h4"
@@ -288,7 +299,6 @@ const TestimonialsSection = () => {
                     color: theme.palette.grey[600],
                     lineHeight: theme.typography.body2.lineHeight,
                     fontSize: theme.typography.body2.fontSize,
-                    fontStyle: 'italic',
                   }}
                 >
                   "{testimonial.quote}"

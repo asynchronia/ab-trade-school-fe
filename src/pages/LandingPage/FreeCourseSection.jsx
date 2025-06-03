@@ -57,19 +57,11 @@ const FreeCoursesSection = () => {
           sx={{
             fontSize: theme.typography.h3.fontSize,
             color: '',
-            mb: theme.spacing(1),
+            mb: theme.spacing(0.5),
+            fontWeight: theme.typography.fontWeightBold,
           }}
         >
-          Get Started with{' '}
-          <Box
-            component="span"
-            sx={{
-              color: '',
-              //   fontWeight: theme.typography.fontWeightBold,
-            }}
-          >
-            Free Expert Courses
-          </Box>
+          Get Started with Free Expert Courses
         </Typography>
         <Typography
           sx={{
