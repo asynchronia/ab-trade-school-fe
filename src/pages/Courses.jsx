@@ -13,10 +13,10 @@ import marketImg1 from '../assets/marketImg1.jpg';
 import marketImg2 from '../assets/marketImg2.jpg';
 import marketImg3 from '../assets/marketImg3.jpg';
 import Button from '../components/Button/Button';
+import ButtonTabs from '../components/ButtonTabs/ButtonTabs';
 import Navbar from '../components/Navbar/Navbar';
 import SearchBar from '../components/Searchbar/Searchbar';
 import SidebarFilters from '../components/SidebarFilters/SidebarFilters';
-import CourseTabs from '../components/Tabs/Tabs';
 import theme from '../utils/theme';
 
 const dummyCourses = [
@@ -125,6 +125,7 @@ const CoursesPage = () => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
+  const [selectedTab, setSelectedTab] = useState(tabData[0]);
 
   const handleToggleMobileSidebar = () => {
     setShowMobileSidebar(!showMobileSidebar);
@@ -262,7 +263,11 @@ const CoursesPage = () => {
               }}
             >
               <Box sx={{ order: { xs: 1, md: 1 } }}>
-                <CourseTabs tabs={tabData} />
+                <ButtonTabs
+                  tabs={tabData}
+                  selectedTab={selectedTab}
+                  onSelect={setSelectedTab}
+                />
               </Box>
               <Box
                 sx={{
@@ -313,7 +318,7 @@ const CoursesPage = () => {
                       height={isSmallScreen ? '140' : '160'}
                       image={course.image}
                       alt={course.title}
-                      sx={{ objectFit: 'cover' }}
+                      sx={{ objectFit: 'fill' }}
                     />
                     <CardContent
                       sx={{

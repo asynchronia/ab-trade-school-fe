@@ -60,9 +60,8 @@ const SignupPage = () => {
       });
 
       if (response?.success && response?.payload?.data) {
-        localStorage.setItem('user', JSON.stringify(response.payload.user));
         enqueueSnackbar(response?.message, { variant: 'success' });
-        navigate('/');
+        navigate('/login');
       } else {
         enqueueSnackbar(response?.message || 'Login failed', {
           variant: 'error',

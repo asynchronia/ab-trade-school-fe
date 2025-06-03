@@ -1,20 +1,20 @@
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   width: 100%;
-  max-width: 1300px;
-  margin: 0 auto;
+  background-color: white;
   border-bottom: 1px solid #e5e7eb;
 }
 
 .navbar-header {
   display: flex;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
   justify-content: space-between;
   padding: 10px 0;
-  background-color: white;
-  //   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
 
   @media (max-width: 1300px) {
     padding: 10px 20px;
@@ -100,7 +100,6 @@
           .dropdown-item-new {
             font-size: 16px;
             color: #4b5563;
-            // padding: 8px 0;
             cursor: pointer;
             transition: color 0.2s ease;
             line-height: 1.4;
@@ -118,7 +117,7 @@
           justify-content: center;
 
           .filter-button-new {
-            background: #1E40AF;
+            background: #1e40af;
             color: white;
             border: none;
             padding: 12px 48px;
@@ -132,18 +131,6 @@
             &:hover {
               background: #0f2a76;
             }
-          }
-        }
-      }
-
-      .nav-item {
-        position: relative;
-
-        &.has-dropdown {
-          .nav-button {
-            display: flex;
-            align-items: center;
-            gap: 4px;
           }
         }
       }
