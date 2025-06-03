@@ -13,12 +13,48 @@ import theme from '../../utils/theme';
 const HeroSection = () => {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
   const heroImages = [heroImg1, heroImg2, heroImg3, heroImg4];
 
   const statsItem = [
     { number: '20+', label: 'Modules' },
     { number: '1M+', label: 'Learners' },
     { number: '0', span: '(Free)', label: 'Course Fee' },
+  ];
+
+  const descriptions = [
+    {
+      text: 'Start your trading journey with',
+      highlight1: '20+ structured modules',
+      middleText: 'covering real strategies and tools. All courses are',
+      highlight2: '100% free',
+      endText: 'and designed for both beginners and experienced traders.',
+    },
+    {
+      text: 'Get access to',
+      highlight1: 'high-quality recorded videos',
+      middleText:
+        'tailored for each course. Learn anytime, anywhere and earn a',
+      highlight2: 'free certificate',
+      endText: 'after every course completion.',
+    },
+    {
+      text: 'Attend',
+      highlight1: 'expert-led webinars',
+      middleText: 'Both live online and at select venues.',
+      highlight2:
+        'Stay connected with market insights, strategies, and real-time Q&A sessions',
+      endText: 'from industry experts.',
+    },
+    {
+      text: 'Join',
+      highlight1: '1M+ learners',
+      middleText:
+        'who trust us for practical, flexible and certified trading education.',
+      highlight2: 'Learn live,',
+      endText: 'on-demand or in person, all without spending a rupee.',
+    },
   ];
 
   useEffect(() => {
@@ -28,6 +64,21 @@ const HeroSection = () => {
 
     return () => clearInterval(interval);
   }, [heroImages.length]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsVisible(false);
+
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % descriptions.length);
+        setIsVisible(true);
+      }, 1000);
+    }, 3200);
+
+    return () => clearInterval(interval);
+  }, [descriptions.length]);
+
+  const currentDescription = descriptions[currentIndex];
 
   return (
     <Box
@@ -163,17 +214,20 @@ const HeroSection = () => {
                 md: 'left',
               },
               lineHeight: 1.6,
+              minHeight: '3.5rem',
+              opacity: isVisible ? 1 : 0,
+              transition: 'opacity 1s ease-in-out',
             }}
           >
-            Start your trading journey with{' '}
+            {currentDescription.text}{' '}
             <Box component="span" sx={{ color: theme.colors.secondary.main }}>
-              20+ structured modules
+              {currentDescription.highlight1}
             </Box>{' '}
-            covering real strategies and tools. All courses are{' '}
+            {currentDescription.middleText}{' '}
             <Box component="span" sx={{ color: theme.colors.secondary.main }}>
-              100% free
+              {currentDescription.highlight2}
             </Box>{' '}
-            and designed for both beginners and experienced traders.
+            {currentDescription.endText}
           </Typography>
 
           <Stack
