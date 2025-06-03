@@ -1,4 +1,4 @@
-import CallMadeIcon from '@mui/icons-material/CallMade';
+import { CallReceived } from '@mui/icons-material';
 import {
     Accordion,
     AccordionDetails,
@@ -79,15 +79,16 @@ const FAQSection = () => {
           key={index}
           sx={{
             mb: theme.spacing(2),
-            p: theme.spacing(1),
+            p: theme.spacing(2),
             borderRadius: theme.shape.borderRadius.medium,
+            bgcolor: 'rgba(0, 0, 0, 0.050)', 
             '&:before': {
               display: 'none',
             },
           }}
         >
           <AccordionSummary
-            expandIcon={<CallMadeIcon />}
+            expandIcon={<CallReceived color={theme.colors.blue.secondary} />}
             sx={{
               '& .MuiAccordionSummary-content': {
                 alignItems: 'center',

@@ -17,6 +17,7 @@ import {
     useMediaQuery,
     useTheme,
 } from '@mui/material';
+import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import abLogo from '../../assets/ab-logo.svg';
@@ -34,7 +35,9 @@ const Navbar = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const user = localStorage.getItem('user');
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  console.log(user);
 
   const navItems = [
     {
@@ -71,6 +74,15 @@ const Navbar = () => {
       //   navigate(`/${itemId}`);
       setIsDrawerOpen(false);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setIsDrawerOpen(false);
+    navigate('/');
+    enqueueSnackbar('Logged out successfully', {
+      variant: 'info',
+    });
   };
 
   const renderDrawerContent = () => (
@@ -236,7 +248,6 @@ const Navbar = () => {
                       title="Filter Now"
                       variant="contained"
                       onClick={() => {
-                        // Add filter logic here
                         setIsDrawerOpen(false);
                       }}
                       style={{ width: '100%' }}
@@ -293,9 +304,34 @@ const Navbar = () => {
             <ListItem
               button
               onClick={() => {
-                // Add logout logic here
+                navigate('/profile');
                 setIsDrawerOpen(false);
               }}
+              sx={{
+                pl: 0,
+                '&:hover': {
+                  backgroundColor: '#f3f4f6',
+                  '& .MuiListItemText-primary': {
+                    color: '#2563eb',
+                  },
+                },
+              }}
+            >
+              <img
+                src={avatar}
+                alt="avatar"
+                style={{
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '50%',
+                  marginRight: '8px',
+                }}
+              />
+              {user?.name}
+            </ListItem>
+            <ListItem
+              button
+              onClick={handleLogout}
               sx={{
                 pl: 0,
                 '&:hover': {
@@ -445,8 +481,8 @@ const Navbar = () => {
                   />
                   {isProfileMenuOpen && (
                     <div className="profile-menu">
-                      <div className="profile-item">User name: John Doe</div>
-                      <div className="profile-item">
+                      <div className="profile-item">{user?.name}</div>
+                      <div className="profile-item" onClick={handleLogout}>
                         <Logout /> Logout
                       </div>
                     </div>

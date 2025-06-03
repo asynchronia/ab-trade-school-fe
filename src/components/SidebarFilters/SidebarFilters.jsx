@@ -37,10 +37,9 @@ const SidebarFilters = ({ sections = [] }) => {
   return (
     <Box
       sx={{
-        width: 250,
+        width: '100%',
         p: 2,
-        borderRight: '1px solid #e0e0e0',
-        height: '100vh',
+        height: '100%',
         overflowY: 'auto',
         bgcolor: '#fff',
       }}

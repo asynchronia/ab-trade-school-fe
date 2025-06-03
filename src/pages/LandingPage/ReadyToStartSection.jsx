@@ -19,11 +19,10 @@ const ReadyToStartSection = () => {
         backgroundBlendMode: 'overlay',
         minHeight: {
           xs: '500px',
-          md: '600px',
         },
         py: {
-          xs: theme.spacing(6),
-          md: theme.spacing(8),
+          xs: theme.spacing(4),
+          md: theme.spacing(6),
         },
         px: {
           xs: theme.spacing(2),
@@ -197,13 +196,13 @@ const ReadyToStartSection = () => {
                 height: 'auto',
                 display: 'block',
                 filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.15))',
-                animation: 'float 6s ease-in-out infinite',
+                animation: 'float 3s ease-in-out infinite',
                 '@keyframes float': {
                   '0%, 100%': {
                     transform: 'translateY(0px)',
                   },
                   '50%': {
-                    transform: 'translateY(-10px)',
+                    transform: 'translateY(-15px)',
                   },
                 },
               }}

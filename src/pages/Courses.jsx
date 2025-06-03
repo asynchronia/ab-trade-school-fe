@@ -1,11 +1,23 @@
-import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import marketImg1 from '../assets/marketImg1.webp';
-import marketImg2 from '../assets/marketImg2.webp';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import {
+    Box,
+    Card,
+    CardContent,
+    CardMedia,
+    Fab,
+    Typography,
+    useMediaQuery,
+} from '@mui/material';
+import { useState } from 'react';
+import marketImg1 from '../assets/marketImg1.jpg';
+import marketImg2 from '../assets/marketImg2.jpg';
+import marketImg3 from '../assets/marketImg3.jpg';
 import Button from '../components/Button/Button';
 import Navbar from '../components/Navbar/Navbar';
 import SearchBar from '../components/Searchbar/Searchbar';
 import SidebarFilters from '../components/SidebarFilters/SidebarFilters';
 import CourseTabs from '../components/Tabs/Tabs';
+import theme from '../utils/theme';
 
 const dummyCourses = [
   {
@@ -27,28 +39,7 @@ const dummyCourses = [
     instructor: 'Mr. Anish Kumar',
     duration: '4 Hours',
     modules: 4,
-    image: marketImg1,
-  },
-  {
-    title: '1ly options Hedging Tool Overview In Tamil',
-    instructor: 'Mr. Anish Kumar',
-    duration: '4 Hours',
-    modules: 4,
-    image: marketImg2,
-  },
-  {
-    title: 'Navigating Option Hedging',
-    instructor: 'Mr. Rupesh',
-    duration: '4 Hours',
-    modules: 4,
-    image: marketImg1,
-  },
-  {
-    title: 'ANT web trading view',
-    instructor: 'Mr. Anish Kumar',
-    duration: '4 Hours',
-    modules: 4,
-    image: marketImg2,
+    image: marketImg3,
   },
   {
     title: '1ly options Hedging Tool Overview In Tamil',
@@ -69,7 +60,28 @@ const dummyCourses = [
     instructor: 'Mr. Anish Kumar',
     duration: '4 Hours',
     modules: 4,
+    image: marketImg3,
+  },
+  {
+    title: '1ly options Hedging Tool Overview In Tamil',
+    instructor: 'Mr. Anish Kumar',
+    duration: '4 Hours',
+    modules: 4,
     image: marketImg1,
+  },
+  {
+    title: 'Navigating Option Hedging',
+    instructor: 'Mr. Rupesh',
+    duration: '4 Hours',
+    modules: 4,
+    image: marketImg2,
+  },
+  {
+    title: 'ANT web trading view',
+    instructor: 'Mr. Anish Kumar',
+    duration: '4 Hours',
+    modules: 4,
+    image: marketImg3,
   },
 ];
 
@@ -108,92 +120,266 @@ const filters = [
 ];
 
 const CoursesPage = () => {
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
+  const isMediumScreen = useMediaQuery(theme.breakpoints.up('md'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
+
+  const handleToggleMobileSidebar = () => {
+    setShowMobileSidebar(!showMobileSidebar);
+  };
+
+  const getCardColumns = () => {
+    if (isSmallScreen) return 1;
+    if (isMediumScreen && !isLargeScreen) return 2;
+    return 3;
+  };
+
+  const getCardMaxWidth = () => {
+    const columns = getCardColumns();
+    if (columns === 1) return '100%';
+    if (columns === 2) return 'calc(50% - 20px)';
+    return 'calc(33.333% - 27px)';
+  };
+
   return (
     <>
       <Navbar />
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', position: 'relative' }}>
+        {/* Desktop Sidebar */}
+        {isLargeScreen && (
+          <Box
+            sx={{
+              position: 'fixed',
+              top: { xs: 60, sm: 70, lg: 80 },
+              left: 0,
+              bottom: 0,
+              width: { lg: 250, xl: 280 },
+              zIndex: 1,
+              bgcolor: '#fff',
+              borderRight: '1px solid #e0e0e0',
+              overflowY: 'auto',
+            }}
+          >
+            <SidebarFilters sections={filters} />
+          </Box>
+        )}
+
+        {/* Mobile Sidebar */}
+        {!isLargeScreen && showMobileSidebar && (
+          <Box
+            sx={{
+              position: 'fixed',
+              top: { xs: 0 },
+              left: 0,
+              bottom: 0,
+              width: { xs: 280, sm: 320 },
+              zIndex: 1000,
+              bgcolor: '#fff',
+              borderRight: '1px solid #e0e0e0',
+              overflowY: 'auto',
+              boxShadow: '2px 0 8px rgba(0,0,0,0.1)',
+            }}
+          >
+            <SidebarFilters sections={filters} />
+          </Box>
+        )}
+
+        {/* Backdrop for mobile sidebar */}
+        {!isLargeScreen && showMobileSidebar && (
+          <Box
+            sx={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              bgcolor: 'rgba(0, 0, 0, 0.5)',
+              zIndex: 999,
+            }}
+            onClick={handleToggleMobileSidebar}
+          />
+        )}
+
+        {/* Main Content */}
         <Box
           sx={{
-            position: 'fixed',
-            top: 80,
-            left: 0,
-            bottom: 0,
-            width: 250,
-            zIndex: 1,
-            bgcolor: '#fff',
-            borderRight: '1px solid #e0e0e0',
+            flexGrow: 1,
+            pl: { xs: 0, lg: '250px', xl: '280px' },
+            pr: { xs: 0, md: 2, lg: 4, xl: 6 },
+            minHeight: '100vh',
           }}
         >
-          <SidebarFilters sections={filters} />
-        </Box>
-        <Box sx={{ flexGrow: 1, pl: '250px', pr: '100px' }}>
-          <Box p={2}>
-            <Typography variant="h4" fontWeight="semibold" gutterBottom>
-              Courses
-            </Typography>
+          <Box
+            sx={{
+              p: { xs: 1, sm: 2, lg: 3 },
+              pt: { xs: 2, sm: 3, lg: 2 },
+            }}
+          >
+            {/* Header */}
+            <Box sx={{ mb: { xs: 2, sm: 3 } }}>
+              <Typography
+                variant={isSmallScreen ? 'h5' : 'h4'}
+                fontWeight="semibold"
+                gutterBottom
+                sx={{
+                  fontSize: { xs: '20px', sm: '24px', lg: '28px' },
+                  mb: { xs: 1, sm: 2 },
+                }}
+              >
+                Courses
+              </Typography>
 
+              {/* Mobile Filter Button */}
+              {!isLargeScreen && (
+                <Fab
+                  size="small"
+                  color="primary"
+                  onClick={handleToggleMobileSidebar}
+                  sx={{
+                    position: 'fixed',
+                    bottom: { xs: 20, sm: 30 },
+                    right: { xs: 20, sm: 30 },
+                    zIndex: 1000,
+                    display: { lg: 'none' },
+                  }}
+                >
+                  <FilterListIcon />
+                </Fab>
+              )}
+            </Box>
+
+            {/* Tabs and Search */}
             <Box
               sx={{
                 display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
                 justifyContent: 'space-between',
-                alignItems: 'start',
-                mb: 2,
+                alignItems: { xs: 'stretch', md: 'flex-start' },
+                gap: { xs: 2, md: 0 },
+                mb: { xs: 2, sm: 3 },
               }}
             >
-              <CourseTabs tabs={tabData} />
-              <SearchBar />
+              <Box sx={{ order: { xs: 1, md: 1 } }}>
+                <CourseTabs tabs={tabData} />
+              </Box>
+              <Box
+                sx={{
+                  order: { xs: 2, md: 2 },
+                  width: { xs: '100%', md: 'auto' },
+                  maxWidth: { md: '300px', lg: '350px' },
+                }}
+              >
+                <SearchBar />
+              </Box>
             </Box>
 
+            {/* Course Grid */}
             <Box
               sx={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: 5, 
-                justifyContent: 'flex-start',
+                gap: { xs: 2, sm: 3, lg: 4 },
+                justifyContent: 'start',
+                alignItems: 'stretch',
               }}
             >
               {dummyCourses.map((course, index) => (
                 <Box
                   key={index}
                   sx={{
-                    flex: '1 1 250px', 
-                    maxWidth: '430px',
+                    flex: `1 1 ${getCardMaxWidth()}`,
+                    maxWidth: getCardMaxWidth(),
+                    minWidth: { xs: '280px', sm: '300px', lg: '320px' },
                     width: '100%',
                   }}
                 >
                   <Card
-                    elevation={3}
+                    elevation={2}
                     sx={{
                       height: '100%',
                       display: 'flex',
                       flexDirection: 'column',
+                      transition: 'all 0.2s ease-in-out',
+                      '&:hover': {
+                        elevation: 4,
+                        transform: 'translateY(-2px)',
+                      },
                     }}
                   >
                     <CardMedia
                       component="img"
-                      height="160"
+                      height={isSmallScreen ? '140' : '160'}
                       image={course.image}
                       alt={course.title}
                       sx={{ objectFit: 'cover' }}
                     />
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography variant="body1" gutterBottom noWrap>
+                    <CardContent
+                      sx={{
+                        flexGrow: 1,
+                        p: { xs: 1.5, sm: 2 },
+                        '&:last-child': { pb: { xs: 1.5, sm: 2 } },
+                      }}
+                    >
+                      <Typography
+                        variant="body1"
+                        gutterBottom
+                        sx={{
+                          fontSize: { xs: '14px', sm: '16px' },
+                          fontWeight: 500,
+                          lineHeight: 1.4,
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                          minHeight: { xs: '36px', sm: '44px' },
+                        }}
+                      >
                         {course.title}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary" noWrap>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{
+                          fontSize: { xs: '12px', sm: '14px' },
+                          mb: 1,
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
                         {course.instructor}
                       </Typography>
-                      <Typography variant="body2" sx={{ my: 1 }} noWrap>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          fontSize: { xs: '12px', sm: '14px' },
+                          color: 'text.secondary',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                      >
                         {course.duration} • {course.modules} Modules
                       </Typography>
                     </CardContent>
-                    <Box sx={{ p: 2, pt: 0 }}>
+                    <Box
+                      sx={{
+                        p: { xs: 1.5, sm: 2 },
+                        pt: 0,
+                      }}
+                    >
                       <Button
                         variant="contained"
                         color="primary"
                         fullWidth
-                        size="small"
+                        size={isSmallScreen ? 'small' : 'medium'}
                         title={'Learn more'}
+                        sx={{
+                          fontSize: { xs: '12px', sm: '14px' },
+                          py: { xs: 0.5, sm: 1 },
+                        }}
                       />
                     </Box>
                   </Card>

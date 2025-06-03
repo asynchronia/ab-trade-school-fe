@@ -1,5 +1,4 @@
 import {
-    Alert,
     Box,
     Button,
     Container,
@@ -49,18 +48,26 @@ const LoginPage = () => {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
     try {
       const response = await loginReq({
         email: values?.email,
         password: values?.password,
       });
-      localStorage.setItem('user', response?.payload?.user)
-      enqueueSnackbar('User logged in successfully', { variant: 'success' });
-      navigate('/');
+
+      if (response?.success && response?.payload?.user) {
+        localStorage.setItem('user', JSON.stringify(response.payload.user));
+        enqueueSnackbar('User logged in successfully', { variant: 'success' });
+        navigate('/courses');
+      } else {
+        enqueueSnackbar(response?.message || 'Login failed', {
+          variant: 'error',
+        });
+      }
     } catch (error) {
       console.log(error);
-      enqueueSnackbar(error?.message, { variant: 'error' });
+      enqueueSnackbar(error?.message || 'Something went wrong', {
+        variant: 'error',
+      });
     }
   };
 

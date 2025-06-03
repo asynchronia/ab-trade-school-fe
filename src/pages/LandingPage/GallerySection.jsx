@@ -1,10 +1,12 @@
 import { LocationOn } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
+import { useState } from 'react';
 import galleryImage1 from '../../assets/galleryImage1.webp';
 import galleryImage2 from '../../assets/galleryImage2.webp';
 import galleryImage3 from '../../assets/galleryImage3.webp';
 import galleryImage4 from '../../assets/galleryImage4.webp';
 import galleryImage5 from '../../assets/galleryImage5.webp';
+import ButtonTabs from '../../components/ButtonTabs/ButtonTabs';
 import theme from '../../utils/theme';
 
 const CommunitySection = () => {
@@ -51,6 +53,16 @@ const CommunitySection = () => {
     },
   ];
 
+  const tabLabels = [
+    'Meet Ups',
+    'Recreational Brunches',
+    'Townhalls',
+    'Convocations',
+    'Offline Masterclasses',
+  ];
+
+  const [selectedTab, setSelectedTab] = useState(tabLabels[0]);
+
   return (
     <Box
       sx={{
@@ -87,6 +99,21 @@ const CommunitySection = () => {
         mentors and attend community sessions to learn from each other in our
         curated community.
       </Typography>
+
+      {/* Tab Navigation */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'left',
+          mb: theme.spacing(4),
+        }}
+      >
+        <ButtonTabs
+          tabs={tabLabels}
+          selectedTab={selectedTab}
+          onSelect={setSelectedTab}
+        />
+      </Box>
 
       {/* Grid Container */}
       <Box
@@ -184,10 +211,7 @@ const CommunitySection = () => {
                 position: 'relative',
                 borderRadius: theme.shape.borderRadius?.medium || 2,
                 overflow: 'hidden',
-                minHeight: {
-                  xs: 200,
-                  md: 'auto',
-                },
+                minHeight: { xs: 200, md: 'auto' },
                 '&::before': {
                   content: '""',
                   position: 'absolute',
@@ -195,8 +219,7 @@ const CommunitySection = () => {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background:
-                    'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%)',
+                  background: 'rgba(0, 0, 0, 0.5)',
                   zIndex: 1,
                 },
               }}
@@ -208,6 +231,7 @@ const CommunitySection = () => {
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
+                  opacity: 1,
                 }}
               />
               <Box
