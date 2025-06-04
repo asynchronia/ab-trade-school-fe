@@ -81,7 +81,7 @@ const FAQSection = () => {
             mb: theme.spacing(2),
             p: theme.spacing(2),
             borderRadius: theme.shape.borderRadius.medium,
-            bgcolor: 'rgba(0, 0, 0, 0.050)', 
+            bgcolor: '#3372BE0D', 
             '&:before': {
               display: 'none',
             },

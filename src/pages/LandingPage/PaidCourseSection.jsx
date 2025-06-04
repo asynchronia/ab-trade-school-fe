@@ -208,7 +208,6 @@ const PaidCourseSection = () => {
         sx={{
           maxWidth: '1300px',
           mx: 'auto',
-          px: theme.spacing(2),
         }}
       >
         {/* Section Header */}

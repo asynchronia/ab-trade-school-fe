@@ -1,5 +1,5 @@
 .dropdown {
-  width: 160px;
+  min-width: 160px;
   background-color: #fff;
   border: 1px solid #1E40AF;
   border-radius: 12px;
@@ -29,7 +29,7 @@
     position: absolute;
     top: 100%;
     left: -1px;
-    width: 160px;
+    min-width: 160px;
     max-height: 260px;
     overflow-y: auto;
     background: white;
