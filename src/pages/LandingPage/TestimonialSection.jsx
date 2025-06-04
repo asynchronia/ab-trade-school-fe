@@ -13,7 +13,7 @@ const TestimonialsSection = () => {
     role: 'Algo Trader',
     location: 'Bangalore',
     quote:
-      'The algo trading course transformed my approach to markets. I now have 3 automation strategies running that have been profitable for the last 6 months.',
+      'The algo trading course transformed my approach to markets. I now have 3 automated strategies running that have been profitable for the last 6 months.',
     image: mainTestimonialImage,
     profileImg: mainTestimonialImg2,
     rating: '5',
@@ -188,6 +188,7 @@ const TestimonialsSection = () => {
                   color: theme.palette.grey[600],
                   lineHeight: theme.typography.body1.lineHeight,
                   fontSize: theme.typography.h6.fontSize,
+                  fontWeight: '400',
                 }}
               >
                 "{mainTestimonial.quote}"
@@ -299,6 +300,7 @@ const TestimonialsSection = () => {
                     color: theme.palette.grey[600],
                     lineHeight: theme.typography.body2.lineHeight,
                     fontSize: theme.typography.body2.fontSize,
+                    fontWeight: theme.typography.fontWeightRegular,
                   }}
                 >
                   "{testimonial.quote}"

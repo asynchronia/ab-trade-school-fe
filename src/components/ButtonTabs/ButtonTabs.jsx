@@ -3,7 +3,13 @@ import React from 'react';
 
 const ButtonTabs = ({ tabs = [], selectedTab, onSelect }) => {
   return (
-    <Box sx={{ display: 'flex', gap: 2 }}>
+    <Box
+      sx={{
+        display: 'flex',
+        gap: 2,
+        flexDirection: { xs: 'column', sm: 'row' },
+      }}
+    >
       {tabs.map((tab) => (
         <Button
           key={tab}
