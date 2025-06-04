@@ -1,4 +1,5 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import CodeVerification from './pages/CodeVerification';
 import CoursesPage from './pages/Courses';
 import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/LoginPage';
@@ -17,6 +18,8 @@ function App() {
         <Route path={routes.courses} element={<CoursesPage />} />
         <Route path={routes.webinars} element={<WebinarPage />} />
         <Route path={routes.viewCourse} element={<ViewCoursePage />} />
+        <Route path={routes.signupOtp} element={<CodeVerification />} />
+        <Route path={routes.loginOtp} element={<CodeVerification />} />
       </Routes>
     </Router>
   );
