@@ -52,14 +52,17 @@ const FAQSection = () => {
     <Container
       maxWidth="md"
       sx={{
-        mt: theme.spacing(15),
-        mb: theme.spacing(8),
+        py: theme.spacing(6),
       }}
     >
       <Typography
         variant="h5"
         fontWeight={theme.typography.fontWeightBold}
         align="center"
+        fontSize={{
+          xs: '1.6rem',
+          sm: '32px',
+        }}
         gutterBottom
       >
         Frequently Asked Questions (FAQs)
@@ -81,7 +84,7 @@ const FAQSection = () => {
             mb: theme.spacing(2),
             p: theme.spacing(2),
             borderRadius: theme.shape.borderRadius.medium,
-            bgcolor: '#3372BE0D', 
+            bgcolor: '#3372BE0D',
             '&:before': {
               display: 'none',
             },

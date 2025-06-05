@@ -57,10 +57,7 @@ const InstructorSection = () => {
     <Box
       component="section"
       sx={{
-        py: {
-          xs: theme.spacing(5),
-          sm: theme.spacing(7.5),
-        },
+        py: theme.spacing(6),
         px: {
           xs: theme.spacing(2),
           sm: theme.spacing(4),
@@ -80,7 +77,7 @@ const InstructorSection = () => {
           sx={{
             fontSize: {
               xs: '1.6rem',
-              sm: theme.typography.h3.fontSize,
+              sm: '32px',
             },
             fontWeight: theme.typography.fontWeightBold,
             mb: theme.spacing(1.25),

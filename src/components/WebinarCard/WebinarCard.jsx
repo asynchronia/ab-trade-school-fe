@@ -74,7 +74,7 @@ const WebinarCard = ({ webinars }) => {
                 </Box>
               </Box>
               <Button variant="contained" className="reserve-button">
-                Reserve Your Seat
+                Reserve Your Seat Now
               </Button>
             </Box>
           </Box>
