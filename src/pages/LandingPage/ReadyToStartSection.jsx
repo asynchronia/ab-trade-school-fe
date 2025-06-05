@@ -45,6 +45,7 @@ const ReadyToStartSection = () => {
           //   spacing={theme.spacing(6)}
           alignItems="center"
           justifyContent={'center'}
+          gap={4}
           sx={{
             height: '100%',
             flexDirection: { xs: 'column', md: 'row' },
