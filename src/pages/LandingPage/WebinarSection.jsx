@@ -39,11 +39,7 @@ const WebinarSection = () => {
   return (
     <Box
       sx={{
-        py: {
-          xs: theme.spacing(4),
-          sm: theme.spacing(6),
-          md: theme.spacing(8),
-        },
+        py: theme.spacing(6),
         px: {
           xs: theme.spacing(2),
           sm: theme.spacing(4),
@@ -72,9 +68,11 @@ const WebinarSection = () => {
                   fontWeight: theme.typography.fontWeightBold,
                   mb: {
                     xs: theme.spacing(2),
-                    sm: theme.spacing(3),
                   },
-                  fontSize: theme.typography.h3.fontSize,
+                  fontSize: {
+                    xs: '1.6rem',
+                    sm: '32px',
+                  },
                   lineHeight: {
                     xs: 1.2,
                     sm: 1.1,

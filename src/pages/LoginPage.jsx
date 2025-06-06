@@ -100,7 +100,7 @@ const LoginPage = () => {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
-              <Grid
+              <Box
                 container
                 sx={{
                   display: 'flex',
@@ -108,10 +108,7 @@ const LoginPage = () => {
                 }}
               >
                 {/* Left Side - Image and Info */}
-                <Grid
-                  item
-                  xs={12}
-                  md={6}
+                <Box
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -148,13 +145,10 @@ const LoginPage = () => {
                       and market insights. No fees. Just knowledge.
                     </Typography>
                   </Paper>
-                </Grid>
+                </Box>
 
                 {/* Right Side - Form */}
-                <Grid
-                  item
-                  xs={12}
-                  md={6}
+                <Box
                   sx={{
                     p: 4,
                     borderLeft: isMobile ? 'none' : '1px dashed #ccc',
@@ -231,8 +225,8 @@ const LoginPage = () => {
                       </Button>
                     </Box>
                   </Box>
-                </Grid>
-              </Grid>
+                </Box>
+              </Box>
             </form>
           )}
         </Formik>
@@ -320,7 +314,13 @@ const LoginPage = () => {
           <Grid
             container
             spacing={2}
-            sx={{ display: 'flex', justifyContent: 'space-between' }}
+            sx={{
+              justifyContent: 'space-between',
+              display: 'flex',
+              gap: 2,
+              flexDirection: { xs: 'column', lg: 'row' },
+              alignItems: { xs: 'center', lg: 'flex-start' },
+            }}
           >
             <Grid
               item
@@ -429,12 +429,10 @@ const LoginPage = () => {
               xs={12}
               md={6}
               sx={{
-                textAlign: 'center',
                 mt: isMobile ? 4 : 0,
                 display: 'flex',
-                flex: 1,
-                alignItems: isMobile ? 'center' : 'start',
                 flexDirection: isMobile ? 'column' : 'row',
+                alignItems: { xs: 'center', md: 'start' },
                 justifyContent: 'center',
                 gap: isMobile ? 5 : 10,
               }}

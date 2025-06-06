@@ -69,7 +69,7 @@ const CommunitySection = () => {
         maxWidth: 1200,
         mx: 'auto',
         textAlign: 'center',
-        mt: theme.spacing(6),
+        py: theme.spacing(6),
         px: {
           xs: theme.spacing(2),
           sm: theme.spacing(3),

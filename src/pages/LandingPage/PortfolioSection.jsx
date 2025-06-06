@@ -64,7 +64,9 @@ const PortfolioSection = () => {
     <Box
       sx={{
         position: 'relative',
-        py: theme.spacing(8),
+        py: {
+          xs: theme.spacing(6),
+        },
         px: {
           lg: '100px',
           xs: theme.spacing(2),
@@ -111,8 +113,12 @@ const PortfolioSection = () => {
             component="h2"
             sx={{
               fontWeight: theme.typography.fontWeightBold,
-              mb: theme.spacing(2),
+              mb: theme.spacing(1),
               color: 'white',
+              fontSize: {
+                xs: '1.6rem',
+                sm: '32px',
+              },
             }}
           >
             Real Results. Real Trading
