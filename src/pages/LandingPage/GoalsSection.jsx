@@ -88,8 +88,7 @@ const GoalsSection = () => {
             color: theme.colors.text.primary,
             fontSize: {
               xs: theme.typography.h4.fontSize,
-              sm: '2rem',
-              md: theme.typography.h3.fontSize,
+              sm: '32px'
             },
           }}
         >

@@ -13,6 +13,7 @@ import theme from '../../utils/theme';
 const HeroSection = () => {
   const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [animationState, setAnimationState] = useState('active');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const heroImages = [heroImg1, heroImg2, heroImg3, heroImg4];
@@ -20,7 +21,7 @@ const HeroSection = () => {
   const statsItem = [
     { number: '20+', label: 'Modules' },
     { number: '1M+', label: 'Learners' },
-    { number: '0', span: '(Free)', label: 'Course Fee' },
+    { number: '₹0', span: '(Free)', label: 'Course Fee' },
   ];
 
   const descriptions = [
@@ -59,8 +60,15 @@ const HeroSection = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
-    }, 3000);
+      setAnimationState('transitioning');
+
+      setTimeout(() => {
+        setCurrentImageIndex(
+          (prevIndex) => (prevIndex + 1) % heroImages.length
+        );
+        setAnimationState('active');
+      }, 2000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [heroImages.length]);
@@ -73,10 +81,26 @@ const HeroSection = () => {
         setCurrentIndex((prev) => (prev + 1) % descriptions.length);
         setIsVisible(true);
       }, 1000);
-    }, 3200);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [descriptions.length]);
+
+  const getImageClass = (index) => {
+    if (animationState === 'active') {
+      return index === currentImageIndex ? 'active' : '';
+    } else if (animationState === 'transitioning') {
+      const nextIndex = (currentImageIndex + 1) % heroImages.length;
+
+      if (index === currentImageIndex) {
+        return 'exiting';
+      } else if (index === nextIndex) {
+        return 'entering';
+      }
+      return '';
+    }
+    return '';
+  };
 
   const currentDescription = descriptions[currentIndex];
 
@@ -356,13 +380,7 @@ const HeroSection = () => {
                 component="img"
                 src={image}
                 alt={`Hero illustration ${index + 1}`}
-                className={`hero-image ${
-                  index === currentImageIndex
-                    ? 'active'
-                    : index === (currentImageIndex + 1) % heroImages.length
-                    ? 'next-up'
-                    : ''
-                }`}
+                className={`hero-image ${getImageClass(index)}`}
                 sx={{
                   width: '100%',
                   maxWidth: {
