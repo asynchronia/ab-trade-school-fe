@@ -5,6 +5,6 @@ export const routes = {
   courses: '/courses',
   webinars: '/webinars',
   viewCourse: '/courses/:courseId',
-  signupOtp: '/signup/otp-verification',
-  loginOtp: '/login/otp-verification',
+//   signupOtp: '/signup/otp-verification',
+//   loginOtp: '/login/otp-verification',
 };
