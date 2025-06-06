@@ -40,15 +40,14 @@ const FreeCoursesSection = () => {
     <Box
       component="section"
       sx={{
-        py: theme.spacing(4),
-        px: theme.spacing(2),
+        p: theme.spacing(2),
         maxWidth: 1200,
         mx: 'auto',
       }}
     >
       <Box
         sx={{
-          mb: theme.spacing(4),
+          mb: theme.spacing(2),
           textAlign: 'center',
         }}
       >

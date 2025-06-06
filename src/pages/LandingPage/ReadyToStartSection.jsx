@@ -17,9 +17,6 @@ const ReadyToStartSection = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundBlendMode: 'overlay',
-        minHeight: {
-          xs: '500px',
-        },
         py: {
           xs: theme.spacing(4),
           md: theme.spacing(6),
