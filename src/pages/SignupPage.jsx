@@ -22,11 +22,15 @@ import {
 import { Formik } from 'formik';
 import { enqueueSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
-import { crmSignup } from '../api';
 import signupImg from '../assets/signupImg.svg';
-import { signupReq } from '../service/auth.service';
+import {
+    // resendEmailOtpReq,
+    signupReq,
+    verifyEmailOtpReq,
+} from '../service/auth.service';
 
 // Import images
+import { useState } from 'react';
 import appStore from '../assets/appStore.svg';
 import com1 from '../assets/com-1.svg';
 import com2 from '../assets/com-2.svg';
@@ -34,11 +38,15 @@ import com3 from '../assets/com-3.svg';
 import com4 from '../assets/com-4.svg';
 import playStore from '../assets/playStore.svg';
 import qrCode from '../assets/qrCode.svg';
+import OTPVerification from '../components/OtpVerfication/OtpVerification.jsx';
+import { signupSchema } from '../validations/SignupValidation';
 
 const SignupPage = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [submittedEmail, setSubmittedEmail] = useState('');
 
   const initialValues = {
     name: '',
@@ -46,7 +54,33 @@ const SignupPage = () => {
     phone: '',
     password: '',
     confirmPassword: '',
+    otp: '',
   };
+
+  //   const handleResendEmailOTP = async (email) => {
+  //     if (!email) {
+  //       enqueueSnackbar('Email is required', { variant: 'error' });
+  //       return;
+  //     }
+
+  //     try {
+  //       const response = await resendEmailOtpReq(email);
+  //       if (response?.success) {
+  //         enqueueSnackbar(response?.message || 'OTP sent successfully', {
+  //           variant: 'success',
+  //         });
+  //       } else {
+  //         enqueueSnackbar(response?.message || 'Failed to resend OTP', {
+  //           variant: 'error',
+  //         });
+  //       }
+  //     } catch (error) {
+  //       console.error('Error resending email OTP:', error);
+  //       enqueueSnackbar(error?.message || 'Failed to resend OTP', {
+  //         variant: 'error',
+  //       });
+  //     }
+  //   };
 
   const handleSubmit = async (values) => {
     try {
@@ -58,21 +92,13 @@ const SignupPage = () => {
       });
 
       if (response?.success && response?.payload?.data) {
-        enqueueSnackbar(response?.message, { variant: 'success' });
-
-        const leadPayload = {
-          leadEmail: values?.email,
-          leadmobile: values?.phone,
-          name: values?.name,
-          leadName: 'TRADESCHOOL',
-          LeadState: '',
-        };
-
-        const leadResponse = await crmSignup(leadPayload);
-        console.log(leadResponse, 'CRM Signup Response');
-        navigate('/login');
+        enqueueSnackbar(response?.message || 'User Created successfully', {
+          variant: 'success',
+        });
+        setSubmittedEmail(values.email);
+        setIsFormSubmitted(true);
       } else {
-        enqueueSnackbar(response?.message || 'Login failed', {
+        enqueueSnackbar(response?.message || 'Signup failed', {
           variant: 'error',
         });
       }
@@ -84,12 +110,44 @@ const SignupPage = () => {
     }
   };
 
+  const handleEmailVerification = async (otp) => {
+    if (!submittedEmail) {
+      enqueueSnackbar('Email is required', { variant: 'error' });
+      return;
+    }
+
+    try {
+      const response = await verifyEmailOtpReq({
+        email: submittedEmail,
+        otp: otp,
+      });
+
+      if (response?.success) {
+        enqueueSnackbar(response?.message || 'OTP verified successfully', {
+          variant: 'success',
+        });
+        navigate('/login');
+      } else {
+        enqueueSnackbar(response?.message || 'Failed to verify OTP', {
+          variant: 'error',
+        });
+      }
+    } catch (error) {
+      console.error('Error verifying email OTP:', error);
+      enqueueSnackbar(error?.message || 'Failed to verify OTP', {
+        variant: 'error',
+      });
+    }
+  };
+
   return (
     <Box
       sx={{
         bgcolor: '#fff',
         py: 5,
         display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         flexDirection: 'column',
         minHeight: '100vh',
       }}
@@ -184,109 +242,130 @@ const SignupPage = () => {
                       </Link>
                     </Typography>
 
-                    <Box sx={{ mt: 3 }}>
-                      {/* Name Field */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Full Name"
-                        placeholder="Enter your name"
-                        variant="outlined"
-                        name="name"
-                        value={values.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.name && Boolean(errors.name)}
-                        helperText={touched.name && errors.name}
-                      />
-
-                      {/* Email Field */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Email"
-                        placeholder="Enter your email"
-                        variant="outlined"
-                        name="email"
-                        value={values.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.email && Boolean(errors.email)}
-                        helperText={touched.email && errors.email}
-                      />
-
-                      {/* Phone Field */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Phone Number"
-                        placeholder="1234567890"
-                        variant="outlined"
-                        name="phone"
-                        value={values.phone}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.phone && Boolean(errors.phone)}
-                        helperText={touched.phone && errors.phone}
-                      />
-
-                      {/* Password Field */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Password"
-                        placeholder="New password"
-                        variant="outlined"
-                        type="password"
-                        name="password"
-                        value={values.password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.password && Boolean(errors.password)}
-                        helperText={touched.password && errors.password}
-                      />
-
-                      {/* Confirm Password Field */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Confirm Password"
-                        placeholder="Confirm password"
-                        variant="outlined"
-                        type="password"
-                        name="confirmPassword"
-                        value={values.confirmPassword}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={
-                          touched.confirmPassword &&
-                          Boolean(errors.confirmPassword)
-                        }
-                        helperText={
-                          touched.confirmPassword && errors.confirmPassword
-                        }
-                      />
-
-                      <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        type="submit"
-                        disabled={isSubmitting}
-                        sx={{
-                          mt: 3,
-                          py: 1.5,
-                          borderRadius: 1,
-                          bgcolor: '#1a56db',
-                          '&:hover': {
-                            bgcolor: '#104bb9',
-                          },
+                    {isFormSubmitted ? (
+                      <OTPVerification
+                        otp={values.otp}
+                        onChange={(otp) => {
+                          handleChange({
+                            target: {
+                              name: 'otp',
+                              value: otp,
+                            },
+                          });
                         }}
-                      >
-                        {isSubmitting ? 'Processing...' : 'Continue'}
-                      </Button>
-                    </Box>
+                        onVerify={() => handleEmailVerification(values.otp)}
+                        // onResend={() => handleResendEmailOTP(submittedEmail)}
+                        message="Enter the 6-digit OTP sent to your email"
+                        verifyButtonText="Verify OTP"
+                        resendButtonText="Resend OTP"
+                        error={errors.otp && touched.otp ? errors.otp : ''}
+                        disabled={isSubmitting}
+                      />
+                    ) : (
+                      <Box sx={{ mt: 3 }}>
+                        {/* Name Field */}
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          label="Full Name"
+                          placeholder="Enter your name"
+                          variant="outlined"
+                          name="name"
+                          value={values.name}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.name && Boolean(errors.name)}
+                          helperText={touched.name && errors.name}
+                        />
+
+                        {/* Email Field */}
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          label="Email"
+                          placeholder="Enter your email"
+                          variant="outlined"
+                          name="email"
+                          value={values.email}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.email && Boolean(errors.email)}
+                          helperText={touched.email && errors.email}
+                        />
+
+                        {/* Phone Field */}
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          label="Phone Number"
+                          placeholder="1234567890"
+                          variant="outlined"
+                          name="phone"
+                          value={values.phone}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.phone && Boolean(errors.phone)}
+                          helperText={touched.phone && errors.phone}
+                        />
+
+                        {/* Password Field */}
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          label="Password"
+                          placeholder="New password"
+                          variant="outlined"
+                          type="password"
+                          name="password"
+                          value={values.password}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.password && Boolean(errors.password)}
+                          helperText={touched.password && errors.password}
+                        />
+
+                        {/* Confirm Password Field */}
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          label="Confirm Password"
+                          placeholder="Confirm password"
+                          variant="outlined"
+                          type="password"
+                          name="confirmPassword"
+                          value={values.confirmPassword}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={
+                            touched.confirmPassword &&
+                            Boolean(errors.confirmPassword)
+                          }
+                          helperText={
+                            touched.confirmPassword && errors.confirmPassword
+                          }
+                        />
+
+                        <Button
+                          fullWidth
+                          variant="contained"
+                          color="primary"
+                          size="large"
+                          type="submit"
+                          disabled={isSubmitting}
+                          sx={{
+                            mt: 3,
+                            py: 1.5,
+                            borderRadius: 1,
+                            bgcolor: '#1a56db',
+                            '&:hover': {
+                              bgcolor: '#104bb9',
+                            },
+                          }}
+                        >
+                          {isSubmitting ? 'Processing...' : 'Continue'}
+                        </Button>
+                      </Box>
+                    )}
                   </Box>
                 </Box>
               </Box>
