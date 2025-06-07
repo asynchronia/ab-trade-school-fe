@@ -1,3 +1,10 @@
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
     Box,
     Button,
@@ -13,18 +20,9 @@ import {
     useTheme,
 } from '@mui/material';
 import { Formik } from 'formik';
-import { signupSchema } from '../validations/SignupValidation';
-
-// Import icons
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TelegramIcon from '@mui/icons-material/Telegram';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import { enqueueSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
+import { crmSignup } from '../api';
 import signupImg from '../assets/signupImg.svg';
 import { signupReq } from '../service/auth.service';
 
@@ -61,6 +59,17 @@ const SignupPage = () => {
 
       if (response?.success && response?.payload?.data) {
         enqueueSnackbar(response?.message, { variant: 'success' });
+
+        const leadPayload = {
+          leadEmail: values?.email,
+          leadmobile: values?.phone,
+          name: values?.name,
+          leadName: 'TRADESCHOOL',
+          LeadState: '',
+        };
+
+        const leadResponse = await crmSignup(leadPayload);
+        console.log(leadResponse, 'CRM Signup Response');
         navigate('/login');
       } else {
         enqueueSnackbar(response?.message || 'Login failed', {
