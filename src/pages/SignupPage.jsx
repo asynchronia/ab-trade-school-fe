@@ -59,7 +59,9 @@ const SignupPage = () => {
       });
 
       if (response?.success && response?.payload?.data) {
-        enqueueSnackbar(response?.message, { variant: 'success' });
+        enqueueSnackbar(response?.message || 'User Created successfully', {
+          variant: 'success',
+        });
 
         const leadPayload = {
           leadEmail: values?.email,
