@@ -13,200 +13,207 @@ const ReadyToStartSection = () => {
   return (
     <Box
       sx={{
-        background: `url(${bgImage3})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundBlendMode: 'overlay',
-        py: {
-          xs: theme.spacing(4),
-          md: theme.spacing(6),
-        },
-        px: {
-          xs: theme.spacing(2),
-          lg: theme.spacing(4),
-        },
-        position: 'relative',
-        overflow: 'hidden',
+        bgcolor: '#022353',
       }}
     >
-      <Container
-        maxWidth="xl"
+      <Box
         sx={{
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
+          background: `url(${bgImage3})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundBlendMode: 'overlay',
+          py: {
+            xs: theme.spacing(4),
+            md: theme.spacing(6),
+          },
+          px: {
+            xs: theme.spacing(2),
+            lg: theme.spacing(4),
+          },
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <Grid
-          container
-          //   spacing={theme.spacing(6)}
-          alignItems="center"
-          justifyContent={'center'}
+        <Container
+          maxWidth="xl"
           sx={{
             height: '100%',
-            flexDirection: { xs: 'column', md: 'row' },
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
-          {/* Left content */}
           <Grid
-            item
-            xs={12}
-            md={6}
-            flex={0.5}
+            container
+            //   spacing={theme.spacing(6)}
+            alignItems="center"
+            justifyContent={'center'}
+            gap={4}
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              order: { xs: 1, md: 1 },
+              height: '100%',
+              flexDirection: { xs: 'column', md: 'row' },
             }}
           >
-            <Box
+            {/* Left content */}
+            <Grid
+              item
+              xs={12}
+              md={6}
+              flex={0.5}
               sx={{
-                textAlign: {
-                  xs: 'center',
-                  md: 'left',
-                },
-                maxWidth: {
-                  xs: '100%',
-                  md: '90%',
-                },
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                order: { xs: 1, md: 1 },
               }}
             >
-              <Typography
-                variant="h2"
-                component="h1"
-                fontWeight={700}
-                color="common.white"
+              <Box
                 sx={{
-                  fontSize: {
-                    xs: '28px',
-                    sm: '30px',
-                    md: '36px',
-                    lg: '50px',
-                  },
-                  lineHeight: {
-                    xs: 1.2,
-                    md: 1.1,
-                  },
-                  mb: {
-                    xs: theme.spacing(2),
-                    md: theme.spacing(3),
-                  },
-                  fontFamily: theme.typography.fontFamily,
-                }}
-              >
-                Ready to Trade Smarter?
-              </Typography>
-
-              <Typography
-                variant="h6"
-                color="common.white"
-                sx={{
-                  fontSize: {
-                    xs: '16px',
-                    lg: '20px',
-                  },
-                  fontWeight: 400,
-                  lineHeight: 1.5,
-                  mb: {
-                    xs: theme.spacing(4),
-                    md: theme.spacing(5),
+                  textAlign: {
+                    xs: 'center',
+                    md: 'left',
                   },
                   maxWidth: {
                     xs: '100%',
-                    md: '85%',
+                    md: '90%',
                   },
-                  opacity: 0.95,
                 }}
               >
-                Watch free videos, join expert webinars, and explore trading
-                insights all in one place.
-              </Typography>
+                <Typography
+                  variant="h2"
+                  component="h1"
+                  fontWeight={700}
+                  color="common.white"
+                  sx={{
+                    fontSize: {
+                      xs: '28px',
+                      sm: '30px',
+                      md: '36px',
+                      lg: '50px',
+                    },
+                    lineHeight: {
+                      xs: 1.2,
+                      md: 1.1,
+                    },
+                    mb: {
+                      xs: theme.spacing(2),
+                      md: theme.spacing(3),
+                    },
+                    fontFamily: theme.typography.fontFamily,
+                  }}
+                >
+                  Ready to Trade Smarter?
+                </Typography>
 
-              <MuiButton
-                variant="contained"
-                size="large"
-                sx={{
-                  backgroundColor: '#ffffff',
-                  color: '#1e40af',
-                  fontWeight: 600,
-                  fontSize: {
-                    xs: '1rem',
-                    md: '1.1rem',
-                  },
-                  px: {
-                    xs: theme.spacing(4),
-                    md: theme.spacing(5),
-                  },
-                  py: {
-                    xs: theme.spacing(1.5),
-                    md: theme.spacing(2),
-                  },
-                  borderRadius: theme.shape.borderRadius?.medium || 2,
-                  minWidth: {
-                    xs: '200px',
-                    sm: '220px',
-                  },
-                  textTransform: 'none',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                  '&:hover': {
-                    backgroundColor: '#f8fafc',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
-                  },
-                  transition: 'all 0.3s ease',
-                }}
-              >
-                Start Learning Now
-              </MuiButton>
-            </Box>
-          </Grid>
+                <Typography
+                  variant="h6"
+                  color="common.white"
+                  sx={{
+                    fontSize: {
+                      xs: '16px',
+                      lg: '20px',
+                    },
+                    fontWeight: 400,
+                    lineHeight: 1.5,
+                    mb: {
+                      xs: theme.spacing(4),
+                      md: theme.spacing(5),
+                    },
+                    maxWidth: {
+                      xs: '100%',
+                      md: '85%',
+                    },
+                    opacity: 0.95,
+                  }}
+                >
+                  Watch free videos, join expert webinars, and explore trading
+                  insights all in one place.
+                </Typography>
 
-          {/* Right image */}
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              display: 'flex',
-              justifyContent: {
-                xs: 'center',
-                md: 'flex-end',
-              },
-              alignItems: 'center',
-              flex: 0.4,
-              order: { xs: 2, md: 2 },
-            }}
-          >
-            <Box
-              component="img"
-              src={rightImg2}
-              alt="Trading Analytics Illustration"
+                <MuiButton
+                  variant="contained"
+                  size="large"
+                  sx={{
+                    backgroundColor: '#ffffff',
+                    color: '#1e40af',
+                    fontWeight: 600,
+                    fontSize: {
+                      xs: '1rem',
+                      md: '1.1rem',
+                    },
+                    px: {
+                      xs: theme.spacing(4),
+                      md: theme.spacing(5),
+                    },
+                    py: {
+                      xs: theme.spacing(1.5),
+                      md: theme.spacing(2),
+                    },
+                    borderRadius: theme.shape.borderRadius?.medium || 2,
+                    minWidth: {
+                      xs: '200px',
+                      sm: '220px',
+                    },
+                    textTransform: 'none',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                    '&:hover': {
+                      backgroundColor: '#f8fafc',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
+                    },
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  Start Learning Now
+                </MuiButton>
+              </Box>
+            </Grid>
+
+            {/* Right image */}
+            <Grid
+              item
+              xs={12}
+              md={6}
               sx={{
-                width: '100%',
-                maxWidth: {
-                  xs: '350px',
-                  sm: '450px',
-                  md: '500px',
-                  lg: '580px',
+                display: 'flex',
+                justifyContent: {
+                  xs: 'center',
+                  md: 'flex-end',
                 },
-                height: 'auto',
-                display: 'block',
-                filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.15))',
-                animation: 'float 3s ease-in-out infinite',
-                '@keyframes float': {
-                  '0%, 100%': {
-                    transform: 'translateY(0px)',
-                  },
-                  '50%': {
-                    transform: 'translateY(-15px)',
-                  },
-                },
+                alignItems: 'center',
+                flex: 0.4,
+                order: { xs: 2, md: 2 },
               }}
-            />
+            >
+              <Box
+                component="img"
+                src={rightImg2}
+                alt="Trading Analytics Illustration"
+                sx={{
+                  width: '100%',
+                  maxWidth: {
+                    xs: '350px',
+                    sm: '450px',
+                    md: '500px',
+                    lg: '580px',
+                  },
+                  height: 'auto',
+                  display: 'block',
+                  filter: 'drop-shadow(0 10px 25px rgba(0,0,0,0.15))',
+                  animation: 'float 3s ease-in-out infinite',
+                  '@keyframes float': {
+                    '0%, 100%': {
+                      transform: 'translateY(0px)',
+                    },
+                    '50%': {
+                      transform: 'translateY(-15px)',
+                    },
+                  },
+                }}
+              />
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </Box>
     </Box>
   );
 };

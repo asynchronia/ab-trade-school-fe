@@ -58,10 +58,7 @@ const PaidCourseSection = () => {
         md: theme.spacing(8),
         lg: '100px',
       }}
-      py={{
-        xs: theme.spacing(4),
-        sm: theme.spacing(6),
-      }}
+      py={theme.spacing(6)}
     >
       {/* Heading */}
       <Box textAlign="center" mb={theme.spacing(4)}>
@@ -71,9 +68,8 @@ const PaidCourseSection = () => {
           gutterBottom
           sx={{
             fontSize: {
-              xs: '1.7rem',
-              sm: theme.typography.h4.fontSize,
-              md: '2.25rem',
+              xs: '26px',
+              sm: '32px',
             },
           }}
         >
@@ -96,6 +92,8 @@ const PaidCourseSection = () => {
         justifyContent="space-between"
         alignItems="center"
         mb={theme.spacing(2)}
+        mx="auto"
+        maxWidth={'1300px'}
         sx={{
           flexWrap: 'wrap',
           gap: theme.spacing(2),

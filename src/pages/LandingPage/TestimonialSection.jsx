@@ -56,7 +56,7 @@ const TestimonialsSection = () => {
     <Box
       component="section"
       sx={{
-        py: theme.spacing(8),
+        py: theme.spacing(6),
         px: theme.spacing(4),
         maxWidth: 1200,
         mx: 'auto',
@@ -67,7 +67,10 @@ const TestimonialsSection = () => {
           variant="h3"
           component="h2"
           sx={{
-            fontSize: theme.typography.h3.fontSize,
+            fontSize: {
+              xs: '1.6rem',
+              sm: '32px',
+            },
             color: theme.palette.grey[800],
             mb: theme.spacing(2),
             fontWeight: theme.typography.fontWeightBold,

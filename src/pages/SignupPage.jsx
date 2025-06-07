@@ -25,14 +25,15 @@ import { useNavigate } from 'react-router-dom';
 import { crmSignup } from '../api';
 import signupImg from '../assets/signupImg.svg';
 import { signupReq } from '../service/auth.service';
-import { signupSchema } from '../validations/SignupValidation';
-const qrCode = '../assets/qrCode.svg';
-const playStore = '../assets/playStore.svg';
-const appStore = '../assets/appStore.svg';
-const com1 = '../assets/com-1.svg';
-const com2 = '../assets/com-2.svg';
-const com3 = '../assets/com-3.svg';
-const com4 = '../assets/com-4.svg';
+
+// Import images
+import appStore from '../assets/appStore.svg';
+import com1 from '../assets/com-1.svg';
+import com2 from '../assets/com-2.svg';
+import com3 from '../assets/com-3.svg';
+import com4 from '../assets/com-4.svg';
+import playStore from '../assets/playStore.svg';
+import qrCode from '../assets/qrCode.svg';
 
 const SignupPage = () => {
   const theme = useTheme();
@@ -94,7 +95,7 @@ const SignupPage = () => {
       }}
     >
       {/* Main content */}
-      <Container maxWidth="lg" disableGutters>
+      <Box>
         <Formik
           initialValues={initialValues}
           validationSchema={signupSchema}
@@ -110,7 +111,7 @@ const SignupPage = () => {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
-              <Grid
+              <Box
                 container
                 sx={{
                   display: 'flex',
@@ -118,10 +119,7 @@ const SignupPage = () => {
                 }}
               >
                 {/* Left Side - Image and Info */}
-                <Grid
-                  item
-                  xs={12}
-                  md={6}
+                <Box
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -158,13 +156,10 @@ const SignupPage = () => {
                       and market insights. No fees. Just knowledge.
                     </Typography>
                   </Paper>
-                </Grid>
+                </Box>
 
                 {/* Right Side - Form */}
-                <Grid
-                  item
-                  xs={12}
-                  md={6}
+                <Box
                   sx={{
                     p: 4,
                     borderLeft: isMobile ? 'none' : '1px dashed #ccc',
@@ -293,12 +288,12 @@ const SignupPage = () => {
                       </Button>
                     </Box>
                   </Box>
-                </Grid>
-              </Grid>
+                </Box>
+              </Box>
             </form>
           )}
         </Formik>
-      </Container>
+      </Box>
 
       {/* Footer section */}
       <Box
@@ -380,7 +375,17 @@ const SignupPage = () => {
           <Divider sx={{ mb: 5 }} />
 
           {/* Social and download */}
-          <Grid container spacing={2} sx={{ justifyContent: 'space-between' }}>
+          <Grid
+            container
+            spacing={2}
+            sx={{
+              justifyContent: 'space-between',
+              display: 'flex',
+              gap: 2,
+              flexDirection: { xs: 'column', lg: 'row' },
+              alignItems: { xs: 'center', lg: 'flex-start' },
+            }}
+          >
             <Grid
               item
               xs={12}
@@ -461,7 +466,7 @@ const SignupPage = () => {
                 mt: isMobile ? 4 : 0,
                 display: 'flex',
                 flexDirection: isMobile ? 'column' : 'row',
-                alignItems: 'center',
+                alignItems: { xs: 'center', md: 'start' },
                 justifyContent: 'center',
                 gap: isMobile ? 5 : 10,
               }}
