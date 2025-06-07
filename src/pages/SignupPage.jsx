@@ -34,6 +34,7 @@ import com3 from '../assets/com-3.svg';
 import com4 from '../assets/com-4.svg';
 import playStore from '../assets/playStore.svg';
 import qrCode from '../assets/qrCode.svg';
+import { signupSchema } from '../validations/SignupValidation';
 
 const SignupPage = () => {
   const theme = useTheme();

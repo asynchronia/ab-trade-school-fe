@@ -1,5 +1,4 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import CodeVerification from './pages/CodeVerification';
 import CoursesPage from './pages/Courses';
 import LandingPage from './pages/LandingPage/LandingPage';
 import LoginPage from './pages/LoginPage';
