@@ -17,7 +17,8 @@ const getHeaders = () => {
 const API_URL = {
   signup: '/users/signup',
   login: '/users/login',
-  crmSignup: 'https://digiweb.aliceblueonline.com/DigiWebsite',
+  resendEmailOtp: '/users/resend-email-otp',
+  verifyEmailOtp: '/users/verify-email-otp',
 };
 
 export async function signup(body) {
@@ -54,14 +55,30 @@ export async function login(body) {
   });
 }
 
-export async function crmSignup(body) {
+export async function resendEmailOtp(body) {
   return new Promise((resolve, reject) => {
     axios
-      .post(API_URL.crmSignup, body, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
+      .post(`${baseUrl}${API_URL.resendEmailOtp}`, body, {
+        headers: getHeaders(),
+      })
+      .then((res) => {
+        resolve(res.data);
+        return res.data;
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  }).catch((error) => {
+    console.log(error);
+    return error.response.data;
+  });
+}
+
+export async function verifyEmailOtp(body) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${baseUrl}${API_URL.verifyEmailOtp}`, body, {
+        headers: getHeaders(),
       })
       .then((res) => {
         resolve(res.data);
