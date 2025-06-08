@@ -63,16 +63,6 @@ const SignupPage = () => {
           variant: 'success',
         });
 
-        const leadPayload = {
-          leadEmail: values?.email,
-          leadmobile: values?.phone,
-          name: values?.name,
-          leadName: 'TRADESCHOOL',
-          LeadState: '',
-        };
-
-        const leadResponse = await crmSignup(leadPayload);
-        console.log(leadResponse, 'CRM Signup Response');
         navigate('/login');
       } else {
         enqueueSnackbar(response?.message || 'Login failed', {
