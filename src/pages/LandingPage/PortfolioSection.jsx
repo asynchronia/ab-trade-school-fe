@@ -102,7 +102,7 @@ const PortfolioSection = () => {
           zIndex: 1,
           width: '100%',
           maxWidth: '1600px',
-          px: theme.spacing(2),
+        //   px: theme.spacing(2),
           color: theme.colors.text.light,
         }}
       >
@@ -133,123 +133,122 @@ const PortfolioSection = () => {
         </Box>
 
         {/* Cards grid */}
-        <Box
+<Box
+  sx={{
+    overflowX: 'auto',
+    width: '100%',
+    pb: 2, // padding bottom for scrollbar space
+  }}
+>
+  <Box
+    sx={{
+      display: 'flex',
+      gap: theme.spacing(3),
+      maxWidth: 'max-content',
+      minWidth: '100%', 
+    }}
+  >
+    {portfolioCards.map((card) => (
+      <Card
+        key={card.id}
+        sx={{
+          flexShrink:0, 
+          borderRadius: theme.shape.borderRadius.medium,
+          width: 380, 
+          boxShadow: theme.shadows[5],
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(1px)',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <CardContent
           sx={{
-            maxWidth: '1200px',
-            mx: 'auto',
-            px: {
-              xs: theme.spacing(2),
-              sm: theme.spacing(4),
-            },
-            display: 'grid',
-            gridTemplateColumns: {
-              xs: '1fr',
-              sm: 'repeat(2, 1fr)',
-              md: 'repeat(3, 1fr)',
-            },
-            gap: theme.spacing(3),
-            placeItems: 'center',
+            flexGrow: 1,
+            p: theme.spacing(3),
+            color: 'whitesmoke',
           }}
         >
-          {portfolioCards.map((card) => (
-            <Card
-              key={card.id}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                borderRadius: theme.shape.borderRadius.medium,
-                width: '100%',
-                maxWidth: 360,
-                boxShadow: theme.shadows[5],
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(1px)',
-              }}
-            >
-              <CardContent
+          <img
+            src={card.img}
+            alt=""
+            style={{ height: '48px', marginBottom: '16px' }}
+          />
+          <Typography
+            variant="h6"
+            component="h3"
+            sx={{
+              fontWeight: theme.typography.fontWeightBold,
+              mb: theme.spacing(2),
+            }}
+          >
+            {card.title}
+          </Typography>
+
+          <Typography
+            variant="body2"
+            sx={{
+              mb: theme.spacing(2),
+            }}
+          >
+            {card.description}
+          </Typography>
+
+          <Divider
+            sx={{
+              my: theme.spacing(2),
+            }}
+          />
+
+          <List dense disablePadding>
+            {card.benefits.map((benefit, index) => (
+              <ListItem
+                key={index}
+                disableGutters
                 sx={{
-                  flexGrow: 1,
-                  p: theme.spacing(3),
-                  color: 'whitesmoke',
+                  py: theme.spacing(0.5),
                 }}
               >
-                <img
-                  src={card.img}
-                  alt=""
-                  style={{ height: '48px', marginBottom: '16px' }}
-                />
-                <Typography
-                  variant="h6"
-                  component="h3"
+                <ListItemIcon
                   sx={{
-                    fontWeight: theme.typography.fontWeightBold,
-                    mb: theme.spacing(2),
+                    minWidth: 32,
                   }}
                 >
-                  {card.title}
-                </Typography>
+                  <Check
+                    color="#F59E0B"
+                    sx={{ color: '#F59E0B' }}
+                    fontSize="small"
+                  />
+                </ListItemIcon>
+                <Typography variant="body2">{benefit}</Typography>
+              </ListItem>
+            ))}
+          </List>
+        </CardContent>
 
-                <Typography
-                  variant="body2"
-                  sx={{
-                    mb: theme.spacing(2),
-                  }}
-                >
-                  {card.description}
-                </Typography>
-
-                <Divider
-                  sx={{
-                    my: theme.spacing(2),
-                  }}
-                />
-
-                <List dense disablePadding>
-                  {card.benefits.map((benefit, index) => (
-                    <ListItem
-                      key={index}
-                      disableGutters
-                      sx={{
-                        py: theme.spacing(0.5),
-                      }}
-                    >
-                      <ListItemIcon
-                        sx={{
-                          minWidth: 32,
-                        }}
-                      >
-                        <Check
-                          color="#F59E0B"
-                          sx={{ color: '#F59E0B' }}
-                          fontSize="small"
-                        />
-                      </ListItemIcon>
-                      <Typography variant="body2">{benefit}</Typography>
-                    </ListItem>
-                  ))}
-                </List>
-              </CardContent>
-
-              <Box
-                sx={{
-                  px: theme.spacing(3),
-                  pb: theme.spacing(2),
-                }}
-              >
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: 'white',
-                    color: 'black',
-                    textTransform: 'capitalize',
-                  }}
-                  endIcon={<ArrowForward />}
-                  title={card.ctaText}
-                  fullWidth
-                />
-              </Box>
-            </Card>
-          ))}
+        <Box
+          sx={{
+            px: theme.spacing(3),
+            pb: theme.spacing(2),
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: 'white',
+              color: 'black',
+              textTransform: 'capitalize',
+            }}
+            endIcon={<ArrowForward />}
+            title={card.ctaText}
+            fullWidth
+          />
         </Box>
+      </Card>
+    ))}
+  </Box>
+</Box>
+
       </Box>
     </Box>
   );

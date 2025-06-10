@@ -103,11 +103,27 @@ const InstructorSection = () => {
       <Box
         sx={{
           display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
+          overflowX: 'auto',
+          overflowY: 'hidden',
           gap: {
             xs: theme.spacing(2.5),
             sm: theme.spacing(3.75),
+          },
+          pb: theme.spacing(1),
+          '&::-webkit-scrollbar': {
+            height: '8px',
+            display: 'none',
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: theme.colors.gray[200],
+            borderRadius: '4px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: theme.colors.gray[400],
+            borderRadius: '4px',
+            '&:hover': {
+              backgroundColor: theme.colors.gray[500],
+            },
           },
         }}
       >
@@ -115,11 +131,12 @@ const InstructorSection = () => {
           <Card
             key={idx}
             sx={{
-              width: {
-                xs: '100%',
+              minWidth: {
+                xs: 280,
                 sm: 320,
               },
               maxWidth: 360,
+              flexShrink: 0,
               borderRadius: theme.shape.borderRadius.large,
               boxShadow: theme.shadows[2],
               transition: 'transform 0.3s',

@@ -88,7 +88,7 @@ const GoalsSection = () => {
             color: theme.colors.text.primary,
             fontSize: {
               xs: theme.typography.h4.fontSize,
-              sm: '32px'
+              sm: '32px',
             },
           }}
         >
@@ -166,27 +166,44 @@ const GoalsSection = () => {
         sx={{
           maxWidth: '1300px',
           mx: 'auto',
-          px: {
-            xs: theme.spacing(2),
-            sm: theme.spacing(4),
-          },
-          display: 'grid',
-          gridTemplateColumns: {
-            xs: '1fr',
-            sm: 'repeat(3, 1fr)',
-            md: 'repeat(4, 1fr)',
-            lg: 'repeat(5, 1fr)',
-          },
-          gap: {
-            xs: theme.spacing(2),
-            sm: theme.spacing(3),
-          },
-          justifyItems: 'center',
         }}
       >
-        {trackData.map((item, index) => (
-          <TrackCard key={index} {...item} />
-        ))}
+        <Box
+          sx={{
+            display: {
+              xs: 'flex',
+              lg: 'grid',
+            },
+            overflowX: {
+              xs: 'auto',
+              lg: 'visible',
+            },
+            flexWrap: {
+              xs: 'nowrap',
+              lg: 'unset',
+            },
+            gap: {
+              xs: theme.spacing(2),
+              sm: theme.spacing(3),
+            },
+            gridTemplateColumns: {
+              lg: 'repeat(5, 1fr)',
+            },
+            justifyItems: {
+              xs: 'stretch',
+              lg: 'center',
+            },
+            scrollBehavior: 'smooth',
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
+            scrollbarWidth: 'none',
+          }}
+        >
+          {trackData.map((item, index) => (
+            <TrackCard key={index} {...item} />
+          ))}
+        </Box>
       </Box>
     </Box>
   );
