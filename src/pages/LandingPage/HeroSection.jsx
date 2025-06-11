@@ -231,7 +231,7 @@ const HeroSection = () => {
                 md: 'left',
               },
               lineHeight: 1.6,
-              height: '120px',
+            //   height: '120px',
               opacity: isVisible ? 1 : 0,
               transition: 'opacity 1s ease-in-out',
             }}
