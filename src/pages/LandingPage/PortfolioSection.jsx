@@ -138,19 +138,18 @@ const PortfolioSection = () => {
             overflowX: 'auto',
             width: '100%',
             pb: 2,
-
             '&::-webkit-scrollbar': {
               display: 'none',
             },
+            WebkitOverflowScrolling: 'touch', // Smooth scroll on iOS
           }}
         >
           <Box
             sx={{
               display: 'flex',
-              justifyContent: 'center',
               gap: theme.spacing(3),
-              maxWidth: 'max-content',
-              minWidth: '100%',
+              px: theme.spacing(1), // Add horizontal padding to prevent first card cut-off
+              width: 'max-content', // Set proper scrollable width
             }}
           >
             {portfolioCards.map((card) => (
