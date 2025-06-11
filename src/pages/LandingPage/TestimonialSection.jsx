@@ -1,13 +1,87 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import {
+    Avatar,
+    Box,
+    Card,
+    IconButton,
+    Paper,
+    Rating,
+    Stack,
+    Typography,
+} from '@mui/material';
+import { useState } from 'react';
+import allTestimonialImg1 from '../../assets/allTestimonialImg1.png';
+import allTestimonialImg2 from '../../assets/allTestimonialImg2.png';
+import allTestimonialImg3 from '../../assets/allTestimonialImg3.png';
+import allTestimonialImg4 from '../../assets/allTestimonialImg4.png';
 import mainTestimonialImage from '../../assets/mainTestimonialImage.webp';
 import mainTestimonialImg2 from '../../assets/mainTestimonialImg2.svg';
 import testimonial1Image from '../../assets/testimonial1Image.svg';
 import testimonial2Image from '../../assets/testimonial2Image.svg';
 import testimonial3Image from '../../assets/testimonial3Image.svg';
+import TestimonialBgImg from '../../assets/testimonialBgImg.jpg';
 import Button from '../../components/Button/Button';
 import theme from '../../utils/theme';
 
 const TestimonialsSection = () => {
+  const allTestimonials = [
+    {
+      name: 'Sneha Patel',
+      role: 'Algo Trader',
+      location: 'Bangalore',
+      quote:
+        'The algo trading course transformed my approach to markets. I now have 3 automated strategies running that have been profitable for the last 6 months.',
+      image: allTestimonialImg1,
+      rating: '5',
+    },
+    {
+      id: 2,
+      name: 'Rohit Kapoor',
+      role: 'Options Trader',
+      location: 'Mumbai',
+      quote:
+        'After 3 months of training, I was able to consistently apply the options strategies I learned. My monthly returns improved by 22% and I finally have a structured approach to my trading.',
+      image: allTestimonialImg2,
+      rating: '5',
+    },
+    {
+      id: 3,
+      name: 'Arjun Singh',
+      role: 'Futures Trader',
+      location: 'Delhi',
+      quote:
+        'The risk management techniques I learned helped me survive the recent market volatility. My drawdowns are now limited to 5% while my profitable trades increased.',
+      image: allTestimonialImg3,
+      rating: '4',
+    },
+    {
+      id: 4,
+      name: 'Stefan Strohm',
+      role: 'Beginner Trader',
+      location: 'Chennai',
+      quote:
+        'As someone completely new to trading, the beginner course gave me the confidence to start. The simulator helped me practice without losing real money.',
+      image: allTestimonialImg4,
+      rating: '5',
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextTestimonial = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === allTestimonials.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevTestimonial = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? allTestimonials.length - 1 : prevIndex - 1
+    );
+  };
+
+  const currentTestimonial = allTestimonials[currentIndex];
+
   const mainTestimonial = {
     name: 'Sneha Patel',
     role: 'Algo Trader',
@@ -95,7 +169,162 @@ const TestimonialsSection = () => {
 
       <Box
         sx={{
-          display: 'flex',
+          display: { xs: 'flex', sm: 'none' },
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 3,
+          mb: theme.spacing(6),
+        }}
+      >
+        <Card
+          sx={{
+            position: 'relative',
+            width: '100%',
+            minHeight: 320,
+            borderRadius: 3,
+            overflow: 'hidden',
+            backgroundImage: `url(${TestimonialBgImg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            transition: 'all 0.3s ease-in-out',
+            boxShadow: 3,
+          }}
+        >
+          <Box
+            sx={{
+              position: 'relative',
+              zIndex: 10,
+              p: 3,
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Stack
+              direction="row"
+              alignItems={'center'}
+              justifyContent={'space-between'}
+              spacing={2}
+              sx={{ mb: 3 }}
+            >
+              <Box>
+                <Avatar
+                  src={currentTestimonial.image}
+                  alt={currentTestimonial.name}
+                  sx={{
+                    width: '170px',
+                    height: '140px',
+                    borderRadius: 1.5,
+                  }}
+                />
+              </Box>
+
+              <Box
+                sx={{
+                  flex: 1,
+                  color: 'white',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                }}
+              >
+                <Rating
+                  value={currentTestimonial.rating}
+                  readOnly
+                  size="small"
+                  sx={{
+                    mb: 1,
+                    '& .MuiRating-iconFilled': {
+                      color: '#ffc107',
+                    },
+                    '& .MuiRating-iconEmpty': {
+                      color: 'rgba(255, 255, 255, 0.3)',
+                    },
+                  }}
+                />
+
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: 600,
+                    mb: 0.5,
+                    fontSize: '1.1rem',
+                  }}
+                >
+                  {currentTestimonial.name}
+                </Typography>
+
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: 'rgba(173, 216, 230, 0.9)',
+                    fontSize: '0.875rem',
+                    fontWeight: 500,
+                  }}
+                >
+                  {currentTestimonial.location}
+                </Typography>
+              </Box>
+            </Stack>
+
+            <Box sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'white',
+                  lineHeight: 1.6,
+                  fontSize: '0.875rem',
+                  fontStyle: 'italic',
+                }}
+              >
+                "{currentTestimonial.quote}"
+              </Typography>
+            </Box>
+          </Box>
+        </Card>
+
+        <Stack direction="row" spacing={2} alignItems="center">
+          <IconButton
+            onClick={prevTestimonial}
+            sx={{
+              width: 48,
+              height: 48,
+              border: '2px solid',
+              borderColor: 'grey.300',
+              '&:hover': {
+                bgcolor: 'grey.100',
+                borderColor: 'grey.400',
+              },
+              transition: 'all 0.2s',
+            }}
+            aria-label="Previous testimonial"
+          >
+            <ArrowBackIos sx={{ fontSize: 20, color: 'grey.600' }} />
+          </IconButton>
+
+          <IconButton
+            onClick={nextTestimonial}
+            sx={{
+              width: 48,
+              height: 48,
+              border: '2px solid',
+              borderColor: 'grey.300',
+              '&:hover': {
+                bgcolor: 'grey.100',
+                borderColor: 'grey.400',
+              },
+              transition: 'all 0.2s',
+            }}
+            aria-label="Next testimonial"
+          >
+            <ArrowForwardIos sx={{ fontSize: 20, color: 'grey.600' }} />
+          </IconButton>
+        </Stack>
+      </Box>
+
+      <Box
+        sx={{
+          display: { xs: 'none', sm: 'flex' },
           flexDirection: { xs: 'column', md: 'row' },
           gap: theme.spacing(4),
           mb: theme.spacing(6),
@@ -313,7 +542,6 @@ const TestimonialsSection = () => {
           ))}
         </Box>
       </Box>
-
       <Box sx={{ textAlign: 'center' }}>
         <Button
           variant="outlined"

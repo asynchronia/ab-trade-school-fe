@@ -103,11 +103,25 @@ const InstructorSection = () => {
       <Box
         sx={{
           display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
+          overflowX: 'auto',
+          overflowY: 'hidden',
           gap: {
             xs: theme.spacing(2.5),
             sm: theme.spacing(3.75),
+          },
+          pb: theme.spacing(1),
+          px: {
+            xs: theme.spacing(2),
+            sm: theme.spacing(4),
+          },
+          '&': {
+            '@media (min-width: 1200px)': {
+              justifyContent: 'center',
+            },
+          },
+          '&::-webkit-scrollbar': {
+            display: 'none',
           },
         }}
       >
@@ -115,11 +129,13 @@ const InstructorSection = () => {
           <Card
             key={idx}
             sx={{
-              width: {
-                xs: '100%',
+              minWidth: {
+                xs: 280,
                 sm: 320,
               },
               maxWidth: 360,
+              border: '#e0e0e0 1px solid',
+              flexShrink: 0,
               borderRadius: theme.shape.borderRadius.large,
               boxShadow: theme.shadows[2],
               transition: 'transform 0.3s',

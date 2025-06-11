@@ -224,7 +224,7 @@ const Footer = () => {
             px: {
               xs: theme.spacing(2),
               sm: theme.spacing(4),
-              md: theme.spacing(10),
+              md: theme.spacing(0),
             },
             flexDirection: {
               xs: 'column',
@@ -247,6 +247,7 @@ const Footer = () => {
                 xs: theme.spacing(3),
                 md: 0,
               },
+              flex: 0.5,
             }}
           >
             <img
@@ -273,38 +274,59 @@ const Footer = () => {
           <Box
             sx={{
               display: 'flex',
-              flexWrap: 'wrap',
-              gap: theme.spacing(3),
-              justifyContent: { xs: 'center', md: 'space-between' },
-              flex: 1,
-              ml: { md: theme.spacing(4) },
+              flexDirection: 'row',
+              flexWrap: { xs: 'wrap', sm: 'wrap', md: 'nowrap' },
+              gap: {
+                xs: theme.spacing(0.5),
+                sm: theme.spacing(1),
+                md: theme.spacing(3),
+              },
+              justifyContent: { xs: 'space-between', md: 'flex-start' },
+              flex: 0.5,
             }}
           >
             {footerLinks.map((section, index) => (
               <Box
                 key={index}
                 sx={{
-                  minWidth: 150,
-                  maxWidth: 200,
+                  flex: {
+                    xs: '0 1 calc(33.333% - 4px)',
+                    sm: '0 1 calc(33.333% - 8px)',
+                    md: 'none',
+                  },
+                  minWidth: { xs: 0, md: 120 },
+                  maxWidth: {
+                    xs: 'calc(33.333% - 4px)',
+                    sm: 'calc(33.333% - 8px)',
+                    md: 'none',
+                  },
+                  mb: { xs: theme.spacing(2), md: 0 },
                 }}
               >
                 <Typography
                   variant="subtitle2"
                   sx={{
                     fontWeight: theme.typography.fontWeightBold,
-                    mb: theme.spacing(1),
+                    mb: { xs: theme.spacing(0.5), md: theme.spacing(1) },
                     color: theme.palette.common.white,
+                    fontSize: { xs: '0.75rem', sm: '0.8rem', md: '0.875rem' },
                   }}
                 >
                   {section.title}
                 </Typography>
-                <List dense disablePadding>
+                <List
+                  dense
+                  disablePadding
+                  sx={{
+                    display: 'block',
+                  }}
+                >
                   {section.subLinks.map((link, linkIndex) => (
                     <ListItem
                       key={linkIndex}
                       disablePadding
                       sx={{
-                        py: theme.spacing(0.5),
+                        py: { xs: theme.spacing(0.25), md: theme.spacing(0.5) },
                       }}
                     >
                       <Link
@@ -312,8 +334,13 @@ const Footer = () => {
                         color="inherit"
                         underline="hover"
                         sx={{
-                          fontSize: '0.875rem',
+                          fontSize: {
+                            xs: '0.7rem',
+                            sm: '0.75rem',
+                            md: '0.875rem',
+                          },
                           color: theme.palette.grey[400],
+                          lineHeight: { xs: 1.3, md: 1.5 },
                           '&:hover': {
                             color: theme.palette.common.white,
                           },

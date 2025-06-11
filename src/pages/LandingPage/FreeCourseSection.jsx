@@ -41,7 +41,8 @@ const FreeCoursesSection = () => {
       component="section"
       sx={{
         px: theme.spacing(2),
-        py: theme.spacing(6),
+        pt: theme.spacing(3),
+        pb: theme.spacing(5),
         maxWidth: 1200,
         mx: 'auto',
       }}
