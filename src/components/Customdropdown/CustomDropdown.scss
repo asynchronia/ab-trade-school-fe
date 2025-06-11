@@ -1,10 +1,10 @@
 .dropdown {
-  min-width: 160px;
+  width: 130px;
   background-color: #fff;
-  border: 1px solid #1E40AF;
+  border: 1px solid #1e40af;
   border-radius: 12px;
   font-size: 14px;
-  color: #1E40AF;
+  color: #1e40af;
   position: relative;
   transition: box-shadow 0.2s ease;
 
@@ -29,12 +29,12 @@
     position: absolute;
     top: 100%;
     left: -1px;
-    min-width: 160px;
+    width: 130px;
     max-height: 260px;
     overflow-y: auto;
     background: white;
     border-radius: 0 0 12px 12px;
-    border: 1px solid #1E40AF;
+    border: 1px solid #1e40af;
     border-top: none;
     padding: 8px 0;
     z-index: 10;

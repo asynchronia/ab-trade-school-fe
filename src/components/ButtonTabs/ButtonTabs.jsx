@@ -7,7 +7,12 @@ const ButtonTabs = ({ tabs = [], selectedTab, onSelect }) => {
       sx={{
         display: 'flex',
         gap: 2,
-        flexDirection: { xs: 'column', sm: 'row' },
+        flexDirection: 'row',
+        overflowX: 'auto',
+        scrollbarWidth: 'none',
+        '&::-webkit-scrollbar': {
+          display: 'none',
+        },
       }}
     >
       {tabs.map((tab) => (
@@ -28,6 +33,8 @@ const ButtonTabs = ({ tabs = [], selectedTab, onSelect }) => {
               backgroundColor: selectedTab === tab ? '#1E40AF' : '#f3f4f6',
               borderColor: '#1E40AF',
             },
+            minWidth: 120,
+            flexShrink: 0,
           }}
         >
           {tab}

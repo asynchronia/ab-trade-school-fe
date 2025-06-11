@@ -6,7 +6,7 @@ import CommunitySection from './GallerySection';
 import GoalsSection from './GoalsSection';
 import HeroSection from './HeroSection';
 import InstructorSection from './InstructorSection';
-import './LandingPage.scss';
+// import './LandingPage.scss';
 import PaidCourseSection from './PaidCourseSection';
 import PortfolioSection from './PortfolioSection';
 import ReadyToStartSection from './ReadyToStartSection';

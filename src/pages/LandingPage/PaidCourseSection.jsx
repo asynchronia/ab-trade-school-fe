@@ -93,52 +93,56 @@ const PaidCourseSection = () => {
         alignItems="center"
         mb={theme.spacing(2)}
         mx="auto"
-        maxWidth={'1300px'}
+        maxWidth="1300px"
         sx={{
+          flexDirection: { xs: 'row', md: 'row' },
           flexWrap: 'wrap',
           gap: theme.spacing(2),
+          alignItems: 'flex-start',
         }}
       >
         <Stack
-          direction={{ xs: 'column', sm: 'row' }}
+          direction={'row'}
           spacing={theme.spacing(2)}
-          mb={theme.spacing(4)}
-          justifyContent="left"
+          justifyContent={{ xs: 'center', md: 'flex-start' }}
           alignItems="stretch"
+          gap={theme.spacing(2)}
           flexWrap="wrap"
+          sx={{
+            width: { xs: '100%', md: 'auto' },
+            mb: { xs: theme.spacing(2), md: theme.spacing(4) },
+            flexGrow: 1,
+            flexBasis: '60%',
+            minWidth: { xs: 'calc(100% - 100px)', sm: 'auto' },
+          }}
         >
           <CustomDropdown
             title="Categories"
             options={categories}
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            sx={{
-              minWidth: '150px',
-              flexGrow: 1,
-            }}
           />
           <CustomDropdown
             title="Level"
             options={levels}
             value={selectedLevel}
             onChange={(e) => setSelectedLevel(e.target.value)}
-            sx={{
-              minWidth: '150px',
-              flexGrow: 1,
-            }}
           />
           <CustomDropdown
             title="Language"
             options={languages}
             value={selectedLanguage}
             onChange={(e) => setSelectedLanguage(e.target.value)}
-            sx={{
-              minWidth: '150px',
-              flexGrow: 1,
-            }}
           />
         </Stack>
-        <Stack direction="row" spacing={theme.spacing(2)} alignItems="center">
+        <Stack
+          direction="row"
+          spacing={theme.spacing(2)}
+          alignItems="center"
+          sx={{
+            display: { xs: 'none', md: 'flex' },
+          }}
+        >
           <Link
             href="#"
             underline="always"
@@ -209,7 +213,17 @@ const PaidCourseSection = () => {
         }}
       >
         {/* Section Header */}
-        <Box mb={theme.spacing(1)}>
+        <Box
+          mb={theme.spacing(1)}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: { xs: 'row', sm: 'row' },
+            flexWrap: 'wrap',
+            gap: theme.spacing(2),
+          }}
+        >
           <Typography
             variant="h6"
             fontWeight={theme.typography.h6.fontWeight}
@@ -218,14 +232,83 @@ const PaidCourseSection = () => {
                 xs: theme.typography.body2.fontSize,
                 sm: theme.typography.body1.fontSize,
               },
-              flexGrow: 1,
+              flexGrow: 0.5,
             }}
           >
-            Basic Knowledge - Beginner - English
+            Basic Knowledge
           </Typography>
+
+          <Stack
+            display={{ xs: 'flex', md: 'none' }}
+            direction="row"
+            spacing={theme.spacing(2)}
+            alignItems="center"
+            sx={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              //   gap: theme.spacing(0.5),
+            }}
+          >
+            <Link
+              href="#"
+              underline="always"
+              fontWeight={theme.typography.h6.fontWeight}
+              color={theme.colors.gray[500]}
+              sx={{
+                fontSize: theme.typography.caption.fontSize,
+              }}
+            >
+              See All
+            </Link>
+
+            <Box sx={{ display: 'flex', gap: 1 }}>
+              <IconButton
+                size="small"
+                sx={{
+                  width: 32,
+                  height: 32,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1px solid black',
+                  borderRadius: '50%',
+                  p: 0,
+                  '& svg': {
+                    fontSize: '16px',
+                  },
+                  '&:hover': {
+                    bgcolor: '#f3f4f6',
+                  },
+                }}
+              >
+                <ArrowBackIos fontSize="small" />
+              </IconButton>
+
+              <IconButton
+                size="small"
+                sx={{
+                  width: 32,
+                  height: 32,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  border: '1px solid black',
+                  borderRadius: '50%',
+                  p: 0,
+                  '& svg': {
+                    fontSize: '16px',
+                  },
+                  '&:hover': {
+                    bgcolor: '#f3f4f6',
+                  },
+                }}
+              >
+                <ArrowForwardIos fontSize="small" />
+              </IconButton>
+            </Box>
+          </Stack>
         </Box>
 
-        {/* Course Cards (Horizontal Scroll) */}
         <Box
           display="flex"
           gap={theme.spacing(2)}
