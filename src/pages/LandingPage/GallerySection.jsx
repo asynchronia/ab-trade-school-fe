@@ -71,7 +71,7 @@ const CommunitySection = () => {
         textAlign: 'center',
         py: theme.spacing(6),
         px: {
-          xs: theme.spacing(2),
+          xs: theme.spacing(1),
           sm: theme.spacing(3),
           md: theme.spacing(4),
         },
@@ -120,8 +120,7 @@ const CommunitySection = () => {
         sx={{
           display: 'grid',
           gridTemplateColumns: {
-            xs: '1fr',
-            sm: 'repeat(2, 1fr)',
+            xs: 'repeat(2, 1fr)',
             md: 'repeat(4, 1fr)',
           },
           gridTemplateRows: {
@@ -130,26 +129,19 @@ const CommunitySection = () => {
           },
           gridTemplateAreas: {
             xs: `
-              "gen-ai-mumbai"
-              "meet-greet-hyderabad"
-              "offline-bengaluru"
-              "meet-greet-bengaluru"
-              "creators-meetup"
-              "stats-card"
-            `,
-            sm: `
-              "gen-ai-mumbai meet-greet-hyderabad"
-              "offline-bengaluru offline-bengaluru"
-              "meet-greet-bengaluru stats-card"
-              "creators-meetup creators-meetup"
-            `,
+    "gen-ai-mumbai meet-greet-hyderabad"
+    "gen-ai-mumbai meet-greet-bengaluru"
+    "stats-card meet-greet-bengaluru"
+    "offline-bengaluru offline-bengaluru"
+    "creators-meetup creators-meetup"
+  `,
             md: `
-              "gen-ai-mumbai meet-greet-hyderabad offline-bengaluru offline-bengaluru"
-              "gen-ai-mumbai meet-greet-bengaluru offline-bengaluru offline-bengaluru"
-              "stats-card meet-greet-bengaluru creators-meetup creators-meetup"
-            `,
+    "gen-ai-mumbai meet-greet-hyderabad offline-bengaluru offline-bengaluru"
+    "gen-ai-mumbai meet-greet-bengaluru offline-bengaluru offline-bengaluru"
+    "stats-card meet-greet-bengaluru creators-meetup creators-meetup"
+  `,
           },
-          gap: theme.spacing(2),
+          gap: theme.spacing(1),
           width: '100%',
         }}
       >
@@ -212,16 +204,6 @@ const CommunitySection = () => {
                 borderRadius: theme.shape.borderRadius?.medium || 2,
                 overflow: 'hidden',
                 minHeight: { xs: 200, md: 'auto' },
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'rgba(0, 0, 0, 0.5)',
-                  zIndex: 1,
-                },
               }}
             >
               <img
@@ -231,7 +213,6 @@ const CommunitySection = () => {
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
-                  opacity: 1,
                 }}
               />
               <Box
@@ -253,7 +234,8 @@ const CommunitySection = () => {
                 <Typography
                   sx={{
                     fontSize: {
-                      xs: theme.typography.body2.fontSize,
+                      xs: '10px',
+                      sm: theme.typography.body2.fontSize,
                     },
                     mb: theme.spacing(0.5),
                     textAlign: 'left',
@@ -267,7 +249,7 @@ const CommunitySection = () => {
                     display: 'flex',
                     alignItems: 'center',
                     fontSize: {
-                      xs: theme.typography.caption.fontSize,
+                      xs: '10px',
                       sm: theme.typography.body2.fontSize,
                     },
                   }}

@@ -84,9 +84,12 @@ const FAQSection = () => {
             mb: theme.spacing(2),
             p: theme.spacing(2),
             borderRadius: theme.shape.borderRadius.medium,
-            bgcolor: '#3372BE0D',
+            bgcolor: '#fff',
             '&:before': {
               display: 'none',
+            },
+            '&.Mui-expanded': {
+              bgcolor: '#3372BE1A',
             },
           }}
         >
@@ -96,14 +99,34 @@ const FAQSection = () => {
               '& .MuiAccordionSummary-content': {
                 alignItems: 'center',
               },
+              '& .MuiAccordionSummary-expandIconWrapper': {
+                color: theme.colors.blue.secondary,
+              },
             }}
           >
-            <Typography sx={{ fontWeight: theme.typography.fontWeightMedium }}>
+            <Typography
+              sx={{
+                fontWeight: theme.typography.fontWeightMedium,
+                fontSize: {
+                  xs: theme.typography.body2.fontSize,
+                  sm: theme.typography.h6.fontSize,
+                },
+                mr: theme.spacing(1),
+              }}
+            >
               {item.question}
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography color="text.secondary">
+            <Typography
+              color="text.secondary"
+              sx={{
+                fontSize: {
+                  xs: theme.typography.body2.fontSize,
+                  sm: theme.typography.h6.fontSize,
+                },
+              }}
+            >
               {item.answer || 'Answer goes here...'}
             </Typography>
           </AccordionDetails>

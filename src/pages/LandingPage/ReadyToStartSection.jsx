@@ -1,7 +1,6 @@
 import {
     Box,
     Container,
-    Grid,
     Button as MuiButton,
     Typography,
 } from '@mui/material';
@@ -40,42 +39,32 @@ const ReadyToStartSection = () => {
             height: '100%',
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
-          <Grid
+          <Box
+            display="flex"
             container
-            //   spacing={theme.spacing(6)}
-            alignItems="center"
-            justifyContent={'center'}
             gap={4}
+            direction={'row'}
+            alignItems="center"
+            justifyContent="center"
             sx={{
               height: '100%',
-              flexDirection: { xs: 'column', md: 'row' },
             }}
           >
             {/* Left content */}
-            <Grid
-              item
-              xs={12}
-              md={6}
-              flex={0.5}
+            <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                order: { xs: 1, md: 1 },
               }}
             >
               <Box
                 sx={{
-                  textAlign: {
-                    xs: 'center',
-                    md: 'left',
-                  },
-                  maxWidth: {
-                    xs: '100%',
-                    md: '90%',
-                  },
+                  textAlign: 'left',
+                  maxWidth: '100%',
                 }}
               >
                 <Typography
@@ -85,10 +74,10 @@ const ReadyToStartSection = () => {
                   color="common.white"
                   sx={{
                     fontSize: {
-                      xs: '28px',
-                      sm: '30px',
-                      md: '36px',
-                      lg: '50px',
+                      xs: '24px',
+                      sm: '32px',
+                      md: '40px',
+                      lg: '48px',
                     },
                     lineHeight: {
                       xs: 1.2,
@@ -109,18 +98,15 @@ const ReadyToStartSection = () => {
                   color="common.white"
                   sx={{
                     fontSize: {
-                      xs: '16px',
-                      lg: '20px',
+                      xs: '14px',
+                      sm: '16px',
+                      lg: '18px',
                     },
                     fontWeight: 400,
                     lineHeight: 1.5,
                     mb: {
                       xs: theme.spacing(4),
                       md: theme.spacing(5),
-                    },
-                    maxWidth: {
-                      xs: '100%',
-                      md: '85%',
                     },
                     opacity: 0.95,
                   }}
@@ -166,22 +152,17 @@ const ReadyToStartSection = () => {
                   Start Learning Now
                 </MuiButton>
               </Box>
-            </Grid>
+            </Box>
 
             {/* Right image */}
-            <Grid
-              item
-              xs={12}
-              md={6}
+            <Box
               sx={{
                 display: 'flex',
                 justifyContent: {
                   xs: 'center',
-                  md: 'flex-end',
+                  md: 'center',
                 },
                 alignItems: 'center',
-                flex: 0.4,
-                order: { xs: 2, md: 2 },
               }}
             >
               <Box
@@ -191,10 +172,10 @@ const ReadyToStartSection = () => {
                 sx={{
                   width: '100%',
                   maxWidth: {
-                    xs: '350px',
-                    sm: '450px',
-                    md: '500px',
-                    lg: '580px',
+                    xs: '280px',
+                    sm: '350px',
+                    md: '400px',
+                    lg: '450px',
                   },
                   height: 'auto',
                   display: 'block',
@@ -210,8 +191,8 @@ const ReadyToStartSection = () => {
                   },
                 }}
               />
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Container>
       </Box>
     </Box>
