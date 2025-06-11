@@ -123,11 +123,11 @@ const ReadyToStartSection = () => {
                     color: '#1e40af',
                     fontWeight: 600,
                     fontSize: {
-                      xs: '1rem',
+                      xs: theme.typography.body2.fontSize,
                       md: '1.1rem',
                     },
                     px: {
-                      xs: theme.spacing(4),
+                      xs: theme.spacing(1),
                       md: theme.spacing(5),
                     },
                     py: {
