@@ -232,21 +232,21 @@ const PaidCourseSection = () => {
                 xs: theme.typography.body2.fontSize,
                 sm: theme.typography.body1.fontSize,
               },
-              flexGrow: 1,
+              flexGrow: 0.5,
             }}
           >
             Basic Knowledge
           </Typography>
 
           <Stack
-            display={{ xs: 'block', md: 'none' }}
+            display={{ xs: 'flex', md: 'none' }}
             direction="row"
             spacing={theme.spacing(2)}
             alignItems="center"
             sx={{
               flexDirection: 'row',
               alignItems: 'center',
-              gap: theme.spacing(2),
+              //   gap: theme.spacing(0.5),
             }}
           >
             <Link

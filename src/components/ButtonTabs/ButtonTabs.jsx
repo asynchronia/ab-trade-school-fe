@@ -9,6 +9,10 @@ const ButtonTabs = ({ tabs = [], selectedTab, onSelect }) => {
         gap: 2,
         flexDirection: 'row',
         overflowX: 'auto',
+        scrollbarWidth: 'none',
+        '&::-webkit-scrollbar': {
+          display: 'none',
+        },
       }}
     >
       {tabs.map((tab) => (
@@ -30,7 +34,7 @@ const ButtonTabs = ({ tabs = [], selectedTab, onSelect }) => {
               borderColor: '#1E40AF',
             },
             minWidth: 120,
-            flexShrink: 0, // prevent shrinking in horizontal scroll
+            flexShrink: 0,
           }}
         >
           {tab}

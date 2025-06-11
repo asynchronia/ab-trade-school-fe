@@ -103,6 +103,7 @@ const InstructorSection = () => {
       <Box
         sx={{
           display: 'flex',
+          justifyContent: 'flex-start',
           overflowX: 'auto',
           overflowY: 'hidden',
           gap: {
@@ -110,20 +111,17 @@ const InstructorSection = () => {
             sm: theme.spacing(3.75),
           },
           pb: theme.spacing(1),
-          '&::-webkit-scrollbar': {
-            height: '8px',
-            display: 'none',
+          px: {
+            xs: theme.spacing(2),
+            sm: theme.spacing(4),
           },
-          '&::-webkit-scrollbar-track': {
-            backgroundColor: theme.colors.gray[200],
-            borderRadius: '4px',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: theme.colors.gray[400],
-            borderRadius: '4px',
-            '&:hover': {
-              backgroundColor: theme.colors.gray[500],
+          '&': {
+            '@media (min-width: 1200px)': {
+              justifyContent: 'center',
             },
+          },
+          '&::-webkit-scrollbar': {
+            display: 'none',
           },
         }}
       >
@@ -136,6 +134,7 @@ const InstructorSection = () => {
                 sm: 320,
               },
               maxWidth: 360,
+              border: '#e0e0e0 1px solid',
               flexShrink: 0,
               borderRadius: theme.shape.borderRadius.large,
               boxShadow: theme.shadows[2],

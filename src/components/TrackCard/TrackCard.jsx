@@ -11,7 +11,6 @@ const TrackCard = ({ icon, title, description, buttonText }) => {
         boxShadow: '0 6px 12px rgba(0, 0, 0, 0.06)',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'stretch',
         height: '100%',
         flexShrink: {
           xs: 0,
@@ -58,7 +57,7 @@ const TrackCard = ({ icon, title, description, buttonText }) => {
           color: '#4b5563',
           mb: 3,
           textAlign: 'center',
-          flex: 1,
+          flexGrow: 1,
         }}
       >
         {description}

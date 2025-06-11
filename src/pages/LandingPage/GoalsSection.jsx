@@ -189,9 +189,15 @@ const GoalsSection = () => {
             gridTemplateColumns: {
               lg: 'repeat(5, 1fr)',
             },
-            justifyItems: {
-              xs: 'stretch',
-              lg: 'center',
+            alignItems: 'stretch',
+            // Force equal heights on mobile only
+            '& > *': {
+              minHeight: {
+                xs: '300px',
+              },
+              height: {
+                lg: '100%',
+              },
             },
             scrollBehavior: 'smooth',
             '&::-webkit-scrollbar': {

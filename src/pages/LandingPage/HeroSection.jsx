@@ -1,5 +1,5 @@
 import { PlayCircle } from '@mui/icons-material';
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import heroImg1 from '../../assets/heroImg1.svg';
@@ -8,12 +8,11 @@ import heroImg3 from '../../assets/heroImg3.svg';
 import heroImg4 from '../../assets/heroImg4.svg';
 import rightCircle from '../../assets/rightCircle.svg';
 import Button from '../../components/Button/Button';
+import HeroImageSlider from '../../components/HeroImageSlider/HeroImageSlider';
 import theme from '../../utils/theme';
 
 const HeroSection = () => {
   const navigate = useNavigate();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [animationState, setAnimationState] = useState('active');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const heroImages = [heroImg1, heroImg2, heroImg3, heroImg4];
@@ -26,19 +25,12 @@ const HeroSection = () => {
 
   const descriptions = [
     {
-      text: 'Start your trading journey with',
-      highlight1: '20+ structured modules',
-      middleText: 'covering real strategies and tools. All courses are',
-      highlight2: '100% free',
-      endText: 'and designed for both beginners and experienced traders.',
-    },
-    {
-      text: 'Get access to',
-      highlight1: 'high-quality recorded videos',
+      text: 'Join',
+      highlight1: '1M+ learners',
       middleText:
-        'tailored for each course. Learn anytime, anywhere and earn a',
-      highlight2: 'free certificate',
-      endText: 'after every course completion.',
+        'who trust us for practical, flexible and certified trading education.',
+      highlight2: 'Learn live,',
+      endText: 'on-demand or in person, all without spending a rupee.',
     },
     {
       text: 'Attend',
@@ -49,29 +41,21 @@ const HeroSection = () => {
       endText: 'from industry experts.',
     },
     {
-      text: 'Join',
-      highlight1: '1M+ learners',
+      text: 'Get access to',
+      highlight1: 'high-quality recorded videos',
       middleText:
-        'who trust us for practical, flexible and certified trading education.',
-      highlight2: 'Learn live,',
-      endText: 'on-demand or in person, all without spending a rupee.',
+        'tailored for each course. Learn anytime, anywhere and earn a',
+      highlight2: 'free certificate',
+      endText: 'after every course completion.',
+    },
+    {
+      text: 'Start your trading journey with',
+      highlight1: '20+ structured modules',
+      middleText: 'covering real strategies and tools. All courses are',
+      highlight2: '100% free',
+      endText: 'and designed for both beginners and experienced traders.',
     },
   ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setAnimationState('transitioning');
-
-      setTimeout(() => {
-        setCurrentImageIndex(
-          (prevIndex) => (prevIndex + 1) % heroImages.length
-        );
-        setAnimationState('active');
-      }, 2000);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [heroImages.length]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -81,26 +65,10 @@ const HeroSection = () => {
         setCurrentIndex((prev) => (prev + 1) % descriptions.length);
         setIsVisible(true);
       }, 1000);
-    }, 4000);
+    }, 3900);
 
     return () => clearInterval(interval);
   }, [descriptions.length]);
-
-  const getImageClass = (index) => {
-    if (animationState === 'active') {
-      return index === currentImageIndex ? 'active' : '';
-    } else if (animationState === 'transitioning') {
-      const nextIndex = (currentImageIndex + 1) % heroImages.length;
-
-      if (index === currentImageIndex) {
-        return 'exiting';
-      } else if (index === nextIndex) {
-        return 'entering';
-      }
-      return '';
-    }
-    return '';
-  };
 
   const currentDescription = descriptions[currentIndex];
 
@@ -164,27 +132,43 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Main Content */}
-      <Grid
-        container
-        maxWidth={'1300px'}
-        spacing={{
-          xs: theme.spacing(4),
-          md: theme.spacing(6),
-        }}
+      {/* Main Content Container */}
+      <Box
         sx={{
+          maxWidth: '1300px',
+          width: '100%',
           position: 'relative',
           zIndex: 1,
-          flexWrap: {
-            xs: 'wrap',
-            md: 'nowrap',
-          },
           display: 'flex',
-          alignContent: 'center',
+          alignItems: 'center',
           justifyContent: 'space-between',
+          gap: {
+            xs: theme.spacing(4),
+            md: theme.spacing(6),
+          },
+          flexDirection: {
+            xs: 'column',
+            md: 'row',
+          },
         }}
       >
-        <Grid item xs={12} md={6} sx={{ flex: { md: 0.5 } }}>
+        {/* Left Content */}
+        <Box
+          sx={{
+            flex: {
+              xs: 'none',
+              md: '0 0 50%',
+            },
+            width: {
+              xs: '100%',
+              md: '50%',
+            },
+            order: {
+              xs: 2,
+              md: 1,
+            },
+          }}
+        >
           <Typography
             variant="h3"
             fontWeight={700}
@@ -224,6 +208,15 @@ const HeroSection = () => {
             </Box>
           </Typography>
 
+          <Box
+            sx={{ display: { xs: 'block', md: 'none' }, my: theme.spacing(2) }}
+          >
+            <HeroImageSlider
+              images={heroImages}
+              transitionType="vertical-scroll"
+            />
+          </Box>
+
           <Typography
             variant="subtitle1"
             sx={{
@@ -238,7 +231,7 @@ const HeroSection = () => {
                 md: 'left',
               },
               lineHeight: 1.6,
-              minHeight: '3.5rem',
+              height: '120px',
               opacity: isVisible ? 1 : 0,
               transition: 'opacity 1s ease-in-out',
             }}
@@ -354,47 +347,34 @@ const HeroSection = () => {
               </Box>
             ))}
           </Stack>
-        </Grid>
+        </Box>
 
-        <Grid
-          item
-          xs={12}
-          md={6}
+        {/* Right Content - Image Slider */}
+        <Box
           sx={{
+            flex: {
+              xs: 'none',
+              md: '0 0 50%',
+            },
+            width: {
+              xs: '100%',
+              md: '50%',
+            },
             textAlign: {
               xs: 'center',
               md: 'right',
             },
             position: 'relative',
-            flex: { md: 0.5 },
             order: {
-              xs: -1,
-              md: 0,
+              xs: 1,
+              md: 2,
             },
+            display: { xs: 'none', md: 'block' },
           }}
         >
-          <Box className="hero-image-container">
-            {heroImages.map((image, index) => (
-              <Box
-                key={index}
-                component="img"
-                src={image}
-                alt={`Hero illustration ${index + 1}`}
-                className={`hero-image ${getImageClass(index)}`}
-                sx={{
-                  width: '100%',
-                  maxWidth: {
-                    xs: 400,
-                    sm: 500,
-                    md: 620,
-                  },
-                  mb: theme.spacing(2),
-                }}
-              />
-            ))}
-          </Box>
-        </Grid>
-      </Grid>
+          <HeroImageSlider images={heroImages} />
+        </Box>
+      </Box>
     </Box>
   );
 };

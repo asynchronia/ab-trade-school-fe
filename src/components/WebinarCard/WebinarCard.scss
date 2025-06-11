@@ -11,6 +11,10 @@
     width: fit-content;
   }
 
+    .webinar-carousel-track::-webkit-scrollbar {
+        display: none;
+    }
+
   .webinar-card {
     width: 360px;
     flex-shrink: 0;
