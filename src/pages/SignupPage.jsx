@@ -22,7 +22,6 @@ import {
 import { Formik } from 'formik';
 import { enqueueSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
-import { crmSignup } from '../api';
 import signupImg from '../assets/signupImg.svg';
 import { signupReq } from '../service/auth.service';
 
