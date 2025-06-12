@@ -1,4 +1,4 @@
-import { login, signup } from '../api';
+import { login, sendSmsOtp, signup, verifyOtp } from '../api';
 
 export const signupReq = async (body) => {
   const response = await signup(body);
@@ -7,5 +7,15 @@ export const signupReq = async (body) => {
 
 export const loginReq = async (body) => {
   const response = await login(body);
+  return response;
+};
+
+export const sendOtpReq = async (body) => {
+  const response = await sendSmsOtp(body);
+  return response;
+};
+
+export const verifyOtpReq = async (body) => {
+  const response = await verifyOtp(body);
   return response;
 };
