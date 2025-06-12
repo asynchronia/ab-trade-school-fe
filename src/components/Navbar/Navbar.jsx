@@ -35,9 +35,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  console.log(user);
+  const user = localStorage.getItem('User');
 
   const navItems = [
     {
@@ -77,7 +75,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem('User');
     setIsDrawerOpen(false);
     navigate('/');
     enqueueSnackbar('Logged out successfully', {
@@ -296,9 +294,6 @@ const Navbar = () => {
                   alt="avatar"
                   style={{ width: '40px', height: '40px', borderRadius: '50%' }}
                 />
-                <Typography variant="body2" sx={{ color: '#374151' }}>
-                  {user?.name}
-                </Typography>
               </Box>
             )}
             <ListItem
@@ -327,7 +322,7 @@ const Navbar = () => {
                   marginRight: '8px',
                 }}
               />
-              {user?.name}
+              {/* {user?.name} */}
             </ListItem>
             <ListItem
               button
@@ -481,7 +476,7 @@ const Navbar = () => {
                   />
                   {isProfileMenuOpen && (
                     <div className="profile-menu">
-                      <div className="profile-item">{user?.name}</div>
+                      {/* <div className="profile-item">{user?.name}</div> */}
                       <div className="profile-item" onClick={handleLogout}>
                         <Logout /> Logout
                       </div>

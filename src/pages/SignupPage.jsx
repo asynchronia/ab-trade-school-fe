@@ -21,10 +21,11 @@ import {
 } from '@mui/material';
 import { Formik } from 'formik';
 import { enqueueSnackbar } from 'notistack';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { crmSignup } from '../api';
 import signupImg from '../assets/signupImg.svg';
-import { signupReq } from '../service/auth.service';
+import OTPVerification from '../components/OTPVerification/OTPVerification';
+import { sendOtpReq, signupReq, verifyOtpReq } from '../service/auth.service';
 
 // Import images
 import appStore from '../assets/appStore.svg';
@@ -40,16 +41,69 @@ const SignupPage = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [stage, setStage] = useState(1);
+  const [mobile, setMobile] = useState('');
 
   const initialValues = {
     name: '',
     email: '',
-    phone: '',
+    phone: mobile,
     password: '',
     confirmPassword: '',
+    otp: '',
   };
 
-  const handleSubmit = async (values) => {
+  const handleOtpSubmit = async (values) => {
+    try {
+      const response = await verifyOtpReq({
+        phone: mobile,
+        otp: values.otp,
+      });
+      if (response?.success) {
+        enqueueSnackbar(response?.message || 'OTP verified successfully', {
+          variant: 'success',
+        });
+        setStage(3);
+      } else {
+        enqueueSnackbar(response?.message || 'OTP verification failed', {
+          variant: 'error',
+        });
+        setStage(1);
+      }
+    } catch (error) {
+      console.error(error);
+      enqueueSnackbar(error?.message || 'Something went wrong', {
+        variant: 'error',
+      });
+      setStage(1);
+      setMobile('');
+    }
+  };
+
+  const sendOtpToMobile = async () => {
+    try {
+      const response = await sendOtpReq({
+        phone: mobile,
+      });
+      if (response?.success) {
+        enqueueSnackbar(response?.message || 'OTP sent successfully', {
+          variant: 'success',
+        });
+        setStage(2);
+      } else {
+        enqueueSnackbar(response?.message || 'Failed to send OTP', {
+          variant: 'error',
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      enqueueSnackbar(error?.message || 'Something went wrong', {
+        variant: 'error',
+      });
+    }
+  };
+
+  const handleSignup = async (values) => {
     try {
       const response = await signupReq({
         email: values?.email,
@@ -81,7 +135,7 @@ const SignupPage = () => {
     <Box
       sx={{
         bgcolor: '#fff',
-        py: 5,
+        // py: 5,
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
@@ -92,7 +146,7 @@ const SignupPage = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={signupSchema}
-          onSubmit={handleSubmit}
+          enableReinitialize
         >
           {({
             values,
@@ -101,7 +155,6 @@ const SignupPage = () => {
             handleChange,
             handleBlur,
             handleSubmit,
-            isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
               <Box
@@ -109,6 +162,8 @@ const SignupPage = () => {
                 sx={{
                   display: 'flex',
                   flexDirection: isMobile ? 'column' : 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
                 {/* Left Side - Image and Info */}
@@ -120,6 +175,7 @@ const SignupPage = () => {
                     justifyContent: 'center',
                     bgcolor: '#f0f4ff',
                     p: 4,
+                    flex: 0.5,
                   }}
                 >
                   <Box sx={{ maxWidth: '100%', textAlign: 'center', mb: 4 }}>
@@ -158,10 +214,17 @@ const SignupPage = () => {
                     borderLeft: isMobile ? 'none' : '1px dashed #ccc',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'center',
+                    // justifyContent: 'center',
+                    flex: 0.5,
                   }}
                 >
-                  <Box sx={{ maxWidth: '500px', width: '100%', mx: 'auto' }}>
+                  <Box
+                    sx={{
+                      maxWidth: '500px',
+                      width: '100%',
+                      mx: { xs: 'auto', md: 0 },
+                    }}
+                  >
                     <Typography variant="h5" fontWeight="bold" gutterBottom>
                       Register your profile
                     </Typography>
@@ -177,109 +240,149 @@ const SignupPage = () => {
                       </Link>
                     </Typography>
 
-                    <Box sx={{ mt: 3 }}>
-                      {/* Name Field */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Full Name"
-                        placeholder="Enter your name"
-                        variant="outlined"
-                        name="name"
-                        value={values.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.name && Boolean(errors.name)}
-                        helperText={touched.name && errors.name}
-                      />
+                    {stage === 1 && (
+                      <>
+                        <TextField
+                          fullWidth
+                          label="Mobile Number"
+                          value={mobile}
+                          onChange={(e) => setMobile(e.target.value)}
+                          placeholder="Enter 10-digit mobile"
+                          margin="normal"
+                        />
+                        <Typography variant="subtitle2" gutterBottom>
+                          We will send a verification code to your mobile.
+                        </Typography>
+                        <Button
+                          fullWidth
+                          variant="contained"
+                          sx={{ mt: 2, py: 1.5, bgcolor: '#1a56db' }}
+                          onClick={sendOtpToMobile}
+                        >
+                          Send OTP
+                        </Button>
+                      </>
+                    )}
 
-                      {/* Email Field */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Email"
-                        placeholder="Enter your email"
-                        variant="outlined"
-                        name="email"
-                        value={values.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.email && Boolean(errors.email)}
-                        helperText={touched.email && errors.email}
-                      />
+                    {stage === 2 && (
+                      <>
+                        <Box display="flex" justifyContent="center" mt={2}>
+                          <OTPVerification
+                            value={values.otp}
+                            onChange={(val) => {
+                              handleChange({
+                                target: { name: 'otp', value: val },
+                              });
+                            }}
+                            onVerify={() => handleOtpSubmit(values)}
+                          />
+                        </Box>
+                      </>
+                    )}
 
-                      {/* Phone Field */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Phone Number"
-                        placeholder="1234567890"
-                        variant="outlined"
-                        name="phone"
-                        value={values.phone}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.phone && Boolean(errors.phone)}
-                        helperText={touched.phone && errors.phone}
-                      />
+                    {stage === 3 && (
+                      <Box sx={{ mt: 3 }}>
+                        {/* Name Field */}
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          label="Full Name"
+                          placeholder="Enter your name"
+                          variant="outlined"
+                          name="name"
+                          value={values.name}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.name && Boolean(errors.name)}
+                          helperText={touched.name && errors.name}
+                        />
 
-                      {/* Password Field */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Password"
-                        placeholder="New password"
-                        variant="outlined"
-                        type="password"
-                        name="password"
-                        value={values.password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.password && Boolean(errors.password)}
-                        helperText={touched.password && errors.password}
-                      />
+                        {/* Email Field */}
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          label="Email"
+                          placeholder="Enter your email"
+                          variant="outlined"
+                          name="email"
+                          value={values.email}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.email && Boolean(errors.email)}
+                          helperText={touched.email && errors.email}
+                        />
 
-                      {/* Confirm Password Field */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Confirm Password"
-                        placeholder="Confirm password"
-                        variant="outlined"
-                        type="password"
-                        name="confirmPassword"
-                        value={values.confirmPassword}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={
-                          touched.confirmPassword &&
-                          Boolean(errors.confirmPassword)
-                        }
-                        helperText={
-                          touched.confirmPassword && errors.confirmPassword
-                        }
-                      />
+                        {/* Phone Field */}
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          label="Phone Number"
+                          placeholder="1234567890"
+                          variant="outlined"
+                          name="phone"
+                          value={values.phone}
+                          readOnly
+                          onBlur={handleBlur}
+                        />
 
-                      <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        type="submit"
-                        disabled={isSubmitting}
-                        sx={{
-                          mt: 3,
-                          py: 1.5,
-                          borderRadius: 1,
-                          bgcolor: '#1a56db',
-                          '&:hover': {
-                            bgcolor: '#104bb9',
-                          },
-                        }}
-                      >
-                        {isSubmitting ? 'Processing...' : 'Continue'}
-                      </Button>
-                    </Box>
+                        {/* Password Field */}
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          label="Password"
+                          placeholder="New password"
+                          variant="outlined"
+                          type="password"
+                          name="password"
+                          value={values.password}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={touched.password && Boolean(errors.password)}
+                          helperText={touched.password && errors.password}
+                        />
+
+                        {/* Confirm Password Field */}
+                        <TextField
+                          fullWidth
+                          margin="normal"
+                          label="Confirm Password"
+                          placeholder="Confirm password"
+                          variant="outlined"
+                          type="password"
+                          name="confirmPassword"
+                          value={values.confirmPassword}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          error={
+                            touched.confirmPassword &&
+                            Boolean(errors.confirmPassword)
+                          }
+                          helperText={
+                            touched.confirmPassword && errors.confirmPassword
+                          }
+                        />
+
+                        <Button
+                          fullWidth
+                          variant="contained"
+                          color="primary"
+                          size="large"
+                          type="submit"
+                          onClick={() => handleSignup(values)}
+                          sx={{
+                            mt: 3,
+                            py: 1.5,
+                            borderRadius: 1,
+                            bgcolor: '#1a56db',
+                            '&:hover': {
+                              bgcolor: '#104bb9',
+                            },
+                          }}
+                        >
+                          Submit
+                        </Button>
+                      </Box>
+                    )}
                   </Box>
                 </Box>
               </Box>
