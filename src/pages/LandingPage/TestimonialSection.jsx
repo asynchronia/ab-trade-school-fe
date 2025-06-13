@@ -233,6 +233,7 @@ const TestimonialsSection = () => {
                   readOnly
                   size="small"
                   sx={{
+                    fontSize: '12px' ,
                     mb: 1,
                     '& .MuiRating-iconFilled': {
                       color: '#ffc107',
