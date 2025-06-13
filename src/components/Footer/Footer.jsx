@@ -217,7 +217,7 @@ const Footer = () => {
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            maxWidth: '1300px',
+            // maxWidth: '1300px',
             flexWrap: 'wrap',
             gap: theme.spacing(2),
             py: theme.spacing(4),
@@ -228,7 +228,7 @@ const Footer = () => {
             },
             flexDirection: {
               xs: 'column',
-              md: 'row',
+              lg: 'row',
             },
             alignItems: {
               xs: 'center',
@@ -247,7 +247,7 @@ const Footer = () => {
                 xs: theme.spacing(3),
                 md: 0,
               },
-              flex: 0.5,
+              //   flex: 0.5,
             }}
           >
             <img
@@ -282,7 +282,7 @@ const Footer = () => {
                 md: theme.spacing(3),
               },
               justifyContent: { xs: 'space-between', md: 'flex-start' },
-              flex: 0.5,
+              flex: 1,
             }}
           >
             {footerLinks.map((section, index) => (
@@ -360,13 +360,12 @@ const Footer = () => {
       {/* Footer Notice Section */}
       <Box
         sx={{
-          backgroundColor: '#111827',
+          backgroundColor: 'rgba(17, 24, 39, 1)',
           pt: theme.spacing(4),
           px: {
             lg: theme.spacing(12.5),
             xs: theme.spacing(2),
             sm: theme.spacing(4),
-            md: theme.spacing(10),
           },
           fontFamily: theme.typography.fontFamily,
           fontSize: theme.typography.body2.fontSize,

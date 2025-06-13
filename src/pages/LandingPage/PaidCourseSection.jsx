@@ -235,7 +235,16 @@ const PaidCourseSection = () => {
               flexGrow: 0.5,
             }}
           >
-            Basic Knowledge
+            Basic Knowledge{' '}
+            <Typography
+              component={'span'}
+              sx={{
+                display: { xs: 'none', sm: 'inline' },
+                fontSize: 'inherit',
+              }}
+            >
+              - Beginner - English
+            </Typography>
           </Typography>
 
           <Stack
