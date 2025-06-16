@@ -12,6 +12,7 @@ import {
     Divider,
     Grid,
     IconButton,
+    InputAdornment,
     Link,
     Paper,
     TextField,
@@ -28,6 +29,7 @@ import OTPVerification from '../components/OTPVerification/OTPVerification';
 import { sendOtpReq, signupReq, verifyOtpReq } from '../service/auth.service';
 
 // Import images
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import appStore from '../assets/appStore.svg';
 import com1 from '../assets/com-1.svg';
 import com2 from '../assets/com-2.svg';
@@ -43,6 +45,8 @@ const SignupPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [stage, setStage] = useState(1);
   const [mobile, setMobile] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const initialValues = {
     name: '',
@@ -64,11 +68,12 @@ const SignupPage = () => {
           variant: 'success',
         });
         setStage(3);
+        localStorage.setItem('registerToken', response?.payload?.token || '');
       } else {
         enqueueSnackbar(response?.message || 'OTP verification failed', {
           variant: 'error',
         });
-        setStage(1);
+        // setStage(1);
       }
     } catch (error) {
       console.error(error);
@@ -110,6 +115,7 @@ const SignupPage = () => {
         password: values?.password,
         name: values?.name,
         phone: values?.phone,
+        token: localStorage.getItem('registerToken'),
       });
 
       if (response?.success && response?.payload?.data) {
@@ -118,8 +124,9 @@ const SignupPage = () => {
         });
 
         navigate('/login');
+        localStorage.removeItem('registerToken');
       } else {
-        enqueueSnackbar(response?.message || 'Login failed', {
+        enqueueSnackbar(response?.message || 'Signup failed', {
           variant: 'error',
         });
       }
@@ -135,7 +142,6 @@ const SignupPage = () => {
     <Box
       sx={{
         bgcolor: '#fff',
-        // py: 5,
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
@@ -266,7 +272,7 @@ const SignupPage = () => {
 
                     {stage === 2 && (
                       <>
-                        <Box display="flex" justifyContent="center" mt={2}>
+                        <Box display="flex" justifyContent="left" mt={2}>
                           <OTPVerification
                             value={values.otp}
                             onChange={(val) => {
@@ -323,6 +329,19 @@ const SignupPage = () => {
                           value={values.phone}
                           readOnly
                           onBlur={handleBlur}
+                          InputProps={{
+                            endAdornment: (
+                              <Typography
+                                color="primary"
+                                sx={{
+                                  fontSize: theme.typography.subtitle1.fontSize,
+                                  //   color: text.,
+                                }}
+                              >
+                                verified
+                              </Typography>
+                            ),
+                          }}
                         />
 
                         {/* Password Field */}
@@ -332,13 +351,30 @@ const SignupPage = () => {
                           label="Password"
                           placeholder="New password"
                           variant="outlined"
-                          type="password"
+                          type={showPassword ? 'text' : 'password'}
                           name="password"
                           value={values.password}
                           onChange={handleChange}
                           onBlur={handleBlur}
                           error={touched.password && Boolean(errors.password)}
                           helperText={touched.password && errors.password}
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <IconButton
+                                  aria-label="toggle password visibility"
+                                  onClick={() => setShowPassword(!showPassword)}
+                                  edge="end"
+                                >
+                                  {showPassword ? (
+                                    <VisibilityOff />
+                                  ) : (
+                                    <Visibility />
+                                  )}
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
                         />
 
                         {/* Confirm Password Field */}
@@ -348,7 +384,7 @@ const SignupPage = () => {
                           label="Confirm Password"
                           placeholder="Confirm password"
                           variant="outlined"
-                          type="password"
+                          type={showConfirmPassword ? 'text' : 'password'}
                           name="confirmPassword"
                           value={values.confirmPassword}
                           onChange={handleChange}
@@ -360,6 +396,25 @@ const SignupPage = () => {
                           helperText={
                             touched.confirmPassword && errors.confirmPassword
                           }
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment position="end">
+                                <IconButton
+                                  aria-label="toggle confirm password visibility"
+                                  onClick={() =>
+                                    setShowConfirmPassword(!showConfirmPassword)
+                                  }
+                                  edge="end"
+                                >
+                                  {showConfirmPassword ? (
+                                    <VisibilityOff />
+                                  ) : (
+                                    <Visibility />
+                                  )}
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
                         />
 
                         <Button

@@ -1,7 +1,25 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 import OtpInput from 'react-otp-input';
 
-const OTPVerification = ({ onVerify, value, onChange }) => {
+const OTPVerification = ({ onVerify, value, onChange, onResend }) => {
+  const [counter, setCounter] = useState(30); // 30 seconds cooldown
+
+  useEffect(() => {
+    let timer;
+    if (counter > 0) {
+      timer = setTimeout(() => setCounter(counter - 1), 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [counter]);
+
+  const handleResend = () => {
+    if (counter === 0) {
+      onResend(); // call parent handler
+      setCounter(30); // restart countdown
+    }
+  };
+
   return (
     <Box textAlign="left">
       <Box display="flex" justifyContent="left" mt={2}>
@@ -20,15 +38,33 @@ const OTPVerification = ({ onVerify, value, onChange }) => {
           }}
         />
       </Box>
+
       <Typography variant="body2" ml={1} color="green" gutterBottom>
         Enter the OTP sent to your mobile
+      </Typography>
+
+      <Typography variant="body2" ml={1}>
+        {counter > 0 ? (
+          <>
+            Resend OTP in <strong>{counter}s</strong>
+          </>
+        ) : (
+          <Link
+            component="button"
+            variant="body2"
+            onClick={handleResend}
+            underline="hover"
+          >
+            Resend OTP
+          </Link>
+        )}
       </Typography>
 
       <Button
         fullWidth
         variant="contained"
         onClick={onVerify}
-        sx={{ mt: 3, py: 1.5, bgcolor: '#1a56db', borderRadius: 1 }}
+        sx={{ mt: 1.5, py: 1.5, bgcolor: '#1a56db', borderRadius: 1 }}
       >
         Verify OTP
       </Button>

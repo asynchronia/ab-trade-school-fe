@@ -12,6 +12,7 @@ import {
     Divider,
     Grid,
     IconButton,
+    InputAdornment,
     Link,
     Paper,
     TextField,
@@ -21,7 +22,7 @@ import {
 } from '@mui/material';
 import { Formik } from 'formik';
 import { enqueueSnackbar } from 'notistack';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import appStore from '../assets/appStore.svg';
 import com1 from '../assets/com-1.svg';
@@ -31,71 +32,103 @@ import com4 from '../assets/com-4.svg';
 import playStore from '../assets/playStore.svg';
 import qrCode from '../assets/qrCode.svg';
 import signupImg from '../assets/signupImg.svg';
-import OTPVerification from '../components/OTPVerification/OTPVerification';
-import { sendOtpReq, verifyOtpReq } from '../service/auth.service';
+// import OTPVerification from '../components/OTPVerification/OTPVerification';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useState } from 'react';
+import { loginReq } from '../service/auth.service';
 import { loginSchema } from '../validations/LoginValidation';
 
 const LoginPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
-  const [stage, setStage] = useState(1);
+  const [showPassword, setShowPassword] = useState(false);
+
+  //   const [stage, setStage] = useState(1);
 
   const initialValues = {
-    phone: '',
-    otp: '',
+    email: '',
+    password: '',
   };
 
-  const handleOtpSubmit = async (values) => {
+  const handleFormSubmit = async (values, { setSubmitting }) => {
+    console.log(values);
     try {
-      const response = await verifyOtpReq({
-        phone: values.phone,
-        otp: values.otp,
+      const response = await loginReq({
+        email: values?.email,
+        password: values?.password,
       });
-      if (response?.success) {
-        enqueueSnackbar(response?.message || 'OTP verified successfully', {
-          variant: 'success',
-        });
-        setStage(3);
+
+      if (response?.success && response?.payload?.user) {
+        localStorage.setItem('user', JSON.stringify(response.payload.user));
+        enqueueSnackbar('User logged in successfully', { variant: 'success' });
+        localStorage.setItem('user', JSON.stringify(response.payload.user));
         navigate('/courses');
       } else {
-        enqueueSnackbar(response?.message || 'OTP verification failed', {
+        enqueueSnackbar(response?.message || 'Login failed', {
           variant: 'error',
         });
-        setStage(1);
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
       enqueueSnackbar(error?.message || 'Something went wrong', {
         variant: 'error',
       });
-      setStage(1);
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  const sendOtpToMobile = async (values) => {
-    try {
-      const response = await sendOtpReq({
-        phone: values.phone,
-      });
-      if (response?.success) {
-        enqueueSnackbar(response?.message || 'OTP sent successfully', {
-          variant: 'success',
-        });
-        setStage(2);
-        localStorage.setItem('User', true);
-      } else {
-        enqueueSnackbar(response?.message || 'Failed to send OTP', {
-          variant: 'error',
-        });
-      }
-    } catch (error) {
-      console.error(error);
-      enqueueSnackbar(error?.message || 'Something went wrong', {
-        variant: 'error',
-      });
-    }
-  };
+  //   const handleOtpSubmit = async (values) => {
+  //     try {
+  //       const response = await verifyOtpReq({
+  //         phone: values.phone,
+  //         otp: values.otp,
+  //       });
+  //       if (response?.success) {
+  //         enqueueSnackbar(response?.message || 'OTP verified successfully', {
+  //           variant: 'success',
+  //         });
+  //         setStage(3);
+  //         navigate('/courses');
+  //       } else {
+  //         enqueueSnackbar(response?.message || 'OTP verification failed', {
+  //           variant: 'error',
+  //         });
+  //         setStage(1);
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //       enqueueSnackbar(error?.message || 'Something went wrong', {
+  //         variant: 'error',
+  //       });
+  //       setStage(1);
+  //     }
+  //   };
+
+  //   const sendOtpToMobile = async (values) => {
+  //     try {
+  //       const response = await sendOtpReq({
+  //         phone: values.phone,
+  //       });
+  //       if (response?.success) {
+  //         enqueueSnackbar(response?.message || 'OTP sent successfully', {
+  //           variant: 'success',
+  //         });
+  //         setStage(2);
+  //         localStorage.setItem('User', true);
+  //       } else {
+  //         enqueueSnackbar(response?.message || 'Failed to send OTP', {
+  //           variant: 'error',
+  //         });
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //       enqueueSnackbar(error?.message || 'Something went wrong', {
+  //         variant: 'error',
+  //       });
+  //     }
+  //   };
 
   return (
     <Box
@@ -107,11 +140,11 @@ const LoginPage = () => {
       }}
     >
       {/* Main content */}
-      <Container maxWidth="lg" disableGutters>
+      <Box>
         <Formik
           initialValues={initialValues}
           validationSchema={loginSchema}
-          onSubmit={sendOtpToMobile}
+          onSubmit={handleFormSubmit}
           validateOnBlur={true}
           validateOnChange={false}
         >
@@ -122,10 +155,10 @@ const LoginPage = () => {
             handleChange,
             handleBlur,
             handleSubmit,
+            isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
               <Box
-                container
                 sx={{
                   display: 'flex',
                   flexDirection: isMobile ? 'column' : 'row',
@@ -205,62 +238,81 @@ const LoginPage = () => {
                       </Link>
                     </Typography>
 
-                    {stage === 1 && (
-                      <Box sx={{ mt: 3 }}>
-                        {/* Phone Field */}
-                        <TextField
-                          fullWidth
-                          margin="normal"
-                          label="Phone Number"
-                          placeholder="Enter your phone number"
-                          variant="outlined"
-                          name="phone"
-                          value={values.phone}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          error={touched.phone && Boolean(errors.phone)}
-                          helperText={touched.phone && errors.phone}
-                        />
-
-                        <Button
-                          fullWidth
-                          variant="contained"
-                          color="primary"
-                          size="large"
-                          type="submit"
-                          sx={{
-                            mt: 3,
-                            py: 1.5,
-                            borderRadius: 1,
-                            bgcolor: '#1a56db',
-                            '&:hover': {
-                              bgcolor: '#104bb9',
-                            },
-                          }}
-                        >
-                          Submit
-                        </Button>
-                      </Box>
-                    )}
-
-                    {stage === 2 && (
-                      <OTPVerification
-                        value={values.otp}
-                        onChange={(val) => {
-                          handleChange({
-                            target: { name: 'otp', value: val },
-                          });
-                        }}
-                        onVerify={() => handleOtpSubmit(values)}
+                    <Box sx={{ mt: 3 }}>
+                      {/* Email Field */}
+                      <TextField
+                        fullWidth
+                        margin="normal"
+                        label="Email"
+                        placeholder="Enter your email"
+                        variant="outlined"
+                        name="email"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.email && Boolean(errors.email)}
+                        helperText={touched.email && errors.email}
                       />
-                    )}
+                      {/* Password Field */}
+                      <TextField
+                        fullWidth
+                        margin="normal"
+                        label="Password"
+                        placeholder="Enter your password"
+                        variant="outlined"
+                        type={showPassword ? 'text' : 'password'}
+                        name="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.password && Boolean(errors.password)}
+                        helperText={touched.password && errors.password}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle confirm password visibility"
+                                onClick={() => setShowPassword(!showPassword)}
+                                edge="end"
+                              >
+                                {showPassword ? (
+                                  <VisibilityOff />
+                                ) : (
+                                  <Visibility />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        type="submit"
+                        disabled={isSubmitting}
+                        sx={{
+                          mt: 3,
+                          py: 1.5,
+                          borderRadius: 1,
+                          bgcolor: '#1a56db',
+                          '&:hover': {
+                            bgcolor: '#104bb9',
+                          },
+                        }}
+                      >
+                        {isSubmitting ? 'Logging in...' : 'Login'}
+                      </Button>
+                    </Box>
                   </Box>
                 </Box>
               </Box>
             </form>
           )}
         </Formik>
-      </Container>
+      </Box>
 
       {/* Footer section */}
       <Box
