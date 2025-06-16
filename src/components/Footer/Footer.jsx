@@ -207,24 +207,28 @@ const Footer = () => {
       {/* Footer Links Section */}
       <Box
         sx={{
-          backgroundColor: '#111827',
-          color: theme.palette.common.white,
+          backgroundColor: 'white',
           display: 'flex',
           justifyContent: 'center',
+          px: {
+            xs: theme.spacing(2),
+            sm: theme.spacing(4),
+          },
         }}
       >
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            // maxWidth: '1300px',
+            maxWidth: '1200px',
+            width: '100%',
             flexWrap: 'wrap',
             gap: theme.spacing(2),
             py: theme.spacing(4),
             px: {
               xs: theme.spacing(2),
               sm: theme.spacing(4),
-              md: theme.spacing(0),
+              md: theme.spacing(3),
             },
             flexDirection: {
               xs: 'column',
@@ -247,7 +251,6 @@ const Footer = () => {
                 xs: theme.spacing(3),
                 md: 0,
               },
-              //   flex: 0.5,
             }}
           >
             <img
@@ -281,7 +284,7 @@ const Footer = () => {
                 sm: theme.spacing(1),
                 md: theme.spacing(3),
               },
-              justifyContent: { xs: 'space-between', md: 'flex-start' },
+              justifyContent: { xs: 'space-between' },
               flex: 1,
             }}
           >
@@ -308,7 +311,6 @@ const Footer = () => {
                   sx={{
                     fontWeight: theme.typography.fontWeightBold,
                     mb: { xs: theme.spacing(0.5), md: theme.spacing(1) },
-                    color: theme.palette.common.white,
                     fontSize: { xs: '0.75rem', sm: '0.8rem', md: '0.875rem' },
                   }}
                 >
@@ -331,19 +333,14 @@ const Footer = () => {
                     >
                       <Link
                         href={link.url}
-                        color="inherit"
-                        underline="hover"
                         sx={{
                           fontSize: {
                             xs: '0.7rem',
                             sm: '0.75rem',
                             md: '0.875rem',
                           },
-                          color: theme.palette.grey[400],
+                          color: 'black',
                           lineHeight: { xs: 1.3, md: 1.5 },
-                          '&:hover': {
-                            color: theme.palette.common.white,
-                          },
                         }}
                       >
                         {link.text}
@@ -360,7 +357,7 @@ const Footer = () => {
       {/* Footer Notice Section */}
       <Box
         sx={{
-          backgroundColor: 'rgba(17, 24, 39, 1)',
+          backgroundColor: 'white',
           pt: theme.spacing(4),
           px: {
             lg: theme.spacing(12.5),
@@ -370,7 +367,6 @@ const Footer = () => {
           fontFamily: theme.typography.fontFamily,
           fontSize: theme.typography.body2.fontSize,
           lineHeight: theme.typography.body2.lineHeight,
-          color: theme.palette.grey[300],
         }}
       >
         <Container maxWidth="xl" sx={{ pb: theme.spacing(4) }}>
@@ -381,7 +377,6 @@ const Footer = () => {
               fontWeight: theme.typography.fontWeightBold,
               mb: theme.spacing(2),
               fontSize: '1.125rem',
-              color: theme.palette.common.white,
             }}
           >
             Attention Investors
@@ -395,7 +390,6 @@ const Footer = () => {
                 fontSize: '0.875rem',
                 ...(content.bold && {
                   fontWeight: theme.typography.fontWeightBold,
-                  color: theme.palette.common.white,
                 }),
                 ...(content.italic && { fontStyle: 'italic' }),
               }}
