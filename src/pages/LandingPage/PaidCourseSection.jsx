@@ -58,7 +58,7 @@ const PaidCourseSection = () => {
         md: theme.spacing(8),
         lg: '100px',
       }}
-      py={theme.spacing(6)}
+      py={theme.spacing(1)}
     >
       {/* Heading */}
       <Box textAlign="center" mb={theme.spacing(4)}>

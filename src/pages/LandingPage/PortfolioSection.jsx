@@ -72,7 +72,7 @@ const PortfolioSection = () => {
           xs: theme.spacing(2),
           sm: theme.spacing(4),
         },
-        my: theme.spacing(8.75),
+        my: theme.spacing(3),
         backgroundColor: '#45108A',
         display: 'flex',
         justifyContent: 'center',
@@ -102,7 +102,6 @@ const PortfolioSection = () => {
           zIndex: 1,
           width: '100%',
           maxWidth: '1600px',
-          //   px: theme.spacing(2),
           color: theme.colors.text.light,
         }}
       >
@@ -135,21 +134,35 @@ const PortfolioSection = () => {
         {/* Cards grid */}
         <Box
           sx={{
-            overflowX: 'auto',
+            overflowX: {
+              xs: 'auto',
+              lg: 'visible', 
+            },
             width: '100%',
             pb: 2,
             '&::-webkit-scrollbar': {
               display: 'none',
             },
-            WebkitOverflowScrolling: 'touch', // Smooth scroll on iOS
+            WebkitOverflowScrolling: 'touch',
           }}
         >
           <Box
             sx={{
               display: 'flex',
               gap: theme.spacing(3),
-              px: theme.spacing(1), // Add horizontal padding to prevent first card cut-off
-              width: 'max-content', // Set proper scrollable width
+              justifyContent: {
+                xs: 'flex-start',
+                sm: 'center',
+              },
+              px: theme.spacing(1),
+              width: {
+                xs: 'max-content',
+                lg: '100%',
+              },
+              flexWrap: {
+                xs: 'nowrap', 
+                lg: 'wrap', 
+              },
             }}
           >
             {portfolioCards.map((card) => (
@@ -158,7 +171,12 @@ const PortfolioSection = () => {
                 sx={{
                   flexShrink: 0,
                   borderRadius: theme.shape.borderRadius.medium,
-                  width: 380,
+                  width: {
+                    xs: 300,  
+                    lg: 'calc(33.333% - 16px)',
+                    xl: 380,
+                  },
+                  maxWidth: 380,
                   boxShadow: theme.shadows[5],
                   backgroundColor: 'rgba(255, 255, 255, 0.1)',
                   backdropFilter: 'blur(1px)',
