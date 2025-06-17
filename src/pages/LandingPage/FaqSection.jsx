@@ -52,7 +52,7 @@ const FAQSection = () => {
     <Container
       maxWidth="md"
       sx={{
-        py: theme.spacing(6),
+        py: theme.spacing(5),
       }}
     >
       <Typography
