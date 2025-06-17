@@ -130,7 +130,7 @@ const TestimonialsSection = () => {
     <Box
       component="section"
       sx={{
-        py: theme.spacing(6),
+        py: theme.spacing(2),
         px: theme.spacing(4),
         maxWidth: 1200,
         mx: 'auto',
