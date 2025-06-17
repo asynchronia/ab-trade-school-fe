@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import OtpInput from 'react-otp-input';
 
 const OTPVerification = ({ onVerify, value, onChange, onResend }) => {
-  const [counter, setCounter] = useState(30); // 30 seconds cooldown
+  const [counter, setCounter] = useState(30);
 
   useEffect(() => {
     let timer;
@@ -15,8 +15,8 @@ const OTPVerification = ({ onVerify, value, onChange, onResend }) => {
 
   const handleResend = () => {
     if (counter === 0) {
-      onResend(); // call parent handler
-      setCounter(30); // restart countdown
+      onResend();
+      setCounter(30);
     }
   };
 

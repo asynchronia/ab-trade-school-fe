@@ -281,6 +281,7 @@ const SignupPage = () => {
                               });
                             }}
                             onVerify={() => handleOtpSubmit(values)}
+                            onResend={sendOtpToMobile}
                           />
                         </Box>
                       </>
