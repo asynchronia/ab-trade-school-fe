@@ -1,3 +1,10 @@
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
     Box,
     Button,
@@ -5,6 +12,7 @@ import {
     Divider,
     Grid,
     IconButton,
+    InputAdornment,
     Link,
     Paper,
     TextField,
@@ -13,10 +21,9 @@ import {
     useTheme,
 } from '@mui/material';
 import { Formik } from 'formik';
+import { enqueueSnackbar } from 'notistack';
+// import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginSchema } from '../validations/LoginValidation';
-
-// Import your assets and icons
 import appStore from '../assets/appStore.svg';
 import com1 from '../assets/com-1.svg';
 import com2 from '../assets/com-2.svg';
@@ -25,29 +32,27 @@ import com4 from '../assets/com-4.svg';
 import playStore from '../assets/playStore.svg';
 import qrCode from '../assets/qrCode.svg';
 import signupImg from '../assets/signupImg.svg';
-
-// Social media icons
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TelegramIcon from '@mui/icons-material/Telegram';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import { enqueueSnackbar } from 'notistack';
+// import OTPVerification from '../components/OTPVerification/OTPVerification';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useState } from 'react';
 import { loginReq } from '../service/auth.service';
+import { loginSchema } from '../validations/LoginValidation';
 
 const LoginPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  //   const [stage, setStage] = useState(1);
 
   const initialValues = {
     email: '',
     password: '',
   };
 
-  const handleSubmit = async (values) => {
+  const handleFormSubmit = async (values, { setSubmitting }) => {
+    console.log(values);
     try {
       const response = await loginReq({
         email: values?.email,
@@ -57,6 +62,7 @@ const LoginPage = () => {
       if (response?.success && response?.payload?.user) {
         localStorage.setItem('user', JSON.stringify(response.payload.user));
         enqueueSnackbar('User logged in successfully', { variant: 'success' });
+        localStorage.setItem('user', JSON.stringify(response.payload.user));
         navigate('/courses');
       } else {
         enqueueSnackbar(response?.message || 'Login failed', {
@@ -68,25 +74,77 @@ const LoginPage = () => {
       enqueueSnackbar(error?.message || 'Something went wrong', {
         variant: 'error',
       });
+    } finally {
+      setSubmitting(false);
     }
   };
+
+  //   const handleOtpSubmit = async (values) => {
+  //     try {
+  //       const response = await verifyOtpReq({
+  //         phone: values.phone,
+  //         otp: values.otp,
+  //       });
+  //       if (response?.success) {
+  //         enqueueSnackbar(response?.message || 'OTP verified successfully', {
+  //           variant: 'success',
+  //         });
+  //         setStage(3);
+  //         navigate('/courses');
+  //       } else {
+  //         enqueueSnackbar(response?.message || 'OTP verification failed', {
+  //           variant: 'error',
+  //         });
+  //         setStage(1);
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //       enqueueSnackbar(error?.message || 'Something went wrong', {
+  //         variant: 'error',
+  //       });
+  //       setStage(1);
+  //     }
+  //   };
+
+  //   const sendOtpToMobile = async (values) => {
+  //     try {
+  //       const response = await sendOtpReq({
+  //         phone: values.phone,
+  //       });
+  //       if (response?.success) {
+  //         enqueueSnackbar(response?.message || 'OTP sent successfully', {
+  //           variant: 'success',
+  //         });
+  //         setStage(2);
+  //         localStorage.setItem('User', true);
+  //       } else {
+  //         enqueueSnackbar(response?.message || 'Failed to send OTP', {
+  //           variant: 'error',
+  //         });
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //       enqueueSnackbar(error?.message || 'Something went wrong', {
+  //         variant: 'error',
+  //       });
+  //     }
+  //   };
 
   return (
     <Box
       sx={{
         bgcolor: '#fff',
-        py: 5,
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
       }}
     >
       {/* Main content */}
-      <Container maxWidth="lg" disableGutters>
+      <Box>
         <Formik
           initialValues={initialValues}
           validationSchema={loginSchema}
-          onSubmit={handleSubmit}
+          onSubmit={handleFormSubmit}
           validateOnBlur={true}
           validateOnChange={false}
         >
@@ -101,7 +159,6 @@ const LoginPage = () => {
           }) => (
             <form onSubmit={handleSubmit}>
               <Box
-                container
                 sx={{
                   display: 'flex',
                   flexDirection: isMobile ? 'column' : 'row',
@@ -116,6 +173,7 @@ const LoginPage = () => {
                     justifyContent: 'center',
                     bgcolor: '#f0f4ff',
                     p: 4,
+                    flex: 0.5,
                   }}
                 >
                   <Box sx={{ maxWidth: '100%', textAlign: 'center', mb: 4 }}>
@@ -155,9 +213,16 @@ const LoginPage = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
+                    flex: 0.5,
                   }}
                 >
-                  <Box sx={{ maxWidth: '500px', width: '100%', mx: 'auto' }}>
+                  <Box
+                    sx={{
+                      maxWidth: '500px',
+                      width: '100%',
+                      mx: { xs: 'auto', md: 0 },
+                    }}
+                  >
                     <Typography variant="h5" fontWeight="bold" gutterBottom>
                       Sign in to your profile
                     </Typography>
@@ -195,13 +260,30 @@ const LoginPage = () => {
                         label="Password"
                         placeholder="Enter your password"
                         variant="outlined"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         name="password"
                         value={values.password}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         error={touched.password && Boolean(errors.password)}
                         helperText={touched.password && errors.password}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                aria-label="toggle confirm password visibility"
+                                onClick={() => setShowPassword(!showPassword)}
+                                edge="end"
+                              >
+                                {showPassword ? (
+                                  <VisibilityOff />
+                                ) : (
+                                  <Visibility />
+                                )}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
                       />
 
                       <Button
@@ -230,7 +312,7 @@ const LoginPage = () => {
             </form>
           )}
         </Formik>
-      </Container>
+      </Box>
 
       {/* Footer section */}
       <Box
