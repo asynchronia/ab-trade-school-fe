@@ -36,7 +36,6 @@ const Navbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const user = JSON.parse(localStorage.getItem('user'));
-
   console.log(user);
 
   const navItems = [
@@ -296,9 +295,6 @@ const Navbar = () => {
                   alt="avatar"
                   style={{ width: '40px', height: '40px', borderRadius: '50%' }}
                 />
-                <Typography variant="body2" sx={{ color: '#374151' }}>
-                  {user?.name}
-                </Typography>
               </Box>
             )}
             <ListItem
