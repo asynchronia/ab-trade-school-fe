@@ -8,6 +8,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
     Box,
     Button,
+    CircularProgress,
     Container,
     Divider,
     Grid,
@@ -303,7 +304,11 @@ const LoginPage = () => {
                           },
                         }}
                       >
-                        {isSubmitting ? 'Logging in...' : 'Login'}
+                        {isSubmitting ? (
+                          <CircularProgress size={24} color="inherit" />
+                        ) : (
+                          'Login'
+                        )}
                       </Button>
                     </Box>
                   </Box>
