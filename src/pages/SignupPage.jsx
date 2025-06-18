@@ -22,14 +22,8 @@ import {
 } from '@mui/material';
 import { Formik } from 'formik';
 import { enqueueSnackbar } from 'notistack';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import signupImg from '../assets/signupImg.svg';
-import OTPVerification from '../components/OTPVerification/OTPVerification';
-import { sendOtpReq, signupReq, verifyOtpReq } from '../service/auth.service';
-
-// Import images
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import appStore from '../assets/appStore.svg';
 import com1 from '../assets/com-1.svg';
 import com2 from '../assets/com-2.svg';
@@ -37,7 +31,14 @@ import com3 from '../assets/com-3.svg';
 import com4 from '../assets/com-4.svg';
 import playStore from '../assets/playStore.svg';
 import qrCode from '../assets/qrCode.svg';
-import { signupSchema } from '../validations/SignupValidation';
+import signupImg from '../assets/signupImg.svg';
+import OTPVerification from '../components/OTPVerification/OTPVerification';
+import { sendOtpReq, signupReq, verifyOtpReq } from '../service/auth.service';
+import {
+    stage1Schema,
+    stage2Schema,
+    stage3Schema,
+} from '../validations/SignupValidation';
 
 const SignupPage = () => {
   const theme = useTheme();
@@ -47,6 +48,7 @@ const SignupPage = () => {
   const [mobile, setMobile] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [currentSchema, setCurrentSchema] = useState(stage1Schema);
 
   const initialValues = {
     name: '',
@@ -57,39 +59,17 @@ const SignupPage = () => {
     otp: '',
   };
 
-  const handleOtpSubmit = async (values) => {
-    try {
-      const response = await verifyOtpReq({
-        phone: mobile,
-        otp: values.otp,
-      });
-      if (response?.success) {
-        enqueueSnackbar(response?.message || 'OTP verified successfully', {
-          variant: 'success',
-        });
-        setStage(3);
-        localStorage.setItem('registerToken', response?.payload?.token || '');
-      } else {
-        enqueueSnackbar(response?.message || 'OTP verification failed', {
-          variant: 'error',
-        });
-        // setStage(1);
-      }
-    } catch (error) {
-      console.error(error);
-      enqueueSnackbar(error?.message || 'Something went wrong', {
-        variant: 'error',
-      });
-      setStage(1);
-      setMobile('');
-    }
-  };
+  useEffect(() => {
+    if (stage === 1) setCurrentSchema(stage1Schema);
+    else if (stage === 2) setCurrentSchema(stage2Schema);
+    else if (stage === 3) setCurrentSchema(stage3Schema);
+  }, [stage]);
 
   const sendOtpToMobile = async () => {
     try {
-      const response = await sendOtpReq({
-        phone: mobile,
-      });
+      await stage1Schema.validate({ phone: mobile });
+
+      const response = await sendOtpReq({ phone: mobile });
       if (response?.success) {
         enqueueSnackbar(response?.message || 'OTP sent successfully', {
           variant: 'success',
@@ -101,8 +81,34 @@ const SignupPage = () => {
         });
       }
     } catch (error) {
-      console.error(error);
-      enqueueSnackbar(error?.message || 'Something went wrong', {
+      enqueueSnackbar(error.message || 'Invalid mobile number', {
+        variant: 'error',
+      });
+    }
+  };
+
+  const handleOtpSubmit = async (values) => {
+    try {
+      await stage2Schema.validate({ otp: values.otp });
+
+      const response = await verifyOtpReq({
+        phone: mobile,
+        otp: values.otp,
+      });
+
+      if (response?.success) {
+        enqueueSnackbar(response?.message || 'OTP verified successfully', {
+          variant: 'success',
+        });
+        setStage(3);
+        localStorage.setItem('registerToken', response?.payload?.token || '');
+      } else {
+        enqueueSnackbar(response?.message || 'OTP verification failed', {
+          variant: 'error',
+        });
+      }
+    } catch (error) {
+      enqueueSnackbar(error.message || 'Invalid OTP', {
         variant: 'error',
       });
     }
@@ -122,7 +128,6 @@ const SignupPage = () => {
         enqueueSnackbar(response?.message || 'User Created successfully', {
           variant: 'success',
         });
-
         navigate('/login');
         localStorage.removeItem('registerToken');
       } else {
@@ -131,7 +136,6 @@ const SignupPage = () => {
         });
       }
     } catch (error) {
-      console.log(error);
       enqueueSnackbar(error?.message || 'Something went wrong', {
         variant: 'error',
       });
@@ -151,7 +155,7 @@ const SignupPage = () => {
       <Box>
         <Formik
           initialValues={initialValues}
-          validationSchema={signupSchema}
+          validationSchema={currentSchema}
           enableReinitialize
         >
           {({
@@ -220,7 +224,6 @@ const SignupPage = () => {
                     borderLeft: isMobile ? 'none' : '1px dashed #ccc',
                     display: 'flex',
                     flexDirection: 'column',
-                    // justifyContent: 'center',
                     flex: 0.5,
                   }}
                 >
@@ -253,8 +256,12 @@ const SignupPage = () => {
                           label="Mobile Number"
                           value={mobile}
                           onChange={(e) => setMobile(e.target.value)}
+                          onBlur={handleBlur}
+                          name="phone"
                           placeholder="Enter 10-digit mobile"
                           margin="normal"
+                          error={touched.phone && Boolean(errors.phone)}
+                          helperText={touched.phone && errors.phone}
                         />
                         <Typography variant="subtitle2" gutterBottom>
                           We will send a verification code to your mobile.
@@ -282,6 +289,7 @@ const SignupPage = () => {
                             }}
                             onVerify={() => handleOtpSubmit(values)}
                             onResend={sendOtpToMobile}
+                            error={touched.otp && errors.otp}
                           />
                         </Box>
                       </>
@@ -336,7 +344,6 @@ const SignupPage = () => {
                                 color="primary"
                                 sx={{
                                   fontSize: theme.typography.subtitle1.fontSize,
-                                  //   color: text.,
                                 }}
                               >
                                 verified
@@ -430,9 +437,7 @@ const SignupPage = () => {
                             py: 1.5,
                             borderRadius: 1,
                             bgcolor: '#1a56db',
-                            '&:hover': {
-                              bgcolor: '#104bb9',
-                            },
+                            '&:hover': { bgcolor: '#104bb9' },
                           }}
                         >
                           Submit
