@@ -1,8 +1,14 @@
-import { Box, Button, Link, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Link, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import OtpInput from 'react-otp-input';
 
-const OTPVerification = ({ onVerify, value, onChange, onResend }) => {
+const OTPVerification = ({
+  onVerify,
+  value,
+  onChange,
+  onResend,
+  isLoading,
+}) => {
   const [counter, setCounter] = useState(30);
 
   useEffect(() => {
@@ -64,9 +70,10 @@ const OTPVerification = ({ onVerify, value, onChange, onResend }) => {
         fullWidth
         variant="contained"
         onClick={onVerify}
+        disabled={isLoading}
         sx={{ mt: 1.5, py: 1.5, bgcolor: '#1a56db', borderRadius: 1 }}
       >
-        Verify OTP
+        {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Submit'}
       </Button>
     </Box>
   );
