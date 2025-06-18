@@ -5,7 +5,7 @@ import galleryImage1 from '../../assets/galleryImage1.webp';
 import galleryImage2 from '../../assets/galleryImage2.webp';
 import galleryImage3 from '../../assets/galleryImage3.webp';
 import galleryImage4 from '../../assets/galleryImage4.webp';
-import galleryImage5 from '../../assets/galleryImage5.webp';
+import galleryImage5 from '../../assets/galleryImage5.jpg';
 import ButtonTabs from '../../components/ButtonTabs/ButtonTabs';
 import theme from '../../utils/theme';
 
