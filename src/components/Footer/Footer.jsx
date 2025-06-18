@@ -333,6 +333,7 @@ const Footer = () => {
                     >
                       <Link
                         href={link.url}
+                        underline='none'
                         sx={{
                           fontSize: {
                             xs: '0.7rem',
