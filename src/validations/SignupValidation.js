@@ -1,12 +1,38 @@
 import * as yup from 'yup';
 
-export const signupSchema = yup.object().shape({
-  name: yup.string().required('Name is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
+export const stage1Schema = yup.object().shape({
   phone: yup
     .string()
-    .matches(/^[0-9]{10}$/, 'Phone number must be 10 digits')
+    .length(10, 'Phone number must be exactly 10 digits')
+    .test(
+      'starts-with-valid-digit',
+      'Only phone numbers starting from 6 to 9 are allowed.',
+      (value) => {
+        if (!value) return false;
+        const firstDigit = value[0];
+        return ['6', '7', '8', '9'].includes(firstDigit);
+      }
+    )
+    .test('only-digits', 'Phone number must contain only digits', (value) => {
+      return /^\d+$/.test(value);
+    })
     .required('Phone number is required'),
+});
+
+export const stage2Schema = yup.object().shape({
+  otp: yup
+    .string()
+    .required('OTP is required')
+    .length(6, 'OTP must be exactly 6 digits')
+    .matches(/^\d{6}$/, 'OTP must be in numbers.'),
+});
+
+export const stage3Schema = yup.object().shape({
+  name: yup
+    .string()
+    .required('Name is required')
+    .matches(/^[A-Za-z\s]+$/, 'Please enter a valid name'),
+  email: yup.string().email('Invalid email').required('Email is required'),
   password: yup
     .string()
     .min(8, 'Password must be at least 8 characters')
