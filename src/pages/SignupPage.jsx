@@ -1,3 +1,4 @@
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -8,6 +9,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
     Box,
     Button,
+    CircularProgress,
     Container,
     Divider,
     Grid,
@@ -49,6 +51,7 @@ const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [currentSchema, setCurrentSchema] = useState(stage1Schema);
+  const [isLoading, setIsLoading] = useState(false);
 
   const initialValues = {
     name: '',
@@ -66,6 +69,7 @@ const SignupPage = () => {
   }, [stage]);
 
   const sendOtpToMobile = async () => {
+    setIsLoading(true);
     try {
       await stage1Schema.validate({ phone: mobile });
 
@@ -84,10 +88,13 @@ const SignupPage = () => {
       enqueueSnackbar(error.message || 'Invalid mobile number', {
         variant: 'error',
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleOtpSubmit = async (values) => {
+    setIsLoading(true);
     try {
       await stage2Schema.validate({ otp: values.otp });
 
@@ -111,10 +118,13 @@ const SignupPage = () => {
       enqueueSnackbar(error.message || 'Invalid OTP', {
         variant: 'error',
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleSignup = async (values) => {
+    setIsLoading(true);
     try {
       const response = await signupReq({
         email: values?.email,
@@ -139,6 +149,18 @@ const SignupPage = () => {
       enqueueSnackbar(error?.message || 'Something went wrong', {
         variant: 'error',
       });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSubmit = async (values) => {
+    if (stage === 1) {
+      await sendOtpToMobile();
+    } else if (stage === 2) {
+      await handleOtpSubmit(values);
+    } else if (stage === 3) {
+      await handleSignup(values);
     }
   };
 
@@ -157,6 +179,7 @@ const SignupPage = () => {
           initialValues={initialValues}
           validationSchema={currentSchema}
           enableReinitialize
+          onSubmit={handleSubmit}
         >
           {({
             values,
@@ -168,7 +191,6 @@ const SignupPage = () => {
           }) => (
             <form onSubmit={handleSubmit}>
               <Box
-                container
                 sx={{
                   display: 'flex',
                   flexDirection: isMobile ? 'column' : 'row',
@@ -271,8 +293,13 @@ const SignupPage = () => {
                           variant="contained"
                           sx={{ mt: 2, py: 1.5, bgcolor: '#1a56db' }}
                           onClick={sendOtpToMobile}
+                          disabled={isLoading}
                         >
-                          Send OTP
+                          {isLoading ? (
+                            <CircularProgress size={24} color="inherit" />
+                          ) : (
+                            'Send OTP'
+                          )}
                         </Button>
                       </>
                     )}
@@ -290,6 +317,7 @@ const SignupPage = () => {
                             onVerify={() => handleOtpSubmit(values)}
                             onResend={sendOtpToMobile}
                             error={touched.otp && errors.otp}
+                            isLoading={isLoading}
                           />
                         </Box>
                       </>
@@ -431,7 +459,6 @@ const SignupPage = () => {
                           color="primary"
                           size="large"
                           type="submit"
-                          onClick={() => handleSignup(values)}
                           sx={{
                             mt: 3,
                             py: 1.5,
@@ -439,8 +466,13 @@ const SignupPage = () => {
                             bgcolor: '#1a56db',
                             '&:hover': { bgcolor: '#104bb9' },
                           }}
+                          disabled={isLoading}
                         >
-                          Submit
+                          {isLoading ? (
+                            <CircularProgress size={24} color="inherit" />
+                          ) : (
+                            'Submit'
+                          )}
                         </Button>
                       </Box>
                     )}
