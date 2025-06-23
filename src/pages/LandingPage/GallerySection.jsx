@@ -183,6 +183,7 @@ const CommunitySection = () => {
               </Typography>
               <Typography
                 variant="subtitle1"
+                component={'h2'}
                 sx={{
                   fontSize: {
                     xs: theme.typography.body2.fontSize,

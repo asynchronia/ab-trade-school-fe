@@ -13,7 +13,7 @@ const HeroImageSlider = ({ images, transitionType = 'slide' }) => {
       setTimeout(() => {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
         setAnimationState('active');
-      }, 1000); // Reduced from 2000 to 1000 for smoother transition timing
+      }, 1000);
     }, 4000);
 
     return () => clearInterval(interval);
@@ -36,8 +36,10 @@ const HeroImageSlider = ({ images, transitionType = 'slide' }) => {
   };
 
   return (
-    <Box 
-      className={`hero-image-container ${transitionType === 'slide' ? '' : transitionType + '-transition'}`}
+    <Box
+      className={`hero-image-container ${
+        transitionType === 'slide' ? '' : transitionType + '-transition'
+      }`}
     >
       {images.map((image, index) => (
         <Box
@@ -53,8 +55,9 @@ const HeroImageSlider = ({ images, transitionType = 'slide' }) => {
               sm: 500,
               md: 620,
             },
-            // Additional MUI sx props for better integration
+            loading: 'eager',
             objectFit: 'contain',
+            fetchpriority: 'high',
             userSelect: 'none',
             pointerEvents: 'none',
           }}

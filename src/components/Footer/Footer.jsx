@@ -308,6 +308,7 @@ const Footer = () => {
               >
                 <Typography
                   variant="subtitle2"
+                  component="h2"
                   sx={{
                     fontWeight: theme.typography.fontWeightBold,
                     mb: { xs: theme.spacing(0.5), md: theme.spacing(1) },
@@ -328,12 +329,12 @@ const Footer = () => {
                       key={linkIndex}
                       disablePadding
                       sx={{
-                        py: { xs: theme.spacing(0.25), md: theme.spacing(0.5) },
+                        py: theme.spacing(1),
                       }}
                     >
                       <Link
                         href={link.url}
-                        underline='none'
+                        underline="none"
                         sx={{
                           fontSize: {
                             xs: '0.7rem',

@@ -161,6 +161,7 @@ const PaidCourseSection = () => {
           <Box sx={{ display: 'flex', gap: 1 }}>
             <IconButton
               size="small"
+              aria-label="Previous"
               sx={{
                 width: 32,
                 height: 32,
@@ -169,7 +170,7 @@ const PaidCourseSection = () => {
                 justifyContent: 'center',
                 border: '1px solid black',
                 borderRadius: '50%',
-                p: 0, // remove default padding
+                p: 0,
                 '& svg': {
                   fontSize: '16px',
                 },
@@ -183,6 +184,7 @@ const PaidCourseSection = () => {
 
             <IconButton
               size="small"
+              aria-label="Next"
               sx={{
                 width: 32,
                 height: 32,
@@ -234,17 +236,18 @@ const PaidCourseSection = () => {
               },
               flexGrow: 0.5,
             }}
+            component="h2"
           >
             Basic Knowledge{' '}
-            <Typography
-              component={'span'}
+            <Box
+              component="h3"
               sx={{
                 display: { xs: 'none', sm: 'inline' },
                 fontSize: 'inherit',
               }}
             >
               - Beginner - English
-            </Typography>
+            </Box>
           </Typography>
 
           <Stack
@@ -273,6 +276,7 @@ const PaidCourseSection = () => {
             <Box sx={{ display: 'flex', gap: 1 }}>
               <IconButton
                 size="small"
+                aria-label="Previous"
                 sx={{
                   width: 32,
                   height: 32,
@@ -295,6 +299,7 @@ const PaidCourseSection = () => {
 
               <IconButton
                 size="small"
+                aria-label="Next"
                 sx={{
                   width: 32,
                   height: 32,

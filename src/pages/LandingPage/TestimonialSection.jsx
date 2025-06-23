@@ -154,6 +154,7 @@ const TestimonialsSection = () => {
         </Typography>
         <Typography
           variant="body1"
+          component='h3'
           sx={{
             fontSize: theme.typography.h6.fontSize,
             color: theme.palette.grey[600],
@@ -233,7 +234,7 @@ const TestimonialsSection = () => {
                   readOnly
                   size="small"
                   sx={{
-                    fontSize: '12px' ,
+                    fontSize: '12px',
                     mb: 1,
                     '& .MuiRating-iconFilled': {
                       color: '#ffc107',
@@ -246,6 +247,7 @@ const TestimonialsSection = () => {
 
                 <Typography
                   variant="h6"
+                  component='h4'
                   sx={{
                     fontWeight: 600,
                     mb: 0.5,
@@ -377,6 +379,7 @@ const TestimonialsSection = () => {
             <Box
               component={'img'}
               src={mainTestimonialImg2}
+              alt={mainTestimonial.name}
               sx={{
                 borderRadius: '50%',
                 width: 70,
@@ -398,7 +401,7 @@ const TestimonialsSection = () => {
                 variant="h5"
                 component="h3"
                 sx={{
-                  mb: theme.spacing(1),
+                //   mb: theme.spacing(1),
                   color: theme.palette.grey[800],
                   fontSize: theme.typography.h5.fontSize,
                 }}
@@ -408,8 +411,8 @@ const TestimonialsSection = () => {
               <Typography
                 variant="body2"
                 sx={{
-                  color: theme.palette.grey[500],
-                  mb: theme.spacing(2),
+                  color: theme.palette.grey[700],
+                  mb: theme.spacing(1),
                   fontSize: theme.typography.body2.fontSize,
                 }}
               >
@@ -418,7 +421,7 @@ const TestimonialsSection = () => {
               <Typography
                 variant="body1"
                 sx={{
-                  color: theme.palette.grey[600],
+                  color: theme.palette.grey[700],
                   lineHeight: theme.typography.body1.lineHeight,
                   fontSize: theme.typography.h6.fontSize,
                   fontWeight: '400',
@@ -510,7 +513,6 @@ const TestimonialsSection = () => {
                   variant="h6"
                   component="h4"
                   sx={{
-                    mb: theme.spacing(1),
                     color: theme.palette.grey[800],
                     fontSize: theme.typography.h6.fontSize,
                   }}
@@ -520,7 +522,7 @@ const TestimonialsSection = () => {
                 <Typography
                   variant="body2"
                   sx={{
-                    color: theme.palette.grey[500],
+                    color: theme.palette.grey[700],
                     mb: theme.spacing(1),
                     fontSize: theme.typography.caption.fontSize,
                   }}
@@ -530,7 +532,7 @@ const TestimonialsSection = () => {
                 <Typography
                   variant="body2"
                   sx={{
-                    color: theme.palette.grey[600],
+                    color: theme.palette.grey[700],
                     lineHeight: theme.typography.body2.lineHeight,
                     fontSize: theme.typography.body2.fontSize,
                     fontWeight: theme.typography.fontWeightRegular,

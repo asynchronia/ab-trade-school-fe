@@ -1,8 +1,7 @@
-import * as yup from 'yup';
+import { object, ref, string } from 'yup';
 
-export const stage1Schema = yup.object().shape({
-  phone: yup
-    .string()
+export const stage1Schema = object().shape({
+  phone: string()
     .length(10, 'Phone number must be exactly 10 digits')
     .test(
       'starts-with-valid-digit',
@@ -19,30 +18,26 @@ export const stage1Schema = yup.object().shape({
     .required('Phone number is required'),
 });
 
-export const stage2Schema = yup.object().shape({
-  otp: yup
-    .string()
+export const stage2Schema = object().shape({
+  otp: string()
     .required('OTP is required')
     .length(6, 'OTP must be exactly 6 digits')
     .matches(/^\d{6}$/, 'OTP must be in numbers.'),
 });
 
-export const stage3Schema = yup.object().shape({
-  name: yup
-    .string()
+export const stage3Schema = object().shape({
+  name: string()
     .required('Name is required')
     .matches(/^[A-Za-z\s]+$/, 'Please enter a valid name'),
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup
-    .string()
+  email: string().email('Invalid email').required('Email is required'),
+  password: string()
     .min(8, 'Password must be at least 8 characters')
     .matches(
       /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
       'Password must contain at least one letter, one number, and one special character'
     )
     .required('Password is required'),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password'), null], 'Passwords must match')
+  confirmPassword: string()
+    .oneOf([ref('password'), null], 'Passwords must match')
     .required('Confirm Password is required'),
 });

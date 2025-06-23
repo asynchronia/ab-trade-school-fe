@@ -1,4 +1,4 @@
-import Footer from '../../components/Footer/Footer';
+import { lazy } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import FAQSection from './FaqSection';
 import FreeCoursesSection from './FreeCourseSection';
@@ -12,6 +12,7 @@ import PortfolioSection from './PortfolioSection';
 import ReadyToStartSection from './ReadyToStartSection';
 import TestimonialsSection from './TestimonialSection';
 import WebinarSection from './WebinarSection';
+const Footer = lazy(() => import('../../components/Footer/Footer'));
 
 const LandingPage = () => {
   return (

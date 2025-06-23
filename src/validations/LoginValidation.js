@@ -1,9 +1,8 @@
-import * as yup from 'yup';
+import { object, string } from 'yup';
 
-export const loginSchema = yup.object().shape({
-  email: yup.string().email('Invalid email').required('Email is required'),
-  password: yup
-    .string()
+export const loginSchema = object().shape({
+  email: string().email('Invalid email').required('Email is required'),
+  password: string()
     .min(8, 'Password must be at least 8 characters')
     .matches(
       /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
