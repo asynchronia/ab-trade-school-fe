@@ -47,7 +47,7 @@ const SignupPage = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [stage, setStage] = useState(1);
+  const [stage, setStage] = useState(3);
   const [mobile, setMobile] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -387,12 +387,12 @@ const SignupPage = () => {
                           variant="outlined"
                           name="phone"
                           value={values.phone}
-                          readOnly
+                          disabled
                           onBlur={handleBlur}
                           InputProps={{
                             endAdornment: (
                               <Typography
-                                color="primary"
+                                color="success"
                                 sx={{
                                   fontSize: theme.typography.subtitle1.fontSize,
                                 }}
