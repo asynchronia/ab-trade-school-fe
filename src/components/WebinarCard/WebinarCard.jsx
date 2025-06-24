@@ -24,7 +24,7 @@ const WebinarCard = ({ webinars }) => {
               <img src={webinar.image} alt="Overlay" className="image" />
             </Box>
             <Box className="card-body">
-              <Typography variant="h6" className="title">
+              <Typography variant="h6" component="h3" className="title">
                 {webinar.title}
               </Typography>
               <Typography variant="body2" className="desc">
@@ -35,7 +35,12 @@ const WebinarCard = ({ webinars }) => {
                 <Box>
                   <Typography
                     variant="body2"
-                    sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 0.5,
+                      mb: 0.5,
+                    }}
                   >
                     <AccessTime sx={iconStyles} /> {webinar.time}
                   </Typography>
@@ -49,7 +54,12 @@ const WebinarCard = ({ webinars }) => {
                 <Box>
                   <Typography
                     variant="body2"
-                    sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 0.5,
+                      mb: 0.5,
+                    }}
                   >
                     <CalendarToday sx={iconStyles} /> {webinar.date}
                   </Typography>
@@ -58,13 +68,9 @@ const WebinarCard = ({ webinars }) => {
                     sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
                   >
                     {webinar.location === 'Online' ? (
-                      <Typography
-                      variant='body2'
-                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
-                      >
-                        <span className="online-badge"></span>{' '}
-                        {webinar.location}
-                      </Typography>
+                      <>
+                        <span className="online-badge" /> {webinar.location}
+                      </>
                     ) : (
                       <>
                         <LocationOn sx={iconStyles} /> {webinar.location}
