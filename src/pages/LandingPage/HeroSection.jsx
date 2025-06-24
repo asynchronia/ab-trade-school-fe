@@ -219,6 +219,7 @@ const HeroSection = () => {
 
           <Typography
             variant="subtitle1"
+            component="h2"
             sx={{
               mb: theme.spacing(4),
               color: theme.colors.gray[200],
@@ -231,7 +232,7 @@ const HeroSection = () => {
                 md: 'left',
               },
               lineHeight: 1.6,
-            //   height: '120px',
+              //   height: '120px',
               opacity: isVisible ? 1 : 0,
               transition: 'opacity 1s ease-in-out',
             }}
@@ -319,6 +320,7 @@ const HeroSection = () => {
               <Box key={index}>
                 <Typography
                   variant="h4"
+                  component="h3"
                   fontWeight={700}
                   sx={{
                     fontSize: {

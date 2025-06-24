@@ -33,6 +33,7 @@ import com4 from '../assets/com-4.svg';
 import playStore from '../assets/playStore.svg';
 import qrCode from '../assets/qrCode.svg';
 import signupImg from '../assets/signupImg.svg';
+import signupImgWebP from '../assets/signupImg.webp';
 // import OTPVerification from '../components/OTPVerification/OTPVerification';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
@@ -172,17 +173,31 @@ const LoginPage = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    width: { xs: '100%', md: '50%' },
                     bgcolor: '#f0f4ff',
                     p: 4,
                     flex: 0.5,
+                    minHeight: isMobile ? '60vh' : 'auto',
                   }}
                 >
                   <Box sx={{ maxWidth: '100%', textAlign: 'center', mb: 4 }}>
-                    <img
-                      src={signupImg}
-                      alt="Financial analytics illustration"
-                      style={{ width: '100%', maxWidth: '400px' }}
-                    />
+                    <picture>
+                      <source srcSet={signupImgWebP} type="image/webp" />
+                      <img
+                        src={signupImg}
+                        alt="Financial analytics illustration"
+                        width={400}
+                        height={300}
+                        loading="eager"
+                        style={{
+                          width: '100%',
+                          maxWidth: '400px',
+                          height: 'auto',
+                          display: 'block',
+                        }}
+                        fetchpriority="high"
+                      />
+                    </picture>
                   </Box>
 
                   <Paper
@@ -214,7 +229,9 @@ const LoginPage = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
+                    width: { xs: '100%', md: '50%' },
                     flex: 0.5,
+                    minHeight: isMobile ? '40vh' : 'auto',
                   }}
                 >
                   <Box
@@ -433,50 +450,47 @@ const LoginPage = () => {
                   gap: 1,
                   justifyContent: isMobile ? 'center' : 'flex-start',
                   my: 2,
+                  flexWrap: 'wrap',
                 }}
               >
-                <IconButton
-                  size="medium"
-                  sx={{ color: '#25D366', bgcolor: '#f0f0f0' }}
-                >
-                  <WhatsAppIcon fontSize="medium" />
-                </IconButton>
-                <IconButton
-                  size="medium"
-                  sx={{ color: '#0077B5', bgcolor: '#f0f0f0' }}
-                >
-                  <LinkedInIcon fontSize="medium" />
-                </IconButton>
-                <IconButton
-                  size="medium"
-                  sx={{ color: '#1DA1F2', bgcolor: '#f0f0f0' }}
-                >
-                  <TwitterIcon fontSize="medium" />
-                </IconButton>
-                <IconButton
-                  size="medium"
-                  sx={{ color: '#4267B2', bgcolor: '#f0f0f0' }}
-                >
-                  <FacebookIcon fontSize="medium" />
-                </IconButton>
-                <IconButton
-                  size="medium"
-                  sx={{ color: '#E1306C', bgcolor: '#f0f0f0' }}
-                >
-                  <InstagramIcon fontSize="medium" />
-                </IconButton>
-                <IconButton
-                  size="medium"
-                  sx={{ color: '#0088cc', bgcolor: '#f0f0f0' }}
-                >
-                  <TelegramIcon fontSize="medium" />
-                </IconButton>
-                <IconButton
-                  size="medium"
-                  sx={{ color: '#FF0000', bgcolor: '#f0f0f0' }}
-                >
-                  <YouTubeIcon fontSize="medium" />
-                </IconButton>
+                {[
+                  {
+                    icon: <WhatsAppIcon />,
+                    color: '#25D366',
+                    label: 'WhatsApp',
+                  },
+                  {
+                    icon: <LinkedInIcon />,
+                    color: '#0077B5',
+                    label: 'LinkedIn',
+                  },
+                  { icon: <TwitterIcon />, color: '#1DA1F2', label: 'Twitter' },
+                  {
+                    icon: <FacebookIcon />,
+                    color: '#4267B2',
+                    label: 'Facebook',
+                  },
+                  {
+                    icon: <InstagramIcon />,
+                    color: '#E1306C',
+                    label: 'Instagram',
+                  },
+                  {
+                    icon: <TelegramIcon />,
+                    color: '#0088cc',
+                    label: 'Telegram',
+                  },
+                  { icon: <YouTubeIcon />, color: '#FF0000', label: 'YouTube' },
+                ].map((social, index) => (
+                  <IconButton
+                    key={index}
+                    size="medium"
+                    aria-label={social.label}
+                    sx={{ color: social.color, bgcolor: '#f0f0f0' }}
+                  >
+                    {social.icon}
+                  </IconButton>
+                ))}
               </Box>
 
               <Typography
@@ -500,6 +514,8 @@ const LoginPage = () => {
                   <img
                     key={product}
                     src={product}
+                    width={80}
+                    height={'auto'}
                     alt="Product"
                     style={{
                       width: '80px',
@@ -531,6 +547,8 @@ const LoginPage = () => {
                 <img
                   src={qrCode}
                   alt="QR Code"
+                  width={150}
+                  height={150}
                   style={{ width: '150px', height: '150px' }}
                 />
               </Box>
@@ -549,11 +567,15 @@ const LoginPage = () => {
                   <img
                     src={playStore}
                     alt="Google Play"
+                    width={135}
+                    height={'auto'}
                     style={{ width: '135px' }}
                   />
                   <img
                     src={appStore}
                     alt="App Store"
+                    width={135}
+                    height={'auto'}
                     style={{ width: '135px' }}
                   />
                 </Box>

@@ -57,6 +57,7 @@ const FAQSection = () => {
     >
       <Typography
         variant="h5"
+        component="h2"
         fontWeight={theme.typography.fontWeightBold}
         align="center"
         fontSize={{
@@ -69,6 +70,7 @@ const FAQSection = () => {
       </Typography>
       <Typography
         variant="body1"
+        component="h3"
         align="center"
         color="text.secondary"
         mb={theme.spacing(4)}

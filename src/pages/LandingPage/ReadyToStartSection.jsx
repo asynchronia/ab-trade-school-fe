@@ -93,6 +93,7 @@ const ReadyToStartSection = () => {
 
                 <Typography
                   variant="h6"
+                  component={'h2'}
                   color="common.white"
                   sx={{
                     fontSize: {

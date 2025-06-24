@@ -34,6 +34,7 @@ import com4 from '../assets/com-4.svg';
 import playStore from '../assets/playStore.svg';
 import qrCode from '../assets/qrCode.svg';
 import signupImg from '../assets/signupImg.svg';
+import signupImgWebP from '../assets/signupImg.webp';
 import OTPVerification from '../components/OTPVerification/OTPVerification';
 import { sendOtpReq, signupReq, verifyOtpReq } from '../service/auth.service';
 import {
@@ -205,17 +206,31 @@ const SignupPage = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    width: { xs: '100%', md: '50%' },
                     bgcolor: '#f0f4ff',
                     p: 4,
                     flex: 0.5,
+                    minHeight: isMobile ? '60vh' : 'auto',
                   }}
                 >
                   <Box sx={{ maxWidth: '100%', textAlign: 'center', mb: 4 }}>
-                    <img
-                      src={signupImg}
-                      alt="Signup illustration"
-                      style={{ width: '100%', maxWidth: '400px' }}
-                    />
+                    <picture>
+                      <source srcSet={signupImgWebP} type="image/webp" />
+                      <img
+                        src={signupImg}
+                        alt="Financial analytics illustration"
+                        width={400}
+                        height={300}
+                        loading="eager"
+                        style={{
+                          width: '100%',
+                          maxWidth: '400px',
+                          height: 'auto',
+                          display: 'block',
+                        }}
+                        fetchpriority="high"
+                      />
+                    </picture>
                   </Box>
 
                   <Paper
@@ -246,7 +261,9 @@ const SignupPage = () => {
                     borderLeft: isMobile ? 'none' : '1px dashed #ccc',
                     display: 'flex',
                     flexDirection: 'column',
+                    width: { xs: '100%', md: '50%' },
                     flex: 0.5,
+                    minHeight: isMobile ? '40vh' : 'auto',
                   }}
                 >
                   <Box
@@ -598,17 +615,38 @@ const SignupPage = () => {
                 }}
               >
                 {[
-                  { icon: <WhatsAppIcon />, color: '#25D366' },
-                  { icon: <LinkedInIcon />, color: '#0077B5' },
-                  { icon: <TwitterIcon />, color: '#1DA1F2' },
-                  { icon: <FacebookIcon />, color: '#4267B2' },
-                  { icon: <InstagramIcon />, color: '#E1306C' },
-                  { icon: <TelegramIcon />, color: '#0088cc' },
-                  { icon: <YouTubeIcon />, color: '#FF0000' },
+                  {
+                    icon: <WhatsAppIcon />,
+                    color: '#25D366',
+                    label: 'WhatsApp',
+                  },
+                  {
+                    icon: <LinkedInIcon />,
+                    color: '#0077B5',
+                    label: 'LinkedIn',
+                  },
+                  { icon: <TwitterIcon />, color: '#1DA1F2', label: 'Twitter' },
+                  {
+                    icon: <FacebookIcon />,
+                    color: '#4267B2',
+                    label: 'Facebook',
+                  },
+                  {
+                    icon: <InstagramIcon />,
+                    color: '#E1306C',
+                    label: 'Instagram',
+                  },
+                  {
+                    icon: <TelegramIcon />,
+                    color: '#0088cc',
+                    label: 'Telegram',
+                  },
+                  { icon: <YouTubeIcon />, color: '#FF0000', label: 'YouTube' },
                 ].map((social, index) => (
                   <IconButton
                     key={index}
                     size="medium"
+                    aria-label={social.label}
                     sx={{ color: social.color, bgcolor: '#f0f0f0' }}
                   >
                     {social.icon}
@@ -636,6 +674,8 @@ const SignupPage = () => {
                   <img
                     key={index}
                     src={product}
+                    width={80}
+                    height="auto"
                     alt="Product"
                     style={{
                       width: '80px',
@@ -667,6 +707,8 @@ const SignupPage = () => {
                 <img
                   src={qrCode}
                   alt="QR Code"
+                  width={150}
+                  height={150}
                   style={{ width: '150px', height: '150px' }}
                 />
               </Box>
@@ -685,11 +727,15 @@ const SignupPage = () => {
                   <img
                     src={playStore}
                     alt="Google Play"
+                    width={135}
+                    height={'auto'}
                     style={{ width: '135px' }}
                   />
                   <img
                     src={appStore}
                     alt="App Store"
+                    width={135}
+                    height={'auto'}
                     style={{ width: '135px' }}
                   />
                 </Box>

@@ -35,15 +35,19 @@ const CardCarousel = ({ cards }) => {
         {loopedCards.map((card, index) => (
           <Box key={`${card.id}-${index}`} className="marquee-card">
             <Box className="card-image-container">
-              <img src={card.baseImage} alt="" className="base-image" />
-              <img src={card.overlayImage} alt="" className="overlay-image" />
-              <IconButton className="bookmark-icon">
+              <img src={card.baseImage} alt="card-bg" className="base-image" />
+              <img
+                src={card.overlayImage}
+                alt="card-img"
+                className="overlay-image"
+              />
+              <IconButton className="bookmark-icon" aria-label="Save">
                 <BookmarkBorderIcon />
               </IconButton>
             </Box>
 
             <Box className="card-content">
-              <Typography variant="h6" className="card-title">
+              <Typography variant="h6" component="h2" className="card-title">
                 {card.title}
               </Typography>
               <Typography variant="body1" className="card-description">

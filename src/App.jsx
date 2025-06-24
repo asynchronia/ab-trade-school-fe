@@ -1,12 +1,13 @@
+import { lazy } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-// import CodeVerification from './pages/CodeVerification';
 import CoursesPage from './pages/Courses';
 import LandingPage from './pages/LandingPage/LandingPage';
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
 import ViewCoursePage from './pages/ViewCoursePage';
 import WebinarPage from './pages/WebinarPage';
 import { routes } from './routes/index';
+
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const SignupPage = lazy(() => import('./pages/SignupPage'));
 
 function App() {
   return (

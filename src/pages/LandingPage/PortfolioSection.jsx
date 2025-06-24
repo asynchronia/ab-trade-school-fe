@@ -83,6 +83,7 @@ const PortfolioSection = () => {
       <Box
         component="img"
         src={portfolioOverImg}
+        alt="overlay"
         sx={{
           position: 'absolute',
           top: 0,
@@ -124,6 +125,7 @@ const PortfolioSection = () => {
           </Typography>
           <Typography
             variant="subtitle1"
+            component="h3"
             sx={{ color: 'rgba(255, 255, 255, 0.8)' }}
           >
             Our programs are designed to deliver measurable outcomes for your
@@ -136,7 +138,7 @@ const PortfolioSection = () => {
           sx={{
             overflowX: {
               xs: 'auto',
-              lg: 'visible', 
+              lg: 'visible',
             },
             width: '100%',
             pb: 2,
@@ -160,8 +162,8 @@ const PortfolioSection = () => {
                 lg: '100%',
               },
               flexWrap: {
-                xs: 'nowrap', 
-                lg: 'wrap', 
+                xs: 'nowrap',
+                lg: 'wrap',
               },
             }}
           >
@@ -172,7 +174,7 @@ const PortfolioSection = () => {
                   flexShrink: 0,
                   borderRadius: theme.shape.borderRadius.medium,
                   width: {
-                    xs: 300,  
+                    xs: 300,
                     lg: 'calc(33.333% - 16px)',
                     xl: 380,
                   },
@@ -193,7 +195,7 @@ const PortfolioSection = () => {
                 >
                   <img
                     src={card.img}
-                    alt=""
+                    alt="card-img"
                     style={{ height: '48px', marginBottom: '16px' }}
                   />
                   <Typography
@@ -209,6 +211,7 @@ const PortfolioSection = () => {
 
                   <Typography
                     variant="body2"
+                    component={'h4'}
                     sx={{
                       mb: theme.spacing(2),
                     }}

@@ -41,7 +41,7 @@ const theme = createTheme({
         'linear-gradient(135deg, #FFFFFF, #f0f0f0, #C9CACB, #B6B7B9, #d0d1d2, #FBFBFB)',
     },
     success: {
-      main: '#4AAF39',
+      main: '#32854A',
     },
     blue: {
       main: '#1E40AF',
