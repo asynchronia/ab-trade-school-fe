@@ -47,7 +47,7 @@ const SignupPage = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [stage, setStage] = useState(3);
+  const [stage, setStage] = useState(1);
   const [mobile, setMobile] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
