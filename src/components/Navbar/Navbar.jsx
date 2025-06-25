@@ -50,6 +50,11 @@ const Navbar = () => {
       hasDropdown: false,
     },
     {
+      id: 'modules',
+      label: 'Modules',
+      hasDropdown: false,
+    },
+    {
       id: 'trade-events',
       label: 'Trade Events',
       hasDropdown: false,

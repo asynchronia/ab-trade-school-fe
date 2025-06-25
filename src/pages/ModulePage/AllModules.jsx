@@ -8,22 +8,24 @@ import {
     IconButton,
     Typography,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import cardBg1 from '../../assets/cardBg1.jpg';
 import cardBg2 from '../../assets/cardBg2.jpg';
 import cardBg3 from '../../assets/cardBg3.jpg';
 import cardBg4 from '../../assets/cardBg4.jpg';
 import cardBg5 from '../../assets/cardBg5.jpg';
 import cardBg6 from '../../assets/cardBg6.jpg';
-import overImg1 from '../../assets/overImg1.webp';
-import overImg2 from '../../assets/overImg2.webp';
-import overImg3 from '../../assets/overImg3.webp';
-import overImg4 from '../../assets/overImg4.jpg';
-import overImg5 from '../../assets/overImg5.jpg';
-import overImg6 from '../../assets/overImg6.jpg';
+import overImg1 from '../../assets/overImg1.png';
+import overImg2 from '../../assets/overImg2.png';
+import overImg3 from '../../assets/overImg3.png';
+import overImg4 from '../../assets/overImg4.png';
+import overImg5 from '../../assets/overImg5.png';
+import overImg6 from '../../assets/overImg6.png';
 import Navbar from '../../components/Navbar/Navbar';
 import theme from '../../utils/theme';
 
 const ModulesPage = () => {
+  const navigate = useNavigate();
   const modules = [
     {
       id: 1,
@@ -282,7 +284,8 @@ const ModulesPage = () => {
                       alt="Overlay"
                       sx={{
                         position: 'absolute',
-                        bottom: 0,
+                        width: '200px',
+                        bottom: '0px',
                         left: '50%',
                         transform: 'translateX(-50%)',
                         zIndex: 1,
@@ -316,6 +319,7 @@ const ModulesPage = () => {
                       justifyContent: 'left',
                     }}
                     fullWidth
+                    onClick={() => navigate('/chapters')}
                   >
                     View module
                   </Button>

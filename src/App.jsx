@@ -3,6 +3,8 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import CoursesPage from './pages/Courses';
 import LandingPage from './pages/LandingPage/LandingPage';
 import ModulesPage from './pages/ModulePage/AllModules';
+import ChapterDataPage from './pages/ModulePage/ChapterData';
+import ChapterListPage from './pages/ModulePage/ChapterListPage';
 import ViewCoursePage from './pages/ViewCoursePage';
 import WebinarPage from './pages/WebinarPage';
 import { routes } from './routes/index';
@@ -20,6 +22,8 @@ function App() {
         <Route path={routes.courses} element={<CoursesPage />} />
         <Route path={routes.webinars} element={<WebinarPage />} />
         <Route path={routes.modules} element={<ModulesPage />} />
+        <Route path={routes.chapterList} element={<ChapterListPage />} />
+        <Route path={routes.chapter} element={<ChapterDataPage />} />
         <Route path={routes.viewCourse} element={<ViewCoursePage />} />
       </Routes>
     </Router>
