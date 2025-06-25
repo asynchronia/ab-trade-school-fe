@@ -86,9 +86,11 @@ const SignupPage = () => {
         });
       }
     } catch (error) {
-      enqueueSnackbar(error.message || 'Invalid mobile number', {
-        variant: 'error',
-      });
+      if (error.name !== 'ValidationError') {
+        enqueueSnackbar(error.message || 'Something went wrong', {
+          variant: 'error',
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -116,9 +118,11 @@ const SignupPage = () => {
         });
       }
     } catch (error) {
-      enqueueSnackbar(error.message || 'Invalid OTP', {
-        variant: 'error',
-      });
+      if (error.name !== 'ValidationError') {
+        enqueueSnackbar(error.message || 'Invalid OTP', {
+          variant: 'error',
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -147,9 +151,11 @@ const SignupPage = () => {
         });
       }
     } catch (error) {
-      enqueueSnackbar(error?.message || 'Something went wrong', {
-        variant: 'error',
-      });
+      if (error.name !== 'ValidationError') {
+        enqueueSnackbar(error?.message || 'Something went wrong', {
+          variant: 'error',
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -303,7 +309,7 @@ const SignupPage = () => {
                           helperText={touched.phone && errors.phone}
                         />
                         <Typography variant="subtitle2" gutterBottom>
-                          We will send a verification code to your mobile.
+                          We will send a verification code to your mobile number{' '}
                         </Typography>
                         <Button
                           fullWidth
@@ -381,12 +387,12 @@ const SignupPage = () => {
                           variant="outlined"
                           name="phone"
                           value={values.phone}
-                          readOnly
+                          disabled
                           onBlur={handleBlur}
                           InputProps={{
                             endAdornment: (
                               <Typography
-                                color="primary"
+                                color="success"
                                 sx={{
                                   fontSize: theme.typography.subtitle1.fontSize,
                                 }}

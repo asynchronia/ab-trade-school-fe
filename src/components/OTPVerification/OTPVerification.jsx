@@ -46,7 +46,7 @@ const OTPVerification = ({
       </Box>
 
       <Typography variant="body2" ml={1} color="green" gutterBottom>
-        Enter the OTP sent to your mobile
+        Enter the OTP sent to your mobile number.
       </Typography>
 
       <Typography variant="body2" ml={1}>
