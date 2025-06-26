@@ -295,16 +295,19 @@ const SignupPage = () => {
                     </Typography>
 
                     {stage === 1 && (
-                      <>
+                      <Box sx={{ marginTop: 2 }}>
+                        <Typography component={'label'} htmlFor="phone" fontSize={15}>
+                          Mobile number
+                        </Typography>
                         <TextField
                           fullWidth
-                          label="Mobile Number"
+                          //   label="Mobile Number"
                           value={mobile}
                           onChange={(e) => setMobile(e.target.value)}
                           onBlur={handleBlur}
                           name="phone"
                           placeholder="Enter 10-digit mobile"
-                          margin="normal"
+                        //   margin="dense"
                           error={touched.phone && Boolean(errors.phone)}
                           helperText={touched.phone && errors.phone}
                         />
@@ -324,7 +327,7 @@ const SignupPage = () => {
                             'Send OTP'
                           )}
                         </Button>
-                      </>
+                      </Box>
                     )}
 
                     {stage === 2 && (
