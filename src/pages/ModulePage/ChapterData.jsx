@@ -1,15 +1,20 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
 import {
     Box,
     Divider,
+    Drawer,
+    Fab,
     IconButton,
     List,
     ListItem,
     ListItemText,
     Pagination,
     Typography,
+    useMediaQuery,
 } from '@mui/material';
 import { useState } from 'react';
 import chapterImg from '../../assets/chapter1.png';
@@ -99,38 +104,38 @@ const chapterContent = [
       {
         heading: 'A. Risk and Return',
         paragraph: [
-          'High return = High risk (Equities, Derivatives)',
-          'Lower return = Low risk (Government Bonds, Fixed Deposits)',
-          'Understand your risk appetite before investing',
+          'High return = High risk (Equities, Derivatives).',
+          ' Lower return = Low risk (Government Bonds, Fixed Deposits).',
+          ' Understand your risk appetite before investing.',
         ],
       },
       {
         heading: 'B. Diversification',
         paragraph: [
-          'Spread investments across multiple asset types to reduce risk',
-          'Avoid investing all money in one type of security',
+          'Spread investments across multiple asset types to reduce risk.',
+          ' Avoid investing all money in one type of security.',
         ],
       },
       {
         heading: 'C. Liquidity',
         paragraph: [
-          'Liquidity means how quickly a security can be converted into cash',
-          'Stocks are more liquid, while real estate or long-term bonds are less liquid',
+          'Liquidity means how quickly a security can be converted into cash.',
+          ' Stocks are more liquid, while real estate or long-term bonds are less liquid.',
         ],
       },
       {
         heading: 'D. Investment Horizon',
         paragraph: [
-          'Short-term: Derivatives, trading equities',
-          'Long-term: Bonds, mutual funds, blue-chip stocks',
+          'Short-term: Derivatives, trading equities.',
+          ' Long-term: Bonds, mutual funds, blue-chip stocks.',
         ],
       },
       {
         heading: 'E. Regulatory Framework',
         paragraph: [
           'SEBI: Protects investor interests, promotes fair trading, and ensures transparency.',
-          'RBI: Regulates money market and banking instruments.',
-          'Stock Exchanges: Provide platforms for securities trading.',
+          ' RBI: Regulates money market and banking instruments.',
+          ' Stock Exchanges: Provide platforms for securities trading.',
         ],
       },
     ],
@@ -139,29 +144,29 @@ const chapterContent = [
     heading: '5. How to Invest in Financial Securities',
     questions: [
       {
-        question: 'Step 1',
+        question: '1',
         answer:
           'Open a Demat and Trading Account (with brokers like Alice Blue, etc.)',
       },
       {
-        question: 'Step 2',
+        question: '2',
         answer: 'Understand your investment goal (growth, income, safety)',
       },
       {
-        question: 'Step 3',
+        question: '3',
         answer:
           'Research securities – use company financials, market trends, etc.',
       },
       {
-        question: 'Step 4',
+        question: '4',
         answer: 'Diversify your portfolio',
       },
       {
-        question: 'Step 5',
+        question: '5',
         answer: 'Monitor performance regularly',
       },
       {
-        question: 'Step 6',
+        question: '6',
         answer:
           'Stay updated with market news, SEBI regulations, and economic changes',
       },
@@ -191,8 +196,8 @@ const chapterContent = [
 
 const SideSocialBar = () => {
   const iconStyles = {
-    width: 48,
-    height: 48,
+    width: { xs: 36, sm: 48 },
+    height: { xs: 36, sm: 48 },
     mb: 2,
     cursor: 'pointer',
     bgcolor: 'white',
@@ -201,19 +206,27 @@ const SideSocialBar = () => {
   return (
     <Box
       sx={{
-        width: 100,
+        width: { xs: 80, sm: 100 },
         position: 'fixed',
         background:
           'linear-gradient(to bottom, #1E40AF40, #FFFFFF, #1E40AF40 )',
-        py: 4,
+        py: { xs: 2, sm: 4 },
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         borderRadius: '10px',
       }}
     >
-      <CalendarMonthIcon sx={{ fontSize: 40, color: '#2a3eb1', mb: 2 }} />
-      <Typography variant="body2" textAlign="center" fontWeight="500" mb={3}>
+      <CalendarMonthIcon
+        sx={{ fontSize: { xs: 32, sm: 40 }, color: '#2a3eb1', mb: 2 }}
+      />
+      <Typography
+        variant="body2"
+        textAlign="center"
+        fontWeight="500"
+        mb={3}
+        sx={{ fontSize: { xs: '12px', sm: '14px' } }}
+      >
         October
         <br />
         22, 2024
@@ -232,7 +245,9 @@ const SideSocialBar = () => {
 
 const ChapterDataPage = () => {
   const [currentChapter, setCurrentChapter] = useState(1);
+  const [registerOpen, setRegisterOpen] = useState(false);
   const totalChapters = 13;
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
 
   const handleChapterChange = (event, value) => {
     setCurrentChapter(value);
@@ -251,15 +266,28 @@ const ChapterDataPage = () => {
             md: theme.spacing(10),
           },
           pt: theme.spacing(2),
-          gap: 4,
+          gap: { xs: 0, lg: 4 },
         }}
       >
-        <Box sx={{ width: '100px', flexShrink: 0 }}>
+        {/* Desktop Sidebar */}
+        <Box
+          sx={{
+            width: '100px',
+            flexShrink: 0,
+            display: { xs: 'none', lg: 'block' },
+          }}
+        >
           <SideSocialBar />
         </Box>
 
         {/* Main Content */}
-        <Box sx={{ maxWidth: '850px', flexGrow: 1 }}>
+        <Box
+          sx={{
+            maxWidth: '850px',
+            flexGrow: 1,
+            width: { xs: '100%', lg: 'auto' },
+          }}
+        >
           <Typography
             component="img"
             src={chapterImg}
@@ -273,10 +301,18 @@ const ChapterDataPage = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
+              flexWrap: { xs: 'wrap', sm: 'nowrap' },
+              gap: { xs: 1, sm: 0 },
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography variant="h5" fontWeight="600" color="primary" mr={1}>
+              <Typography
+                variant="h5"
+                fontWeight="600"
+                color="primary"
+                mr={1}
+                sx={{ fontSize: { xs: '18px', sm: '20px' } }}
+              >
                 1
               </Typography>
               <Divider
@@ -284,12 +320,16 @@ const ChapterDataPage = () => {
                   flexGrow: 1,
                   borderBottomWidth: 4,
                   borderColor: '#69C969',
-                  width: 120,
+                  width: { xs: 80, sm: 120 },
                 }}
               />
             </Box>
 
-            <Typography variant="body1" fontWeight="500">
+            <Typography
+              variant="body1"
+              fontWeight="500"
+              sx={{ fontSize: { xs: '14px', sm: '16px' } }}
+            >
               Chapter 1
             </Typography>
           </Box>
@@ -298,12 +338,18 @@ const ChapterDataPage = () => {
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
-              alignItems: 'center',
+              alignItems: { xs: 'flex-start', sm: 'center' },
+              flexDirection: { xs: 'column', sm: 'row' },
               mt: 1,
               mb: 3,
+              gap: { xs: 2, sm: 0 },
             }}
           >
-            <Typography variant="h6" fontWeight="700">
+            <Typography
+              variant="h6"
+              fontWeight="700"
+              sx={{ fontSize: { xs: '18px', sm: '20px', md: '24px' } }}
+            >
               Introduction to Stock Markets
             </Typography>
 
@@ -316,19 +362,23 @@ const ChapterDataPage = () => {
             >
               <Button
                 variant="text"
-                size="medium"
+                size={isMobile ? 'small' : 'medium'}
                 startIcon={<ArrowBackIcon />}
-                sx={{ textTransform: 'none' }}
+                sx={{
+                  textTransform: 'none',
+                  fontSize: { xs: '12px', sm: '14px' },
+                }}
                 color="black"
                 title={'Previous'}
               />
               <Button
                 variant="text"
-                size="medium"
+                size={isMobile ? 'small' : 'medium'}
                 endIcon={<ArrowForwardIcon />}
                 sx={{
                   textTransform: 'none',
                   color: 'primary.main',
+                  fontSize: { xs: '12px', sm: '14px' },
                 }}
                 title={'Next'}
               />
@@ -342,14 +392,19 @@ const ChapterDataPage = () => {
                 <Typography
                   variant="h6"
                   fontWeight="700"
-                  fontSize="18px"
+                  fontSize={{ xs: '16px', sm: '18px' }}
                   gutterBottom
                 >
                   {item.heading}
                 </Typography>
 
                 {typeof item.paragraph === 'string' && (
-                  <Typography sx={{ fontSize: '15px', lineHeight: 1.6 }}>
+                  <Typography
+                    sx={{
+                      fontSize: { xs: '14px', sm: '15px' },
+                      lineHeight: 1.6,
+                    }}
+                  >
                     {item.paragraph}
                   </Typography>
                 )}
@@ -366,7 +421,10 @@ const ChapterDataPage = () => {
                           alignItems: 'flex-start',
                         }}
                       >
-                        <Typography fontSize="15px" lineHeight={1.5}>
+                        <Typography
+                          fontSize={{ xs: '14px', sm: '15px' }}
+                          lineHeight={1.5}
+                        >
                           • {point}
                         </Typography>
                       </ListItem>
@@ -381,19 +439,29 @@ const ChapterDataPage = () => {
                         variant="subtitle1"
                         fontWeight="600"
                         gutterBottom
+                        sx={{ fontSize: { xs: '15px', sm: '16px' } }}
                       >
                         {child.heading}
                       </Typography>
 
                       <Typography
-                        sx={{ mb: 1, fontSize: '15px', lineHeight: 1.6 }}
+                        sx={{
+                          mb: 1,
+                          fontSize: { xs: '14px', sm: '15px' },
+                          lineHeight: 1.6,
+                        }}
                       >
                         {child.paragraph}
                       </Typography>
 
                       {child.examples && (
                         <>
-                          <Typography fontWeight="500" mt={1} mb={0.5}>
+                          <Typography
+                            fontWeight="500"
+                            mt={1}
+                            mb={0.5}
+                            sx={{ fontSize: { xs: '14px', sm: '15px' } }}
+                          >
                             Examples:
                           </Typography>
                           <List dense disablePadding>
@@ -407,7 +475,10 @@ const ChapterDataPage = () => {
                                   alignItems: 'flex-start',
                                 }}
                               >
-                                <Typography fontSize="15px" lineHeight={1.5}>
+                                <Typography
+                                  fontSize={{ xs: '14px', sm: '15px' }}
+                                  lineHeight={1.5}
+                                >
                                   • {ex}
                                 </Typography>
                               </ListItem>
@@ -418,7 +489,12 @@ const ChapterDataPage = () => {
 
                       {child.keyFeatures && (
                         <>
-                          <Typography fontWeight="500" mt={1} mb={0.5}>
+                          <Typography
+                            fontWeight="500"
+                            mt={1}
+                            mb={0.5}
+                            sx={{ fontSize: { xs: '14px', sm: '15px' } }}
+                          >
                             Key Features:
                           </Typography>
                           <List dense disablePadding>
@@ -432,7 +508,10 @@ const ChapterDataPage = () => {
                                   alignItems: 'flex-start',
                                 }}
                               >
-                                <Typography fontSize="15px" lineHeight={1.5}>
+                                <Typography
+                                  fontSize={{ xs: '14px', sm: '15px' }}
+                                  lineHeight={1.5}
+                                >
                                   • {feat}
                                 </Typography>
                               </ListItem>
@@ -445,14 +524,20 @@ const ChapterDataPage = () => {
 
                 {item.questions && (
                   <List dense disablePadding>
+                    <Typography mb={1} pl={2}>
+                      Step by step guide :
+                    </Typography>
                     {item.questions.map((q, i) => (
                       <ListItem
                         key={i}
                         disableGutters
                         sx={{ pl: 2, py: 0.2, alignItems: 'flex-start' }}
                       >
-                        <Typography fontSize="15px" lineHeight={1.5}>
-                          <strong>{q.question}:</strong> {q.answer}
+                        <Typography
+                          fontSize={{ xs: '14px', sm: '15px' }}
+                          lineHeight={1.5}
+                        >
+                          {q.question}. {q.answer}
                         </Typography>
                       </ListItem>
                     ))}
@@ -460,86 +545,100 @@ const ChapterDataPage = () => {
                 )}
 
                 {item.table && (
-                  <Box
-                    component="table"
-                    sx={{
-                      mt: 2,
-                      width: '100%',
-                      borderCollapse: 'collapse',
-                      border: '1px solid #ccc',
-                      fontSize: '15px',
-                    }}
-                  >
-                    <thead>
-                      <Box component="tr" sx={{ backgroundColor: '#f6f8fc' }}>
-                        <Box
-                          component="th"
-                          sx={{
-                            border: '1px solid #ccc',
-                            textAlign: 'left',
-                            px: 2,
-                            py: 1,
-                            fontWeight: 600,
-                          }}
-                        >
-                          Security Type
-                        </Box>
-                        <Box
-                          component="th"
-                          sx={{
-                            border: '1px solid #ccc',
-                            textAlign: 'left',
-                            px: 2,
-                            py: 1,
-                            fontWeight: 600,
-                          }}
-                        >
-                          Example
-                        </Box>
-                        <Box
-                          component="th"
-                          sx={{
-                            border: '1px solid #ccc',
-                            textAlign: 'left',
-                            px: 2,
-                            py: 1,
-                            fontWeight: 600,
-                          }}
-                        >
-                          Use Case
-                        </Box>
-                      </Box>
-                    </thead>
-                    <tbody>
-                      {item.table.map((row, i) => (
-                        <Box
-                          component="tr"
-                          key={i}
-                          sx={{
-                            backgroundColor: i % 2 === 1 ? '#f6f8fc' : '#fff',
-                          }}
-                        >
+                  <Box sx={{ mt: 2, overflowX: 'auto' }}>
+                    <Box
+                      component="table"
+                      sx={{
+                        width: '100%',
+                        minWidth: '300px',
+                        borderCollapse: 'collapse',
+                        border: '1px solid #ccc',
+                        fontSize: { xs: '13px', sm: '15px' },
+                      }}
+                    >
+                      <thead>
+                        <Box component="tr" sx={{ backgroundColor: '#f6f8fc' }}>
                           <Box
-                            component="td"
-                            sx={{ border: '1px solid #ccc', px: 2, py: 1 }}
+                            component="th"
+                            sx={{
+                              border: '1px solid #ccc',
+                              textAlign: 'left',
+                              px: { xs: 1, sm: 2 },
+                              py: 1,
+                              fontWeight: 600,
+                            }}
                           >
-                            {row.securityType}
+                            Security Type
                           </Box>
                           <Box
-                            component="td"
-                            sx={{ border: '1px solid #ccc', px: 2, py: 1 }}
+                            component="th"
+                            sx={{
+                              border: '1px solid #ccc',
+                              textAlign: 'left',
+                              px: { xs: 1, sm: 2 },
+                              py: 1,
+                              fontWeight: 600,
+                            }}
                           >
-                            {row.example}
+                            Example
                           </Box>
                           <Box
-                            component="td"
-                            sx={{ border: '1px solid #ccc', px: 2, py: 1 }}
+                            component="th"
+                            sx={{
+                              border: '1px solid #ccc',
+                              textAlign: 'left',
+                              px: { xs: 1, sm: 2 },
+                              py: 1,
+                              fontWeight: 600,
+                            }}
                           >
-                            {row.useCase}
+                            Use Case
                           </Box>
                         </Box>
-                      ))}
-                    </tbody>
+                      </thead>
+                      <tbody>
+                        {item.table.map((row, i) => (
+                          <Box
+                            component="tr"
+                            key={i}
+                            sx={{
+                              backgroundColor: i % 2 === 1 ? '#f6f8fc' : '#fff',
+                            }}
+                          >
+                            <Box
+                              component="td"
+                              sx={{
+                                border: '1px solid #ccc',
+                                px: { xs: 1, sm: 2 },
+                                py: 1,
+                              }}
+                            >
+                              {row.securityType}
+                            </Box>
+                            <Box
+                              component="td"
+                              sx={{
+                                border: '1px solid #ccc',
+                                px: { xs: 1, sm: 2 },
+                                py: 1,
+                              }}
+                            >
+                              {row.example}
+                            </Box>
+                            <Box
+                              component="td"
+                              sx={{
+                                border: '1px solid #ccc',
+                                px: { xs: 1, sm: 2 },
+                                py: 1,
+                              }}
+                            >
+                              {row.useCase}
+                            </Box>
+                          </Box>
+                        ))}
+                      </tbody>
+                    </Box>
                   </Box>
                 )}
 
@@ -557,7 +656,7 @@ const ChapterDataPage = () => {
               flexWrap: 'wrap',
               alignItems: 'center',
               my: 7,
-              //   py: 1,
+              px: { xs: 1, sm: 0 },
             }}
           >
             <Pagination
@@ -566,8 +665,7 @@ const ChapterDataPage = () => {
               onChange={handleChapterChange}
               showPreviousButton
               showNextButton
-              siblingCount={totalChapters}
-              boundaryCount={totalChapters}
+              size={isMobile ? 'small' : 'medium'}
               sx={{
                 '& .MuiPagination-ul': {
                   flexWrap: 'wrap',
@@ -576,15 +674,17 @@ const ChapterDataPage = () => {
                 },
                 '& .MuiPaginationItem-root': {
                   color: 'text.primary',
-                  fontSize: '16px',
+                  fontSize: { xs: '14px', sm: '16px' },
                   textTransform: 'none',
+                  minWidth: { xs: '28px', sm: '32px' },
+                  height: { xs: '28px', sm: '32px' },
 
                   '&.Mui-selected': {
                     backgroundColor: 'primary.main',
                     color: 'primary.contrastText',
                     borderRadius: '50%',
-                    width: 32,
-                    height: 32,
+                    width: { xs: 28, sm: 32 },
+                    height: { xs: 28, sm: 32 },
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -604,7 +704,7 @@ const ChapterDataPage = () => {
 
                   '&.MuiPaginationItem-previousNext': {
                     borderRadius: '4px',
-                    padding: '8px',
+                    padding: { xs: '4px', sm: '8px' },
                   },
                 },
               }}
@@ -612,11 +712,107 @@ const ChapterDataPage = () => {
           </Box>
         </Box>
 
-        {/* Right Register Form */}
-        <Box sx={{ width: '340px', flexShrink: 0 }}>
+        {/* Desktop Register Form */}
+        <Box
+          sx={{
+            width: '340px',
+            flexShrink: 0,
+            display: { xs: 'none', lg: 'block' },
+          }}
+        >
           <RegisterForm />
         </Box>
       </Box>
+
+      {isMobile && (
+        <>
+          <Fab
+            color="secondary"
+            onClick={() => setRegisterOpen(true)}
+            sx={{
+              position: 'fixed',
+              bottom: 16,
+              right: 16,
+              zIndex: 1000,
+            }}
+          >
+            <Typography variant="caption" fontWeight="600">
+              Join
+            </Typography>
+          </Fab>
+
+          {/* Register Drawer */}
+          <Drawer
+            anchor="right"
+            open={registerOpen}
+            onClose={() => setRegisterOpen(false)}
+            sx={{
+              '& .MuiDrawer-paper': {
+                width: { xs: '100%', sm: 400 },
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column',
+              },
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                mb: 2,
+              }}
+            >
+              <Typography variant="h6">Register</Typography>
+              <IconButton onClick={() => setRegisterOpen(false)}>
+                <CloseIcon />
+              </IconButton>
+            </Box>
+
+            <Box sx={{ flexGrow: 1 }}>
+              <RegisterForm />
+            </Box>
+
+            <Box sx={{ mt: 3, pt: 2, borderTop: '1px solid #e0e0e0' }}>
+              <Typography variant="subtitle2" mb={2} fontWeight="600">
+                Share
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+                <Box
+                  component={'img'}
+                  src={whatsapp}
+                  sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                />
+                <Box
+                  component={'img'}
+                  src={email}
+                  sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                />
+                <Box
+                  component={'img'}
+                  src={facebook}
+                  sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                />
+                <Box
+                  component={'img'}
+                  src={twitter}
+                  sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                />
+                <Box
+                  component={'img'}
+                  src={linkedin}
+                  sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                />
+                <Box
+                  component={'img'}
+                  src={copy}
+                  sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                />
+              </Box>
+            </Box>
+          </Drawer>
+        </>
+      )}
     </Box>
   );
 };
