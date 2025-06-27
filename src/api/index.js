@@ -19,8 +19,12 @@ const API_URL = {
   login: '/users/login',
   sendSms: '/users/send-otp',
   verifyOtp: '/users/verify-otp',
-  allModules: import.meta.env.VITE_MODULE_LIST_API,
-  moduleChapterList: import.meta.env.VITE_MODULE_CHAPTER_LIST_API,
+  allModules:
+    'https://tradeschoolblog.aliceblueonline.com/wp-json/myapi/v1/modules',
+  moduleChapterList:
+    'https://tradeschoolblog.aliceblueonline.com/wp-json/myapi/v1/module-posts',
+  moduleChapterData:
+    'https://tradeschoolblog.aliceblueonline.com/wp-json/myapi/v1/blog-details',
 };
 
 export async function signup(body) {
@@ -112,6 +116,23 @@ export async function getModuleChapterList(url) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${API_URL.moduleChapterList}/${url}`)
+      .then((res) => {
+        resolve(res.data);
+        return res.data;
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  }).catch((error) => {
+    console.log(error);
+    return error.response.data;
+  });
+}
+
+export async function getModuleChapterData(params) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${API_URL.moduleChapterData}`, { params })
       .then((res) => {
         resolve(res.data);
         return res.data;

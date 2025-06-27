@@ -17,6 +17,7 @@ import {
     useMediaQuery,
 } from '@mui/material';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import chapterImg from '../../assets/chapter1.png';
 import copy from '../../assets/copy.png';
 import email from '../../assets/email.png';
@@ -244,6 +245,8 @@ const SideSocialBar = () => {
 };
 
 const ChapterDataPage = () => {
+  const location = useLocation();
+  console.log(location);
   const [currentChapter, setCurrentChapter] = useState(1);
   const [registerOpen, setRegisterOpen] = useState(false);
   const totalChapters = 13;

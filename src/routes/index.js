@@ -7,7 +7,7 @@ export const routes = {
   viewCourse: '/courses/:courseId',
   modules: '/modules',
   chapterList: '/modules/:moduleName/chapters',
-  chapter: '/chapter/:name'
+  chapter: 'modules/chapter'
   //   signupOtp: '/signup/otp-verification',
   //   loginOtp: '/login/otp-verification',
 };
