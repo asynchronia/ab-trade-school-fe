@@ -6,6 +6,7 @@ import {
     CardActions,
     CardContent,
     IconButton,
+    Link,
     Tooltip,
     Typography,
 } from '@mui/material';
@@ -50,7 +51,8 @@ const ModulesPage = () => {
         sx={{
           px: {
             xs: theme.spacing(4),
-            md: theme.spacing(12),
+            md: theme.spacing(5),
+            lg: theme.spacing(10),
           },
           pt: {
             xs: theme.spacing(2),
@@ -91,10 +93,6 @@ const ModulesPage = () => {
                   border: 'none',
                   boxShadow: 'none',
                   borderRadius: 2,
-                  transition: 'transform 0.2s, box-shadow 0.2s',
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                  },
                 }}
               >
                 <Box
@@ -133,7 +131,7 @@ const ModulesPage = () => {
                   <Typography
                     variant="body2"
                     color="text.secondary"
-                    sx={{ mb: 3, lineHeight: '24px', fontWeight: 500 }}
+                    sx={{ mb: 1.5, lineHeight: '24px', fontWeight: 500 }}
                   >
                     {module?.count} Chapters
                   </Typography>
@@ -191,20 +189,23 @@ const ModulesPage = () => {
                   </Box>
                 </CardContent>
 
-                <CardActions>
-                  <Button
+                <CardActions sx={{ p: 0 }}>
+                  <Link
                     color="primary"
-                    size="small"
+                    underline="none"
                     sx={{
                       fontWeight: 500,
                       display: 'flex',
                       justifyContent: 'left',
+                      cursor: 'pointer',
                     }}
                     fullWidth
-                    onClick={() => navigate(`${module?.slug}/chapters`)}
+                    onClick={() =>
+                      navigate(`/modules/${module?.slug}/chapters`)
+                    }
                   >
                     View module
-                  </Button>
+                  </Link>
                 </CardActions>
               </Card>
             </Box>
