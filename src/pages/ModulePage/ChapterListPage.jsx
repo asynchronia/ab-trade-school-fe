@@ -1,4 +1,4 @@
-import { BookmarkBorder } from '@mui/icons-material';
+import { Bookmark, BookmarkBorder } from '@mui/icons-material';
 import {
     Box,
     Button,
@@ -6,72 +6,52 @@ import {
     CardContent,
     Divider,
     IconButton,
+    Link,
+    Tooltip,
     Typography,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import bgImg from '../../assets/cardBg3.jpg';
+import { enqueueSnackbar } from 'notistack';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import chapterMainImg from '../../assets/chapterMainImg.svg';
-import overImg from '../../assets/overImg1.png';
 import Navbar from '../../components/Navbar/Navbar';
+import { getModuleChapterListReq } from '../../service/modules.service';
 import theme from '../../utils/theme';
 
-const chapters = [
-  {
-    id: 1,
-    title: 'Financial Securities: Definition, Types & Investment Basics',
-  },
-  {
-    id: 2,
-    title: 'How to Invest in the Stock Market: A Beginner’s Guide',
-  },
-  {
-    id: 3,
-    title: 'Indian Financial Markets: Structure, Meaning, and Types',
-  },
-  {
-    id: 4,
-    title: 'SEBI and Market Regulations',
-  },
-  {
-    id: 5,
-    title: 'Role of Market Intermediaries',
-  },
-  {
-    id: 6,
-    title: 'The IPO Process',
-  },
-  {
-    id: 7,
-    title: 'Evaluating an IPO',
-  },
-  {
-    id: 8,
-    title: 'Introduction to Stock Indices',
-  },
-  {
-    id: 9,
-    title: 'Understanding Benchmarks',
-  },
-  {
-    id: 10,
-    title: 'How the Stock Market Works',
-  },
-  {
-    id: 11,
-    title: 'Types of Market Orders',
-  },
-  {
-    id: 12,
-    title: 'Trading vs Investing',
-  },
-  {
-    id: 13,
-    title: 'Introduction to Fundamental Analysis',
-  },
-];
-
 const ChapterListPage = () => {
+  const { moduleName } = useParams();
   const navigate = useNavigate();
+  const [chapters, setChapters] = useState([]);
+  const [bookmarked, setBookmarked] = useState({});
+
+  function convertSlugToTitle(moduleName) {
+    return moduleName
+      .split('-')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
+  const title = convertSlugToTitle(moduleName);
+
+  const fetchModulesChapterList = async () => {
+    try {
+      const chapters = await getModuleChapterListReq(moduleName);
+      setChapters(chapters);
+    } catch {
+      enqueueSnackbar('Failed to fetch modules. Please try again later');
+    }
+  };
+
+  useEffect(() => {
+    fetchModulesChapterList();
+  }, []);
+
+  const handleBookmark = (id) => {
+    setBookmarked((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   return (
     <>
@@ -79,10 +59,8 @@ const ChapterListPage = () => {
 
       <Box
         sx={{
-          position: 'relative',
           px: {
-            xs: theme.spacing(2),
-            sm: theme.spacing(4),
+            xs: theme.spacing(4),
             md: theme.spacing(12),
           },
           pt: {
@@ -95,128 +73,225 @@ const ChapterListPage = () => {
           },
           width: { xs: '100%', xl: '1440px' },
           mx: 'auto',
+          minHeight: '100vh',
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Typography variant="h4" fontWeight={600}>
+        {/* Header Section */}
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: { xs: 1, md: 2 },
+            mb: { xs: 2, md: 0 },
+          }}
+        >
+          <Typography
+            variant="h4"
+            fontWeight={600}
+            sx={{
+              fontSize: { xs: '1.5rem', md: '2.125rem' },
+            }}
+          >
             1
           </Typography>
           <Divider
             sx={{
-              width: '170px',
-              borderBottom: '4px solid rgba(105, 201, 105, 1)',
+              width: { xs: '120px', md: '170px' },
+              borderBottom: {
+                xs: '3px solid rgba(105, 201, 105, 1)',
+                md: '4px solid rgba(105, 201, 105, 1)',
+              },
             }}
           />
         </Box>
 
+        {/* Chapter Main Image */}
         <Box
           component={'img'}
           src={chapterMainImg}
           alt=""
-          width={210}
-          height={140}
           sx={{
             position: 'absolute',
-            right: 72,
-            top: 0,
+            right: { md: 70 },
+            top: { md: 80 },
+            width: { xs: '100%', md: 210 },
+            height: { xs: 'auto', md: 140 },
+            maxWidth: { xs: '210px', md: 'none' },
             display: { xs: 'none', md: 'flex' },
           }}
         />
 
-        <Typography variant="h5" fontWeight={600} my={3} fontSize={32}>
-          Introduction to Stock Markets
+        {/* Title */}
+        <Typography
+          variant="h5"
+          fontWeight={600}
+          sx={{
+            my: { xs: 2, md: 3 },
+            fontSize: { xs: '1.5rem', md: '2rem' },
+          }}
+        >
+          {title}
         </Typography>
 
-        {chapters.map((chapter) => (
-          <Card
-            key={chapter.id}
-            sx={{
-              display: 'flex',
-              alignItems: 'stretch',
-              mb: { xs: 3, md: 6 },
-              borderRadius: 2,
-              boxShadow: '0px 2px 8px rgba(0,0,0,0.05)',
-              overflow: 'hidden',
-            }}
-          >
+        {/* Chapters List */}
+        <Box sx={{ mt: { xs: 3, md: 4 }, height: '100%' }}>
+          {chapters.length === 0 ? (
             <Box
               sx={{
-                position: 'relative',
-                width: 290,
-                minWidth: 160,
-                height: 180,
-                backgroundImage: `url(${bgImg})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRight: '1px solid #eee',
-              }}
-            >
-              <Box
-                component="img"
-                src={overImg}
-                alt="Overlay"
-                sx={{
-                  position: 'absolute',
-                  bottom: 0,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: '180px',
-                  objectFit: 'contain',
-                  zIndex: 1,
-                }}
-              />
-
-              <IconButton
-                size="small"
-                sx={{
-                  position: 'absolute',
-                  top: 8,
-                  right: 8,
-                  zIndex: 2,
-                  color: 'white',
-                }}
-              >
-                <BookmarkBorder />
-              </IconButton>
-            </Box>
-
-            <CardContent
-              sx={{
-                flex: 1,
                 display: 'flex',
-                justifyContent: 'space-between',
-                flexDirection: 'column',
-                alignItems: 'start',
+                justifyContent: 'center',
+                alignItems: 'center',
+                 height: '50vh',
               }}
             >
-              <Typography variant="h6" fontWeight={600} gutterBottom>
-                {chapter.id}. {chapter.title}
-              </Typography>
               <Typography
-                variant="body2"
-                color="text.secondary"
-                fontSize={'16px'}
-              >
-                Stock markets are platforms where buyers and sellers trade
-                shares of publicly listed companies. They help companies raise
-                capital and allow investors to earn returns through price
-                appreciation and dividends.
-              </Typography>
-              <Button
-                size="small"
+                variant="body1"
                 sx={{
-                  textTransform: 'capitalize',
-                  fontWeight: 500,
-                  color: 'rgba(22, 105, 201, 1)',
-                  fontSize: '14px',
+                  textAlign: 'center',
+                  color: 'text.secondary',
+                  py: 4,
                 }}
-                onClick={() => navigate('/chapter/1')}
               >
-                View module
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
+                No chapters to show
+              </Typography>
+            </Box>
+          ) : (
+            chapters.map((chapter) => (
+              <Card
+                key={chapter.id}
+                sx={{
+                  display: 'flex',
+                  flexDirection: { xs: 'column', sm: 'row' },
+                  alignItems: 'stretch',
+                  mb: { xs: 3, md: 6 },
+                  borderRadius: 2,
+                  boxShadow: 'none',
+                  overflow: 'hidden',
+                }}
+              >
+                {/* Image Container */}
+                <Box
+                  sx={{
+                    position: 'relative',
+                    alignSelf: 'start',
+                    height: '100%',
+                    width: '100%',
+                    maxWidth: 310,
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={chapter?.thumbnail}
+                    alt="chapter"
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover', // or 'fill' to ignore aspect ratio
+                      borderRadius: { xs: '8px 8px 0 0', md: 2 },
+                    }}
+                  />
+
+                  <Tooltip
+                    title={
+                      bookmarked[chapter.id] ? 'Remove module' : 'Save module'
+                    }
+                  >
+                    <IconButton
+                      onClick={() => handleBookmark(chapter.id)}
+                      sx={{
+                        position: 'absolute',
+                        top: { xs: 8, md: 8 },
+                        right: { xs: 8, md: 5 },
+                        width: { xs: 35, md: 35 },
+                        height: { xs: 35, md: 35 },
+                        backgroundColor: 'rgba(0,0,0,0.3)',
+                        '&:hover': {
+                          backgroundColor: 'rgba(0,0,0,0.5)',
+                        },
+                        zIndex: 1,
+                      }}
+                    >
+                      {bookmarked[chapter.id] ? (
+                        <Bookmark
+                          sx={{
+                            color: '#fff',
+                            width: { xs: 24, md: 24 },
+                            height: { xs: 24, md: 24 },
+                          }}
+                        />
+                      ) : (
+                        <BookmarkBorder
+                          sx={{
+                            color: '#fff',
+                            width: { xs: 24, md: 24 },
+                            height: { xs: 24, md: 24 },
+                          }}
+                        />
+                      )}
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+
+                {/* Content */}
+                <CardContent
+                  sx={{
+                    flex: 1,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexDirection: 'column',
+                    alignItems: 'start',
+                    py: 1,
+                    px: { xs: 0, md: 3 },
+                  }}
+                >
+                  <Box sx={{ mb: { xs: 2, md: 3 }, width: '100%' }}>
+                    <Typography
+                      variant="h6"
+                      fontWeight={600}
+                      gutterBottom
+                      sx={{
+                        fontSize: { xs: '1.1rem', md: '1.25rem' },
+                        lineHeight: { xs: 1.3, md: 1.4 },
+                        mb: { xs: 1, md: 2 },
+                      }}
+                    >
+                      {chapter?.chapter_order}. {chapter.title}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{
+                        fontSize: { xs: '14px', md: '16px' },
+                        lineHeight: { xs: 1.4, md: 1.5 },
+                        display: '-webkit-box',
+                        WebkitLineClamp: { xs: 3, md: 2 },
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}
+                    >
+                      {chapter?.excerpt}
+                    </Typography>
+                  </Box>
+
+                  <Link
+                    sx={{
+                      textTransform: 'capitalize',
+                      fontWeight: 500,
+                      color: 'rgba(22, 105, 201, 1)',
+                      cursor: 'pointer',
+                      fontSize: 15,
+                    }}
+                    underline="none"
+                    onClick={() => navigate('/chapter/1')}
+                  >
+                    View module
+                  </Link>
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </Box>
       </Box>
     </>
   );

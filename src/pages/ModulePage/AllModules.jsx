@@ -49,8 +49,7 @@ const ModulesPage = () => {
       <Box
         sx={{
           px: {
-            xs: theme.spacing(2),
-            sm: theme.spacing(4),
+            xs: theme.spacing(4),
             md: theme.spacing(12),
           },
           pt: {
