@@ -36,23 +36,31 @@ const Navbar = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user);
 
   const navItems = [
     {
       id: 'courses',
       label: 'Courses',
       hasDropdown: true,
+      path: '/courses',
     },
     {
       id: 'webinars',
       label: 'Webinars',
       hasDropdown: false,
+      path: '/webinars',
+    },
+    {
+      id: 'modules',
+      label: 'Modules',
+      hasDropdown: false,
+      path: '/modules',
     },
     {
       id: 'trade-events',
       label: 'Trade Events',
       hasDropdown: false,
+      path: '/trade-events',
     },
   ];
 
@@ -70,7 +78,7 @@ const Navbar = () => {
     if (navItems.find((item) => item.id === itemId)?.hasDropdown) {
       setExpandedDrawerItem(expandedDrawerItem === itemId ? null : itemId);
     } else {
-      //   navigate(`/${itemId}`);
+      navigate(itemId?.path || `/${itemId}`);
       setIsDrawerOpen(false);
     }
   };
@@ -382,7 +390,10 @@ const Navbar = () => {
                   item.hasDropdown && setIsDropdownOpen(false)
                 }
               >
-                <button className="nav-button">
+                <button
+                  className="nav-button"
+                  onClick={() => !item.hasDropdown && navigate(item.path)}
+                >
                   {item.label} {item.hasDropdown && ' ▾'}
                 </button>
 
