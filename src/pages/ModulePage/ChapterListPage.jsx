@@ -283,7 +283,7 @@ const ChapterListPage = () => {
                       fontSize: 15,
                     }}
                     underline="none"
-                    onClick={() => navigate('/chapter/1')}
+                    onClick={() => navigate(`/modules/chapter?chapter_order=${chapter?.chapter_order}`)}
                   >
                     View module
                   </Link>
