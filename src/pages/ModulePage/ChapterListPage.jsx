@@ -22,21 +22,15 @@ const ChapterListPage = () => {
   const { moduleName } = useParams();
   const navigate = useNavigate();
   const [chapters, setChapters] = useState([]);
+  const [moduleData, setModuleData] = useState();
   const [bookmarked, setBookmarked] = useState({});
-
-  function convertSlugToTitle(moduleName) {
-    return moduleName
-      .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
-  }
-
-  const title = convertSlugToTitle(moduleName);
 
   const fetchModulesChapterList = async () => {
     try {
       const chapters = await getModuleChapterListReq(moduleName);
-      setChapters(chapters);
+      setChapters(chapters?.posts);
+      setModuleData(chapters?.module);
+      console.log(chapters);
     } catch {
       enqueueSnackbar('Failed to fetch modules. Please try again later');
     }
@@ -61,7 +55,8 @@ const ChapterListPage = () => {
         sx={{
           px: {
             xs: theme.spacing(4),
-            md: theme.spacing(12),
+            md: theme.spacing(5),
+            lg: theme.spacing(10),
           },
           pt: {
             xs: theme.spacing(2),
@@ -92,7 +87,7 @@ const ChapterListPage = () => {
               fontSize: { xs: '1.5rem', md: '2.125rem' },
             }}
           >
-            1
+            {moduleData?.module_order}
           </Typography>
           <Divider
             sx={{
@@ -130,7 +125,7 @@ const ChapterListPage = () => {
             fontSize: { xs: '1.5rem', md: '2rem' },
           }}
         >
-          {title}
+          {moduleData?.name}
         </Typography>
 
         {/* Chapters List */}
@@ -141,7 +136,7 @@ const ChapterListPage = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                 height: '50vh',
+                height: '50vh',
               }}
             >
               <Typography
@@ -241,38 +236,37 @@ const ChapterListPage = () => {
                     flexDirection: 'column',
                     alignItems: 'start',
                     py: 1,
-                    px: { xs: 0, md: 3 },
+                    px: { xs: 0, sm: 3 },
                   }}
                 >
-                  <Box sx={{ mb: { xs: 2, md: 3 }, width: '100%' }}>
-                    <Typography
-                      variant="h6"
-                      fontWeight={600}
-                      gutterBottom
-                      sx={{
-                        fontSize: { xs: '1.1rem', md: '1.25rem' },
-                        lineHeight: { xs: 1.3, md: 1.4 },
-                        mb: { xs: 1, md: 2 },
-                      }}
-                    >
-                      {chapter?.chapter_order}. {chapter.title}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{
-                        fontSize: { xs: '14px', md: '16px' },
-                        lineHeight: { xs: 1.4, md: 1.5 },
-                        display: '-webkit-box',
-                        WebkitLineClamp: { xs: 3, md: 2 },
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                      }}
-                    >
-                      {chapter?.excerpt}
-                    </Typography>
-                  </Box>
+                  <Typography
+                    variant="h6"
+                    fontWeight={600}
+                    gutterBottom
+                    sx={{
+                      fontSize: { xs: '1.1rem', md: '1.25rem' },
+                      lineHeight: { xs: 1.3, md: 1.4 },
+                      mb: { xs: 1, md: 0 },
+                    }}
+                  >
+                    {chapter?.chapter_order}. {chapter.title}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{
+                      fontSize: { xs: '14px', md: '16px' },
+                      lineHeight: { xs: 1.4, md: 1.5 },
+                      display: '-webkit-box',
+                      WebkitLineClamp: { xs: 4, md: 3 },
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      mb: { xs: 2, md: 0 },
+                    }}
+                  >
+                    {chapter?.excerpt}
+                  </Typography>
 
                   <Link
                     sx={{
@@ -283,7 +277,11 @@ const ChapterListPage = () => {
                       fontSize: 15,
                     }}
                     underline="none"
-                    onClick={() => navigate(`/modules/chapter?chapter_order=${chapter?.chapter_order}`)}
+                    onClick={() =>
+                      navigate(
+                        `/modules/chapter?chapter_order=${chapter?.chapter_order}`
+                      )
+                    }
                   >
                     View module
                   </Link>
