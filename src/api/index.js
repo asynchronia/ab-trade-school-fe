@@ -25,6 +25,8 @@ const API_URL = {
     'https://tradeschoolblog.aliceblueonline.com/wp-json/myapi/v1/module-posts',
   moduleChapterData:
     'https://tradeschoolblog.aliceblueonline.com/wp-json/myapi/v1/blog-details',
+    forgetPassword: '/users/forgot-password',
+    resetPassword: '/users/reset-password',
 };
 
 export async function signup(body) {
@@ -133,6 +135,40 @@ export async function getModuleChapterData(params) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${API_URL.moduleChapterData}`, { params })
+      .then((res) => {
+        resolve(res.data);
+        return res.data;
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  }).catch((error) => {
+    console.log(error);
+    return error.response.data;
+  });
+}
+
+export async function forgetPassword(body) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${baseUrl}${API_URL.forgetPassword}`, body, { headers: getHeaders() })
+      .then((res) => {
+        resolve(res.data);
+        return res.data;
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  }).catch((error) => {
+    console.log(error);
+    return error.response.data;
+  });
+}
+
+export async function resetPassword(body) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${baseUrl}${API_URL.resetPassword}`, body, { headers: getHeaders() })
       .then((res) => {
         resolve(res.data);
         return res.data;
