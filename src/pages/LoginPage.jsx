@@ -24,7 +24,9 @@ import {
 import { Formik } from 'formik';
 import { enqueueSnackbar } from 'notistack';
 // import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import appStore from '../assets/appStore.svg';
 import com1 from '../assets/com-1.svg';
 import com2 from '../assets/com-2.svg';
@@ -34,24 +36,47 @@ import playStore from '../assets/playStore.svg';
 import qrCode from '../assets/qrCode.svg';
 import signupImg from '../assets/signupImg.svg';
 import signupImgWebP from '../assets/signupImg.webp';
-// import OTPVerification from '../components/OTPVerification/OTPVerification';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useState } from 'react';
-import { loginReq } from '../service/auth.service';
-import { loginSchema } from '../validations/LoginValidation';
+import {
+    forgetPasswordReq,
+    loginReq,
+    resetPasswordReq,
+} from '../service/auth.service';
+import {
+    LoginStage1Schema,
+    LoginStage2Schema,
+    LoginStage3Schema,
+} from '../validations/LoginValidation';
 
 const LoginPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [stage, setStage] = useState(1);
+  const [searchParams] = useSearchParams();
+  const [currentSchema, setCurrentSchema] = useState(LoginStage1Schema);
+  const token = searchParams.get('token');
 
-  //   const [stage, setStage] = useState(1);
+  useEffect(() => {
+    if (token) {
+      setStage(3);
+    }
+  }, [token]);
 
   const initialValues = {
     email: '',
     password: '',
+    newPassword: '',
+    confirmPassword: '',
   };
+
+  useEffect(() => {
+    if (stage === 1) setCurrentSchema(LoginStage1Schema);
+    else if (stage === 2) setCurrentSchema(LoginStage2Schema);
+    else if (stage === 3) setCurrentSchema(LoginStage3Schema);
+  }, [stage]);
 
   const handleFormSubmit = async (values, { setSubmitting }) => {
     console.log(values);
@@ -81,56 +106,354 @@ const LoginPage = () => {
     }
   };
 
-  //   const handleOtpSubmit = async (values) => {
-  //     try {
-  //       const response = await verifyOtpReq({
-  //         phone: values.phone,
-  //         otp: values.otp,
-  //       });
-  //       if (response?.success) {
-  //         enqueueSnackbar(response?.message || 'OTP verified successfully', {
-  //           variant: 'success',
-  //         });
-  //         setStage(3);
-  //         navigate('/courses');
-  //       } else {
-  //         enqueueSnackbar(response?.message || 'OTP verification failed', {
-  //           variant: 'error',
-  //         });
-  //         setStage(1);
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //       enqueueSnackbar(error?.message || 'Something went wrong', {
-  //         variant: 'error',
-  //       });
-  //       setStage(1);
-  //     }
-  //   };
+  const handleForgetPassword = async (values) => {
+    try {
+      const response = await forgetPasswordReq({
+        email: values?.email,
+      });
+      if (response?.success) {
+        enqueueSnackbar(
+          response?.message ||
+            'A reset password link is sent to your email address.',
+          {
+            variant: 'success',
+          }
+        );
+        setEmailSent(true);
+      } else {
+        enqueueSnackbar(response?.message || 'OTP verification failed', {
+          variant: 'error',
+        });
+        setStage(1);
+      }
+    } catch (error) {
+      console.error(error);
+      enqueueSnackbar(error?.message || 'Something went wrong', {
+        variant: 'error',
+      });
+      setStage(1);
+    }
+  };
 
-  //   const sendOtpToMobile = async (values) => {
-  //     try {
-  //       const response = await sendOtpReq({
-  //         phone: values.phone,
-  //       });
-  //       if (response?.success) {
-  //         enqueueSnackbar(response?.message || 'OTP sent successfully', {
-  //           variant: 'success',
-  //         });
-  //         setStage(2);
-  //         localStorage.setItem('User', true);
-  //       } else {
-  //         enqueueSnackbar(response?.message || 'Failed to send OTP', {
-  //           variant: 'error',
-  //         });
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //       enqueueSnackbar(error?.message || 'Something went wrong', {
-  //         variant: 'error',
-  //       });
-  //     }
-  //   };
+  const handleResetPassword = async (values) => {
+    try {
+      const response = await resetPasswordReq({
+        token: token,
+        newPassword: values?.newPassword,
+      });
+      if (response?.success) {
+        enqueueSnackbar(response?.message || 'Password changed successfully', {
+          variant: 'success',
+        });
+        setStage(1);
+        navigate('/login')
+      } else {
+        enqueueSnackbar(response?.message || 'Failed to change password.', {
+          variant: 'error',
+        });
+        setStage(1);
+      }
+    } catch (error) {
+      console.error(error);
+      enqueueSnackbar(error?.message || 'Something went wrong', {
+        variant: 'error',
+      });
+      setStage(1);
+    }
+  };
+
+  const handleSubmit = async (values) => {
+    if (stage === 1) {
+      await handleFormSubmit();
+    } else if (stage === 2) {
+      await handleForgetPassword(values);
+    } else if (stage === 3) {
+      await handleResetPassword(values);
+    }
+  };
+
+  const renderLoginForm = (
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    isSubmitting
+  ) => (
+    <>
+      <TextField
+        fullWidth
+        margin="normal"
+        label="Email"
+        placeholder="Enter your email"
+        variant="outlined"
+        name="email"
+        value={values.email}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={touched.email && Boolean(errors.email)}
+        helperText={touched.email && errors.email}
+      />
+      <TextField
+        fullWidth
+        margin="normal"
+        label="Password"
+        placeholder="Enter your password"
+        variant="outlined"
+        type={showPassword ? 'text' : 'password'}
+        name="password"
+        value={values.password}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={touched.password && Boolean(errors.password)}
+        helperText={touched.password && errors.password}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle confirm password visibility"
+                onClick={() => setShowPassword(!showPassword)}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
+        <Link
+          component="button"
+          underline="none"
+          type="button"
+          onClick={() => setStage(2)}
+          sx={{ fontSize: '0.875rem' }}
+        >
+          Forgot password?
+        </Link>
+      </Box>
+      <Button
+        fullWidth
+        variant="contained"
+        color="primary"
+        size="large"
+        type="submit"
+        disabled={isSubmitting}
+        sx={{
+          mt: 3,
+          py: 1.5,
+          borderRadius: 1,
+          bgcolor: '#1a56db',
+          '&:hover': { bgcolor: '#104bb9' },
+        }}
+      >
+        {isSubmitting ? (
+          <CircularProgress size={24} color="inherit" />
+        ) : (
+          'Login'
+        )}
+      </Button>
+    </>
+  );
+
+  const renderForgotPasswordForm = (
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    isSubmitting
+  ) => (
+    <>
+      <Typography variant="h6" gutterBottom>
+        Reset your password
+      </Typography>
+
+      {emailSent ? (
+        <>
+          <Typography variant="body2" color="text.secondary" gutterBottom>
+            We've sent a password reset link to <strong>{values.email}</strong>.
+            Please check your email.
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+            Didn't receive the email?{' '}
+            <Link
+              component="button"
+              onClick={() => setEmailSent(false)}
+              sx={{ fontWeight: 500 }}
+            >
+              Click to resend
+            </Link>
+          </Typography>
+        </>
+      ) : (
+        <>
+          <Typography variant="body2" color="text.secondary" gutterBottom>
+            Enter your email address and we'll send you a link to reset your
+            password.
+          </Typography>
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Email"
+            placeholder="Enter your email"
+            variant="outlined"
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.email && Boolean(errors.email)}
+            helperText={touched.email && errors.email}
+          />
+        </>
+      )}
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 2,
+          mt: 3,
+        }}
+      >
+        {!emailSent && (
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            type="submit"
+            disabled={isSubmitting}
+            sx={{
+              py: 1.5,
+              bgcolor: '#1a56db',
+              '&:hover': { bgcolor: '#104bb9' },
+            }}
+          >
+            {isSubmitting ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              'Send Verification Link'
+            )}
+          </Button>
+        )}
+        <Link
+          underline="none"
+          sx={{ cursor: 'pointer' }}
+          onClick={() => setStage(1)}
+        >
+          Back to Login
+        </Link>
+      </Box>
+    </>
+  );
+
+  const renderResetPasswordForm = (
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    isSubmitting
+  ) => (
+    <>
+      <Typography variant="h6" gutterBottom>
+        Set new password
+      </Typography>
+      <Typography variant="body2" color="text.secondary" gutterBottom>
+        Please enter your new password below.
+      </Typography>
+      <TextField
+        fullWidth
+        margin="normal"
+        label="New Password"
+        placeholder="Enter new password"
+        variant="outlined"
+        type={showPassword ? 'text' : 'password'}
+        name="newPassword"
+        value={values.newPassword}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={touched.newPassword && Boolean(errors.newPassword)}
+        helperText={touched.newPassword && errors.newPassword}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={() => setShowPassword(!showPassword)}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+      <TextField
+        fullWidth
+        margin="normal"
+        label="Confirm Password"
+        placeholder="Confirm new password"
+        variant="outlined"
+        type={showConfirmPassword ? 'text' : 'password'}
+        name="confirmPassword"
+        value={values.confirmPassword}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        error={touched.confirmPassword && Boolean(errors.confirmPassword)}
+        helperText={touched.confirmPassword && errors.confirmPassword}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                edge="end"
+              >
+                {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 2,
+          mt: 3,
+        }}
+      >
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          type="submit"
+          disabled={isSubmitting}
+          sx={{
+            py: 1.5,
+            bgcolor: '#1a56db',
+            '&:hover': { bgcolor: '#104bb9' },
+          }}
+        >
+          {isSubmitting ? (
+            <CircularProgress size={24} color="inherit" />
+          ) : (
+            'Reset Password'
+          )}
+        </Button>
+        <Link
+          underline="none"
+          onClick={() => setStage(1)}
+          sx={{ cursor: 'pointer' }}
+        >
+          Back to Login
+        </Link>
+      </Box>
+    </>
+  );
 
   return (
     <Box
@@ -145,8 +468,8 @@ const LoginPage = () => {
       <Box>
         <Formik
           initialValues={initialValues}
-          validationSchema={loginSchema}
-          onSubmit={handleFormSubmit}
+          validationSchema={currentSchema}
+          onSubmit={handleSubmit}
           validateOnBlur={true}
           validateOnChange={false}
         >
@@ -166,7 +489,7 @@ const LoginPage = () => {
                   flexDirection: isMobile ? 'column' : 'row',
                 }}
               >
-                {/* Left Side - Image and Info */}
+                {/* Left Side - Image and Info (same as before) */}
                 <Box
                   sx={{
                     display: 'flex',
@@ -241,93 +564,59 @@ const LoginPage = () => {
                       mx: { xs: 'auto', md: 0 },
                     }}
                   >
-                    <Typography variant="h5" fontWeight="bold" gutterBottom>
-                      Sign in to your profile
-                    </Typography>
+                    {stage === 1 && (
+                      <>
+                        <Typography variant="h5" fontWeight="bold" gutterBottom>
+                          Sign in to your profile
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          gutterBottom
+                        >
+                          or{' '}
+                          <Link href="/signup" underline="hover">
+                            Create your free account
+                          </Link>
+                        </Typography>
+                        <Box sx={{ mt: 3 }}>
+                          {renderLoginForm(
+                            values,
+                            errors,
+                            touched,
+                            handleChange,
+                            handleBlur,
+                            isSubmitting
+                          )}
+                        </Box>
+                      </>
+                    )}
 
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      gutterBottom
-                    >
-                      or{' '}
-                      <Link href="/signup" underline="hover">
-                        Create your free account
-                      </Link>
-                    </Typography>
-
-                    <Box sx={{ mt: 3 }}>
-                      {/* Email Field */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Email"
-                        placeholder="Enter your email"
-                        variant="outlined"
-                        name="email"
-                        value={values.email}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.email && Boolean(errors.email)}
-                        helperText={touched.email && errors.email}
-                      />
-                      {/* Password Field */}
-                      <TextField
-                        fullWidth
-                        margin="normal"
-                        label="Password"
-                        placeholder="Enter your password"
-                        variant="outlined"
-                        type={showPassword ? 'text' : 'password'}
-                        name="password"
-                        value={values.password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.password && Boolean(errors.password)}
-                        helperText={touched.password && errors.password}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <IconButton
-                                aria-label="toggle confirm password visibility"
-                                onClick={() => setShowPassword(!showPassword)}
-                                edge="end"
-                              >
-                                {showPassword ? (
-                                  <VisibilityOff />
-                                ) : (
-                                  <Visibility />
-                                )}
-                              </IconButton>
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-
-                      <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        type="submit"
-                        disabled={isSubmitting}
-                        sx={{
-                          mt: 3,
-                          py: 1.5,
-                          borderRadius: 1,
-                          bgcolor: '#1a56db',
-                          '&:hover': {
-                            bgcolor: '#104bb9',
-                          },
-                        }}
-                      >
-                        {isSubmitting ? (
-                          <CircularProgress size={24} color="inherit" />
-                        ) : (
-                          'Login'
+                    {stage === 2 && (
+                      <Box sx={{ mt: 3 }}>
+                        {renderForgotPasswordForm(
+                          values,
+                          errors,
+                          touched,
+                          handleChange,
+                          handleBlur,
+                          isSubmitting
                         )}
-                      </Button>
-                    </Box>
+                      </Box>
+                    )}
+
+                    {stage === 3 && (
+                      <Box sx={{ mt: 3 }}>
+                        {renderResetPasswordForm(
+                          values,
+                          errors,
+                          touched,
+                          handleChange,
+                          handleBlur,
+                          isSubmitting
+                        )}
+                      </Box>
+                    )}
                   </Box>
                 </Box>
               </Box>
