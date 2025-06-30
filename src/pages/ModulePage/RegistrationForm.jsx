@@ -1,15 +1,15 @@
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import {
-    Box,
-    Button,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
 } from '@mui/material';
 import { Form, Formik } from 'formik';
+import clock from '../../assets/clock.svg';
 import { ModuleRegistrationSchema } from '../../validations/moduleRegistrationValidation';
 
 const states = [
@@ -61,10 +61,6 @@ const RegisterForm = () => {
       sx={{
         borderRadius: '16px',
         border: '1px solid #1E40AF',
-        overflow: 'hidden',
-        width: 360,
-        position: 'fixed',
-        // mx: 'auto',
         fontFamily: 'inherit',
       }}
     >
@@ -75,6 +71,7 @@ const RegisterForm = () => {
           py: 3,
           px: 2,
           textAlign: 'center',
+          borderRadius: '14px 14px 0 0'
         }}
       >
         <Typography variant="h6" fontWeight="bold" fontSize={'20px'}>
@@ -84,8 +81,7 @@ const RegisterForm = () => {
         </Typography>
       </Box>
 
-      {/* Form Section */}
-      <Box sx={{ p: 3 }}>
+      <Box sx={{ p: 2 }}>
         <Typography variant="body1" align="center">
           Please fill in your details
           <br />
@@ -102,7 +98,7 @@ const RegisterForm = () => {
           <Typography variant="h4" fontWeight="bold" color="#1E40AF" mr={1}>
             15 Minutes
           </Typography>
-          <AccessTimeIcon sx={{ color: '#1E40AF', fontSize: 28 }} />
+          <Box component={'img'} alt="clock" src={clock} />
         </Box>
 
         <Formik

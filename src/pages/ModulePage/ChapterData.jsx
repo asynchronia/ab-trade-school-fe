@@ -2,22 +2,18 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CloseIcon from '@mui/icons-material/Close';
-import MenuIcon from '@mui/icons-material/Menu';
 import {
-    Box,
-    Divider,
-    Drawer,
-    Fab,
-    IconButton,
-    List,
-    ListItem,
-    ListItemText,
-    Pagination,
-    Typography,
-    useMediaQuery,
+  Box,
+  Divider,
+  Drawer,
+  Fab,
+  IconButton,
+  Pagination,
+  Typography,
+  useMediaQuery,
 } from '@mui/material';
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import chapterImg from '../../assets/chapter1.png';
 import copy from '../../assets/copy.png';
 import email from '../../assets/email.png';
@@ -27,173 +23,9 @@ import twitter from '../../assets/twitter.png';
 import whatsapp from '../../assets/whatsapp.png';
 import Button from '../../components/Button/Button';
 import Navbar from '../../components/Navbar/Navbar';
+import { getModuleChapterDataReq } from '../../service/modules.service';
 import theme from '../../utils/theme';
 import RegisterForm from './RegistrationForm';
-
-const chapterContent = [
-  {
-    heading: '1. What are Financial Securities?',
-    paragraph:
-      'Financial securities are financial instruments that hold some type of monetary value and can be traded in financial markets. They represent either ownership in a publicly traded corporation (e.g., shares/stocks), a creditor relationship with a government or corporation (e.g., bonds), or the right to buy or sell another security (e.g., options, futures).',
-  },
-  {
-    heading: '2. Importance of Financial Securities',
-    paragraph: [
-      'Provide liquidity for investors (easy to buy/sell)',
-      'Help in capital formation for companies',
-      'Offer diversification for risk management',
-      'Serve as a base for wealth creation',
-      'Facilitate price discovery in markets',
-    ],
-  },
-  {
-    heading: '3. Types of Financial Securities',
-    paragraph:
-      'Financial securities are broadly classified into three main types:',
-    children: [
-      {
-        heading: 'A. Equity Securities',
-        paragraph: 'These represent ownership in a company.',
-        examples: ['Common stocks (shares)', 'Preference shares'],
-        keyFeatures: [
-          'Gives shareholders ownership rights',
-          'Investors earn through dividends and capital gains',
-          'High return potential but comes with higher risk',
-          'Shareholders may get voting rights',
-        ],
-      },
-      {
-        heading: 'B. Debt Securities',
-        paragraph:
-          'These represent a loan made by the investor to an entity like a government or company.',
-        examples: [
-          'Bonds',
-          'Debentures',
-          'Treasury bills',
-          'Certificates of deposit (CDs)',
-        ],
-        keyFeatures: [
-          'Fixed or variable interest payments (called coupons)',
-          'Generally less risky than equity',
-          'Investors are creditors, not owners',
-          'Repaid at a maturity date',
-        ],
-      },
-      {
-        heading: 'C. Derivative Securities',
-        paragraph:
-          'These are financial instruments whose value is derived from other underlying assets like stocks, commodities, currencies, etc.',
-        examples: [
-          'Futures contracts',
-          'Options (Call & Put)',
-          'Swaps',
-          'Forwards',
-        ],
-        keyFeatures: [
-          'Used for hedging, speculation, and arbitrage',
-          'Can offer high returns but carry high risk',
-          'Require a good understanding of the underlying asset',
-        ],
-      },
-    ],
-  },
-  {
-    heading: '4. Investment Basics in Financial Securities',
-    paragraph:
-      'To begin investing in securities, one must understand the core principles and risk factors involved.',
-    children: [
-      {
-        heading: 'A. Risk and Return',
-        paragraph: [
-          'High return = High risk (Equities, Derivatives).',
-          ' Lower return = Low risk (Government Bonds, Fixed Deposits).',
-          ' Understand your risk appetite before investing.',
-        ],
-      },
-      {
-        heading: 'B. Diversification',
-        paragraph: [
-          'Spread investments across multiple asset types to reduce risk.',
-          ' Avoid investing all money in one type of security.',
-        ],
-      },
-      {
-        heading: 'C. Liquidity',
-        paragraph: [
-          'Liquidity means how quickly a security can be converted into cash.',
-          ' Stocks are more liquid, while real estate or long-term bonds are less liquid.',
-        ],
-      },
-      {
-        heading: 'D. Investment Horizon',
-        paragraph: [
-          'Short-term: Derivatives, trading equities.',
-          ' Long-term: Bonds, mutual funds, blue-chip stocks.',
-        ],
-      },
-      {
-        heading: 'E. Regulatory Framework',
-        paragraph: [
-          'SEBI: Protects investor interests, promotes fair trading, and ensures transparency.',
-          ' RBI: Regulates money market and banking instruments.',
-          ' Stock Exchanges: Provide platforms for securities trading.',
-        ],
-      },
-    ],
-  },
-  {
-    heading: '5. How to Invest in Financial Securities',
-    questions: [
-      {
-        question: '1',
-        answer:
-          'Open a Demat and Trading Account (with brokers like Alice Blue, etc.)',
-      },
-      {
-        question: '2',
-        answer: 'Understand your investment goal (growth, income, safety)',
-      },
-      {
-        question: '3',
-        answer:
-          'Research securities – use company financials, market trends, etc.',
-      },
-      {
-        question: '4',
-        answer: 'Diversify your portfolio',
-      },
-      {
-        question: '5',
-        answer: 'Monitor performance regularly',
-      },
-      {
-        question: '6',
-        answer:
-          'Stay updated with market news, SEBI regulations, and economic changes',
-      },
-    ],
-  },
-  {
-    heading: '6. Examples of Securities and Their Use Cases',
-    table: [
-      {
-        securityType: 'Equity',
-        example: 'Infosys Shares',
-        useCase: 'Long-term wealth creation',
-      },
-      {
-        securityType: 'Debt',
-        example: 'Govt Bonds',
-        useCase: 'Safe returns & capital preservation',
-      },
-      {
-        securityType: 'Derivatives',
-        example: 'Nifty Options',
-        useCase: 'Hedging or high-risk speculation',
-      },
-    ],
-  },
-];
 
 const SideSocialBar = () => {
   const iconStyles = {
@@ -208,7 +40,6 @@ const SideSocialBar = () => {
     <Box
       sx={{
         width: { xs: 80, sm: 100 },
-        position: 'fixed',
         background:
           'linear-gradient(to bottom, #1E40AF40, #FFFFFF, #1E40AF40 )',
         py: { xs: 2, sm: 4 },
@@ -233,7 +64,6 @@ const SideSocialBar = () => {
         22, 2024
       </Typography>
 
-      {/* Social icons */}
       <Box component={'img'} src={whatsapp} sx={iconStyles} />
       <Box component={'img'} src={email} sx={iconStyles} />
       <Box component={'img'} src={facebook} sx={iconStyles} />
@@ -245,15 +75,63 @@ const SideSocialBar = () => {
 };
 
 const ChapterDataPage = () => {
-  const location = useLocation();
-  console.log(location);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const moduleOrder = searchParams.get('module_order');
+  const chapterOrder = searchParams.get('chapter_order');
   const [currentChapter, setCurrentChapter] = useState(1);
   const [registerOpen, setRegisterOpen] = useState(false);
-  const totalChapters = 13;
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+  const [moduleData, setModuleData] = useState();
+  const [chapterData, setChapterData] = useState();
+  const [nextData, setNextData] = useState(null);
+  const [previousData, setPreviousData] = useState(null);
+  const [content, setContent] = useState();
 
-  const handleChapterChange = (event, value) => {
-    setCurrentChapter(value);
+  const handleChapterChange = (e, value) => {
+    setSearchParams({
+      module_order: moduleOrder || 1,
+      chapter_order: value,
+    });
+  };
+
+  const fetchChapterData = async () => {
+    try {
+      const response = await getModuleChapterDataReq({
+        module_order: moduleOrder,
+        chapter_order: chapterOrder,
+      });
+      console.log(response);
+      setContent(response?.current?.content);
+      setChapterData(response?.current);
+      setModuleData(response?.module);
+      setNextData(response?.next);
+      setPreviousData(response?.previous);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchChapterData();
+    setCurrentChapter(Number(chapterOrder) || 1);
+  }, [moduleOrder, chapterOrder]);
+
+  const handleNext = () => {
+    if (nextData) {
+      setSearchParams({
+        module_order: nextData.module_order,
+        chapter_order: nextData.chapter_order,
+      });
+    }
+  };
+
+  const handlePrevious = () => {
+    if (previousData) {
+      setSearchParams({
+        module_order: previousData.module_order,
+        chapter_order: previousData.chapter_order,
+      });
+    }
   };
 
   return (
@@ -272,18 +150,24 @@ const ChapterDataPage = () => {
           gap: { xs: 0, lg: 4 },
         }}
       >
-        {/* Desktop Sidebar */}
         <Box
           sx={{
             width: '100px',
             flexShrink: 0,
             display: { xs: 'none', lg: 'block' },
+            position: 'sticky',
+            top: '85px',
+            alignSelf: 'flex-start',
+            maxHeight: 'calc(100vh - 120px)',
+            overflowY: 'auto',
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
           }}
         >
           <SideSocialBar />
         </Box>
 
-        {/* Main Content */}
         <Box
           sx={{
             maxWidth: '850px',
@@ -312,11 +196,10 @@ const ChapterDataPage = () => {
               <Typography
                 variant="h5"
                 fontWeight="600"
-                color="primary"
                 mr={1}
                 sx={{ fontSize: { xs: '18px', sm: '20px' } }}
               >
-                1
+                {moduleData?.module_order}
               </Typography>
               <Divider
                 sx={{
@@ -333,7 +216,7 @@ const ChapterDataPage = () => {
               fontWeight="500"
               sx={{ fontSize: { xs: '14px', sm: '16px' } }}
             >
-              Chapter 1
+              Chapter {chapterData?.chapter_order}
             </Typography>
           </Box>
 
@@ -353,7 +236,7 @@ const ChapterDataPage = () => {
               fontWeight="700"
               sx={{ fontSize: { xs: '18px', sm: '20px', md: '24px' } }}
             >
-              Introduction to Stock Markets
+              {chapterData?.title}
             </Typography>
 
             <Box
@@ -370,10 +253,15 @@ const ChapterDataPage = () => {
                 sx={{
                   textTransform: 'none',
                   fontSize: { xs: '12px', sm: '14px' },
+                  color: 'primary.main',
                 }}
-                color="black"
                 title={'Previous'}
-              />
+                onClick={handlePrevious}
+                disabled={!previousData}
+              >
+                Previous
+              </Button>
+
               <Button
                 variant="text"
                 size={isMobile ? 'small' : 'medium'}
@@ -384,273 +272,18 @@ const ChapterDataPage = () => {
                   fontSize: { xs: '12px', sm: '14px' },
                 }}
                 title={'Next'}
-              />
+                onClick={handleNext}
+                disabled={!nextData}
+              >
+                Next
+              </Button>
             </Box>
           </Box>
 
-          {/* Your content */}
-          <Box sx={{ maxWidth: '850px', mx: 'auto', mt: 4 }}>
-            {chapterContent.map((item, index) => (
-              <Box key={index} sx={{ mb: 4 }}>
-                <Typography
-                  variant="h6"
-                  fontWeight="700"
-                  fontSize={{ xs: '16px', sm: '18px' }}
-                  gutterBottom
-                >
-                  {item.heading}
-                </Typography>
-
-                {typeof item.paragraph === 'string' && (
-                  <Typography
-                    sx={{
-                      fontSize: { xs: '14px', sm: '15px' },
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    {item.paragraph}
-                  </Typography>
-                )}
-
-                {Array.isArray(item.paragraph) && (
-                  <List dense disablePadding>
-                    {item.paragraph.map((point, i) => (
-                      <ListItem
-                        key={i}
-                        disableGutters
-                        sx={{
-                          pl: 2,
-                          py: 0.2,
-                          alignItems: 'flex-start',
-                        }}
-                      >
-                        <Typography
-                          fontSize={{ xs: '14px', sm: '15px' }}
-                          lineHeight={1.5}
-                        >
-                          • {point}
-                        </Typography>
-                      </ListItem>
-                    ))}
-                  </List>
-                )}
-
-                {item.children &&
-                  item.children.map((child, i) => (
-                    <Box key={i} sx={{ mt: 1.5, pl: 2 }}>
-                      <Typography
-                        variant="subtitle1"
-                        fontWeight="600"
-                        gutterBottom
-                        sx={{ fontSize: { xs: '15px', sm: '16px' } }}
-                      >
-                        {child.heading}
-                      </Typography>
-
-                      <Typography
-                        sx={{
-                          mb: 1,
-                          fontSize: { xs: '14px', sm: '15px' },
-                          lineHeight: 1.6,
-                        }}
-                      >
-                        {child.paragraph}
-                      </Typography>
-
-                      {child.examples && (
-                        <>
-                          <Typography
-                            fontWeight="500"
-                            mt={1}
-                            mb={0.5}
-                            sx={{ fontSize: { xs: '14px', sm: '15px' } }}
-                          >
-                            Examples:
-                          </Typography>
-                          <List dense disablePadding>
-                            {child.examples.map((ex, j) => (
-                              <ListItem
-                                key={j}
-                                disableGutters
-                                sx={{
-                                  pl: 2,
-                                  py: 0.2,
-                                  alignItems: 'flex-start',
-                                }}
-                              >
-                                <Typography
-                                  fontSize={{ xs: '14px', sm: '15px' }}
-                                  lineHeight={1.5}
-                                >
-                                  • {ex}
-                                </Typography>
-                              </ListItem>
-                            ))}
-                          </List>
-                        </>
-                      )}
-
-                      {child.keyFeatures && (
-                        <>
-                          <Typography
-                            fontWeight="500"
-                            mt={1}
-                            mb={0.5}
-                            sx={{ fontSize: { xs: '14px', sm: '15px' } }}
-                          >
-                            Key Features:
-                          </Typography>
-                          <List dense disablePadding>
-                            {child.keyFeatures.map((feat, k) => (
-                              <ListItem
-                                key={k}
-                                disableGutters
-                                sx={{
-                                  pl: 2,
-                                  py: 0.2,
-                                  alignItems: 'flex-start',
-                                }}
-                              >
-                                <Typography
-                                  fontSize={{ xs: '14px', sm: '15px' }}
-                                  lineHeight={1.5}
-                                >
-                                  • {feat}
-                                </Typography>
-                              </ListItem>
-                            ))}
-                          </List>
-                        </>
-                      )}
-                    </Box>
-                  ))}
-
-                {item.questions && (
-                  <List dense disablePadding>
-                    <Typography mb={1} pl={2}>
-                      Step by step guide :
-                    </Typography>
-                    {item.questions.map((q, i) => (
-                      <ListItem
-                        key={i}
-                        disableGutters
-                        sx={{ pl: 2, py: 0.2, alignItems: 'flex-start' }}
-                      >
-                        <Typography
-                          fontSize={{ xs: '14px', sm: '15px' }}
-                          lineHeight={1.5}
-                        >
-                          {q.question}. {q.answer}
-                        </Typography>
-                      </ListItem>
-                    ))}
-                  </List>
-                )}
-
-                {item.table && (
-                  <Box sx={{ mt: 2, overflowX: 'auto' }}>
-                    <Box
-                      component="table"
-                      sx={{
-                        width: '100%',
-                        minWidth: '300px',
-                        borderCollapse: 'collapse',
-                        border: '1px solid #ccc',
-                        fontSize: { xs: '13px', sm: '15px' },
-                      }}
-                    >
-                      <thead>
-                        <Box component="tr" sx={{ backgroundColor: '#f6f8fc' }}>
-                          <Box
-                            component="th"
-                            sx={{
-                              border: '1px solid #ccc',
-                              textAlign: 'left',
-                              px: { xs: 1, sm: 2 },
-                              py: 1,
-                              fontWeight: 600,
-                            }}
-                          >
-                            Security Type
-                          </Box>
-                          <Box
-                            component="th"
-                            sx={{
-                              border: '1px solid #ccc',
-                              textAlign: 'left',
-                              px: { xs: 1, sm: 2 },
-                              py: 1,
-                              fontWeight: 600,
-                            }}
-                          >
-                            Example
-                          </Box>
-                          <Box
-                            component="th"
-                            sx={{
-                              border: '1px solid #ccc',
-                              textAlign: 'left',
-                              px: { xs: 1, sm: 2 },
-                              py: 1,
-                              fontWeight: 600,
-                            }}
-                          >
-                            Use Case
-                          </Box>
-                        </Box>
-                      </thead>
-                      <tbody>
-                        {item.table.map((row, i) => (
-                          <Box
-                            component="tr"
-                            key={i}
-                            sx={{
-                              backgroundColor: i % 2 === 1 ? '#f6f8fc' : '#fff',
-                            }}
-                          >
-                            <Box
-                              component="td"
-                              sx={{
-                                border: '1px solid #ccc',
-                                px: { xs: 1, sm: 2 },
-                                py: 1,
-                              }}
-                            >
-                              {row.securityType}
-                            </Box>
-                            <Box
-                              component="td"
-                              sx={{
-                                border: '1px solid #ccc',
-                                px: { xs: 1, sm: 2 },
-                                py: 1,
-                              }}
-                            >
-                              {row.example}
-                            </Box>
-                            <Box
-                              component="td"
-                              sx={{
-                                border: '1px solid #ccc',
-                                px: { xs: 1, sm: 2 },
-                                py: 1,
-                              }}
-                            >
-                              {row.useCase}
-                            </Box>
-                          </Box>
-                        ))}
-                      </tbody>
-                    </Box>
-                  </Box>
-                )}
-
-                {index !== chapterContent.length - 1 && (
-                  <Divider sx={{ mt: 3 }} />
-                )}
-              </Box>
-            ))}
-          </Box>
+          <div
+            dangerouslySetInnerHTML={{ __html: content }}
+            style={{ lineHeight: '1.8', fontSize: '1rem' }}
+          />
 
           <Box
             sx={{
@@ -663,7 +296,7 @@ const ChapterDataPage = () => {
             }}
           >
             <Pagination
-              count={totalChapters}
+              count={moduleData?.count}
               page={currentChapter}
               onChange={handleChapterChange}
               showPreviousButton
@@ -715,12 +348,20 @@ const ChapterDataPage = () => {
           </Box>
         </Box>
 
-        {/* Desktop Register Form */}
         <Box
           sx={{
             width: '340px',
             flexShrink: 0,
             display: { xs: 'none', lg: 'block' },
+            position: 'sticky',
+            top: '85px',
+            alignSelf: 'flex-start',
+            maxHeight: 'calc(100vh - 120px)',
+            overflowY: 'auto',
+
+            '&::-webkit-scrollbar': {
+              display: 'none',
+            },
           }}
         >
           <RegisterForm />
@@ -744,7 +385,6 @@ const ChapterDataPage = () => {
             </Typography>
           </Fab>
 
-          {/* Register Drawer */}
           <Drawer
             anchor="right"
             open={registerOpen}
