@@ -2,10 +2,10 @@ import { PlayCircle } from '@mui/icons-material';
 import { Box, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import heroImg1 from '../../assets/heroImg1.svg';
-import heroImg2 from '../../assets/heroImg2.svg';
-import heroImg3 from '../../assets/heroImg3.svg';
-import heroImg4 from '../../assets/heroImg4.svg';
+import heroImg1 from '../../assets/heroSection1.png';
+import heroImg2 from '../../assets/heroSection2.png';
+import heroImg3 from '../../assets/heroSection3.png';
+import heroImg4 from '../../assets/heroSection4.png';
 import rightCircle from '../../assets/rightCircle.svg';
 import Button from '../../components/Button/Button';
 import HeroImageSlider from '../../components/HeroImageSlider/HeroImageSlider';
@@ -81,14 +81,6 @@ const HeroSection = () => {
           sm: theme.spacing(4),
           md: theme.spacing(12),
         },
-        pt: {
-          xs: theme.spacing(6),
-          md: theme.spacing(10),
-        },
-        pb: {
-          xs: theme.spacing(4),
-          md: theme.spacing(6),
-        },
         minHeight: {
           xs: 500,
           sm: 550,
@@ -158,6 +150,14 @@ const HeroSection = () => {
             flex: {
               xs: 'none',
               md: '0 0 50%',
+            },
+            pt: {
+              xs: theme.spacing(6),
+              md: theme.spacing(6),
+            },
+            pb: {
+              xs: theme.spacing(4),
+              md: theme.spacing(6),
             },
             width: {
               xs: '100%',
@@ -358,9 +358,15 @@ const HeroSection = () => {
               xs: 'none',
               md: '0 0 50%',
             },
-            width: {
-              xs: '100%',
-              md: '50%',
+            height: {
+              xs: 300,
+              md: 'auto',
+            },
+            minHeight: {
+              md: 400,
+            },
+            maxHeight: {
+              md: 600,
             },
             textAlign: {
               xs: 'center',
@@ -371,10 +377,23 @@ const HeroSection = () => {
               xs: 1,
               md: 2,
             },
-            display: { xs: 'none', md: 'block' },
+            display: { xs: 'none', md: 'flex' },
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
           }}
         >
-          <HeroImageSlider images={heroImages} />
+          <Box
+            sx={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <HeroImageSlider images={heroImages} />
+          </Box>
         </Box>
       </Box>
     </Box>
