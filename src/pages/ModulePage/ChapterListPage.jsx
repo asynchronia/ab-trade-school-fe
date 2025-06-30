@@ -30,7 +30,6 @@ const ChapterListPage = () => {
       const chapters = await getModuleChapterListReq(moduleName);
       setChapters(chapters?.posts);
       setModuleData(chapters?.module);
-      console.log(chapters);
     } catch {
       enqueueSnackbar('Failed to fetch modules. Please try again later');
     }
@@ -181,7 +180,7 @@ const ChapterListPage = () => {
                     sx={{
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover', // or 'fill' to ignore aspect ratio
+                      objectFit: 'cover',
                       borderRadius: { xs: '8px 8px 0 0', md: 2 },
                     }}
                   />
@@ -279,7 +278,7 @@ const ChapterListPage = () => {
                     underline="none"
                     onClick={() =>
                       navigate(
-                        `/modules/chapter?chapter_order=${chapter?.chapter_order}`
+                        `/modules/chapter?module_order=${moduleData?.module_order}&chapter_order=${chapter?.chapter_order}`
                       )
                     }
                   >

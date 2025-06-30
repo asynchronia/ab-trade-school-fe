@@ -60,7 +60,7 @@ const Navbar = () => {
       id: 'trade-events',
       label: 'Trade Events',
       hasDropdown: false,
-      path: '/trade-events',
+      path: '#',
     },
   ];
 

@@ -14,7 +14,7 @@ export const getModuleChapterListReq = async (url) => {
   return response;
 };
 
-export const getModuleChapterDataReq = async (url) => {
-  const response = await getModuleChapterData(url);
+export const getModuleChapterDataReq = async (params) => {
+  const response = await getModuleChapterData(params);
   return response;
 };
