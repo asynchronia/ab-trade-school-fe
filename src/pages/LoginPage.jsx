@@ -78,7 +78,7 @@ const LoginPage = () => {
     else if (stage === 3) setCurrentSchema(LoginStage3Schema);
   }, [stage]);
 
-  const handleFormSubmit = async (values, { setSubmitting }) => {
+  const handleFormSubmit = async (values) => {
     console.log(values);
     try {
       const response = await loginReq({
@@ -101,8 +101,6 @@ const LoginPage = () => {
       enqueueSnackbar(error?.message || 'Something went wrong', {
         variant: 'error',
       });
-    } finally {
-      setSubmitting(false);
     }
   };
 
@@ -146,7 +144,7 @@ const LoginPage = () => {
           variant: 'success',
         });
         setStage(1);
-        navigate('/login')
+        navigate('/login');
       } else {
         enqueueSnackbar(response?.message || 'Failed to change password.', {
           variant: 'error',
@@ -164,7 +162,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (values) => {
     if (stage === 1) {
-      await handleFormSubmit();
+      await handleFormSubmit(values);
     } else if (stage === 2) {
       await handleForgetPassword(values);
     } else if (stage === 3) {

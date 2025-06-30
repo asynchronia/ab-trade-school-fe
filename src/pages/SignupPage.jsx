@@ -7,20 +7,20 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
-    Box,
-    Button,
-    CircularProgress,
-    Container,
-    Divider,
-    Grid,
-    IconButton,
-    InputAdornment,
-    Link,
-    Paper,
-    TextField,
-    Typography,
-    useMediaQuery,
-    useTheme,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Divider,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Link,
+  Paper,
+  TextField,
+  Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { Formik } from 'formik';
 import { enqueueSnackbar } from 'notistack';
@@ -38,9 +38,9 @@ import signupImgWebP from '../assets/signupImg.webp';
 import OTPVerification from '../components/OTPVerification/OTPVerification';
 import { sendOtpReq, signupReq, verifyOtpReq } from '../service/auth.service';
 import {
-    stage1Schema,
-    stage2Schema,
-    stage3Schema,
+  stage1Schema,
+  stage2Schema,
+  stage3Schema,
 } from '../validations/SignupValidation';
 
 const SignupPage = () => {
@@ -296,15 +296,15 @@ const SignupPage = () => {
 
                     {stage === 1 && (
                       <>
+                        <Box sx={{ mt: 2  }}>Mobile number</Box>
                         <TextField
                           fullWidth
-                          label="Mobile Number"
                           value={mobile}
                           onChange={(e) => setMobile(e.target.value)}
                           onBlur={handleBlur}
                           name="phone"
                           placeholder="Enter 10-digit mobile"
-                          margin="normal"
+                          margin="dense"
                           error={touched.phone && Boolean(errors.phone)}
                           helperText={touched.phone && errors.phone}
                         />
