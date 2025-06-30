@@ -50,11 +50,7 @@ const HeroImageSlider = ({ images, transitionType = 'slide' }) => {
           className={`hero-image ${getImageClass(index)}`}
           sx={{
             width: '100%',
-            maxWidth: {
-              xs: 400,
-              sm: 500,
-              md: 620,
-            },
+            height: '100%',
             loading: 'eager',
             objectFit: 'contain',
             fetchpriority: 'high',
