@@ -1,21 +1,21 @@
 import {
-    ExpandLess,
-    ExpandMore,
-    Logout,
-    Menu as MenuIcon,
+  ExpandLess,
+  ExpandMore,
+  Logout,
+  Menu as MenuIcon,
 } from '@mui/icons-material';
 import {
-    Box,
-    Collapse,
-    Divider,
-    Drawer,
-    IconButton,
-    List,
-    ListItem,
-    ListItemText,
-    Typography,
-    useMediaQuery,
-    useTheme,
+  Box,
+  Collapse,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
@@ -60,7 +60,7 @@ const Navbar = () => {
       id: 'trade-events',
       label: 'Trade Events',
       hasDropdown: false,
-      path: '#',
+      path: null,
     },
   ];
 
@@ -75,12 +75,14 @@ const Navbar = () => {
   };
 
   const handleDrawerItemClick = (itemId) => {
-    if (navItems.find((item) => item.id === itemId)?.hasDropdown) {
+    const item = navItems.find((item) => item.id === itemId);
+    if (item?.hasDropdown) {
       setExpandedDrawerItem(expandedDrawerItem === itemId ? null : itemId);
-    } else {
-      navigate(itemId?.path || `/${itemId}`);
+    } else if (item?.path) {
+      navigate(item.path);
       setIsDrawerOpen(false);
     }
+    // Do nothing if path is null (for Trade Events)
   };
 
   const handleLogout = () => {
@@ -392,7 +394,7 @@ const Navbar = () => {
               >
                 <button
                   className="nav-button"
-                  onClick={() => !item.hasDropdown && navigate(item.path)}
+                  onClick={() => item.path && navigate(item.path)}
                 >
                   {item.label} {item.hasDropdown && ' ▾'}
                 </button>

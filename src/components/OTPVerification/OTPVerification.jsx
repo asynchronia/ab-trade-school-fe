@@ -28,7 +28,8 @@ const OTPVerification = ({
 
   return (
     <Box textAlign="left">
-      <Box display="flex" justifyContent="left" mt={2}>
+      <Box sx={{ mt: 2 }}>Enter One-time password (OTP)</Box>
+      <Box display="flex" justifyContent="left" mt={2} mx={0} px={0}>
         <OtpInput
           value={value}
           onChange={onChange}
@@ -37,7 +38,7 @@ const OTPVerification = ({
           inputStyle={{
             width: '3rem',
             height: '3rem',
-            margin: '0 0.5rem',
+            marginRight: '0.5rem',
             fontSize: '1.5rem',
             borderRadius: 4,
             border: '1px solid #ccc',
@@ -45,11 +46,20 @@ const OTPVerification = ({
         />
       </Box>
 
-      <Typography variant="body2" ml={1} color="green" gutterBottom>
+      <Typography variant="body2" color="green" gutterBottom>
         Enter the OTP sent to your mobile number.
       </Typography>
 
-      <Typography variant="body2" ml={1}>
+      <Button
+        fullWidth
+        variant="contained"
+        onClick={onVerify}
+        disabled={isLoading}
+        sx={{ mt: 1.5, py: 1.5, bgcolor: '#1a56db', borderRadius: 1 }}
+      >
+        {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Submit'}
+      </Button>
+      <Typography variant="body2" textAlign={'center'} mt={1}>
         {counter > 0 ? (
           <>
             Resend OTP in <strong>{counter}s</strong>
@@ -65,16 +75,6 @@ const OTPVerification = ({
           </Link>
         )}
       </Typography>
-
-      <Button
-        fullWidth
-        variant="contained"
-        onClick={onVerify}
-        disabled={isLoading}
-        sx={{ mt: 1.5, py: 1.5, bgcolor: '#1a56db', borderRadius: 1 }}
-      >
-        {isLoading ? <CircularProgress size={24} color="inherit" /> : 'Submit'}
-      </Button>
     </Box>
   );
 };
