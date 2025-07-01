@@ -179,47 +179,55 @@ const LoginPage = () => {
     isSubmitting
   ) => (
     <>
-      <TextField
-        fullWidth
-        margin="normal"
-        label="Email"
-        placeholder="Enter your email"
-        variant="outlined"
-        name="email"
-        value={values.email}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={touched.email && Boolean(errors.email)}
-        helperText={touched.email && errors.email}
-      />
-      <TextField
-        fullWidth
-        margin="normal"
-        label="Password"
-        placeholder="Enter your password"
-        variant="outlined"
-        type={showPassword ? 'text' : 'password'}
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        error={touched.password && Boolean(errors.password)}
-        helperText={touched.password && errors.password}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle confirm password visibility"
-                onClick={() => setShowPassword(!showPassword)}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-      />
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
+      <Box>
+        <Typography variant="subtitle1" mt={1}>
+          Enter email
+        </Typography>
+        <TextField
+          fullWidth
+          margin="none"
+          placeholder="Enter your email"
+          variant="outlined"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.email && Boolean(errors.email)}
+          helperText={touched.email && errors.email}
+        />
+      </Box>
+      <Box>
+        <Typography variant="subtitle1" mt={1}>
+          Enter password
+        </Typography>
+        <TextField
+          fullWidth
+          margin="none"
+          placeholder="Enter your password"
+          variant="outlined"
+          type={showPassword ? 'text' : 'password'}
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={touched.password && Boolean(errors.password)}
+          helperText={touched.password && errors.password}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle confirm password visibility"
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
         <Link
           component="button"
           underline="none"
@@ -286,14 +294,12 @@ const LoginPage = () => {
         </>
       ) : (
         <>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            Enter your email address and we'll send you a link to reset your
-            password.
+          <Typography variant="subtitle1" mt={1}>
+            Enter email
           </Typography>
           <TextField
             fullWidth
-            margin="normal"
-            label="Email"
+            margin="none"
             placeholder="Enter your email"
             variant="outlined"
             name="email"
@@ -303,6 +309,9 @@ const LoginPage = () => {
             error={touched.email && Boolean(errors.email)}
             helperText={touched.email && errors.email}
           />
+          <Typography variant="body2" color="text.secondary" gutterBottom>
+            We'll send a link to your mail reset your password.
+          </Typography>
         </>
       )}
 
@@ -361,10 +370,12 @@ const LoginPage = () => {
       <Typography variant="body2" color="text.secondary" gutterBottom>
         Please enter your new password below.
       </Typography>
+      <Typography variant="subtitle1" mt={1}>
+        Enter new password
+      </Typography>
       <TextField
         fullWidth
-        margin="normal"
-        label="New Password"
+        margin="none"
         placeholder="Enter new password"
         variant="outlined"
         type={showPassword ? 'text' : 'password'}
@@ -388,10 +399,12 @@ const LoginPage = () => {
           ),
         }}
       />
+      <Typography variant="subtitle1" mt={2}>
+        Enter confirm password
+      </Typography>
       <TextField
         fullWidth
-        margin="normal"
-        label="Confirm Password"
+        margin="none"
         placeholder="Confirm new password"
         variant="outlined"
         type={showConfirmPassword ? 'text' : 'password'}

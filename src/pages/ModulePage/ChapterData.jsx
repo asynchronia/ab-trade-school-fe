@@ -3,14 +3,14 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CloseIcon from '@mui/icons-material/Close';
 import {
-  Box,
-  Divider,
-  Drawer,
-  Fab,
-  IconButton,
-  Pagination,
-  Typography,
-  useMediaQuery,
+    Box,
+    Divider,
+    Drawer,
+    Fab,
+    IconButton,
+    Pagination,
+    Typography,
+    useMediaQuery,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -100,7 +100,6 @@ const ChapterDataPage = () => {
         module_order: moduleOrder,
         chapter_order: chapterOrder,
       });
-      console.log(response);
       setContent(response?.current?.content);
       setChapterData(response?.current);
       setModuleData(response?.module);

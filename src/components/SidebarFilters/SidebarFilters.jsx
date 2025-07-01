@@ -1,14 +1,14 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Box,
-    Checkbox,
-    Divider,
-    FormControlLabel,
-    FormGroup,
-    Typography,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Checkbox,
+  Divider,
+  FormControlLabel,
+  FormGroup,
+  Typography,
 } from '@mui/material';
 import { useState } from 'react';
 
@@ -42,6 +42,12 @@ const SidebarFilters = ({ sections = [] }) => {
         height: '100%',
         overflowY: 'auto',
         bgcolor: '#fff',
+
+        '&::-webkit-scrollbar': {
+          display: 'none',
+        },
+        '-ms-overflow-style': 'none',
+        'scrollbar-width': 'none',
       }}
     >
       {/* Header Row */}
