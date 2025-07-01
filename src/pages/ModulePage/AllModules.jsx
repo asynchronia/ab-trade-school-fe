@@ -1,14 +1,13 @@
 import { Bookmark, BookmarkBorder } from '@mui/icons-material';
 import {
-    Box,
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    IconButton,
-    Link,
-    Tooltip,
-    Typography,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  IconButton,
+  Tooltip,
+  Typography,
 } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
@@ -76,139 +75,134 @@ const ModulesPage = () => {
 
         <Box
           sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'left',
-            gap: '50px 50px',
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              md: 'repeat(2, 1fr)',
+              lg: 'repeat(3, 1fr)',
+            },
+            gap: {
+              xs: '30px',
+              md: '40px 50px',
+            },
           }}
         >
           {modules.map((module, i) => (
-            <Box key={module.id}>
-              <Card
-                sx={{
-                  height: '100%',
-                  width: { xs: '100%', md: '380px' },
-                  display: 'flex',
-                  flexDirection: 'column',
-                  border: 'none',
-                  boxShadow: 'none',
-                  borderRadius: 2,
-                }}
-              >
-                <Box
-                  sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+            <Card
+              key={module.id}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
+                border: 'none',
+                boxShadow: 'none',
+                borderRadius: 2,
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Typography
+                  variant="h4"
+                  component="div"
+                  sx={{ fontWeight: 'bold', color: 'text.primary' }}
                 >
-                  <Typography
-                    variant="h4"
-                    component="div"
-                    sx={{ fontWeight: 'bold', color: 'text.primary' }}
-                  >
-                    {module?.module_order}
-                  </Typography>
-                  <Box
-                    sx={{
-                      height: 4,
-                      width: '100%',
-                      bgcolor: colors[i % 3],
-                    }}
-                  />
-                </Box>
+                  {module?.module_order}
+                </Typography>
+                <Box
+                  sx={{
+                    height: 4,
+                    flexGrow: 1,
+                    bgcolor: colors[i % 3],
+                  }}
+                />
+              </Box>
 
-                <CardContent sx={{ py: 1, px: 0 }}>
-                  <Typography
-                    variant="h6"
-                    component="h3"
-                    sx={{
-                      fontWeight: 500,
-                      mb: 1,
-                      lineHeight: '24px',
-                      fontSize: '20px',
-                    }}
-                  >
-                    {module?.name}
-                  </Typography>
+              <CardContent sx={{ p: 0, flexGrow: 1 }}>
+                <Typography
+                  variant="h6"
+                  component="h3"
+                  sx={{
+                    fontWeight: 500,
+                    lineHeight: '24px',
+                    fontSize: '20px',
+                    minHeight: '42px',
+                  }}
+                >
+                  {module?.name}
+                </Typography>
 
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ mb: 1.5, lineHeight: '24px', fontWeight: 500 }}
-                  >
-                    {module?.count} Chapters
-                  </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mb: 2, lineHeight: '24px', fontWeight: 500 }}
+                >
+                  {module?.count} Chapters
+                </Typography>
 
-                  <Box
-                    sx={{
-                      position: 'relative',
-                      width: '100%',
-                      borderRadius: 2,
-                      overflow: 'hidden',
-                    }}
-                  >
-                    <Box sx={{ position: 'relative', display: 'inline-block' }}>
-                      <Box
-                        component="img"
-                        src={module?.image}
-                        alt="Module"
-                        sx={{ width: '100%', height: 'auto', borderRadius: 2 }}
-                      />
-
-                      <Tooltip
-                        title={
-                          bookmarked[module.id]
-                            ? 'Remove module'
-                            : 'Save module'
-                        }
+                <Box
+                  sx={{
+                    position: 'relative',
+                    width: '100%',
+                    borderRadius: 2,
+                    overflow: 'hidden',
+                    mb: 2,
+                  }}
+                >
+                  <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
+                    <Box
+                      component="img"
+                      src={module?.image}
+                      alt="Module"
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        borderRadius: 2,
+                      }}
+                    />
+                    <Tooltip
+                      title={bookmarked[module.id] ? 'Remove module' : 'Save module'}
+                    >
+                      <IconButton
+                        onClick={() => handleBookmark(module.id)}
+                        sx={{
+                          position: 'absolute',
+                          top: 13,
+                          right: 11,
+                          width: 45,
+                          height: 45,
+                          backgroundColor: 'transparent',
+                          '&:hover': {
+                            backgroundColor: 'rgba(0,0,0,0.1)',
+                          },
+                          zIndex: 1,
+                        }}
                       >
-                        <IconButton
-                          onClick={() => handleBookmark(module.id)}
-                          sx={{
-                            position: 'absolute',
-                            top: 13,
-                            right: 11,
-                            width: 45,
-                            height: 45,
-                            backgroundColor: 'transparent',
-                            '&:hover': {
-                              backgroundColor: 'rgba(0,0,0,0.1)',
-                            },
-                            zIndex: 1,
-                          }}
-                        >
-                          {bookmarked[module.id] ? (
-                            <Bookmark
-                              sx={{ color: '#fff', width: 32, height: 32 }}
-                            />
-                          ) : (
-                            <BookmarkBorder
-                              sx={{ color: '#fff', width: 32, height: 32 }}
-                            />
-                          )}
-                        </IconButton>
-                      </Tooltip>
-                    </Box>
+                        {bookmarked[module.id] ? (
+                          <Bookmark sx={{ color: '#fff', width: 32, height: 32 }} />
+                        ) : (
+                          <BookmarkBorder sx={{ color: '#fff', width: 32, height: 32 }} />
+                        )}
+                      </IconButton>
+                    </Tooltip>
                   </Box>
-                </CardContent>
+                </Box>
+              </CardContent>
 
-                <CardActions sx={{ p: 0 }}>
-                  <Link
-                    color="primary"
-                    underline="none"
-                    sx={{
-                      fontWeight: 500,
-                      display: 'flex',
-                      justifyContent: 'left',
-                      cursor: 'pointer',
-                    }}
-                    fullWidth
-                    onClick={() =>
-                      navigate(`/modules/${module?.slug}/chapters`)
-                    }
-                  >
-                    View module
-                  </Link>
-                </CardActions>
-              </Card>
-            </Box>
+              <CardActions sx={{ p: 0 }}>
+                <Button
+                  color="primary"
+                  size="small"
+                  sx={{
+                    fontWeight: 500,
+                    width: '100%',
+                    justifyContent: 'flex-start',
+                  }}
+                  onClick={() => navigate(`${module?.slug}/chapters`)}
+                >
+                  View module
+                </Button>
+              </CardActions>
+            </Card>
           ))}
         </Box>
       </Box>

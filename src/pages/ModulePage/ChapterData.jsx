@@ -100,7 +100,6 @@ const ChapterDataPage = () => {
         module_order: moduleOrder,
         chapter_order: chapterOrder,
       });
-      console.log(response);
       setContent(response?.current?.content);
       setChapterData(response?.current);
       setModuleData(response?.module);
