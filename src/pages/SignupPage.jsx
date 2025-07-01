@@ -7,20 +7,20 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Divider,
-  Grid,
-  IconButton,
-  InputAdornment,
-  Link,
-  Paper,
-  TextField,
-  Typography,
-  useMediaQuery,
-  useTheme,
+    Box,
+    Button,
+    CircularProgress,
+    Container,
+    Divider,
+    Grid,
+    IconButton,
+    InputAdornment,
+    Link,
+    Paper,
+    TextField,
+    Typography,
+    useMediaQuery,
+    useTheme,
 } from '@mui/material';
 import { Formik } from 'formik';
 import { enqueueSnackbar } from 'notistack';
@@ -38,9 +38,9 @@ import signupImgWebP from '../assets/signupImg.webp';
 import OTPVerification from '../components/OTPVerification/OTPVerification';
 import { sendOtpReq, signupReq, verifyOtpReq } from '../service/auth.service';
 import {
-  stage1Schema,
-  stage2Schema,
-  stage3Schema,
+    stage1Schema,
+    stage2Schema,
+    stage3Schema,
 } from '../validations/SignupValidation';
 
 const SignupPage = () => {
@@ -86,11 +86,9 @@ const SignupPage = () => {
         });
       }
     } catch (error) {
-      if (error.name !== 'ValidationError') {
-        enqueueSnackbar(error.message || 'Something went wrong', {
-          variant: 'error',
-        });
-      }
+      enqueueSnackbar(error.message || 'Invalid mobile number', {
+        variant: 'error',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -118,11 +116,9 @@ const SignupPage = () => {
         });
       }
     } catch (error) {
-      if (error.name !== 'ValidationError') {
-        enqueueSnackbar(error.message || 'Invalid OTP', {
-          variant: 'error',
-        });
-      }
+      enqueueSnackbar(error.message || 'Invalid OTP', {
+        variant: 'error',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -151,11 +147,9 @@ const SignupPage = () => {
         });
       }
     } catch (error) {
-      if (error.name !== 'ValidationError') {
-        enqueueSnackbar(error?.message || 'Something went wrong', {
-          variant: 'error',
-        });
-      }
+      enqueueSnackbar(error?.message || 'Something went wrong', {
+        variant: 'error',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -296,7 +290,7 @@ const SignupPage = () => {
 
                     {stage === 1 && (
                       <>
-                        <Box sx={{ mt: 2  }}>Mobile number</Box>
+                        <Box sx={{ mt: 2, mb: 0.7 }}>Mobile number</Box>
                         <TextField
                           fullWidth
                           value={mobile}
@@ -304,12 +298,12 @@ const SignupPage = () => {
                           onBlur={handleBlur}
                           name="phone"
                           placeholder="Enter 10-digit mobile"
-                          margin="dense"
+                          margin="none"
                           error={touched.phone && Boolean(errors.phone)}
                           helperText={touched.phone && errors.phone}
                         />
                         <Typography variant="subtitle2" gutterBottom>
-                          We will send a verification code to your mobile number{' '}
+                          We will send a verification code to your mobile.
                         </Typography>
                         <Button
                           fullWidth
@@ -349,10 +343,12 @@ const SignupPage = () => {
                     {stage === 3 && (
                       <Box sx={{ mt: 3 }}>
                         {/* Name Field */}
+                        <Typography variant="subtitle1">
+                          Enter your name
+                        </Typography>
                         <TextField
                           fullWidth
-                          margin="normal"
-                          label="Full Name"
+                          margin="none"
                           placeholder="Enter your name"
                           variant="outlined"
                           name="name"
@@ -364,10 +360,12 @@ const SignupPage = () => {
                         />
 
                         {/* Email Field */}
+                        <Typography variant="subtitle1" mt={2}>
+                          Enter your email address
+                        </Typography>
                         <TextField
                           fullWidth
-                          margin="normal"
-                          label="Email"
+                          margin="none"
                           placeholder="Enter your email"
                           variant="outlined"
                           name="email"
@@ -379,20 +377,22 @@ const SignupPage = () => {
                         />
 
                         {/* Phone Field */}
+                        <Typography variant="subtitle1" mt={2}>
+                          Enter your mobile number
+                        </Typography>
                         <TextField
                           fullWidth
-                          margin="normal"
-                          label="Phone Number"
+                          margin="none"
                           placeholder="1234567890"
                           variant="outlined"
                           name="phone"
                           value={values.phone}
-                          disabled
+                          readOnly
                           onBlur={handleBlur}
                           InputProps={{
                             endAdornment: (
                               <Typography
-                                color="success"
+                                color="primary"
                                 sx={{
                                   fontSize: theme.typography.subtitle1.fontSize,
                                 }}
@@ -404,10 +404,12 @@ const SignupPage = () => {
                         />
 
                         {/* Password Field */}
+                        <Typography variant="subtitle1" mt={2}>
+                          Enter password
+                        </Typography>
                         <TextField
                           fullWidth
-                          margin="normal"
-                          label="Password"
+                          margin="none"
                           placeholder="New password"
                           variant="outlined"
                           type={showPassword ? 'text' : 'password'}
@@ -437,10 +439,12 @@ const SignupPage = () => {
                         />
 
                         {/* Confirm Password Field */}
+                        <Typography variant="subtitle1" mt={2}>
+                          Enter email
+                        </Typography>
                         <TextField
                           fullWidth
-                          margin="normal"
-                          label="Confirm Password"
+                          margin="none"
                           placeholder="Confirm password"
                           variant="outlined"
                           type={showConfirmPassword ? 'text' : 'password'}
