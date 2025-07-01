@@ -3,14 +3,14 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CloseIcon from '@mui/icons-material/Close';
 import {
-  Box,
-  Divider,
-  Drawer,
-  Fab,
-  IconButton,
-  Pagination,
-  Typography,
-  useMediaQuery,
+    Box,
+    Divider,
+    Drawer,
+    Fab,
+    IconButton,
+    Pagination,
+    Typography,
+    useMediaQuery,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';

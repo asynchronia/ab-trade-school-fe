@@ -19,6 +19,7 @@ function App() {
         <Route path={routes.home} element={<LandingPage />} />
         <Route path={routes.signup} element={<SignupPage />} />
         <Route path={routes.login} element={<LoginPage />} />
+        <Route path={routes.resetPassword} element={<LoginPage />} />
         <Route path={routes.courses} element={<CoursesPage />} />
         <Route path={routes.webinars} element={<WebinarPage />} />
         <Route path={routes.modules} element={<ModulesPage />} />
