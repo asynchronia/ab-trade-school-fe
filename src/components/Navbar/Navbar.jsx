@@ -82,7 +82,6 @@ const Navbar = () => {
       navigate(item.path);
       setIsDrawerOpen(false);
     }
-    // Do nothing if path is null (for Trade Events)
   };
 
   const handleLogout = () => {

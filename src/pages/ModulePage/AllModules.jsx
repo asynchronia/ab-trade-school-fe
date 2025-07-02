@@ -1,13 +1,13 @@
 import { Bookmark, BookmarkBorder } from '@mui/icons-material';
 import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  IconButton,
-  Tooltip,
-  Typography,
+    Box,
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    IconButton,
+    Tooltip,
+    Typography,
 } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
@@ -147,7 +147,9 @@ const ModulesPage = () => {
                     mb: 2,
                   }}
                 >
-                  <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
+                  <Box
+                    sx={{ position: 'relative', width: '100%', height: '100%' }}
+                  >
                     <Box
                       component="img"
                       src={module?.image}
@@ -160,7 +162,9 @@ const ModulesPage = () => {
                       }}
                     />
                     <Tooltip
-                      title={bookmarked[module.id] ? 'Remove module' : 'Save module'}
+                      title={
+                        bookmarked[module.id] ? 'Remove module' : 'Save module'
+                      }
                     >
                       <IconButton
                         onClick={() => handleBookmark(module.id)}
@@ -178,9 +182,13 @@ const ModulesPage = () => {
                         }}
                       >
                         {bookmarked[module.id] ? (
-                          <Bookmark sx={{ color: '#fff', width: 32, height: 32 }} />
+                          <Bookmark
+                            sx={{ color: '#fff', width: 32, height: 32 }}
+                          />
                         ) : (
-                          <BookmarkBorder sx={{ color: '#fff', width: 32, height: 32 }} />
+                          <BookmarkBorder
+                            sx={{ color: '#fff', width: 32, height: 32 }}
+                          />
                         )}
                       </IconButton>
                     </Tooltip>
@@ -197,7 +205,7 @@ const ModulesPage = () => {
                     width: '100%',
                     justifyContent: 'flex-start',
                   }}
-                  onClick={() => navigate(`${module?.slug}/chapters`)}
+                  onClick={() => navigate(`/modules/${module.slug}`)}
                 >
                   View module
                 </Button>
