@@ -3,18 +3,19 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CloseIcon from '@mui/icons-material/Close';
 import {
-    Box,
-    Divider,
-    Drawer,
-    Fab,
-    IconButton,
-    Pagination,
-    Typography,
-    useMediaQuery,
+  Box,
+  Divider,
+  Drawer,
+  Fab,
+  IconButton,
+  Pagination,
+  Typography,
+  useMediaQuery,
 } from '@mui/material';
+import he from 'he';
+import parse from 'html-react-parser';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import chapterImg from '../../assets/chapter1.png';
+import { useNavigate, useParams } from 'react-router-dom';
 import copy from '../../assets/copy.png';
 import email from '../../assets/email.png';
 import facebook from '../../assets/facebook.png';
@@ -23,8 +24,13 @@ import twitter from '../../assets/twitter.png';
 import whatsapp from '../../assets/whatsapp.png';
 import Button from '../../components/Button/Button';
 import Navbar from '../../components/Navbar/Navbar';
-import { getModuleChapterDataReq } from '../../service/modules.service';
+import {
+  getAllModulesReq,
+  getModuleChapterDataReq,
+  getModuleChapterListReq,
+} from '../../service/modules.service';
 import theme from '../../utils/theme';
+import './Modules.css';
 import RegisterForm from './RegistrationForm';
 
 const SideSocialBar = () => {
@@ -75,31 +81,47 @@ const SideSocialBar = () => {
 };
 
 const ChapterDataPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const moduleOrder = searchParams.get('module_order');
-  const chapterOrder = searchParams.get('chapter_order');
+  const { moduleName, chapterName } = useParams();
   const [currentChapter, setCurrentChapter] = useState(1);
   const [registerOpen, setRegisterOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
-  const [moduleData, setModuleData] = useState();
+  const [moduleOrder, setModuleOrder] = useState(null);
+  const [chapterOrder, setChapterOrder] = useState(null);
   const [chapterData, setChapterData] = useState();
+  const [moduleData, setModuleData] = useState();
   const [nextData, setNextData] = useState(null);
   const [previousData, setPreviousData] = useState(null);
   const [content, setContent] = useState();
+  const navigate = useNavigate();
 
-  const handleChapterChange = (e, value) => {
-    setSearchParams({
-      module_order: moduleOrder || 1,
-      chapter_order: value,
-    });
+  const fetchModuleOrder = async () => {
+    try {
+      const allModules = await getAllModulesReq();
+      const module = allModules.find((m) => m.slug === moduleName);
+      setModuleOrder(module?.module_order);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchChapterOrder = async () => {
+    try {
+      const allChapters = await getModuleChapterListReq(moduleName);
+      const chapter = allChapters?.posts.find((c) => c.slug === chapterName);
+      setChapterOrder(chapter?.chapter_order);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const fetchChapterData = async () => {
+    if (!moduleOrder || !chapterOrder) return;
     try {
       const response = await getModuleChapterDataReq({
         module_order: moduleOrder,
         chapter_order: chapterOrder,
       });
+      console.log(response);
       setContent(response?.current?.content);
       setChapterData(response?.current);
       setModuleData(response?.module);
@@ -111,25 +133,68 @@ const ChapterDataPage = () => {
   };
 
   useEffect(() => {
+    fetchModuleOrder();
+    fetchChapterOrder();
+  }, [moduleName, chapterName]);
+
+  useEffect(() => {
     fetchChapterData();
     setCurrentChapter(Number(chapterOrder) || 1);
   }, [moduleOrder, chapterOrder]);
 
-  const handleNext = () => {
-    if (nextData) {
-      setSearchParams({
-        module_order: nextData.module_order,
-        chapter_order: nextData.chapter_order,
-      });
+  const handleChapterChange = async (event, value) => {
+    setCurrentChapter(value); 
+    try {
+      const chapterList = await getModuleChapterListReq(moduleName);
+      const selectedChapter = chapterList?.posts.find(
+        (chapter) => chapter.chapter_order === value
+      );
+
+      if (selectedChapter) {
+        navigate(`/modules/${moduleName}/${selectedChapter.slug}`);
+      } else {
+        console.log('Selected chapter not found in list');
+      }
+    } catch (error) {
+      console.log('Error fetching selected chapter:', error);
     }
   };
 
-  const handlePrevious = () => {
+  const handleNext = async () => {
+    if (nextData) {
+      try {
+        const chapterList = await getModuleChapterListReq(moduleName);
+        const nextChapter = chapterList?.posts.find(
+          (c) => c.chapter_order === nextData.chapter_order
+        );
+
+        if (nextChapter) {
+          navigate(`/modules/${moduleName}/${nextChapter.slug}`);
+        } else {
+          console.log('Next chapter not found in list');
+        }
+      } catch (error) {
+        console.log('Error fetching next chapter:', error);
+      }
+    }
+  };
+
+  const handlePrevious = async () => {
     if (previousData) {
-      setSearchParams({
-        module_order: previousData.module_order,
-        chapter_order: previousData.chapter_order,
-      });
+      try {
+        const chapterList = await getModuleChapterListReq(moduleName);
+        const previousChapter = chapterList?.posts.find(
+          (c) => c.chapter_order === previousData.chapter_order
+        );
+
+        if (previousChapter) {
+          navigate(`/modules/${moduleName}/${previousChapter.slug}`);
+        } else {
+          console.log('Previous chapter not found in list');
+        }
+      } catch (error) {
+        console.log('Error fetching previous chapter:', error);
+      }
     }
   };
 
@@ -176,7 +241,7 @@ const ChapterDataPage = () => {
         >
           <Typography
             component="img"
-            src={chapterImg}
+            src={chapterData?.thumbnail}
             width="100%"
             height="auto"
             mb={4}
@@ -191,32 +256,31 @@ const ChapterDataPage = () => {
               gap: { xs: 1, sm: 0 },
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'start',
+                flexDirection: 'column',
+                gap: 1,
+              }}
+            >
               <Typography
                 variant="h5"
                 fontWeight="600"
                 mr={1}
                 sx={{ fontSize: { xs: '18px', sm: '20px' } }}
               >
-                {moduleData?.module_order}
+                {he.decode(moduleData?.name || '')}
               </Typography>
               <Divider
                 sx={{
                   flexGrow: 1,
                   borderBottomWidth: 4,
                   borderColor: '#69C969',
-                  width: { xs: 80, sm: 120 },
+                  width: { xs: '100%', sm: '100%' },
                 }}
               />
             </Box>
-
-            <Typography
-              variant="body1"
-              fontWeight="500"
-              sx={{ fontSize: { xs: '14px', sm: '16px' } }}
-            >
-              Chapter {chapterData?.chapter_order}
-            </Typography>
           </Box>
 
           <Box
@@ -233,9 +297,11 @@ const ChapterDataPage = () => {
             <Typography
               variant="h6"
               fontWeight="700"
+              flex={0.9}
               sx={{ fontSize: { xs: '18px', sm: '20px', md: '24px' } }}
             >
-              {chapterData?.title}
+              {chapterData?.chapter_order}.{' '}
+              {he.decode(chapterData?.title || '')}
             </Typography>
 
             <Box
@@ -279,10 +345,7 @@ const ChapterDataPage = () => {
             </Box>
           </Box>
 
-          <div
-            dangerouslySetInnerHTML={{ __html: content }}
-            style={{ lineHeight: '1.8', fontSize: '1rem' }}
-          />
+          <div className="rich-content">{parse(content || '')}</div>
 
           <Box
             sx={{
@@ -295,7 +358,7 @@ const ChapterDataPage = () => {
             }}
           >
             <Pagination
-              count={moduleData?.count}
+              count={moduleData?.count || 1}
               page={currentChapter}
               onChange={handleChapterChange}
               showPreviousButton

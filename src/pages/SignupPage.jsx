@@ -7,20 +7,20 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
-    Box,
-    Button,
-    CircularProgress,
-    Container,
-    Divider,
-    Grid,
-    IconButton,
-    InputAdornment,
-    Link,
-    Paper,
-    TextField,
-    Typography,
-    useMediaQuery,
-    useTheme,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Divider,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Link,
+  Paper,
+  TextField,
+  Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { Formik } from 'formik';
 import { enqueueSnackbar } from 'notistack';
@@ -38,9 +38,9 @@ import signupImgWebP from '../assets/signupImg.webp';
 import OTPVerification from '../components/OTPVerification/OTPVerification';
 import { sendOtpReq, signupReq, verifyOtpReq } from '../service/auth.service';
 import {
-    stage1Schema,
-    stage2Schema,
-    stage3Schema,
+  stage1Schema,
+  stage2Schema,
+  stage3Schema,
 } from '../validations/SignupValidation';
 
 const SignupPage = () => {
@@ -344,7 +344,7 @@ const SignupPage = () => {
                       <Box sx={{ mt: 3 }}>
                         {/* Name Field */}
                         <Typography variant="subtitle1">
-                          Enter your name
+                          Name
                         </Typography>
                         <TextField
                           fullWidth
@@ -361,7 +361,7 @@ const SignupPage = () => {
 
                         {/* Email Field */}
                         <Typography variant="subtitle1" mt={2}>
-                          Enter your email address
+                          Email address
                         </Typography>
                         <TextField
                           fullWidth
@@ -378,7 +378,7 @@ const SignupPage = () => {
 
                         {/* Phone Field */}
                         <Typography variant="subtitle1" mt={2}>
-                          Enter your mobile number
+                          Mobile number
                         </Typography>
                         <TextField
                           fullWidth
@@ -405,7 +405,7 @@ const SignupPage = () => {
 
                         {/* Password Field */}
                         <Typography variant="subtitle1" mt={2}>
-                          Enter password
+                          Password
                         </Typography>
                         <TextField
                           fullWidth
@@ -440,7 +440,7 @@ const SignupPage = () => {
 
                         {/* Confirm Password Field */}
                         <Typography variant="subtitle1" mt={2}>
-                          Enter email
+                          Confirm password
                         </Typography>
                         <TextField
                           fullWidth

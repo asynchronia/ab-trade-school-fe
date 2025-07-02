@@ -1,7 +1,6 @@
 import { Bookmark, BookmarkBorder } from '@mui/icons-material';
 import {
     Box,
-    Button,
     Card,
     CardContent,
     Divider,
@@ -10,6 +9,7 @@ import {
     Tooltip,
     Typography,
 } from '@mui/material';
+import he from 'he';
 import { enqueueSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -30,6 +30,7 @@ const ChapterListPage = () => {
       const chapters = await getModuleChapterListReq(moduleName);
       setChapters(chapters?.posts);
       setModuleData(chapters?.module);
+      console.log(chapters?.module);
     } catch {
       enqueueSnackbar('Failed to fetch modules. Please try again later');
     }
@@ -86,7 +87,7 @@ const ChapterListPage = () => {
               fontSize: { xs: '1.5rem', md: '2.125rem' },
             }}
           >
-            {moduleData?.module_order}
+            {moduleData?.module_order} 
           </Typography>
           <Divider
             sx={{
@@ -124,7 +125,7 @@ const ChapterListPage = () => {
             fontSize: { xs: '1.5rem', md: '2rem' },
           }}
         >
-          {moduleData?.name}
+          {he.decode(moduleData?.name || '')}
         </Typography>
 
         {/* Chapters List */}
@@ -171,6 +172,8 @@ const ChapterListPage = () => {
                     height: '100%',
                     width: '100%',
                     maxWidth: 310,
+                    border: '1px solid rgba(0, 0, 0, 0.1)',
+                    borderRadius: 2,
                   }}
                 >
                   <Box
@@ -180,7 +183,7 @@ const ChapterListPage = () => {
                     sx={{
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover',
+                      objectFit: 'fill',
                       borderRadius: { xs: '8px 8px 0 0', md: 2 },
                     }}
                   />
@@ -195,7 +198,7 @@ const ChapterListPage = () => {
                       sx={{
                         position: 'absolute',
                         top: { xs: 8, md: 8 },
-                        right: { xs: 8, md: 5 },
+                        left: { xs: 8, md: 5 },
                         width: { xs: 35, md: 35 },
                         height: { xs: 35, md: 35 },
                         backgroundColor: 'rgba(0,0,0,0.3)',
@@ -248,7 +251,7 @@ const ChapterListPage = () => {
                       mb: { xs: 1, md: 0 },
                     }}
                   >
-                    {chapter?.chapter_order}. {chapter.title}
+                    {chapter?.chapter_order}. {he.decode(chapter?.title || '')}
                   </Typography>
                   <Typography
                     variant="body2"
@@ -277,9 +280,7 @@ const ChapterListPage = () => {
                     }}
                     underline="none"
                     onClick={() =>
-                      navigate(
-                        `/modules/chapter?module_order=${moduleData?.module_order}&chapter_order=${chapter?.chapter_order}`
-                      )
+                      navigate(`/modules/${moduleData?.slug}/${chapter?.slug}`)
                     }
                   >
                     View module

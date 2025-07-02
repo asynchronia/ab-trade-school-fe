@@ -6,20 +6,20 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
-    Box,
-    Button,
-    CircularProgress,
-    Container,
-    Divider,
-    Grid,
-    IconButton,
-    InputAdornment,
-    Link,
-    Paper,
-    TextField,
-    Typography,
-    useMediaQuery,
-    useTheme,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Divider,
+  Grid,
+  IconButton,
+  InputAdornment,
+  Link,
+  Paper,
+  TextField,
+  Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import { Formik } from 'formik';
 import { enqueueSnackbar } from 'notistack';
@@ -37,14 +37,14 @@ import qrCode from '../assets/qrCode.svg';
 import signupImg from '../assets/signupImg.svg';
 import signupImgWebP from '../assets/signupImg.webp';
 import {
-    forgetPasswordReq,
-    loginReq,
-    resetPasswordReq,
+  forgetPasswordReq,
+  loginReq,
+  resetPasswordReq,
 } from '../service/auth.service';
 import {
-    LoginStage1Schema,
-    LoginStage2Schema,
-    LoginStage3Schema,
+  LoginStage1Schema,
+  LoginStage2Schema,
+  LoginStage3Schema,
 } from '../validations/LoginValidation';
 
 const LoginPage = () => {
@@ -181,7 +181,7 @@ const LoginPage = () => {
     <>
       <Box>
         <Typography variant="subtitle1" mt={1}>
-          Enter email
+          Email address
         </Typography>
         <TextField
           fullWidth
@@ -198,7 +198,7 @@ const LoginPage = () => {
       </Box>
       <Box>
         <Typography variant="subtitle1" mt={1}>
-          Enter password
+          Password
         </Typography>
         <TextField
           fullWidth
@@ -295,7 +295,7 @@ const LoginPage = () => {
       ) : (
         <>
           <Typography variant="subtitle1" mt={1}>
-            Enter email
+            Email address
           </Typography>
           <TextField
             fullWidth
@@ -371,7 +371,7 @@ const LoginPage = () => {
         Please enter your new password below.
       </Typography>
       <Typography variant="subtitle1" mt={1}>
-        Enter new password
+        New password
       </Typography>
       <TextField
         fullWidth
@@ -400,7 +400,7 @@ const LoginPage = () => {
         }}
       />
       <Typography variant="subtitle1" mt={2}>
-        Enter confirm password
+        Confirm password
       </Typography>
       <TextField
         fullWidth

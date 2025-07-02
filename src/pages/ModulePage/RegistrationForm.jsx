@@ -68,13 +68,13 @@ const RegisterForm = () => {
         sx={{
           bgcolor: '#1E40AF',
           color: 'white',
-          py: 3,
+          py: 2,
           px: 2,
           textAlign: 'center',
           borderRadius: '14px 14px 0 0'
         }}
       >
-        <Typography variant="h6" fontWeight="bold" fontSize={'20px'}>
+        <Typography variant="h2" fontWeight="bold" fontSize={'20px'} lineHeight={'150%'}>
           Kick start your Trading and
           <br />
           Investment Journey Today!
@@ -93,9 +93,9 @@ const RegisterForm = () => {
           justifyContent="center"
           alignItems="center"
           mt={1}
-          mb={3}
+          mb={1.5}
         >
-          <Typography variant="h4" fontWeight="bold" color="#1E40AF" mr={1}>
+          <Typography variant="h5" fontWeight="bold" color="#1E40AF" mr={1}>
             15 Minutes
           </Typography>
           <Box component={'img'} alt="clock" src={clock} />
@@ -113,50 +113,52 @@ const RegisterForm = () => {
         >
           {({ values, handleChange, touched, errors }) => (
             <Form>
+              <Typography fontSize={14} color='#808080' mt={0}>Your name</Typography>
               <TextField
                 fullWidth
-                label="Enter the Name"
+                placeholder="Enter the Name"
                 name="name"
                 value={values.name}
                 onChange={handleChange}
                 error={touched.name && Boolean(errors.name)}
                 helperText={touched.name && errors.name}
-                margin="normal"
+                margin="none"
               />
 
+              <Typography fontSize={14} color='#808080' mt={1}>Email address</Typography>
               <TextField
                 fullWidth
-                label="Enter the Email"
+                placeholder="Enter the Email"
                 name="email"
                 value={values.email}
                 onChange={handleChange}
                 error={touched.email && Boolean(errors.email)}
                 helperText={touched.email && errors.email}
-                margin="normal"
+                margin="none"
               />
 
+              <Typography fontSize={14} color='#808080' mt={1}>Phone number</Typography>
               <TextField
                 fullWidth
-                label="Enter the mobile number"
+                placeholder="Enter the mobile number"
                 name="phone"
                 value={values.phone}
                 onChange={handleChange}
                 error={touched.phone && Boolean(errors.phone)}
                 helperText={touched.phone && errors.phone}
-                margin="normal"
+                margin="none"
               />
 
+              <Typography fontSize={14} color='#808080' mt={1}>Select your state</Typography>
               <FormControl
                 fullWidth
-                margin="normal"
+                margin="none"
                 error={touched.state && Boolean(errors.state)}
               >
-                <InputLabel>Select the state</InputLabel>
                 <Select
                   name="state"
                   value={values.state}
                   onChange={handleChange}
-                  label="Select the state"
                 >
                   {states.map((state) => (
                     <MenuItem key={state} value={state}>
@@ -176,7 +178,7 @@ const RegisterForm = () => {
                 type="submit"
                 variant="contained"
                 sx={{
-                  mt: 3,
+                  mt: 2,
                   py: 1.5,
                   bgcolor: '#1E40AF',
                   textTransform: 'none',
