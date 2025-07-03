@@ -2,10 +2,6 @@ import { PlayCircle } from '@mui/icons-material';
 import { Box, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import heroImg1 from '../../assets/heroSection1.png';
-import heroImg2 from '../../assets/heroSection2.png';
-import heroImg3 from '../../assets/heroSection3.png';
-import heroImg4 from '../../assets/heroSection4.png';
 import rightCircle from '../../assets/rightCircle.svg';
 import Button from '../../components/Button/Button';
 import HeroImageSlider from '../../components/HeroImageSlider/HeroImageSlider';
@@ -15,7 +11,12 @@ const HeroSection = () => {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  const heroImages = [heroImg1, heroImg2, heroImg3, heroImg4];
+  const heroImages = [
+    'https://alicebluewebsite.s3.ap-south-1.amazonaws.com/wp-content/uploads/2025/07/03100443/heroSection1.png',
+    'https://alicebluewebsite.s3.ap-south-1.amazonaws.com/wp-content/uploads/2025/07/03100812/heroSection2.png',
+    'https://alicebluewebsite.s3.ap-south-1.amazonaws.com/wp-content/uploads/2025/07/03100857/heroSection3.png',
+    'https://alicebluewebsite.s3.ap-south-1.amazonaws.com/wp-content/uploads/2025/07/03100959/heroSection4.png',
+  ];
 
   const statsItem = [
     { number: '20+', label: 'Modules' },
