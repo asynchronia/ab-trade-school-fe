@@ -280,7 +280,7 @@ const ChapterListPage = () => {
                     }}
                     underline="none"
                     onClick={() =>
-                      navigate(`/modules/${moduleData?.slug}/${chapter?.slug}`)
+                      navigate(`/${moduleData?.slug}/${chapter?.slug}`)
                     }
                   >
                     View module
