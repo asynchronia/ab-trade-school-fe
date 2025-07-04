@@ -205,7 +205,7 @@ const ModulesPage = () => {
                     width: '100%',
                     justifyContent: 'flex-start',
                   }}
-                  onClick={() => navigate(`/modules/${module.slug}`)}
+                  onClick={() => navigate(`/module/${module.slug}`)}
                 >
                   View module
                 </Button>

@@ -3,14 +3,14 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CloseIcon from '@mui/icons-material/Close';
 import {
-  Box,
-  Divider,
-  Drawer,
-  Fab,
-  IconButton,
-  Pagination,
-  Typography,
-  useMediaQuery,
+    Box,
+    Divider,
+    Drawer,
+    Fab,
+    IconButton,
+    Pagination,
+    Typography,
+    useMediaQuery,
 } from '@mui/material';
 import he from 'he';
 import parse from 'html-react-parser';
@@ -25,9 +25,9 @@ import whatsapp from '../../assets/whatsapp.png';
 import Button from '../../components/Button/Button';
 import Navbar from '../../components/Navbar/Navbar';
 import {
-  getAllModulesReq,
-  getModuleChapterDataReq,
-  getModuleChapterListReq,
+    getAllModulesReq,
+    getModuleChapterDataReq,
+    getModuleChapterListReq,
 } from '../../service/modules.service';
 import theme from '../../utils/theme';
 import './Modules.css';
@@ -151,7 +151,7 @@ const ChapterDataPage = () => {
       );
 
       if (selectedChapter) {
-        navigate(`/modules/${moduleName}/${selectedChapter.slug}`);
+        navigate(`/${moduleName}/${selectedChapter.slug}`);
       } else {
         console.log('Selected chapter not found in list');
       }
@@ -169,7 +169,7 @@ const ChapterDataPage = () => {
         );
 
         if (nextChapter) {
-          navigate(`/modules/${moduleName}/${nextChapter.slug}`);
+          navigate(`/${moduleName}/${nextChapter.slug}`);
         } else {
           console.log('Next chapter not found in list');
         }
@@ -188,7 +188,7 @@ const ChapterDataPage = () => {
         );
 
         if (previousChapter) {
-          navigate(`/modules/${moduleName}/${previousChapter.slug}`);
+          navigate(`/${moduleName}/${previousChapter.slug}`);
         } else {
           console.log('Previous chapter not found in list');
         }
@@ -415,15 +415,7 @@ const ChapterDataPage = () => {
             width: '340px',
             flexShrink: 0,
             display: { xs: 'none', lg: 'block' },
-            position: 'sticky',
-            top: '85px',
             alignSelf: 'flex-start',
-            maxHeight: 'calc(100vh - 120px)',
-            overflowY: 'auto',
-
-            '&::-webkit-scrollbar': {
-              display: 'none',
-            },
           }}
         >
           <RegisterForm />
