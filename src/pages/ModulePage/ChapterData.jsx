@@ -4,6 +4,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import CloseIcon from '@mui/icons-material/Close';
 import {
     Box,
+    CircularProgress,
     Divider,
     Drawer,
     Fab,
@@ -14,6 +15,7 @@ import {
 } from '@mui/material';
 import he from 'he';
 import parse from 'html-react-parser';
+import { enqueueSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import copy from '../../assets/copy.png';
@@ -25,7 +27,6 @@ import whatsapp from '../../assets/whatsapp.png';
 import Button from '../../components/Button/Button';
 import Navbar from '../../components/Navbar/Navbar';
 import {
-    getAllModulesReq,
     getModuleChapterDataReq,
     getModuleChapterListReq,
 } from '../../service/modules.service';
@@ -33,21 +34,36 @@ import theme from '../../utils/theme';
 import './Modules.css';
 import RegisterForm from './RegistrationForm';
 
-const SideSocialBar = () => {
+const SideSocialBar = ({ updateDate, currentURL }) => {
   const iconStyles = {
     width: { xs: 36, sm: 48 },
     height: { xs: 36, sm: 48 },
+    borderRadius: '50%',
     mb: 2,
     cursor: 'pointer',
     bgcolor: 'white',
+  };
+
+  const encodedUrl = encodeURIComponent(currentURL);
+
+  const shareLinks = {
+    whatsapp: `https://wa.me/?text=${encodedUrl}`,
+    email: `mailto:?subject=Check out this blog&body=${encodedUrl}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+    twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(currentURL);
+    enqueueSnackbar('Link copied to clipboard!', { variant: 'success' });
   };
 
   return (
     <Box
       sx={{
         width: { xs: 80, sm: 100 },
-        background:
-          'linear-gradient(to bottom, #1E40AF40, #FFFFFF, #1E40AF40 )',
+        background: 'linear-gradient(to bottom, #1E40AF40, #FFFFFF, #1E40AF40)',
         py: { xs: 2, sm: 4 },
         display: 'flex',
         flexDirection: 'column',
@@ -56,102 +72,121 @@ const SideSocialBar = () => {
       }}
     >
       <CalendarMonthIcon
-        sx={{ fontSize: { xs: 32, sm: 40 }, color: '#2a3eb1', mb: 2 }}
+        sx={{ fontSize: { xs: 32, sm: 40 }, color: '#2a3eb1', mb: 0.5 }}
       />
       <Typography
         variant="body2"
         textAlign="center"
         fontWeight="500"
         mb={3}
+        mx={1.5}
         sx={{ fontSize: { xs: '12px', sm: '14px' } }}
       >
-        October
-        <br />
-        22, 2024
+        {updateDate}
       </Typography>
 
-      <Box component={'img'} src={whatsapp} sx={iconStyles} />
-      <Box component={'img'} src={email} sx={iconStyles} />
-      <Box component={'img'} src={facebook} sx={iconStyles} />
-      <Box component={'img'} src={twitter} sx={iconStyles} />
-      <Box component={'img'} src={linkedin} sx={iconStyles} />
-      <Box component={'img'} src={copy} sx={iconStyles} />
+      <Box
+        component={'a'}
+        href={shareLinks.whatsapp}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Box component={'img'} src={whatsapp} sx={iconStyles} />
+      </Box>
+      <Box component={'a'} href={shareLinks.email}>
+        <Box component={'img'} src={email} sx={iconStyles} />
+      </Box>
+      <Box
+        component={'a'}
+        href={shareLinks.facebook}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Box component={'img'} src={facebook} sx={iconStyles} />
+      </Box>
+      <Box
+        component={'a'}
+        href={shareLinks.twitter}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Box component={'img'} src={twitter} sx={iconStyles} />
+      </Box>
+      <Box
+        component={'a'}
+        href={shareLinks.linkedin}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Box component={'img'} src={linkedin} sx={iconStyles} />
+      </Box>
+
+      <Box
+        component={'img'}
+        src={copy}
+        sx={iconStyles}
+        onClick={copyToClipboard}
+      />
     </Box>
   );
 };
 
 const ChapterDataPage = () => {
-  const { moduleName, chapterName } = useParams();
+  const { chapterName } = useParams();
   const [currentChapter, setCurrentChapter] = useState(1);
   const [registerOpen, setRegisterOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
-  const [moduleOrder, setModuleOrder] = useState(null);
-  const [chapterOrder, setChapterOrder] = useState(null);
   const [chapterData, setChapterData] = useState();
   const [moduleData, setModuleData] = useState();
   const [nextData, setNextData] = useState(null);
   const [previousData, setPreviousData] = useState(null);
   const [content, setContent] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const currentURL = window.location.href;
+  const encodedUrl = encodeURIComponent(window.location.href);
 
-  const fetchModuleOrder = async () => {
-    try {
-      const allModules = await getAllModulesReq();
-      const module = allModules.find((m) => m.slug === moduleName);
-      setModuleOrder(module?.module_order);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchChapterOrder = async () => {
-    try {
-      const allChapters = await getModuleChapterListReq(moduleName);
-      const chapter = allChapters?.posts.find((c) => c.slug === chapterName);
-      setChapterOrder(chapter?.chapter_order);
-    } catch (error) {
-      console.log(error);
-    }
+  const shareLinks = {
+    whatsapp: `https://wa.me/?text=${encodedUrl}`,
+    email: `mailto:?subject=Check out this blog&body=${encodedUrl}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+    twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
   };
 
   const fetchChapterData = async () => {
-    if (!moduleOrder || !chapterOrder) return;
+    setIsLoading(true);
     try {
       const response = await getModuleChapterDataReq({
-        module_order: moduleOrder,
-        chapter_order: chapterOrder,
+        slug: chapterName,
       });
-      console.log(response);
       setContent(response?.current?.content);
       setChapterData(response?.current);
       setModuleData(response?.module);
       setNextData(response?.next);
       setPreviousData(response?.previous);
+      setCurrentChapter(Number(response?.current?.chapter_order) || 1);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchModuleOrder();
-    fetchChapterOrder();
-  }, [moduleName, chapterName]);
-
-  useEffect(() => {
     fetchChapterData();
-    setCurrentChapter(Number(chapterOrder) || 1);
-  }, [moduleOrder, chapterOrder]);
+  }, [chapterName]);
 
   const handleChapterChange = async (event, value) => {
-    setCurrentChapter(value); 
+    setCurrentChapter(value);
     try {
-      const chapterList = await getModuleChapterListReq(moduleName);
+      const chapterList = await getModuleChapterListReq(moduleData?.slug);
       const selectedChapter = chapterList?.posts.find(
         (chapter) => chapter.chapter_order === value
       );
 
-      if (selectedChapter) {
-        navigate(`/${moduleName}/${selectedChapter.slug}`);
+      if (selectedChapter?.slug) {
+        navigate(`/chapter/${selectedChapter.slug}`);
       } else {
         console.log('Selected chapter not found in list');
       }
@@ -160,47 +195,26 @@ const ChapterDataPage = () => {
     }
   };
 
-  const handleNext = async () => {
-    if (nextData) {
-      try {
-        const chapterList = await getModuleChapterListReq(moduleName);
-        const nextChapter = chapterList?.posts.find(
-          (c) => c.chapter_order === nextData.chapter_order
-        );
-
-        if (nextChapter) {
-          navigate(`/${moduleName}/${nextChapter.slug}`);
-        } else {
-          console.log('Next chapter not found in list');
-        }
-      } catch (error) {
-        console.log('Error fetching next chapter:', error);
-      }
+  const handleNext = () => {
+    if (nextData?.slug) {
+      navigate(`/chapter/${nextData.slug}`);
+    } else {
+      console.log('Next chapter data not found');
     }
   };
 
-  const handlePrevious = async () => {
-    if (previousData) {
-      try {
-        const chapterList = await getModuleChapterListReq(moduleName);
-        const previousChapter = chapterList?.posts.find(
-          (c) => c.chapter_order === previousData.chapter_order
-        );
-
-        if (previousChapter) {
-          navigate(`/${moduleName}/${previousChapter.slug}`);
-        } else {
-          console.log('Previous chapter not found in list');
-        }
-      } catch (error) {
-        console.log('Error fetching previous chapter:', error);
-      }
+  const handlePrevious = () => {
+    if (previousData?.slug) {
+      navigate(`/chapter/${previousData.slug}`);
+    } else {
+      console.log('Previous chapter data not found');
     }
   };
 
   return (
     <Box>
       <Navbar />
+
       <Box
         sx={{
           display: 'flex',
@@ -229,186 +243,203 @@ const ChapterDataPage = () => {
             },
           }}
         >
-          <SideSocialBar />
+          <SideSocialBar
+            updateDate={chapterData?.updated_date}
+            currentURL={currentURL}
+          />
         </Box>
 
-        <Box
-          sx={{
-            maxWidth: '850px',
-            flexGrow: 1,
-            width: { xs: '100%', lg: 'auto' },
-          }}
-        >
-          <Typography
-            component="img"
-            src={chapterData?.thumbnail}
-            width="100%"
-            height="auto"
-            mb={4}
-          />
-
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: { xs: 'wrap', sm: 'nowrap' },
-              gap: { xs: 1, sm: 0 },
-            }}
-          >
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'start',
-                flexDirection: 'column',
-                gap: 1,
-              }}
-            >
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                mr={1}
-                sx={{ fontSize: { xs: '18px', sm: '20px' } }}
-              >
-                {he.decode(moduleData?.name || '')}
-              </Typography>
-              <Divider
-                sx={{
-                  flexGrow: 1,
-                  borderBottomWidth: 4,
-                  borderColor: '#69C969',
-                  width: { xs: '100%', sm: '100%' },
-                }}
-              />
-            </Box>
-          </Box>
-
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: { xs: 'flex-start', sm: 'center' },
-              flexDirection: { xs: 'column', sm: 'row' },
-              mt: 1,
-              mb: 3,
-              gap: { xs: 2, sm: 0 },
-            }}
-          >
-            <Typography
-              variant="h6"
-              fontWeight="700"
-              flex={0.9}
-              sx={{ fontSize: { xs: '18px', sm: '20px', md: '24px' } }}
-            >
-              {chapterData?.chapter_order}.{' '}
-              {he.decode(chapterData?.title || '')}
-            </Typography>
-
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1,
-              }}
-            >
-              <Button
-                variant="text"
-                size={isMobile ? 'small' : 'medium'}
-                startIcon={<ArrowBackIcon />}
-                sx={{
-                  textTransform: 'none',
-                  fontSize: { xs: '12px', sm: '14px' },
-                  color: 'primary.main',
-                }}
-                title={'Previous'}
-                onClick={handlePrevious}
-                disabled={!previousData}
-              >
-                Previous
-              </Button>
-
-              <Button
-                variant="text"
-                size={isMobile ? 'small' : 'medium'}
-                endIcon={<ArrowForwardIcon />}
-                sx={{
-                  textTransform: 'none',
-                  color: 'primary.main',
-                  fontSize: { xs: '12px', sm: '14px' },
-                }}
-                title={'Next'}
-                onClick={handleNext}
-                disabled={!nextData}
-              >
-                Next
-              </Button>
-            </Box>
-          </Box>
-
-          <div className="rich-content">{parse(content || '')}</div>
-
+        {isLoading ? (
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'center',
-              flexWrap: 'wrap',
               alignItems: 'center',
-              my: 7,
-              px: { xs: 1, sm: 0 },
+              height: 'calc(100vh - 100px)',
+              width: '100%',
             }}
           >
-            <Pagination
-              count={moduleData?.count || 1}
-              page={currentChapter}
-              onChange={handleChapterChange}
-              showPreviousButton
-              showNextButton
-              size={isMobile ? 'small' : 'medium'}
-              sx={{
-                '& .MuiPagination-ul': {
-                  flexWrap: 'wrap',
-                  gap: '1px',
-                  alignItems: 'center',
-                },
-                '& .MuiPaginationItem-root': {
-                  color: 'text.primary',
-                  fontSize: { xs: '14px', sm: '16px' },
-                  textTransform: 'none',
-                  minWidth: { xs: '28px', sm: '32px' },
-                  height: { xs: '28px', sm: '32px' },
-
-                  '&.Mui-selected': {
-                    backgroundColor: 'primary.main',
-                    color: 'primary.contrastText',
-                    borderRadius: '50%',
-                    width: { xs: 28, sm: 32 },
-                    height: { xs: 28, sm: 32 },
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-
-                    '&:hover': {
-                      backgroundColor: 'primary.main',
-                    },
-                    '&.Mui-focusVisible': {
-                      backgroundColor: 'primary.main',
-                    },
-                  },
-
-                  '&:not(.Mui-selected):hover': {
-                    backgroundColor: 'transparent',
-                    color: 'primary.main',
-                  },
-
-                  '&.MuiPaginationItem-previousNext': {
-                    borderRadius: '4px',
-                    padding: { xs: '4px', sm: '8px' },
-                  },
-                },
-              }}
-            />
+            <CircularProgress size={40} sx={{ color: 'primary.main' }} />
           </Box>
-        </Box>
+        ) : (
+          <Box
+            sx={{
+              maxWidth: '850px',
+              flexGrow: 1,
+              width: { xs: '100%', lg: 'auto' },
+            }}
+          >
+            <Typography
+              component="img"
+              src={chapterData?.thumbnail}
+              width="100%"
+              height="auto"
+              mb={4}
+            />
+
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                flexWrap: { xs: 'wrap', sm: 'nowrap' },
+                gap: { xs: 1, sm: 0 },
+              }}
+            >
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'start',
+                  flexDirection: 'column',
+                  gap: 1,
+                }}
+              >
+                <Typography
+                  variant="h5"
+                  fontWeight="600"
+                  mr={1}
+                  sx={{ fontSize: { xs: '18px', sm: '20px' } }}
+                >
+                  {he.decode(moduleData?.name || '')}
+                </Typography>
+                <Divider
+                  sx={{
+                    flexGrow: 1,
+                    borderBottomWidth: 4,
+                    borderColor: '#69C969',
+                    width: { xs: '100%', sm: '100%' },
+                  }}
+                />
+              </Box>
+            </Box>
+
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: { xs: 'flex-start', sm: 'center' },
+                flexDirection: { xs: 'column', sm: 'row' },
+                mt: 1,
+                mb: 3,
+                gap: { xs: 2, sm: 0 },
+              }}
+            >
+              <Typography
+                variant="h6"
+                fontWeight="700"
+                flex={0.9}
+                sx={{ fontSize: { xs: '18px', sm: '20px', md: '24px' } }}
+              >
+                {chapterData?.chapter_order}.{' '}
+                {he.decode(chapterData?.title || '')}
+              </Typography>
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                }}
+              >
+                <Button
+                  variant="text"
+                  size={isMobile ? 'small' : 'medium'}
+                  startIcon={<ArrowBackIcon />}
+                  sx={{
+                    textTransform: 'none',
+                    fontSize: { xs: '12px', sm: '14px' },
+                    color: 'primary.main',
+                  }}
+                  title={'Previous'}
+                  onClick={handlePrevious}
+                  disabled={!previousData}
+                >
+                  Previous
+                </Button>
+
+                <Button
+                  variant="text"
+                  size={isMobile ? 'small' : 'medium'}
+                  endIcon={<ArrowForwardIcon />}
+                  sx={{
+                    textTransform: 'none',
+                    color: 'primary.main',
+                    fontSize: { xs: '12px', sm: '14px' },
+                  }}
+                  title={'Next'}
+                  onClick={handleNext}
+                  disabled={!nextData}
+                >
+                  Next
+                </Button>
+              </Box>
+            </Box>
+
+            <div className="rich-content">{parse(content || '')}</div>
+
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                my: 7,
+                px: { xs: 1, sm: 0 },
+              }}
+            >
+              <Pagination
+                count={moduleData?.count || 1}
+                page={currentChapter}
+                onChange={handleChapterChange}
+                showPreviousButton
+                showNextButton
+                size={isMobile ? 'small' : 'medium'}
+                sx={{
+                  '& .MuiPagination-ul': {
+                    flexWrap: 'wrap',
+                    gap: '1px',
+                    alignItems: 'center',
+                  },
+                  '& .MuiPaginationItem-root': {
+                    color: 'text.primary',
+                    fontSize: { xs: '14px', sm: '16px' },
+                    textTransform: 'none',
+                    minWidth: { xs: '28px', sm: '32px' },
+                    height: { xs: '28px', sm: '32px' },
+
+                    '&.Mui-selected': {
+                      backgroundColor: 'primary.main',
+                      color: 'primary.contrastText',
+                      borderRadius: '50%',
+                      width: { xs: 28, sm: 32 },
+                      height: { xs: 28, sm: 32 },
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+
+                      '&:hover': {
+                        backgroundColor: 'primary.main',
+                      },
+                      '&.Mui-focusVisible': {
+                        backgroundColor: 'primary.main',
+                      },
+                    },
+
+                    '&:not(.Mui-selected):hover': {
+                      backgroundColor: 'transparent',
+                      color: 'primary.main',
+                    },
+
+                    '&.MuiPaginationItem-previousNext': {
+                      borderRadius: '4px',
+                      padding: { xs: '4px', sm: '8px' },
+                    },
+                  },
+                }}
+              />
+            </Box>
+          </Box>
+        )}
 
         <Box
           sx={{
@@ -476,34 +507,75 @@ const ChapterDataPage = () => {
               </Typography>
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
                 <Box
-                  component={'img'}
-                  src={whatsapp}
-                  sx={{ width: 40, height: 40, cursor: 'pointer' }}
-                />
+                  component="a"
+                  href={shareLinks.whatsapp}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Box
+                    component={'img'}
+                    src={whatsapp}
+                    sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                  />
+                </Box>
                 <Box
-                  component={'img'}
-                  src={email}
-                  sx={{ width: 40, height: 40, cursor: 'pointer' }}
-                />
+                  component="a"
+                  href={shareLinks.email}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Box
+                    component={'img'}
+                    src={email}
+                    sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                  />
+                </Box>
                 <Box
-                  component={'img'}
-                  src={facebook}
-                  sx={{ width: 40, height: 40, cursor: 'pointer' }}
-                />
+                  component="a"
+                  href={shareLinks.facebook}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Box
+                    component={'img'}
+                    src={facebook}
+                    sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                  />
+                </Box>
                 <Box
-                  component={'img'}
-                  src={twitter}
-                  sx={{ width: 40, height: 40, cursor: 'pointer' }}
-                />
+                  component="a"
+                  href={shareLinks.twitter}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Box
+                    component={'img'}
+                    src={twitter}
+                    sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                  />
+                </Box>
                 <Box
-                  component={'img'}
-                  src={linkedin}
-                  sx={{ width: 40, height: 40, cursor: 'pointer' }}
-                />
+                  component="a"
+                  href={shareLinks.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <Box
+                    component={'img'}
+                    src={linkedin}
+                    sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                  />
+                </Box>
                 <Box
-                  component={'img'}
+                  component="img"
                   src={copy}
                   sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                  onClick={() => {
+                    navigator.clipboard.writeText(window.location.href);
+                    enqueueSnackbar('Link copied to clipboard!', {
+                      variant: 'success',
+                    });
+                  }}
                 />
               </Box>
             </Box>
