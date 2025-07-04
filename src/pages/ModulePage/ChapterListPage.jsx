@@ -3,6 +3,7 @@ import {
     Box,
     Card,
     CardContent,
+    CircularProgress,
     Divider,
     IconButton,
     Link,
@@ -23,9 +24,11 @@ const ChapterListPage = () => {
   const navigate = useNavigate();
   const [chapters, setChapters] = useState([]);
   const [moduleData, setModuleData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [bookmarked, setBookmarked] = useState({});
 
   const fetchModulesChapterList = async () => {
+    setIsLoading(true);
     try {
       const chapters = await getModuleChapterListReq(moduleName);
       setChapters(chapters?.posts);
@@ -33,6 +36,8 @@ const ChapterListPage = () => {
       console.log(chapters?.module);
     } catch {
       enqueueSnackbar('Failed to fetch modules. Please try again later');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -87,7 +92,7 @@ const ChapterListPage = () => {
               fontSize: { xs: '1.5rem', md: '2.125rem' },
             }}
           >
-            {moduleData?.module_order} 
+            {moduleData?.module_order}
           </Typography>
           <Divider
             sx={{
@@ -129,167 +134,179 @@ const ChapterListPage = () => {
         </Typography>
 
         {/* Chapters List */}
-        <Box sx={{ mt: { xs: 3, md: 4 }, height: '100%' }}>
-          {chapters.length === 0 ? (
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '50vh',
-              }}
-            >
-              <Typography
-                variant="body1"
-                sx={{
-                  textAlign: 'center',
-                  color: 'text.secondary',
-                  py: 4,
-                }}
-              >
-                No chapters to show
-              </Typography>
-            </Box>
-          ) : (
-            chapters.map((chapter) => (
-              <Card
-                key={chapter.id}
+        {isLoading ? (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 'calc(100vh - 350px)',
+            }}
+          >
+            <CircularProgress size={40} color="primary" />
+          </Box>
+        ) : (
+          <Box sx={{ mt: { xs: 3, md: 4 }, height: '100%' }}>
+            {chapters.length === 0 ? (
+              <Box
                 sx={{
                   display: 'flex',
-                  flexDirection: { xs: 'column', sm: 'row' },
-                  alignItems: 'stretch',
-                  mb: { xs: 3, md: 6 },
-                  borderRadius: 2,
-                  boxShadow: 'none',
-                  overflow: 'hidden',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '50vh',
                 }}
               >
-                {/* Image Container */}
-                <Box
+                <Typography
+                  variant="body1"
                   sx={{
-                    position: 'relative',
-                    alignSelf: 'start',
-                    height: '100%',
-                    width: '100%',
-                    maxWidth: 310,
-                    border: '1px solid rgba(0, 0, 0, 0.1)',
-                    borderRadius: 2,
+                    textAlign: 'center',
+                    color: 'text.secondary',
+                    py: 4,
                   }}
                 >
+                  No chapters to show
+                </Typography>
+              </Box>
+            ) : (
+              chapters.map((chapter) => (
+                <Card
+                  key={chapter.id}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    alignItems: 'stretch',
+                    mb: { xs: 3, md: 6 },
+                    borderRadius: 2,
+                    boxShadow: 'none',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {/* Image Container */}
                   <Box
-                    component="img"
-                    src={chapter?.thumbnail}
-                    alt="chapter"
                     sx={{
-                      width: '100%',
+                      position: 'relative',
+                      alignSelf: 'start',
                       height: '100%',
-                      objectFit: 'fill',
-                      borderRadius: { xs: '8px 8px 0 0', md: 2 },
+                      width: '100%',
+                      maxWidth: 310,
+                      border: '1px solid rgba(0, 0, 0, 0.1)',
+                      borderRadius: 2,
                     }}
-                  />
-
-                  <Tooltip
-                    title={
-                      bookmarked[chapter.id] ? 'Remove module' : 'Save module'
-                    }
                   >
-                    <IconButton
-                      onClick={() => handleBookmark(chapter.id)}
+                    <Box
+                      component="img"
+                      src={chapter?.thumbnail}
+                      alt="chapter"
                       sx={{
-                        position: 'absolute',
-                        top: { xs: 8, md: 8 },
-                        left: { xs: 8, md: 5 },
-                        width: { xs: 35, md: 35 },
-                        height: { xs: 35, md: 35 },
-                        backgroundColor: 'rgba(0,0,0,0.3)',
-                        '&:hover': {
-                          backgroundColor: 'rgba(0,0,0,0.5)',
-                        },
-                        zIndex: 1,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'fill',
+                        borderRadius: { xs: '8px 8px 0 0', md: 2 },
+                      }}
+                    />
+
+                    <Tooltip
+                      title={
+                        bookmarked[chapter.id] ? 'Remove module' : 'Save module'
+                      }
+                    >
+                      <IconButton
+                        onClick={() => handleBookmark(chapter.id)}
+                        sx={{
+                          position: 'absolute',
+                          top: { xs: 8, md: 8 },
+                          left: { xs: 8, md: 5 },
+                          width: { xs: 35, md: 35 },
+                          height: { xs: 35, md: 35 },
+                          backgroundColor: 'rgba(0,0,0,0.3)',
+                          '&:hover': {
+                            backgroundColor: 'rgba(0,0,0,0.5)',
+                          },
+                          zIndex: 1,
+                        }}
+                      >
+                        {bookmarked[chapter.id] ? (
+                          <Bookmark
+                            sx={{
+                              color: '#fff',
+                              width: { xs: 24, md: 24 },
+                              height: { xs: 24, md: 24 },
+                            }}
+                          />
+                        ) : (
+                          <BookmarkBorder
+                            sx={{
+                              color: '#fff',
+                              width: { xs: 24, md: 24 },
+                              height: { xs: 24, md: 24 },
+                            }}
+                          />
+                        )}
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+
+                  {/* Content */}
+                  <CardContent
+                    sx={{
+                      flex: 1,
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      flexDirection: 'column',
+                      alignItems: 'start',
+                      py: 1,
+                      px: { xs: 0, sm: 3 },
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      fontWeight={600}
+                      gutterBottom
+                      sx={{
+                        fontSize: { xs: '1.1rem', md: '1.25rem' },
+                        lineHeight: { xs: 1.3, md: 1.4 },
+                        mb: { xs: 1, md: 0 },
                       }}
                     >
-                      {bookmarked[chapter.id] ? (
-                        <Bookmark
-                          sx={{
-                            color: '#fff',
-                            width: { xs: 24, md: 24 },
-                            height: { xs: 24, md: 24 },
-                          }}
-                        />
-                      ) : (
-                        <BookmarkBorder
-                          sx={{
-                            color: '#fff',
-                            width: { xs: 24, md: 24 },
-                            height: { xs: 24, md: 24 },
-                          }}
-                        />
-                      )}
-                    </IconButton>
-                  </Tooltip>
-                </Box>
+                      {chapter?.chapter_order}.{' '}
+                      {he.decode(chapter?.title || '')}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{
+                        fontSize: { xs: '14px', md: '16px' },
+                        lineHeight: { xs: 1.4, md: 1.5 },
+                        display: '-webkit-box',
+                        WebkitLineClamp: { xs: 4, md: 3 },
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        mb: { xs: 2, md: 0 },
+                      }}
+                    >
+                      {he.decode(chapter?.excerpt || '')}
+                    </Typography>
 
-                {/* Content */}
-                <CardContent
-                  sx={{
-                    flex: 1,
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    flexDirection: 'column',
-                    alignItems: 'start',
-                    py: 1,
-                    px: { xs: 0, sm: 3 },
-                  }}
-                >
-                  <Typography
-                    variant="h6"
-                    fontWeight={600}
-                    gutterBottom
-                    sx={{
-                      fontSize: { xs: '1.1rem', md: '1.25rem' },
-                      lineHeight: { xs: 1.3, md: 1.4 },
-                      mb: { xs: 1, md: 0 },
-                    }}
-                  >
-                    {chapter?.chapter_order}. {he.decode(chapter?.title || '')}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{
-                      fontSize: { xs: '14px', md: '16px' },
-                      lineHeight: { xs: 1.4, md: 1.5 },
-                      display: '-webkit-box',
-                      WebkitLineClamp: { xs: 4, md: 3 },
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      mb: { xs: 2, md: 0 },
-                    }}
-                  >
-                    {chapter?.excerpt}
-                  </Typography>
-
-                  <Link
-                    sx={{
-                      textTransform: 'capitalize',
-                      fontWeight: 500,
-                      color: 'rgba(22, 105, 201, 1)',
-                      cursor: 'pointer',
-                      fontSize: 15,
-                    }}
-                    underline="none"
-                    onClick={() =>
-                      navigate(`/${moduleData?.slug}/${chapter?.slug}`)
-                    }
-                  >
-                    View module
-                  </Link>
-                </CardContent>
-              </Card>
-            ))
-          )}
-        </Box>
+                    <Link
+                      sx={{
+                        textTransform: 'capitalize',
+                        fontWeight: 500,
+                        color: 'rgba(22, 105, 201, 1)',
+                        cursor: 'pointer',
+                        fontSize: 15,
+                      }}
+                      underline="none"
+                      onClick={() => navigate(`/chapter/${chapter?.slug}`)}
+                    >
+                      View module
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))
+            )}
+          </Box>
+        )}
       </Box>
     </>
   );

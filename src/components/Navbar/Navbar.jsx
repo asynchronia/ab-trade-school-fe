@@ -1,21 +1,21 @@
 import {
-  ExpandLess,
-  ExpandMore,
-  Logout,
-  Menu as MenuIcon,
+    ExpandLess,
+    ExpandMore,
+    Logout,
+    Menu as MenuIcon,
 } from '@mui/icons-material';
 import {
-  Box,
-  Collapse,
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-  useMediaQuery,
-  useTheme,
+    Box,
+    Collapse,
+    Divider,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemText,
+    Typography,
+    useMediaQuery,
+    useTheme,
 } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
@@ -104,7 +104,9 @@ const Navbar = () => {
     >
       {/* Logo Section */}
       <Box sx={{ p: 2, borderBottom: '1px solid #e5e7eb' }}>
-        <img src={logo} alt="App Logo" style={{ width: '120px' }} />
+        <a href="/">
+          <img src={logo} alt="App Logo" style={{ width: '120px' }} />
+        </a>
       </Box>
 
       {/* Navigation Items */}
@@ -376,7 +378,9 @@ const Navbar = () => {
     <div className="navbar">
       <header className="navbar-header">
         <div className="logo-container">
-          <img src={appLogo} alt="App Logo" className="app-logo" />
+          <a href="/">
+            <img src={appLogo} alt="App Logo" className="app-logo" />
+          </a>
         </div>
 
         {/* Desktop Navigation */}
