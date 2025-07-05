@@ -197,11 +197,9 @@ const ModulesPage = () => {
                             position: 'absolute',
                             top: 13,
                             right: 11,
-                            width: 45,
-                            height: 45,
-                            backgroundColor: 'transparent',
+                            backgroundColor: 'rgba(0,0,0,0.2)',
                             '&:hover': {
-                              backgroundColor: 'rgba(0,0,0,0.1)',
+                              backgroundColor: 'rgba(0,0,0,0.2)',
                             },
                             zIndex: 1,
                           }}
