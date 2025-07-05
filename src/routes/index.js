@@ -9,6 +9,4 @@ export const routes = {
   modules: '/modules',
   chapterList: '/module/:moduleName',
   chapter: '/chapter/:chapterName',
-  //   signupOtp: '/signup/otp-verification',
-  //   loginOtp: '/login/otp-verification',
 };

@@ -190,7 +190,6 @@ const GoalsSection = () => {
               lg: 'repeat(5, 1fr)',
             },
             alignItems: 'stretch',
-            // Force equal heights on mobile only
             '& > *': {
               minHeight: {
                 xs: '300px',

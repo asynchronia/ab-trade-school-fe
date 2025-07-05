@@ -1,5 +1,4 @@
 import { ArrowForward, Check } from '@mui/icons-material';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import {
     Box,
     Card,
@@ -10,6 +9,7 @@ import {
     ListItemIcon,
     Typography,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import cardIcon1 from '../../assets/cardIcon1.svg';
 import cardIcon2 from '../../assets/cardIcon2.svg';
 import cardIcon3 from '../../assets/cardIcon3.svg';
@@ -18,6 +18,7 @@ import Button from '../../components/Button/Button';
 import theme from '../../utils/theme';
 
 const PortfolioSection = () => {
+  const navigate = useNavigate();
   const portfolioCards = [
     {
       id: '1',
@@ -267,6 +268,7 @@ const PortfolioSection = () => {
                     endIcon={<ArrowForward />}
                     title={card.ctaText}
                     fullWidth
+                    onClick={() => navigate('/courses')}
                   />
                 </Box>
               </Card>

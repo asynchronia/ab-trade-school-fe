@@ -197,23 +197,17 @@ const ModulesPage = () => {
                             position: 'absolute',
                             top: 13,
                             right: 11,
-                            width: 45,
-                            height: 45,
-                            backgroundColor: 'transparent',
+                            backgroundColor: 'rgba(0,0,0,0.2)',
                             '&:hover': {
-                              backgroundColor: 'rgba(0,0,0,0.1)',
+                              backgroundColor: 'rgba(0,0,0,0.2)',
                             },
                             zIndex: 1,
                           }}
                         >
                           {bookmarked[module.id] ? (
-                            <Bookmark
-                              sx={{ color: '#fff', width: 32, height: 32 }}
-                            />
+                            <Bookmark sx={{ color: '#fff' }} />
                           ) : (
-                            <BookmarkBorder
-                              sx={{ color: '#fff', width: 32, height: 32 }}
-                            />
+                            <BookmarkBorder sx={{ color: '#fff' }} />
                           )}
                         </IconButton>
                       </Tooltip>

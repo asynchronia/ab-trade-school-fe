@@ -276,7 +276,7 @@ const HeroSection = () => {
                   sm: 'auto',
                 },
               }}
-              onClick={() => navigate('/signup')}
+              onClick={() => navigate('/modules')}
               title={'Start Learning Now'}
             />
             <Button
@@ -295,7 +295,7 @@ const HeroSection = () => {
                 },
               }}
               title={'Saved Videos'}
-              onClick={() => navigate('/signup')}
+              onClick={() => navigate('/courses')}
               startIcon={<PlayCircle />}
             />
           </Stack>
