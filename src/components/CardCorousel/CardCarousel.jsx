@@ -1,10 +1,11 @@
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { Box, Button, IconButton, Typography } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CardCarousel.scss';
 
 const CardCarousel = ({ cards }) => {
+  const navigate = useNavigate();
   const trackRef = useRef(null);
 
   useEffect(() => {
@@ -36,12 +37,7 @@ const CardCarousel = ({ cards }) => {
           <Box key={`${card.id}-${index}`} className="marquee-card">
             <Box className="card-image-container">
               <img src={card.baseImage} alt="card-bg" className="base-image" />
-              <img
-                src={card.overlayImage}
-                alt="card-img"
-                className="overlay-image"
-              />
-              <IconButton className="bookmark-icon" aria-label="Save">
+              <IconButton className="bookmark-icon" aria-label="Save" size='small'>
                 <BookmarkBorderIcon />
               </IconButton>
             </Box>
@@ -56,13 +52,13 @@ const CardCarousel = ({ cards }) => {
             </Box>
 
             <Box className="card-footer">
-              <Button variant="contained" className="watch-button">
+              <Button
+                variant="contained"
+                className="watch-button"
+                onClick={() => navigate(`/module/${card?.slug}`)}
+              >
                 WATCH NOW
               </Button>
-              <Box className="time-indicator">
-                <AccessTimeIcon fontSize="small" />
-                <Typography variant="body2">{card.time}</Typography>
-              </Box>
             </Box>
           </Box>
         ))}

@@ -90,7 +90,7 @@ const ViewCoursePage = () => {
               }}
               width="100%"
               height="100%"
-              style={{ objectFit: 'fill' }}
+              style={{ objectFit: 'contain' }}
             />
 
             {videoStarted && (

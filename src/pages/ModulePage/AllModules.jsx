@@ -182,13 +182,9 @@ const ModulesPage = () => {
                         }}
                       >
                         {bookmarked[module.id] ? (
-                          <Bookmark
-                            sx={{ color: '#fff', width: 32, height: 32 }}
-                          />
+                          <Bookmark sx={{ color: '#fff' }} />
                         ) : (
-                          <BookmarkBorder
-                            sx={{ color: '#fff', width: 32, height: 32 }}
-                          />
+                          <BookmarkBorder sx={{ color: '#fff' }} />
                         )}
                       </IconButton>
                     </Tooltip>

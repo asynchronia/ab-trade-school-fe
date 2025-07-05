@@ -8,7 +8,9 @@ import {
     Typography,
     useMediaQuery,
 } from '@mui/material';
+import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import marketImg1 from '../assets/marketImg1.jpg';
 import marketImg2 from '../assets/marketImg2.jpg';
 import marketImg3 from '../assets/marketImg3.jpg';
@@ -126,6 +128,7 @@ const CoursesPage = () => {
 
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   const [selectedTab, setSelectedTab] = useState(tabData[0]);
+  const navigate = useNavigate();
 
   const handleToggleMobileSidebar = () => {
     setShowMobileSidebar(!showMobileSidebar);
@@ -142,6 +145,18 @@ const CoursesPage = () => {
     if (columns === 1) return '100%';
     if (columns === 2) return 'calc(50% - 20px)';
     return 'calc(33.333% - 27px)';
+  };
+
+  const handleLearnMore = () => {
+    const user = localStorage.getItem('user');
+    if (!user) {
+      enqueueSnackbar('Please login to learn more about this course.', {
+        variant: 'warning',
+      });
+      navigate('/login');
+    }
+
+    navigate('/courses/1ly-options-hedging-tool-overview-in-tamil');
   };
 
   return (
@@ -385,6 +400,7 @@ const CoursesPage = () => {
                           fontSize: { xs: '12px', sm: '14px' },
                           py: { xs: 0.5, sm: 1 },
                         }}
+                        onClick={handleLearnMore}
                       />
                     </Box>
                   </Card>

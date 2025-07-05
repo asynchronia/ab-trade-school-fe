@@ -1,40 +1,38 @@
 import { Box, Typography } from '@mui/material';
-import baseImg1 from '../../assets/baseImg1.webp';
-import baseImg2 from '../../assets/baseImg2.webp';
-import baseImg3 from '../../assets/baseImg3.webp';
-import overImg1 from '../../assets/overImg1.png';
-import overImg2 from '../../assets/overImg2.png';
-import overImg3 from '../../assets/overImg3.png';
+import { enqueueSnackbar } from 'notistack';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CardCarousel from '../../components/CardCorousel/CardCarousel';
+import { getAllModulesReq } from '../../service/modules.service';
 import theme from '../../utils/theme';
 
 const FreeCoursesSection = () => {
-  const freeCourses = [
-    {
-      id: 1,
-      baseImage: baseImg1,
-      overlayImage: overImg1,
-      title: 'Learn to Analyze Market Trends Like Pros',
-      desc: 'Discover how to interpret charts, spot price action patterns, and make informed trading decisions with confidence using technical tools',
-      time: '1 hr',
-    },
-    {
-      id: 2,
-      baseImage: baseImg2,
-      overlayImage: overImg2,
-      title: 'Master Financial Charts and Trading Strategies Easily',
-      desc: 'Understand candlestick formations, trend-lines, and reversal setups to apply the right strategies across market cycles and instruments',
-      time: '1 hr',
-    },
-    {
-      id: 3,
-      baseImage: baseImg3,
-      overlayImage: overImg3,
-      title: 'Boost Your Trading Skills with Practical Knowledge',
-      desc: 'Join expert-led webinars to explore futures, options, and real market examples that sharpen your decision-making and portfolio-building skills',
-      time: '1 hr',
-    },
-  ];
+  const [modules, setModules] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const fetchAllModules = async () => {
+    setIsLoading(true);
+    try {
+      const modules = await getAllModulesReq();
+      setModules(modules);
+    } catch {
+      enqueueSnackbar('Failed to fetch modules. Please try again later');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllModules();
+  }, []);
+
+  const moduleCards = modules.slice(0, 5).map((module) => ({
+    slug: module.slug,
+    baseImage: module.image,
+    title: module.name,
+    desc: `${module.count} Chapters`,
+  }));
 
   return (
     <Box
@@ -62,7 +60,7 @@ const FreeCoursesSection = () => {
             fontWeight: theme.typography.fontWeightBold,
           }}
         >
-          Get Started with Free Expert Courses
+          Get Started with Free Learning modules
         </Typography>
         <Typography
           sx={{
@@ -72,11 +70,24 @@ const FreeCoursesSection = () => {
             color: theme.palette.text.secondary,
           }}
         >
-          Explore easy-to-follow courses designed to get you started right.
+          Explore bite-sized lessons crafted to build your trading knowledge,
+          one concept at a time.
         </Typography>
       </Box>
 
-      <CardCarousel cards={freeCourses} />
+      {!isLoading && <CardCarousel cards={moduleCards} />}
+
+      <Typography
+        sx={{
+          my: theme.spacing(1),
+          textAlign: 'center',
+          color: theme.palette.primary.main,
+          cursor: 'pointer',
+        }}
+        onClick={() => navigate('/modules')}
+      >
+        {isLoading ? 'Loading modules...' : 'View all modules'}
+      </Typography>
     </Box>
   );
 };

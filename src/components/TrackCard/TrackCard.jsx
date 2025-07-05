@@ -1,7 +1,9 @@
 import { Box, Button, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import theme from '../../utils/theme';
 
 const TrackCard = ({ icon, title, description, buttonText }) => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -91,6 +93,7 @@ const TrackCard = ({ icon, title, description, buttonText }) => {
               transform: 'translateX(2px)',
             },
           }}
+          onClick={() => navigate('/courses')}
         >
           →
         </Box>
