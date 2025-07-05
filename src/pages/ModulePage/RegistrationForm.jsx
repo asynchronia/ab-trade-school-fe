@@ -1,12 +1,11 @@
 import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
+    Box,
+    Button,
+    FormControl,
+    MenuItem,
+    Select,
+    TextField,
+    Typography,
 } from '@mui/material';
 import { Form, Formik } from 'formik';
 import clock from '../../assets/clock.svg';
@@ -71,10 +70,15 @@ const RegisterForm = () => {
           py: 2,
           px: 2,
           textAlign: 'center',
-          borderRadius: '14px 14px 0 0'
+          borderRadius: '14px 14px 0 0',
         }}
       >
-        <Typography variant="h2" fontWeight="bold" fontSize={'20px'} lineHeight={'150%'}>
+        <Typography
+          variant="h2"
+          fontWeight="bold"
+          fontSize={'20px'}
+          lineHeight={'150%'}
+        >
           Kick start your Trading and
           <br />
           Investment Journey Today!
@@ -113,43 +117,54 @@ const RegisterForm = () => {
         >
           {({ values, handleChange, touched, errors }) => (
             <Form>
-              <Typography fontSize={14} color='#808080' mt={0}>Your name</Typography>
+              <Typography fontSize={14} color="#808080" mt={0}>
+                Your name
+              </Typography>
               <TextField
                 fullWidth
                 placeholder="Enter the Name"
                 name="name"
                 value={values.name}
+                size="small"
                 onChange={handleChange}
                 error={touched.name && Boolean(errors.name)}
                 helperText={touched.name && errors.name}
                 margin="none"
               />
 
-              <Typography fontSize={14} color='#808080' mt={1}>Email address</Typography>
+              <Typography fontSize={14} color="#808080" mt={2}>
+                Email address
+              </Typography>
               <TextField
                 fullWidth
                 placeholder="Enter the Email"
                 name="email"
                 value={values.email}
+                size="small"
                 onChange={handleChange}
                 error={touched.email && Boolean(errors.email)}
                 helperText={touched.email && errors.email}
                 margin="none"
               />
 
-              <Typography fontSize={14} color='#808080' mt={1}>Phone number</Typography>
+              <Typography fontSize={14} color="#808080" mt={2}>
+                Phone number
+              </Typography>
               <TextField
                 fullWidth
                 placeholder="Enter the mobile number"
                 name="phone"
                 value={values.phone}
+                size="small"
                 onChange={handleChange}
                 error={touched.phone && Boolean(errors.phone)}
                 helperText={touched.phone && errors.phone}
                 margin="none"
               />
 
-              <Typography fontSize={14} color='#808080' mt={1}>Select your state</Typography>
+              <Typography fontSize={14} color="#808080" mt={2}>
+                Select your state
+              </Typography>
               <FormControl
                 fullWidth
                 margin="none"
@@ -158,6 +173,7 @@ const RegisterForm = () => {
                 <Select
                   name="state"
                   value={values.state}
+                  size="small"
                   onChange={handleChange}
                 >
                   {states.map((state) => (
