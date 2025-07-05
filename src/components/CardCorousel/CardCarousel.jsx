@@ -57,7 +57,7 @@ const CardCarousel = ({ cards }) => {
                 className="watch-button"
                 onClick={() => navigate(`/module/${card?.slug}`)}
               >
-                WATCH NOW
+                Learn More
               </Button>
             </Box>
           </Box>

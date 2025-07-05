@@ -81,6 +81,7 @@ const TrackCard = ({ icon, title, description, buttonText }) => {
             backgroundColor: theme.colors.blue.dark,
           },
         }}
+        onClick={() => navigate('/courses')}
       >
         {buttonText}
         <Box
@@ -93,7 +94,6 @@ const TrackCard = ({ icon, title, description, buttonText }) => {
               transform: 'translateX(2px)',
             },
           }}
-          onClick={() => navigate('/courses')}
         >
           →
         </Box>

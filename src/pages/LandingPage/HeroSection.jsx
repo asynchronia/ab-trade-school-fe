@@ -277,7 +277,7 @@ const HeroSection = () => {
                 },
               }}
               onClick={() => navigate('/modules')}
-              title={'Start Learning Now'}
+              title={'Learn Theory'}
             />
             <Button
               variant="outlined"
@@ -294,7 +294,7 @@ const HeroSection = () => {
                   sm: 'auto',
                 },
               }}
-              title={'Saved Videos'}
+              title={'Apply Concepts'}
               onClick={() => navigate('/courses')}
               startIcon={<PlayCircle />}
             />
