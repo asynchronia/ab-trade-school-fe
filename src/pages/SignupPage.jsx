@@ -7,20 +7,20 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Divider,
-  Grid,
-  IconButton,
-  InputAdornment,
-  Link,
-  Paper,
-  TextField,
-  Typography,
-  useMediaQuery,
-  useTheme,
+    Box,
+    Button,
+    CircularProgress,
+    Container,
+    Divider,
+    Grid,
+    IconButton,
+    InputAdornment,
+    Link,
+    Paper,
+    TextField,
+    Typography,
+    useMediaQuery,
+    useTheme,
 } from '@mui/material';
 import { Formik } from 'formik';
 import { enqueueSnackbar } from 'notistack';
@@ -38,9 +38,9 @@ import signupImgWebP from '../assets/signupImg.webp';
 import OTPVerification from '../components/OTPVerification/OTPVerification';
 import { sendOtpReq, signupReq, verifyOtpReq } from '../service/auth.service';
 import {
-  stage1Schema,
-  stage2Schema,
-  stage3Schema,
+    stage1Schema,
+    stage2Schema,
+    stage3Schema,
 } from '../validations/SignupValidation';
 
 const SignupPage = () => {
@@ -86,9 +86,11 @@ const SignupPage = () => {
         });
       }
     } catch (error) {
-      enqueueSnackbar(error.message || 'Invalid mobile number', {
-        variant: 'error',
-      });
+      if (error.name !== 'ValidationError') {
+        enqueueSnackbar(error.message || 'Something went wrong', {
+          variant: 'error',
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -116,9 +118,11 @@ const SignupPage = () => {
         });
       }
     } catch (error) {
-      enqueueSnackbar(error.message || 'Invalid OTP', {
-        variant: 'error',
-      });
+      if (error.name !== 'ValidationError') {
+        enqueueSnackbar(error.message || 'Invalid OTP', {
+          variant: 'error',
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -127,6 +131,8 @@ const SignupPage = () => {
   const handleSignup = async (values) => {
     setIsLoading(true);
     try {
+      await stage3Schema.validate(values);
+
       const response = await signupReq({
         email: values?.email,
         password: values?.password,
@@ -147,9 +153,11 @@ const SignupPage = () => {
         });
       }
     } catch (error) {
-      enqueueSnackbar(error?.message || 'Something went wrong', {
-        variant: 'error',
-      });
+      if (error.name !== 'ValidationError') {
+        enqueueSnackbar(error?.message || 'Something went wrong', {
+          variant: 'error',
+        });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -343,9 +351,7 @@ const SignupPage = () => {
                     {stage === 3 && (
                       <Box sx={{ mt: 3 }}>
                         {/* Name Field */}
-                        <Typography variant="subtitle1">
-                          Name
-                        </Typography>
+                        <Typography variant="subtitle1">Name</Typography>
                         <TextField
                           fullWidth
                           margin="none"
