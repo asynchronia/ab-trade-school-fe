@@ -15,6 +15,7 @@ import { enqueueSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import chapterMainImg from '../../assets/chapterMainImg.svg';
+import Footer from '../../components/Footer/Footer';
 import Navbar from '../../components/Navbar/Navbar';
 import { getModuleChapterListReq } from '../../service/modules.service';
 import theme from '../../utils/theme';
@@ -307,6 +308,23 @@ const ChapterListPage = () => {
             )}
           </Box>
         )}
+      </Box>
+
+      <Box
+        sx={{
+          mt: 4,
+        }}
+      >
+        <Divider
+          sx={{
+            mx: {
+              xs: theme.spacing(4),
+              md: theme.spacing(5),
+              lg: theme.spacing(10),
+            },
+          }}
+        />
+        <Footer />
       </Box>
     </>
   );

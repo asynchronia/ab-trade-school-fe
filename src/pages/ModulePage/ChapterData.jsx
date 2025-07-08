@@ -25,6 +25,7 @@ import linkedin from '../../assets/linkedin.png';
 import twitter from '../../assets/twitter.png';
 import whatsapp from '../../assets/whatsapp.png';
 import Button from '../../components/Button/Button';
+import Footer from '../../components/Footer/Footer';
 import Navbar from '../../components/Navbar/Navbar';
 import {
     getModuleChapterDataReq,
@@ -582,6 +583,23 @@ const ChapterDataPage = () => {
           </Drawer>
         </>
       )}
+
+      <Box
+        sx={{
+          mt: 4,
+        }}
+      >
+        <Divider
+          sx={{
+            mx: {
+              xs: theme.spacing(4),
+              md: theme.spacing(5),
+              lg: theme.spacing(10),
+            },
+          }}
+        />
+        <Footer />
+      </Box>
     </Box>
   );
 };
