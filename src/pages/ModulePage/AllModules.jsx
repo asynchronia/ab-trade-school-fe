@@ -6,6 +6,7 @@ import {
     CardActions,
     CardContent,
     CircularProgress,
+    Divider,
     IconButton,
     Tooltip,
     Typography,
@@ -13,6 +14,7 @@ import {
 import { enqueueSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../../components/Footer/Footer';
 import Navbar from '../../components/Navbar/Navbar';
 import { getAllModulesReq } from '../../service/modules.service';
 import theme from '../../utils/theme';
@@ -233,6 +235,23 @@ const ModulesPage = () => {
             ))}
           </Box>
         )}
+      </Box>
+
+      <Box
+        sx={{
+          mt: 4,
+        }}
+      >
+        <Divider
+          sx={{
+            mx: {
+              xs: theme.spacing(4),
+              md: theme.spacing(5),
+              lg: theme.spacing(10),
+            },
+          }}
+        />
+        <Footer />
       </Box>
     </Box>
   );

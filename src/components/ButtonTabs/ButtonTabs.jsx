@@ -8,7 +8,9 @@ const ButtonTabs = ({ tabs = [], selectedTab, onSelect }) => {
         display: 'flex',
         gap: 2,
         flexDirection: 'row',
+        flexWrap: 'nowrap',
         overflowX: 'auto',
+        whiteSpace: 'nowrap',
         scrollbarWidth: 'none',
         '&::-webkit-scrollbar': {
           display: 'none',

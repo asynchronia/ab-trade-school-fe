@@ -4,9 +4,11 @@ import {
     Card,
     CardContent,
     CardMedia,
+    Divider,
     Fab,
     Typography,
     useMediaQuery,
+    useTheme,
 } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
@@ -16,6 +18,7 @@ import marketImg2 from '../assets/marketImg2.jpg';
 import marketImg3 from '../assets/marketImg3.jpg';
 import Button from '../components/Button/Button';
 import ButtonTabs from '../components/ButtonTabs/ButtonTabs';
+import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 import SearchBar from '../components/Searchbar/Searchbar';
 import SidebarFilters from '../components/SidebarFilters/SidebarFilters';
@@ -122,30 +125,10 @@ const filters = [
 ];
 
 const CoursesPage = () => {
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
-  const isMediumScreen = useMediaQuery(theme.breakpoints.up('md'));
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
-  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
   const [selectedTab, setSelectedTab] = useState(tabData[0]);
+  const muiTheme = useTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
   const navigate = useNavigate();
-
-  const handleToggleMobileSidebar = () => {
-    setShowMobileSidebar(!showMobileSidebar);
-  };
-
-  const getCardColumns = () => {
-    if (isSmallScreen) return 1;
-    if (isMediumScreen && !isLargeScreen) return 2;
-    return 3;
-  };
-
-  const getCardMaxWidth = () => {
-    const columns = getCardColumns();
-    if (columns === 1) return '100%';
-    if (columns === 2) return 'calc(50% - 20px)';
-    return 'calc(33.333% - 27px)';
-  };
 
   const handleLearnMore = () => {
     const user = localStorage.getItem('user');
@@ -162,165 +145,99 @@ const CoursesPage = () => {
   return (
     <>
       <Navbar />
-      <Box sx={{ display: 'flex', position: 'relative' }}>
-        {/* Desktop Sidebar */}
-        {isLargeScreen && (
-          <Box
-            sx={{
-              position: 'fixed',
-              top: { xs: 60, sm: 70, lg: 80 },
-              left: 0,
-              bottom: 0,
-              width: { lg: 250, xl: 280 },
-              zIndex: 1,
-              bgcolor: '#fff',
-              borderRight: '1px solid #e0e0e0',
-              overflowY: 'auto',
-            }}
-          >
-            <SidebarFilters sections={filters} />
-          </Box>
-        )}
-
-        {/* Mobile Sidebar */}
-        {!isLargeScreen && showMobileSidebar && (
-          <Box
-            sx={{
-              position: 'fixed',
-              top: { xs: 0 },
-              left: 0,
-              bottom: 0,
-              width: { xs: 280, sm: 320 },
-              zIndex: 1000,
-              bgcolor: '#fff',
-              borderRight: '1px solid #e0e0e0',
-              overflowY: 'auto',
-              boxShadow: '2px 0 8px rgba(0,0,0,0.1)',
-            }}
-          >
-            <SidebarFilters sections={filters} />
-          </Box>
-        )}
-
-        {/* Backdrop for mobile sidebar */}
-        {!isLargeScreen && showMobileSidebar && (
-          <Box
-            sx={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              bgcolor: 'rgba(0, 0, 0, 0.5)',
-              zIndex: 999,
-            }}
-            onClick={handleToggleMobileSidebar}
-          />
-        )}
-
-        {/* Main Content */}
+      <Box
+        sx={{
+          position: 'relative',
+          display: 'flex',
+          overflowX: 'hidden',
+          maxWidth: { xs: '100%', lg: '1300px' },
+          mx: 'auto',
+        }}
+      >
+        <SidebarFilters sections={filters} />
         <Box
           sx={{
             flexGrow: 1,
-            pl: { xs: 0, lg: '250px', xl: '280px' },
-            pr: { xs: 0, md: 2, lg: 4, xl: 6 },
-            minHeight: '100vh',
+            overflowX: 'auto',
+            px: { xs: 2, md: 0 },
           }}
         >
           <Box
             sx={{
-              p: { xs: 1, sm: 2, lg: 3 },
-              pt: { xs: 2, sm: 3, lg: 2 },
+              p: { xs: 1, sm: 2 },
             }}
           >
-            {/* Header */}
-            <Box sx={{ mb: { xs: 2, sm: 3 } }}>
-              <Typography
-                variant={isSmallScreen ? 'h5' : 'h4'}
-                fontWeight="semibold"
-                gutterBottom
-                sx={{
-                  fontSize: { xs: '20px', sm: '24px', lg: '28px' },
-                  mb: { xs: 1, sm: 2 },
-                }}
-              >
-                Courses
-              </Typography>
-
-              {/* Mobile Filter Button */}
-              {!isLargeScreen && (
-                <Fab
-                  size="small"
-                  color="primary"
-                  onClick={handleToggleMobileSidebar}
-                  sx={{
-                    position: 'fixed',
-                    bottom: { xs: 20, sm: 30 },
-                    right: { xs: 20, sm: 30 },
-                    zIndex: 1000,
-                    display: { lg: 'none' },
-                  }}
-                >
-                  <FilterListIcon />
-                </Fab>
-              )}
-            </Box>
-
-            {/* Tabs and Search */}
-            <Box
+            <Typography
+              variant="h4"
+              fontWeight="semibold"
+              gutterBottom
               sx={{
-                display: 'flex',
-                flexDirection: { xs: 'column', md: 'row' },
-                justifyContent: 'space-between',
-                alignItems: { xs: 'stretch', md: 'flex-start' },
-                gap: { xs: 2, md: 0 },
+                fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' },
                 mb: { xs: 2, sm: 3 },
               }}
             >
-              <Box sx={{ order: { xs: 1, md: 1 } }}>
+              Courses
+            </Typography>
+
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'start',
+                flexDirection: {
+                  xs: 'column',
+                  sm: 'row',
+                },
+                gap: { xs: 2, sm: 5 },
+                mb: { xs: 2, sm: 3 },
+              }}
+            >
+              <Box
+                sx={{
+                  width: '100%',
+                  overflowX: 'auto',
+                  whiteSpace: 'nowrap',
+                  scrollbarWidth: 'none',
+                  '&::-webkit-scrollbar': {
+                    display: 'none',
+                  },
+                }}
+              >
                 <ButtonTabs
                   tabs={tabData}
                   selectedTab={selectedTab}
                   onSelect={setSelectedTab}
                 />
               </Box>
-              <Box
-                sx={{
-                  order: { xs: 2, md: 2 },
-                  width: { xs: '100%', md: 'auto' },
-                  maxWidth: { md: '300px', lg: '350px' },
-                }}
-              >
+              <Box sx={{ width: { xs: '100%', sm: 'auto', md: '300px' } }}>
                 <SearchBar />
               </Box>
             </Box>
 
-            {/* Course Grid */}
             <Box
               sx={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: { xs: 2, sm: 3, lg: 4 },
-                justifyContent: 'start',
-                alignItems: 'stretch',
+                display: 'grid',
+                gridTemplateColumns: {
+                  xs: '1fr',
+                  sm: 'repeat(2, 1fr)',
+                  md: 'repeat(2, 1fr)',
+                  lg: 'repeat(3, 1fr)',
+                },
+                gap: { xs: 2, sm: 3 },
+                justifyContent: 'center',
               }}
             >
               {dummyCourses.map((course, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    flex: `1 1 ${getCardMaxWidth()}`,
-                    maxWidth: getCardMaxWidth(),
-                    minWidth: { xs: '280px', sm: '300px', lg: '320px' },
-                    width: '100%',
-                  }}
-                >
+                <Box key={index}>
                   <Card
                     elevation={2}
                     sx={{
                       height: '100%',
                       display: 'flex',
                       flexDirection: 'column',
+                      borderRadius: { xs: 1, sm: 2 },
+                      overflow: 'hidden',
+                      maxWidth: { xs: '100%', sm: 'none' },
                       transition: 'all 0.2s ease-in-out',
                       '&:hover': {
                         elevation: 4,
@@ -330,16 +247,20 @@ const CoursesPage = () => {
                   >
                     <CardMedia
                       component="img"
-                      height={isSmallScreen ? '140' : '160'}
+                      height="160"
                       image={course.image}
                       alt={course.title}
-                      sx={{ objectFit: 'fill' }}
+                      sx={{
+                        objectFit: 'fill',
+                        borderBottom: '#d2d2d2 solid 1px',
+                        height: { xs: '140px', sm: '160px' },
+                      }}
                     />
+
                     <CardContent
                       sx={{
                         flexGrow: 1,
                         p: { xs: 1.5, sm: 2 },
-                        '&:last-child': { pb: { xs: 1.5, sm: 2 } },
                       }}
                     >
                       <Typography
@@ -354,6 +275,8 @@ const CoursesPage = () => {
                           WebkitBoxOrient: 'vertical',
                           overflow: 'hidden',
                           minHeight: { xs: '36px', sm: '44px' },
+                          color: '#1a1a1a',
+                          mb: 1,
                         }}
                       >
                         {course.title}
@@ -384,6 +307,7 @@ const CoursesPage = () => {
                         {course.duration} • {course.modules} Modules
                       </Typography>
                     </CardContent>
+
                     <Box
                       sx={{
                         p: { xs: 1.5, sm: 2 },
@@ -394,7 +318,7 @@ const CoursesPage = () => {
                         variant="contained"
                         color="primary"
                         fullWidth
-                        size={isSmallScreen ? 'small' : 'medium'}
+                        size={isMobile ? 'small' : 'medium'}
                         title={'Learn more'}
                         sx={{
                           fontSize: { xs: '12px', sm: '14px' },
@@ -409,6 +333,23 @@ const CoursesPage = () => {
             </Box>
           </Box>
         </Box>
+      </Box>
+      <Box
+        sx={{
+          mt: { xs: 3, sm: 4 },
+        }}
+      >
+        <Divider
+          sx={{
+            mx: {
+              xs: theme.spacing(2),
+              sm: theme.spacing(4),
+              md: theme.spacing(5),
+              lg: theme.spacing(10),
+            },
+          }}
+        />
+        <Footer />
       </Box>
     </>
   );

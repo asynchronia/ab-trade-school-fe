@@ -3,6 +3,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import {
     Box,
     Container,
+    Divider,
     Grid,
     IconButton,
     Link,
@@ -13,6 +14,7 @@ import { useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import webinar2 from '../assets/webinar2.webp';
 import CourseCard from '../components/CourseCard/CourseCard';
+import Footer from '../components/Footer/Footer';
 import Navbar from '../components/Navbar/Navbar';
 import theme from '../utils/theme';
 
@@ -164,6 +166,22 @@ const ViewCoursePage = () => {
           ))}
         </Grid>
       </Container>
+      <Box
+        sx={{
+          mt: 4,
+        }}
+      >
+        <Divider
+          sx={{
+            mx: {
+              xs: theme.spacing(4),
+              md: theme.spacing(5),
+              lg: theme.spacing(10),
+            },
+          }}
+        />
+        <Footer />
+      </Box>
     </>
   );
 };
