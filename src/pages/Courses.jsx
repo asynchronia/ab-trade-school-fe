@@ -1,4 +1,3 @@
-import FilterListIcon from '@mui/icons-material/FilterList';
 import {
     Box,
     Card,
@@ -11,7 +10,7 @@ import {
     useTheme,
 } from '@mui/material';
 import { enqueueSnackbar } from 'notistack';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import marketImg1 from '../assets/marketImg1.jpg';
 import marketImg2 from '../assets/marketImg2.jpg';
@@ -141,6 +140,10 @@ const CoursesPage = () => {
 
     navigate('/courses/1ly-options-hedging-tool-overview-in-tamil');
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
