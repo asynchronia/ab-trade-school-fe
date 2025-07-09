@@ -22,7 +22,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import abLogo from '../../assets/ab-logo.svg';
 import avatar from '../../assets/avatar.png';
-import { default as appLogo, default as logo } from '../../assets/logo.svg';
+import { default as appLogo, default as logo } from '../../assets/logo.png';
 import { dropdownData } from '../../utils/data';
 import Button from '../Button/Button';
 import './Navbar.scss';

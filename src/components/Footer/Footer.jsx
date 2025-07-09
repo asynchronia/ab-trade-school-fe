@@ -203,7 +203,7 @@ const Footer = () => {
   ];
 
   return (
-    <>
+    <Box sx={{ maxWidth: '1200px', mx: 'auto' }}>
       {/* Footer Links Section */}
       <Box
         sx={{
@@ -220,16 +220,15 @@ const Footer = () => {
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            maxWidth: '1200px',
             width: '100%',
             flexWrap: 'wrap',
             gap: theme.spacing(2),
             py: theme.spacing(4),
-            px: {
-              xs: theme.spacing(2),
-              sm: theme.spacing(4),
-              md: theme.spacing(3),
-            },
+            // px: {
+            //   xs: theme.spacing(2),
+            //   sm: theme.spacing(4),
+            //   md: theme.spacing(3),
+            // },
             flexDirection: {
               xs: 'column',
               lg: 'row',
@@ -361,11 +360,11 @@ const Footer = () => {
         sx={{
           backgroundColor: 'white',
           pt: theme.spacing(4),
-          px: {
-            lg: theme.spacing(12.5),
-            xs: theme.spacing(2),
-            sm: theme.spacing(4),
-          },
+        //   px: {
+        //     lg: theme.spacing(12.5),
+        //     xs: theme.spacing(2),
+        //     sm: theme.spacing(4),
+        //   },
           fontFamily: theme.typography.fontFamily,
           fontSize: theme.typography.body2.fontSize,
           lineHeight: theme.typography.body2.lineHeight,
@@ -401,7 +400,7 @@ const Footer = () => {
           ))}
         </Container>
       </Box>
-    </>
+    </Box>
   );
 };
 
