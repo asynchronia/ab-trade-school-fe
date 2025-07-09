@@ -8,7 +8,7 @@ import {
     useMediaQuery,
     useTheme,
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import webinar1 from '../assets/webinar1.webp';
 import webinar2 from '../assets/webinar2.webp';
 import webinar3 from '../assets/webinar3.svg';
@@ -153,6 +153,10 @@ const WebinarPage = () => {
   const muiTheme = useTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -170,7 +174,7 @@ const WebinarPage = () => {
           sx={{
             flexGrow: 1,
             overflowX: 'auto',
-            pl: { xs: 2, md: 0 },
+            px: { xs: 2, md: 0 },
           }}
         >
           <Box

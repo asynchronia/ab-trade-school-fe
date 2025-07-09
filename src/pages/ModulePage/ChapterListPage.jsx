@@ -43,8 +43,9 @@ const ChapterListPage = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchModulesChapterList();
-  }, []);
+  }, [moduleName]);
 
   const handleBookmark = (id) => {
     setBookmarked((prev) => ({

@@ -54,7 +54,9 @@ const SidebarFilters = ({ sections = [] }) => {
         minWidth: 300,
         p: 2,
         height: '100%',
-        borderRight: isMobile ? 'none' : '1px solid #e0e0e0',
+        border: isMobile ? 'none' : '1px solid #e0e0e0',
+        borderTop: 'none',
+        borderBottom: 'none',
         overflowY: 'auto',
         bgcolor: '#fff',
 
