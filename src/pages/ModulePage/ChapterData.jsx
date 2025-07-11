@@ -35,7 +35,7 @@ import theme from '../../utils/theme';
 import './Modules.css';
 import RegisterForm from './RegistrationForm';
 
-const SideSocialBar = ({ updateDate, currentURL }) => {
+const SideSocialBar = ({ currentURL }) => {
   const iconStyles = {
     width: { xs: 36, sm: 48 },
     height: { xs: 36, sm: 48 },
@@ -66,26 +66,13 @@ const SideSocialBar = ({ updateDate, currentURL }) => {
         width: { xs: 80, sm: 100 },
         background: 'linear-gradient(to bottom, #1E40AF40, #FFFFFF, #1E40AF40)',
         py: { xs: 2, sm: 4 },
+        pb: 0,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         borderRadius: '10px',
       }}
     >
-      <CalendarMonthIcon
-        sx={{ fontSize: { xs: 32, sm: 40 }, color: '#2a3eb1', mb: 0.5 }}
-      />
-      <Typography
-        variant="body2"
-        textAlign="center"
-        fontWeight="500"
-        mb={3}
-        mx={1.5}
-        sx={{ fontSize: { xs: '12px', sm: '14px' } }}
-      >
-        {updateDate}
-      </Typography>
-
       <Box
         component={'a'}
         href={shareLinks.whatsapp}
@@ -444,7 +431,7 @@ const ChapterDataPage = () => {
 
         <Box
           sx={{
-            width: '340px',
+            // width: '340px',
             flexShrink: 0,
             display: { xs: 'none', lg: 'block' },
             alignSelf: 'flex-start',
@@ -477,7 +464,7 @@ const ChapterDataPage = () => {
             onClose={() => setRegisterOpen(false)}
             sx={{
               '& .MuiDrawer-paper': {
-                width: { xs: '100%', sm: 400 },
+                width: { xs: 360 },
                 p: 2,
                 display: 'flex',
                 flexDirection: 'column',

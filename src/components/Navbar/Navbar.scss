@@ -25,6 +25,8 @@
 
     .app-logo {
       width: 140px;
+      height: 40px;
+      object-fit: cover;
 
       @media (max-width: 900px) {
         width: 120px;
