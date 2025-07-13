@@ -2,6 +2,7 @@
   font-size: 16px;
   line-height: 1.8;
   color: #333;
+  overflow: hidden;
 }
 
 .rich-content p {
@@ -20,12 +21,24 @@
   margin-bottom: 0.5em;
 }
 
-.rich-content h1 { font-size: 2em; }
-.rich-content h2 { font-size: 1.75em; }
-.rich-content h3 { font-size: 1.5em; }
-.rich-content h4 { font-size: 1.25em; }
-.rich-content h5 { font-size: 1em; }
-.rich-content h6 { font-size: 0.875em; }
+.rich-content h1 {
+  font-size: 2em;
+}
+.rich-content h2 {
+  font-size: 1.75em;
+}
+.rich-content h3 {
+  font-size: 1.5em;
+}
+.rich-content h4 {
+  font-size: 1.25em;
+}
+.rich-content h5 {
+  font-size: 1em;
+}
+.rich-content h6 {
+  font-size: 0.875em;
+}
 
 .rich-content a {
   color: #2a3eb1;
@@ -65,6 +78,7 @@
 .rich-content table {
   width: 100%;
   border-collapse: collapse;
+  overflow-x: auto;
   margin: 1em 0;
 }
 
