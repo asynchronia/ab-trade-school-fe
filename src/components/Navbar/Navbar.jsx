@@ -107,7 +107,7 @@ const Navbar = () => {
       }}
     >
       {/* Logo Section */}
-      <Box sx={{ p: 1, px: 0.5, borderBottom: '1px solid #e5e7eb' }}>
+      <Box sx={{ p: 0.5, borderBottom: '1px solid #e5e7eb' }}>
         <a href="/">
           <img
             src={logo}
