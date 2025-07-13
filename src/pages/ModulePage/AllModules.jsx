@@ -40,6 +40,7 @@ const ModulesPage = () => {
 
   useEffect(() => {
     fetchAllModules();
+    window.scrollTo(0, 0);
   }, []);
 
   const handleBookmark = (id) => {

@@ -76,9 +76,13 @@ const Navbar = () => {
 
   const handleDrawerItemClick = (itemId) => {
     const item = navItems.find((item) => item.id === itemId);
+
     if (item?.hasDropdown) {
       setExpandedDrawerItem(expandedDrawerItem === itemId ? null : itemId);
-    } else if (item?.path) {
+      return;
+    }
+
+    if (item?.path) {
       navigate(item.path);
       setIsDrawerOpen(false);
     }
@@ -165,6 +169,10 @@ const Navbar = () => {
                     <ListItem
                       key={category}
                       button
+                      onClick={() => {
+                        navigate('/courses');
+                        setIsDrawerOpen(false);
+                      }}
                       sx={{
                         pl: 2,
                         py: 0.5,
@@ -262,6 +270,7 @@ const Navbar = () => {
                       title="Filter Now"
                       variant="contained"
                       onClick={() => {
+                        navigate('/courses');
                         setIsDrawerOpen(false);
                       }}
                       style={{ width: '100%' }}
@@ -414,7 +423,11 @@ const Navbar = () => {
                         <h3 className="column-header">Categories</h3>
                         <div className="column-items">
                           {dropdownData.categories.map((category) => (
-                            <div key={category} className="dropdown-item-new">
+                            <div
+                              key={category}
+                              className="dropdown-item-new"
+                              onClick={() => navigate('/courses')}
+                            >
                               {category}
                             </div>
                           ))}
@@ -426,7 +439,11 @@ const Navbar = () => {
                         <h3 className="column-header">Level</h3>
                         <div className="column-items">
                           {dropdownData.levels.map((level) => (
-                            <div key={level} className="dropdown-item-new">
+                            <div
+                              key={level}
+                              className="dropdown-item-new"
+                              onClick={() => navigate('/courses')}
+                            >
                               {level}
                             </div>
                           ))}
@@ -438,7 +455,11 @@ const Navbar = () => {
                         <h3 className="column-header">Language</h3>
                         <div className="column-items">
                           {dropdownData.languages.map((language) => (
-                            <div key={language} className="dropdown-item-new">
+                            <div
+                              key={language}
+                              className="dropdown-item-new"
+                              onClick={() => navigate('/courses')}
+                            >
                               {language}
                             </div>
                           ))}
@@ -448,7 +469,12 @@ const Navbar = () => {
 
                     {/* Filter Button */}
                     <div className="filter-section">
-                      <button className="filter-button-new">Filter Now</button>
+                      <button
+                        className="filter-button-new"
+                        onClick={() => navigate('/courses')}
+                      >
+                        Filter Now
+                      </button>
                     </div>
                   </div>
                 )}

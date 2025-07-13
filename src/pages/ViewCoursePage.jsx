@@ -10,7 +10,7 @@ import {
     Typography,
     useMediaQuery,
 } from '@mui/material';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import webinar2 from '../assets/webinar2.webp';
 import CourseCard from '../components/CourseCard/CourseCard';
@@ -66,6 +66,10 @@ const ViewCoursePage = () => {
       image: webinar2,
     },
   ];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
