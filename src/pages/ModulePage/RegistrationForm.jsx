@@ -22,16 +22,22 @@ const RegisterForm = () => {
         component="img"
         src={icon}
         alt="Investment Icon"
-        sx={{ width: 230, mb: 2, mx: 'auto' }}
+        sx={{ width: 180, mb: 2, mx: 'auto' }}
       />
 
-      <Typography variant="h5" lineHeight={'140%'} color='#42217F' fontWeight="bold" sx={{ mb: 1 }}>
-        Build Your Financial Knowledge Today
+      <Typography
+        variant="h5"
+        lineHeight={'140%'}
+        color="#42217F"
+        fontWeight="bold"
+        sx={{ mb: 1 }}
+      >
+        Stock Market Made Simple
       </Typography>
 
       <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-        Join thousands of learners accessing free courses designed to help you
-        understand all about the stock market.
+        Start building your financial skills with easy-to-understand, expert-led
+        courses.
       </Typography>
 
       <Button
@@ -44,7 +50,7 @@ const RegisterForm = () => {
         }}
         onClick={() => navigate('/signup')}
       >
-        Sign Up to Learn
+        Explore Free Courses
       </Button>
     </Box>
   );

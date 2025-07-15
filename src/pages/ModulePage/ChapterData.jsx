@@ -37,12 +37,12 @@ import RegisterForm from './RegistrationForm';
 
 const SideSocialBar = ({ currentURL }) => {
   const iconStyles = {
-    width: { xs: 36, sm: 48 },
-    height: { xs: 36, sm: 48 },
+    width: { xs: 41, sm: 53 },
+    height: { xs: 41, sm: 53 },
     borderRadius: '50%',
-    mb: 2,
+    border: '3px solid #631B9A',
+    // mb: 2,
     cursor: 'pointer',
-    bgcolor: 'white',
   };
 
   const encodedUrl = encodeURIComponent(currentURL);
@@ -64,12 +64,11 @@ const SideSocialBar = ({ currentURL }) => {
     <Box
       sx={{
         width: { xs: 80, sm: 100 },
-        background: 'linear-gradient(to bottom, #1E40AF40, #FFFFFF, #1E40AF40)',
-        py: { xs: 2, sm: 4 },
         pb: 0,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        gap: 2,
         borderRadius: '10px',
       }}
     >
