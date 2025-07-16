@@ -40,7 +40,11 @@ const SideSocialBar = ({ currentURL }) => {
     width: { xs: 41, sm: 53 },
     height: { xs: 41, sm: 53 },
     borderRadius: '50%',
-    border: '3px solid #631B9A',
+    border: '3px solid #eee',
+    transition: 'transform 0.3s ease',
+    '&:hover': {
+      transform: 'translateY(-5px)',
+    },
     // mb: 2,
     cursor: 'pointer',
   };
@@ -65,6 +69,7 @@ const SideSocialBar = ({ currentURL }) => {
       sx={{
         width: { xs: 80, sm: 100 },
         pb: 0,
+        pt: 2,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
