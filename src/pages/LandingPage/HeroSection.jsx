@@ -85,7 +85,6 @@ const HeroSection = () => {
         minHeight: {
           xs: 500,
           sm: 550,
-          md: 600,
         },
         background: theme.colors.gradient.main,
         overflow: 'hidden',
@@ -153,12 +152,12 @@ const HeroSection = () => {
               md: '0 0 50%',
             },
             pt: {
-              xs: theme.spacing(6),
-              md: theme.spacing(6),
+              xs: theme.spacing(4),
+              md: theme.spacing(0),
             },
             pb: {
               xs: theme.spacing(4),
-              md: theme.spacing(6),
+              md: theme.spacing(0),
             },
             width: {
               xs: '100%',
