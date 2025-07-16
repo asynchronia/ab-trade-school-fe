@@ -8,6 +8,8 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import abLogo2 from '../../assets/ab-logo2.svg';
+import appStore from '../../assets/appStore.svg';
+import playStore from '../../assets/playStore.svg';
 
 const Footer = () => {
   const theme = useTheme();
@@ -20,7 +22,7 @@ const Footer = () => {
         { text: 'AB cares', url: '#' },
         { text: 'Careers', url: '#' },
         { text: 'HRMS Login', url: '#' },
-        { text: 'Ekye Guidelines', url: '#' },
+        { text: 'Ekyc Guidelines', url: '#' },
       ],
     },
     {
@@ -30,7 +32,10 @@ const Footer = () => {
         { text: 'ANT Mobi', url: '#' },
         { text: 'ANT API', url: '#' },
         { text: 'IPO', url: '#' },
-        { text: 'Ekye Guidelines', url: '#' },
+        { text: 'Trading View', url: '#' },
+        { text: 'Rise (MF, G - Sec, T - bills)', url: '#' },
+        { text: 'Products', url: '#' },
+        { text: 'Investments', url: '#' },
       ],
     },
     {
@@ -50,19 +55,7 @@ const Footer = () => {
         { text: 'PR Coverage', url: '#' },
         { text: 'Trade School', url: '#' },
         { text: 'Employee Referral Policy', url: '#' },
-      ],
-    },
-    {
-      title: 'Policy',
-      subLinks: [
-        { text: 'DND Policy', url: '#' },
-        { text: 'Investor Charter', url: '#' },
-        { text: 'Legal Documentation', url: '#' },
-        { text: 'Privacy Policy', url: '#' },
-        { text: 'Feedback', url: '#' },
-        { text: 'Annual Returns', url: '#' },
-        { text: 'E - Voting', url: '#' },
-        { text: 'Mandatory Member Details', url: '#' },
+        { text: 'Verify Client Collateral Details', url: '#' },
       ],
     },
   ];
@@ -151,7 +144,6 @@ const Footer = () => {
     },
     {
       text: 'Investment in securities markets are subject to market risks, read all the related documents carefully before investing. Brokerage will not exceed SEBI prescribed limit.',
-      italic: true,
     },
     {
       text: 'For queries regarding account opening or activation, email to accountactivation@aliceblueindia.com',
@@ -209,139 +201,100 @@ const Footer = () => {
         sx={{
           backgroundColor: 'white',
           display: 'flex',
-          justifyContent: 'center',
+          justifyContent: 'space-between',
           px: {
             xs: theme.spacing(2),
             sm: theme.spacing(4),
           },
         }}
       >
+        {/* Logo and Links Row */}
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            width: '100%',
+            alignItems: 'flex-start',
             flexWrap: 'wrap',
-            gap: theme.spacing(2),
+            flex: 1,
             py: theme.spacing(4),
-            // px: {
-            //   xs: theme.spacing(2),
-            //   sm: theme.spacing(4),
-            //   md: theme.spacing(3),
-            // },
-            flexDirection: {
-              xs: 'column',
-              lg: 'row',
-            },
-            alignItems: {
-              xs: 'center',
-              md: 'flex-start',
-            },
+            gap: theme.spacing(4),
           }}
         >
-          {/* Logo and Copyright */}
+          {/* Left section */}
           <Box
             sx={{
-              textAlign: {
-                xs: 'center',
-                md: 'left',
-              },
-              mb: {
-                xs: theme.spacing(3),
-                md: 0,
-              },
+              flex: { xs: '1 1 100%', md: '0 0 250px' },
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: { xs: 'center', md: 'flex-start' },
+              textAlign: { xs: 'center', md: 'left' },
             }}
           >
             <img
               src={abLogo2}
               alt="Alice Blue logo"
               style={{
-                maxWidth: 150,
+                // maxWidth: 180,
                 height: 'auto',
               }}
             />
-            <Typography
-              variant="caption"
+
+            {/* App badges */}
+            <Box sx={{ display: 'flex', gap: 1, mt: 2 }}>
+              <img src={playStore} alt="Google Play" style={{ height: 40 }} />
+              <img src={appStore} alt="App Store" style={{ height: 40 }} />
+            </Box>
+
+            {/* Trading school */}
+            <Box
               sx={{
-                display: 'block',
-                mt: theme.spacing(2),
-                fontSize: '0.75rem',
+                border: '1px solid #ddd',
+                borderRadius: '8px',
+                p: 2,
+                mt: 2,
+                // textAlign: 'center',
+                width: '100%',
+                // maxWidth: 180,
               }}
             >
-              © 2025, Alice Blue Financial Services
-            </Typography>
+              <Typography variant="body2" sx={{ fontWeight: 'bold', mb: 1 }}>
+                Trading School
+              </Typography>
+              <Typography variant="h6" fontWeight={500}>
+                {'Good    ★★★★☆'}
+              </Typography>
+              <Typography variant="subtitle1">Based on 517 reviews</Typography>
+            </Box>
           </Box>
 
-          {/* Footer Links */}
+          {/* Right: Link Columns */}
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              flexWrap: { xs: 'wrap', sm: 'wrap', md: 'nowrap' },
-              gap: {
-                xs: theme.spacing(0.5),
-                sm: theme.spacing(1),
-                md: theme.spacing(3),
-              },
-              justifyContent: { xs: 'space-between' },
               flex: 1,
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: { xs: 4, md: 6 },
+              justifyContent: { xs: 'center', md: 'flex-end' },
             }}
           >
             {footerLinks.map((section, index) => (
-              <Box
-                key={index}
-                sx={{
-                  flex: {
-                    xs: '0 1 calc(33.333% - 4px)',
-                    sm: '0 1 calc(33.333% - 8px)',
-                    md: 'none',
-                  },
-                  minWidth: { xs: 0, md: 120 },
-                  maxWidth: {
-                    xs: 'calc(33.333% - 4px)',
-                    sm: 'calc(33.333% - 8px)',
-                    md: 'none',
-                  },
-                  mb: { xs: theme.spacing(2), md: 0 },
-                }}
-              >
+              <Box key={index} sx={{ minWidth: 120 }}>
                 <Typography
-                  variant="subtitle2"
-                  component="h2"
-                  sx={{
-                    fontWeight: theme.typography.fontWeightBold,
-                    mb: { xs: theme.spacing(0.5), md: theme.spacing(1) },
-                    fontSize: { xs: '0.75rem', sm: '0.8rem', md: '0.875rem' },
-                  }}
+                  variant="subtitle1"
+                  sx={{ fontWeight: 'bold', mb: 1 }}
                 >
                   {section.title}
                 </Typography>
-                <List
-                  dense
-                  disablePadding
-                  sx={{
-                    display: 'block',
-                  }}
-                >
+                <List disablePadding>
                   {section.subLinks.map((link, linkIndex) => (
-                    <ListItem
-                      key={linkIndex}
-                      disablePadding
-                      sx={{
-                        py: theme.spacing(1),
-                      }}
-                    >
+                    <ListItem key={linkIndex} disablePadding sx={{ py: 1.5 }}>
                       <Link
                         href={link.url}
                         underline="none"
                         sx={{
-                          fontSize: {
-                            xs: '0.7rem',
-                            sm: '0.75rem',
-                            md: '0.875rem',
-                          },
+                          fontSize: '15px',
                           color: 'black',
-                          lineHeight: { xs: 1.3, md: 1.5 },
+                          flex: 0.8,
                         }}
                       >
                         {link.text}
@@ -360,11 +313,11 @@ const Footer = () => {
         sx={{
           backgroundColor: 'white',
           pt: theme.spacing(4),
-        //   px: {
-        //     lg: theme.spacing(12.5),
-        //     xs: theme.spacing(2),
-        //     sm: theme.spacing(4),
-        //   },
+          //   px: {
+          //     lg: theme.spacing(12.5),
+          //     xs: theme.spacing(2),
+          //     sm: theme.spacing(4),
+          //   },
           fontFamily: theme.typography.fontFamily,
           fontSize: theme.typography.body2.fontSize,
           lineHeight: theme.typography.body2.lineHeight,
@@ -392,7 +345,6 @@ const Footer = () => {
                 ...(content.bold && {
                   fontWeight: theme.typography.fontWeightBold,
                 }),
-                ...(content.italic && { fontStyle: 'italic' }),
               }}
             >
               {content.text}
