@@ -508,7 +508,17 @@ const ChapterDataPage = () => {
                   <Box
                     component={'img'}
                     src={whatsapp}
-                    sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      cursor: 'pointer',
+                      borderRadius: '50%',
+                      border: '3px solid #eee',
+                      transition: 'transform 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-5px)',
+                      },
+                    }}
                   />
                 </Box>
                 <Box
@@ -520,7 +530,17 @@ const ChapterDataPage = () => {
                   <Box
                     component={'img'}
                     src={email}
-                    sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      cursor: 'pointer',
+                      borderRadius: '50%',
+                      border: '3px solid #eee',
+                      transition: 'transform 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-5px)',
+                      },
+                    }}
                   />
                 </Box>
                 <Box
@@ -532,7 +552,17 @@ const ChapterDataPage = () => {
                   <Box
                     component={'img'}
                     src={facebook}
-                    sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      cursor: 'pointer',
+                      borderRadius: '50%',
+                      border: '3px solid #eee',
+                      transition: 'transform 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-5px)',
+                      },
+                    }}
                   />
                 </Box>
                 <Box
@@ -544,7 +574,17 @@ const ChapterDataPage = () => {
                   <Box
                     component={'img'}
                     src={twitter}
-                    sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      cursor: 'pointer',
+                      borderRadius: '50%',
+                      border: '3px solid #eee',
+                      transition: 'transform 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-5px)',
+                      },
+                    }}
                   />
                 </Box>
                 <Box
@@ -556,13 +596,33 @@ const ChapterDataPage = () => {
                   <Box
                     component={'img'}
                     src={linkedin}
-                    sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      cursor: 'pointer',
+                      borderRadius: '50%',
+                      border: '3px solid #eee',
+                      transition: 'transform 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-5px)',
+                      },
+                    }}
                   />
                 </Box>
                 <Box
                   component="img"
                   src={copy}
-                  sx={{ width: 40, height: 40, cursor: 'pointer' }}
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    cursor: 'pointer',
+                    border: '3px solid #eee',
+                    borderRadius: '50%',
+                    transition: 'transform 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-5px)',
+                    },
+                  }}
                   onClick={() => {
                     navigator.clipboard.writeText(window.location.href);
                     enqueueSnackbar('Link copied to clipboard!', {

@@ -5,6 +5,7 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import ModulesPage from './pages/ModulePage/AllModules';
 import ChapterDataPage from './pages/ModulePage/ChapterData';
 import ChapterListPage from './pages/ModulePage/ChapterListPage';
+import TermsAndConditions from './pages/TermsAndConditions';
 import ViewCoursePage from './pages/ViewCoursePage';
 import WebinarPage from './pages/WebinarPage';
 import { routes } from './routes/index';
@@ -53,6 +54,7 @@ function App() {
         <Route path={routes.chapterList} element={<ChapterListPage />} />
         <Route path={routes.chapter} element={<ChapterDataPage />} />
         <Route path={routes.courses} element={<CoursesPage />} />
+        <Route path={routes.terms} element={<TermsAndConditions />} />
       </Routes>
     </Router>
   );
