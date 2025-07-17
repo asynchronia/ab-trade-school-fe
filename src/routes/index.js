@@ -9,4 +9,5 @@ export const routes = {
   modules: '/modules',
   chapterList: '/module/:moduleName',
   chapter: '/chapter/:chapterName',
+  terms: '/terms-and-conditions',
 };
