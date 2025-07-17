@@ -8,7 +8,6 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
     Box,
     Container,
-    Grid,
     IconButton,
     Link,
     List,
@@ -63,9 +62,10 @@ const Footer = () => {
         { text: 'KYC Tracker', url: '#' },
         { text: 'Trading Holidays', url: '#' },
         { text: 'PR Coverage', url: '#' },
-        { text: 'Trade School', url: '#' },
+        { text: 'Trade School', url: '/' },
         { text: 'Employee Referral Policy', url: '#' },
         { text: 'Verify Client Collateral Details', url: '#' },
+        { text: 'Terms and Conditions', url: '/terms-and-conditions' },
       ],
     },
   ];
@@ -294,14 +294,22 @@ const Footer = () => {
               textAlign: { xs: 'center', md: 'left' },
             }}
           >
-            <img
-              src={abLogo2}
-              alt="Alice Blue logo"
-              style={{
-                width: '100%',
-                // height: 'auto',
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: { xs: 'center', md: 'flex-start' },
+                alignItems:'center'
               }}
-            />
+            >
+              <img
+                src={abLogo2}
+                alt="Alice Blue logo"
+                style={{
+                  width: { xs: 200, md: '100%' },
+                  // height: 'auto',
+                }}
+              />
+            </Box>
 
             {/* App badges */}
             <Box sx={{ display: 'flex', gap: 1, mt: 2 }}>
@@ -310,14 +318,18 @@ const Footer = () => {
                 target="_blank"
                 underline="none"
               >
-                <img src={playStore} alt="Google Play" style={{ height: 50 }} />
+                <img
+                  src={playStore}
+                  alt="Google Play"
+                  style={{ maxHeight: 50 }}
+                />
               </Link>
               <Link
                 href="https://apps.apple.com/us/app/alice-blue-trade-app-ant-mobi/id1627909732"
                 target="_blank"
                 underline="none"
               >
-                <img src={appStore} alt="App Store" style={{ height: 50 }} />
+                <img src={appStore} alt="App Store" style={{ maxHeight: 50 }} />
               </Link>
             </Box>
 
@@ -329,7 +341,7 @@ const Footer = () => {
                 p: 2,
                 mt: 2,
                 // textAlign: 'center',
-                width: '100%',
+                width: { xs: '200px', md: '100%' },
                 // maxWidth: 180,
               }}
             >
@@ -365,7 +377,7 @@ const Footer = () => {
               }}
             >
               <Typography>Connect with us :</Typography>
-              <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
+              <Box sx={{ display: 'flex', gap: 1, mt:1 }}>
                 {socialIcons.map((item, index) => (
                   <Tooltip key={index} title={item.alt}>
                     <Link href={item.url} target="_blank" underline="none">
@@ -431,7 +443,7 @@ const Footer = () => {
               ))}
             </Box>
 
-            <Box sx={{ display: 'flex', mt: 5, gap: 2, flexWrap: 'wrap' }}>
+            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
               {exchanges.map((exchange) => (
                 <Box key={exchange.name} width={'fit-content'}>
                   <Link href={exchange.url} target="_blank" underline="none">
