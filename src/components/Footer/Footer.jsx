@@ -1,13 +1,20 @@
+import { Add, Remove } from '@mui/icons-material';
+import DownloadIcon from '@mui/icons-material/Download';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
+import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded';
 import TelegramIcon from '@mui/icons-material/Telegram';
+import VideocamIcon from '@mui/icons-material/Videocam';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import XIcon from '@mui/icons-material/X';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
     Box,
+    Collapse,
     Container,
+    Grid,
     IconButton,
     Link,
     List,
@@ -16,72 +23,113 @@ import {
     Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import abLogo2 from '../../assets/ab-logo2.svg';
 import appStore from '../../assets/appStore.svg';
 import playStore from '../../assets/playStore.svg';
 
 const Footer = () => {
   const theme = useTheme();
+  const [expandedSections, setExpandedSections] = useState({});
+
+  const toggleSection = (index) => {
+    setExpandedSections((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
 
   const footerLinks = [
     {
       title: 'Company',
       subLinks: [
-        { text: 'About us', url: '#' },
-        { text: 'AB cares', url: '#' },
-        { text: 'Careers', url: '#' },
-        { text: 'HRMS Login', url: '#' },
-        { text: 'Ekyc Guidelines', url: '#' },
+        { text: 'About us', url: 'https://aliceblueonline.com/about-us/' },
+        { text: 'AB cares', url: 'https://aliceblueonline.com/cares/' },
+        { text: 'Careers', url: 'https://aliceblueonline.com/careers/' },
+        {
+          text: 'HRMS Login',
+          url: 'https://app.factohr.com/aliceblue/Security/Login',
+        },
+        {
+          text: 'Ekyc Guidelines',
+          url: 'https://aliceblueonline.com/ekyc-guidelines/',
+        },
       ],
     },
     {
       title: 'App & Products',
       subLinks: [
-        { text: 'ANT Web', url: '#' },
-        { text: 'ANT Mobi', url: '#' },
-        { text: 'ANT API', url: '#' },
-        { text: 'IPO', url: '#' },
-        { text: 'Trading View', url: '#' },
-        { text: 'Rise (MF, G - Sec, T - bills)', url: '#' },
-        { text: 'Products', url: '#' },
-        { text: 'Investments', url: '#' },
+        {
+          text: 'ANT Web',
+          url: 'https://aliceblueonline.com/legal-documentation/advisory-for-investors/',
+        },
+        { text: 'ANT Mobi', url: 'https://aliceblueonline.com/ant-mobi/' },
+        { text: 'ANT API', url: 'https://aliceblueonline.com/ant-plus/' },
+        { text: 'IPO', url: 'https://rise.aliceblueonline.com/' },
+        {
+          text: 'Trading View',
+          url: 'https://aliceblueonline.com/tradingview/',
+        },
+        {
+          text: 'Rise (MF, G - Sec, T - bills)',
+          url: 'https://rise.aliceblueonline.com/',
+        },
+        { text: 'Products', url: 'https://aliceblueonline.com/products/' },
+        {
+          text: 'Investments',
+          url: 'https://aliceblueonline.com/investments/',
+        },
       ],
     },
     {
       title: 'Tools & Calculators',
       subLinks: [
-        { text: 'Brokerage Calculator', url: '#' },
-        { text: 'Margin Calculator', url: '#' },
-        { text: 'RMS Live Updates', url: '#' },
+        {
+          text: 'Brokerage Calculator',
+          url: 'https://aliceblueonline.com/brokerage-calculator/',
+        },
+        {
+          text: 'Margin Calculator',
+          url: 'https://aliceblueonline.com/margin-calculator/',
+        },
+        {
+          text: 'RMS Live Updates',
+          url: 'https://aliceblueonline.com/rms-live-updates/exposures/',
+        },
       ],
     },
     {
       title: 'Important Links',
       subLinks: [
-        { text: 'Pricing', url: '#' },
-        { text: 'KYC Tracker', url: '#' },
-        { text: 'Trading Holidays', url: '#' },
-        { text: 'PR Coverage', url: '#' },
+        { text: 'Pricing', url: 'https://aliceblueonline.com/pricing/' },
+        {
+          text: 'KYC Tracker',
+          url: 'https://pekycv3.aliceblueonline.com/admin/ekyctracker',
+        },
+        {
+          text: 'Trading Holidays',
+          url: 'https://aliceblueonline.com/trading-holidays-2025/',
+        },
+        {
+          text: 'PR Coverage',
+          url: 'https://aliceblueonline.com/media-coverage/',
+        },
         { text: 'Trade School', url: '/' },
-        { text: 'Employee Referral Policy', url: '#' },
-        { text: 'Verify Client Collateral Details', url: '#' },
+        {
+          text: 'Employee Referral Policy',
+          url: 'https://aliceblueonline.com/employee-referral-program/',
+        },
+        {
+          text: 'Verify Client Collateral Details',
+          url: 'https://www.icclindia.com/DynamicPages/UCCDetails.aspx',
+        },
         { text: 'Terms and Conditions', url: '/terms-and-conditions' },
       ],
     },
   ];
 
   const footerContent = [
-    {
-      text: (
-        <>
-          <strong>Prevent unauthorised transactions in your account</strong>{' '}
-          update your mobile number/email with your Stock Broker. Receive
-          information of your transactions directly from Exchange on your
-          mobile/email at the end of the day.
-        </>
-      ),
-      bold: true,
-    },
     {
       text: 'Stock Brokers can accept securities as margin from clients only by way of pledge in the depository system w.e.f. September 1, 2020. Update your mobile number & email with your stock broker/depository participant and receive OTP directly from the depository on your email and/or mobile number to create a pledge.',
     },
@@ -145,21 +193,54 @@ const Footer = () => {
       text: (
         <>
           <strong>Procedure to file a complaint on SEBI SCORES:</strong>{' '}
-          Register on SCORES portal. Mandatory details for filing complaints:
-          Name, PAN, Address, Mobile Number, E-mail ID. Benefits: Effective
-          Communication. Speedy redressal of the grievances.
+          Register on{' '}
+          <Link href="https://scores.sebi.gov.in/" color="primary">
+            SEBI SCORES 2.0
+          </Link>
+          . Mandatory details for filing complaints: Name, PAN, Address, Mobile
+          Number, E-mail ID. Benefits: Effective Communication. Speedy redressal
+          of the grievances.
         </>
       ),
       bold: true,
     },
     {
+      text: (
+        <>
+          Click on the provided link to learn about the process for submitting a
+          complaint on the{' '}
+          <Link href="https://smartodr.in/login/" color="primary">
+            ODR platform
+          </Link>{' '}
+          for resolving investor grievances.
+        </>
+      ),
+    },
+    {
       text: 'Investment in securities markets are subject to market risks, read all the related documents carefully before investing. Brokerage will not exceed SEBI prescribed limit.',
     },
     {
-      text: 'For queries regarding account opening or activation, email to accountactivation@aliceblueindia.com',
+      text: (
+        <>
+          For queries regarding account opening or activation, email to{' '}
+          <Link
+            href="mailto:accountactivation@aliceblueindia.com"
+            color="primary"
+          >
+            accountactivation@aliceblueindia.com
+          </Link>
+        </>
+      ),
     },
     {
-      text: 'For fund updates, email to funds@aliceblueindia.com',
+      text: (
+        <>
+          and for fund updates, email to{' '}
+          <Link href="mailto:funds@aliceblueindia.com" color="primary">
+            funds@aliceblueindia.com
+          </Link>
+        </>
+      ),
     },
     {
       text: (
@@ -174,7 +255,15 @@ const Footer = () => {
       bold: true,
     },
     {
-      text: 'All clients have to update their email and mobile number with Member: Investor Grievance grievances@aliceblueindia.com',
+      text: (
+        <>
+          All clients have to update their email and mobile number with Member:
+          Investor Grievance{' '}
+          <Link href="mailto:grievances@aliceblueindia.com" color="primary">
+            grievances@aliceblueindia.com
+          </Link>
+        </>
+      ),
     },
     {
       text: (
@@ -200,7 +289,62 @@ const Footer = () => {
       bold: true,
     },
     {
-      text: "Investors are requested to note that Alice Blue Financial Services Private Limited is permitted to receive money from investor through designated bank accounts only named as Upstream Client Nodal Bank Account (USCNBA). Alice Blue Financial Services Private Limited is also required to disclose these USCNB accounts to Stock Exchange. Hence, you are requested to use following USCNB accounts only for the purpose of dealings in your trading account with us. The details of these USCNB accounts are also displayed by Stock Exchanges on their website under 'Know/Locate your Stock Broker Bank Details.'",
+      text: (
+        <>
+          Investors are requested to note that Alice Blue Financial Services
+          Private Limited is permitted to receive money from investor through
+          designated bank accounts only named as Upstream Client Nodal Bank
+          Account (USCNBA). Alice Blue Financial Services Private Limited is
+          also required to disclose these USCNB accounts to Stock Exchange.
+          Hence, you are requested to use following USCNB accounts only for the
+          purpose of dealings in your trading account with us. The details of
+          these USCNB accounts are also displayed by Stock Exchanges on their
+          website under 'Know/Locate your Stock Broker.{' '}
+          <Link
+            href="https://alicebluewebsite.s3.ap-south-1.amazonaws.com/wp-content/uploads/2024/04/16043642/USNCBA.pdf"
+            color="primary"
+          >
+            Bank Details
+          </Link>
+          .
+        </>
+      ),
+    },
+  ];
+
+  const footerContentLinks = [
+    {
+      text: 'DND Policy',
+      href: 'https://aliceblueonline.com/legal-documentation/policy-for-dnd-ndnc/',
+    },
+    {
+      text: 'Investor Charter',
+      href: 'https://aliceblueonline.com/investor-charter/',
+    },
+    {
+      text: 'Legal Documentation',
+      href: 'https://aliceblueonline.com/legal-documentation/',
+    },
+    {
+      text: 'Privacy Policy',
+      href: 'https://aliceblueonline.com/legal-documentation/privacy-policy/',
+    },
+    { text: 'Feedback', href: 'https://aliceblueonline.com/feedback/' },
+    {
+      text: 'Annual Returns',
+      href: 'https://aliceblueonline.com/annual-returns/',
+    },
+    {
+      text: 'Advisory for Investors',
+      href: 'https://aliceblueonline.com/legal-documentation/advisory-for-investors/',
+    },
+    {
+      text: 'E-voting',
+      href: 'https://evoting.cdslindia.com/Evoting/EvotingLogin',
+    },
+    {
+      text: 'Mandatory Member Details',
+      href: 'https://aliceblueonline.com/mandatory-member-details/',
     },
   ];
 
@@ -247,6 +391,13 @@ const Footer = () => {
       url: 'https://www.youtube.com/channel/UCrAM1_NV3j5_l8VoukiXv2g',
       color: '#FF0000',
     },
+    {
+      image:
+        'https://img.icons8.com/?size=100&id=eGZs8grn6szD&format=png&color=000000',
+      alt: 'Google News',
+      url: 'https://news.google.com/publications/CAAqMAgKIipDQklTR1FnTWFoVUtFMkZzYVdObFlteDFaVzl1YkdsdVpTNWpiMjBvQUFQAQ?ceid=IN:en&oc=3&hl=en-IN&gl=IN',
+      color: '#eee',
+    },
   ];
 
   const exchanges = [
@@ -258,8 +409,91 @@ const Footer = () => {
     { name: 'SEBI', url: 'https://www.sebi.gov.in/' },
   ];
 
+  const items = [
+    {
+      icon: DownloadIcon,
+      title: 'Downloads',
+      link: 'https://aliceblueonline.com/downloads/',
+    },
+    {
+      icon: NewspaperOutlinedIcon,
+      title: 'Circulars',
+      link: 'https://aliceblueonline.com/circulars/',
+    },
+    {
+      icon: SavingsRoundedIcon,
+      title: 'Bank Details',
+      link: 'https://aliceblueonline.com/bank-details/',
+    },
+    {
+      icon: VideocamIcon,
+      title: 'Watch & learn',
+      link: 'https://aliceblueonline.com/how-to-videos/',
+    },
+  ];
+
   return (
     <Box sx={{ maxWidth: '1200px', mx: 'auto' }}>
+      <Grid
+        container
+        spacing={3}
+        sx={{
+          justifyContent: { xs: 'center', md: 'space-around' },
+          px: {
+            xs: theme.spacing(2),
+            sm: theme.spacing(4),
+          },
+        }}
+      >
+        {items.map((item, index) => (
+          <Grid item xs={6} sm={3} key={index}>
+            <Box
+              sx={{
+                textAlign: 'center',
+                cursor: 'pointer',
+                my: 3,
+              }}
+              onClick={() => window.open(item.link, '_blank')}
+            >
+              <Box
+                sx={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: '50%',
+                  border: '2px solid #1976d2',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mx: 'auto',
+                  mb: 2,
+                  '&:hover': {
+                    border: '2px solid rgb(28, 74, 119)',
+                    '& svg': { color: 'rgb(28, 74, 119)' },
+                    transform: 'scale(1.2)',
+                    color: 'rgb(28, 74, 119)',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <item.icon sx={{ fontSize: 30, color: '#1976d2' }} />
+              </Box>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 600,
+                  color: '#1976d2',
+                  '&:hover': {
+                    color: 'rgb(28, 74, 119)',
+                    textDecoration: 'underline',
+                  },
+                }}
+              >
+                {item.title}
+              </Typography>
+            </Box>
+          </Grid>
+        ))}
+      </Grid>
       {/* Footer Links Section */}
       <Box
         sx={{
@@ -298,7 +532,7 @@ const Footer = () => {
               sx={{
                 display: 'flex',
                 justifyContent: { xs: 'center', md: 'flex-start' },
-                alignItems:'center'
+                alignItems: 'center',
               }}
             >
               <img
@@ -377,7 +611,7 @@ const Footer = () => {
               }}
             >
               <Typography>Connect with us :</Typography>
-              <Box sx={{ display: 'flex', gap: 1, mt:1 }}>
+              <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
                 {socialIcons.map((item, index) => (
                   <Tooltip key={index} title={item.alt}>
                     <Link href={item.url} target="_blank" underline="none">
@@ -393,7 +627,19 @@ const Footer = () => {
                           },
                         }}
                       >
-                        {item.icon}
+                        {item.icon ? (
+                          item.icon
+                        ) : (
+                          <Box
+                            component="img"
+                            src={item.image}
+                            alt={item.alt}
+                            sx={{
+                              width: 24,
+                              height: 24,
+                            }}
+                          />
+                        )}
                       </IconButton>
                     </Link>
                   </Tooltip>
@@ -413,32 +659,92 @@ const Footer = () => {
               justifyContent: { xs: 'center', md: 'flex-end' },
             }}
           >
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: 2,
+                flexDirection: { xs: 'column', md: 'row' },
+              }}
+            >
               {footerLinks.map((section, index) => (
                 <Box key={index} sx={{ minWidth: 120, flex: 1 }}>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ fontWeight: 'bold', mb: 1 }}
-                  >
-                    {section.title}
-                  </Typography>
-                  <List disablePadding>
-                    {section.subLinks.map((link, linkIndex) => (
-                      <ListItem key={linkIndex} disablePadding sx={{ py: 1.5 }}>
-                        <Link
-                          href={link.url}
-                          underline="none"
-                          sx={{
-                            fontSize: '15px',
-                            color: 'black',
-                            flex: 0.8,
-                          }}
+                  <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ fontWeight: 'bold', mb: 1 }}
+                    >
+                      {section.title}
+                    </Typography>
+                    <List disablePadding>
+                      {section.subLinks.map((link, linkIndex) => (
+                        <ListItem
+                          key={linkIndex}
+                          disablePadding
+                          sx={{ py: 1.5 }}
                         >
-                          {link.text}
-                        </Link>
-                      </ListItem>
-                    ))}
-                  </List>
+                          <Link
+                            href={link.url}
+                            underline="none"
+                            sx={{
+                              fontSize: '15px',
+                              color: 'black',
+                              flex: 0.8,
+                            }}
+                          >
+                            {link.text}
+                          </Link>
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Box>
+
+                  <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        cursor: 'pointer',
+                        py: 1,
+                      }}
+                      onClick={() => toggleSection(index)}
+                    >
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ fontWeight: 'bold' }}
+                      >
+                        {section.title}
+                      </Typography>
+                      <IconButton size="small" sx={{ p: 0.5 }}>
+                        {expandedSections[index] ? (
+                          <Remove size={16} />
+                        ) : (
+                          <Add size={16} />
+                        )}
+                      </IconButton>
+                    </Box>
+
+                    <Collapse in={expandedSections[index]}>
+                      <Box sx={{ pl: 2, py: 1 }}>
+                        {section.subLinks.map((link, linkIndex) => (
+                          <Box key={linkIndex} sx={{ py: 0.5 }}>
+                            <Link
+                              href={link.url}
+                              underline="none"
+                              sx={{
+                                fontSize: '15px',
+                                color: 'black',
+                                display: 'block',
+                              }}
+                            >
+                              {link.text}
+                            </Link>
+                          </Box>
+                        ))}
+                      </Box>
+                    </Collapse>
+                  </Box>
                 </Box>
               ))}
             </Box>
@@ -482,35 +788,78 @@ const Footer = () => {
         sx={{
           backgroundColor: 'white',
           pt: theme.spacing(4),
-          //   px: {
-          //     lg: theme.spacing(12.5),
-          //     xs: theme.spacing(2),
-          //     sm: theme.spacing(4),
-          //   },
           fontFamily: theme.typography.fontFamily,
           fontSize: theme.typography.body2.fontSize,
           lineHeight: theme.typography.body2.lineHeight,
         }}
       >
         <Container maxWidth="xl" sx={{ pb: theme.spacing(4) }}>
-          <Typography
-            variant="h6"
-            component="h2"
+          <Box
             sx={{
-              fontWeight: theme.typography.fontWeightBold,
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
               mb: theme.spacing(2),
-              fontSize: '1.125rem',
+              gap: theme.spacing(5),
             }}
           >
-            Attention Investors
-          </Typography>
+            <Typography
+              variant="h6"
+              component="h2"
+              sx={{
+                fontWeight: theme.typography.fontWeightBold,
+                fontSize: '1.125rem',
+                flexShrink: 0,
+              }}
+            >
+              Attention Investors!
+            </Typography>
 
+            {/* Marquee container */}
+            <Box
+              sx={{
+                flex: 1,
+                padding: '8px 0',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                position: 'relative',
+              }}
+            >
+              <Box
+                sx={{
+                  display: 'inline-block',
+                  paddingLeft: '100%',
+                  animation: 'marquee 25s linear infinite',
+                  fontSize: '0.875rem',
+                  fontWeight: theme.typography.fontWeightBold,
+                  '@keyframes marquee': {
+                    '0%': {
+                      transform: 'translate3d(0, 0, 0)',
+                    },
+                    '100%': {
+                      transform: 'translate3d(-100%, 0, 0)',
+                    },
+                  },
+                }}
+              >
+                <strong>
+                  Prevent unauthorised transactions in your account
+                </strong>{' '}
+                update your mobile number/email with your Stock Broker. Receive
+                information of your transactions directly from Exchange on your
+                mobile/email at the end of the day.
+              </Box>
+            </Box>
+          </Box>
+
+          {/* Rest of footer content */}
           {footerContent.map((content, index) => (
             <Typography
               key={index}
               sx={{
                 mb: theme.spacing(2),
                 fontSize: '0.875rem',
+                underline: 'none',
                 ...(content.bold && {
                   fontWeight: theme.typography.fontWeightBold,
                 }),
@@ -519,6 +868,38 @@ const Footer = () => {
               {content.text}
             </Typography>
           ))}
+
+          {/* Footer Links */}
+          <Box
+            sx={{
+              mt: theme.spacing(4),
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 1.5,
+            }}
+          >
+            {footerContentLinks.map((link, index) => (
+              <React.Fragment key={index}>
+                <Link
+                  href={link.href}
+                  color="primary"
+                  sx={{
+                    textDecoration: 'none',
+                    fontSize: '0.875rem',
+                  }}
+                >
+                  {link.text}
+                </Link>
+                {index < footerContentLinks.length - 1 && (
+                  <Typography
+                    sx={{ fontSize: '0.875rem', color: 'text.secondary' }}
+                  >
+                    |
+                  </Typography>
+                )}
+              </React.Fragment>
+            ))}
+          </Box>
         </Container>
       </Box>
     </Box>
