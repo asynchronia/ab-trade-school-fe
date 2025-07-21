@@ -24,6 +24,7 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import abLogo2 from '../../assets/ab-logo2.svg';
 import appStore from '../../assets/appStore.svg';
 import playStore from '../../assets/playStore.svg';
@@ -43,44 +44,86 @@ const Footer = () => {
     {
       title: 'Company',
       subLinks: [
-        { text: 'About us', url: '#' },
-        { text: 'AB cares', url: '#' },
-        { text: 'Careers', url: '#' },
-        { text: 'HRMS Login', url: '#' },
-        { text: 'Ekyc Guidelines', url: '#' },
+        { text: 'About us', url: 'https://aliceblueonline.com/about-us/' },
+        { text: 'AB cares', url: 'https://aliceblueonline.com/cares/' },
+        { text: 'Careers', url: 'https://aliceblueonline.com/careers/' },
+        {
+          text: 'HRMS Login',
+          url: 'https://app.factohr.com/aliceblue/Security/Login',
+        },
+        {
+          text: 'Ekyc Guidelines',
+          url: 'https://aliceblueonline.com/ekyc-guidelines/',
+        },
       ],
     },
     {
       title: 'App & Products',
       subLinks: [
-        { text: 'ANT Web', url: '#' },
-        { text: 'ANT Mobi', url: '#' },
-        { text: 'ANT API', url: '#' },
-        { text: 'IPO', url: '#' },
-        { text: 'Trading View', url: '#' },
-        { text: 'Rise (MF, G - Sec, T - bills)', url: '#' },
-        { text: 'Products', url: '#' },
-        { text: 'Investments', url: '#' },
+        {
+          text: 'ANT Web',
+          url: 'https://aliceblueonline.com/legal-documentation/advisory-for-investors/',
+        },
+        { text: 'ANT Mobi', url: 'https://aliceblueonline.com/ant-mobi/' },
+        { text: 'ANT API', url: 'https://aliceblueonline.com/ant-plus/' },
+        { text: 'IPO', url: 'https://rise.aliceblueonline.com/' },
+        {
+          text: 'Trading View',
+          url: 'https://aliceblueonline.com/tradingview/',
+        },
+        {
+          text: 'Rise (MF, G - Sec, T - bills)',
+          url: 'https://rise.aliceblueonline.com/',
+        },
+        { text: 'Products', url: 'https://aliceblueonline.com/products/' },
+        {
+          text: 'Investments',
+          url: 'https://aliceblueonline.com/investments/',
+        },
       ],
     },
     {
       title: 'Tools & Calculators',
       subLinks: [
-        { text: 'Brokerage Calculator', url: '#' },
-        { text: 'Margin Calculator', url: '#' },
-        { text: 'RMS Live Updates', url: '#' },
+        {
+          text: 'Brokerage Calculator',
+          url: 'https://aliceblueonline.com/brokerage-calculator/',
+        },
+        {
+          text: 'Margin Calculator',
+          url: 'https://aliceblueonline.com/margin-calculator/',
+        },
+        {
+          text: 'RMS Live Updates',
+          url: 'https://aliceblueonline.com/rms-live-updates/exposures/',
+        },
       ],
     },
     {
       title: 'Important Links',
       subLinks: [
-        { text: 'Pricing', url: '#' },
-        { text: 'KYC Tracker', url: '#' },
-        { text: 'Trading Holidays', url: '#' },
-        { text: 'PR Coverage', url: '#' },
+        { text: 'Pricing', url: 'https://aliceblueonline.com/pricing/' },
+        {
+          text: 'KYC Tracker',
+          url: 'https://pekycv3.aliceblueonline.com/admin/ekyctracker',
+        },
+        {
+          text: 'Trading Holidays',
+          url: 'https://aliceblueonline.com/trading-holidays-2025/',
+        },
+        {
+          text: 'PR Coverage',
+          url: 'https://aliceblueonline.com/media-coverage/',
+        },
         { text: 'Trade School', url: '/' },
-        { text: 'Employee Referral Policy', url: '#' },
-        { text: 'Verify Client Collateral Details', url: '#' },
+        {
+          text: 'Employee Referral Policy',
+          url: 'https://aliceblueonline.com/employee-referral-program/',
+        },
+        {
+          text: 'Verify Client Collateral Details',
+          url: 'https://www.icclindia.com/DynamicPages/UCCDetails.aspx',
+        },
         { text: 'Terms and Conditions', url: '/terms-and-conditions' },
       ],
     },
@@ -151,7 +194,7 @@ const Footer = () => {
         <>
           <strong>Procedure to file a complaint on SEBI SCORES:</strong>{' '}
           Register on{' '}
-          <Link href="#" color="primary">
+          <Link href="https://scores.sebi.gov.in/" color="primary">
             SEBI SCORES 2.0
           </Link>
           . Mandatory details for filing complaints: Name, PAN, Address, Mobile
@@ -166,7 +209,7 @@ const Footer = () => {
         <>
           Click on the provided link to learn about the process for submitting a
           complaint on the{' '}
-          <Link href="#" color="primary">
+          <Link href="https://smartodr.in/login/" color="primary">
             ODR platform
           </Link>{' '}
           for resolving investor grievances.
@@ -257,7 +300,10 @@ const Footer = () => {
           purpose of dealings in your trading account with us. The details of
           these USCNB accounts are also displayed by Stock Exchanges on their
           website under 'Know/Locate your Stock Broker.{' '}
-          <Link href="#" color="primary">
+          <Link
+            href="https://alicebluewebsite.s3.ap-south-1.amazonaws.com/wp-content/uploads/2024/04/16043642/USNCBA.pdf"
+            color="primary"
+          >
             Bank Details
           </Link>
           .
@@ -267,15 +313,39 @@ const Footer = () => {
   ];
 
   const footerContentLinks = [
-    { text: 'DND Policy', href: '#' },
-    { text: 'Investor Charter', href: '#' },
-    { text: 'Legal Documentation', href: '#' },
-    { text: 'Privacy Policy', href: '#' },
-    { text: 'Feedback', href: '#' },
-    { text: 'Annual Returns', href: '#' },
-    { text: 'Advisory for Investors', href: '#' },
-    { text: 'E-voting', href: '#' },
-    { text: 'Mandatory Member Details', href: '#' },
+    {
+      text: 'DND Policy',
+      href: 'https://aliceblueonline.com/legal-documentation/policy-for-dnd-ndnc/',
+    },
+    {
+      text: 'Investor Charter',
+      href: 'https://aliceblueonline.com/investor-charter/',
+    },
+    {
+      text: 'Legal Documentation',
+      href: 'https://aliceblueonline.com/legal-documentation/',
+    },
+    {
+      text: 'Privacy Policy',
+      href: 'https://aliceblueonline.com/legal-documentation/privacy-policy/',
+    },
+    { text: 'Feedback', href: 'https://aliceblueonline.com/feedback/' },
+    {
+      text: 'Annual Returns',
+      href: 'https://aliceblueonline.com/annual-returns/',
+    },
+    {
+      text: 'Advisory for Investors',
+      href: 'https://aliceblueonline.com/legal-documentation/advisory-for-investors/',
+    },
+    {
+      text: 'E-voting',
+      href: 'https://evoting.cdslindia.com/Evoting/EvotingLogin',
+    },
+    {
+      text: 'Mandatory Member Details',
+      href: 'https://aliceblueonline.com/mandatory-member-details/',
+    },
   ];
 
   const socialIcons = [
@@ -321,6 +391,13 @@ const Footer = () => {
       url: 'https://www.youtube.com/channel/UCrAM1_NV3j5_l8VoukiXv2g',
       color: '#FF0000',
     },
+    {
+      image:
+        'https://img.icons8.com/?size=100&id=eGZs8grn6szD&format=png&color=000000',
+      alt: 'Google News',
+      url: 'https://news.google.com/publications/CAAqMAgKIipDQklTR1FnTWFoVUtFMkZzYVdObFlteDFaVzl1YkdsdVpTNWpiMjBvQUFQAQ?ceid=IN:en&oc=3&hl=en-IN&gl=IN',
+      color: '#eee',
+    },
   ];
 
   const exchanges = [
@@ -333,10 +410,26 @@ const Footer = () => {
   ];
 
   const items = [
-    { icon: DownloadIcon, title: 'Downloads' },
-    { icon: NewspaperOutlinedIcon, title: 'Circulars' },
-    { icon: SavingsRoundedIcon, title: 'Bank Details' },
-    { icon: VideocamIcon, title: 'Watch & learn' },
+    {
+      icon: DownloadIcon,
+      title: 'Downloads',
+      link: 'https://aliceblueonline.com/downloads/',
+    },
+    {
+      icon: NewspaperOutlinedIcon,
+      title: 'Circulars',
+      link: 'https://aliceblueonline.com/circulars/',
+    },
+    {
+      icon: SavingsRoundedIcon,
+      title: 'Bank Details',
+      link: 'https://aliceblueonline.com/bank-details/',
+    },
+    {
+      icon: VideocamIcon,
+      title: 'Watch & learn',
+      link: 'https://aliceblueonline.com/how-to-videos/',
+    },
   ];
 
   return (
@@ -360,6 +453,7 @@ const Footer = () => {
                 cursor: 'pointer',
                 my: 3,
               }}
+              onClick={() => window.open(item.link, '_blank')}
             >
               <Box
                 sx={{
@@ -533,7 +627,19 @@ const Footer = () => {
                           },
                         }}
                       >
-                        {item.icon}
+                        {item.icon ? (
+                          item.icon
+                        ) : (
+                          <Box
+                            component="img"
+                            src={item.image}
+                            alt={item.alt}
+                            sx={{
+                              width: 24,
+                              height: 24,
+                            }}
+                          />
+                        )}
                       </IconButton>
                     </Link>
                   </Tooltip>
@@ -753,6 +859,7 @@ const Footer = () => {
               sx={{
                 mb: theme.spacing(2),
                 fontSize: '0.875rem',
+                underline: 'none',
                 ...(content.bold && {
                   fontWeight: theme.typography.fontWeightBold,
                 }),
@@ -768,7 +875,7 @@ const Footer = () => {
               mt: theme.spacing(4),
               display: 'flex',
               flexWrap: 'wrap',
-              gap: 2,
+              gap: 1.5,
             }}
           >
             {footerContentLinks.map((link, index) => (
@@ -779,9 +886,6 @@ const Footer = () => {
                   sx={{
                     textDecoration: 'none',
                     fontSize: '0.875rem',
-                    '&:hover': {
-                      textDecoration: 'underline',
-                    },
                   }}
                 >
                   {link.text}
