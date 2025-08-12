@@ -10,8 +10,7 @@ import {
     Typography,
     useMediaQuery,
 } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
-import ReactPlayer from 'react-player';
+import { useEffect } from 'react';
 import webinar2 from '../assets/webinar2.webp';
 import CourseCard from '../components/CourseCard/CourseCard';
 import Footer from '../components/Footer/Footer';
@@ -19,9 +18,6 @@ import Navbar from '../components/Navbar/Navbar';
 import theme from '../utils/theme';
 
 const ViewCoursePage = () => {
-  const [playing, setPlaying] = useState(false);
-  const [videoStarted, setVideoStarted] = useState(false);
-  const playerRef = useRef(null);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const modules = [
@@ -78,45 +74,28 @@ const ViewCoursePage = () => {
         <Box mb={4}>
           <Box
             sx={{
-              position: 'relative',
+              backgroundColor: '#ccc',
               width: '100%',
-              height: isSmallScreen ? 200 : 550,
+              height: isSmallScreen ? 300 : 500,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
               borderRadius: 2,
               overflow: 'hidden',
             }}
           >
-            <ReactPlayer
-              ref={playerRef}
-              url="https://youtu.be/hRt3JVZOq9U"
-              playing={playing}
-              light={webinar2}
-              onClickPreview={() => {
-                setPlaying(true);
-                setVideoStarted(true);
+            <IconButton
+              sx={{
+                backgroundColor: 'rgba(0,0,0,0.6)',
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: 'rgba(0,0,0,0.8)',
+                },
               }}
-              width="100%"
-              height="100%"
-              style={{ objectFit: 'contain' }}
-            />
-
-            {videoStarted && (
-              <IconButton
-                onClick={() => setPlaying(!playing)}
-                sx={{
-                  position: 'absolute',
-                  bottom: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, 50%)',
-                  bgcolor: 'rgba(0,0,0,0.1)',
-                  color: 'white',
-                  '&:hover': {
-                    bgcolor: 'rgba(0,0,0,0.8)',
-                  },
-                }}
-              >
-                {playing ? <PauseIcon /> : <PlayArrowIcon />}
-              </IconButton>
-            )}
+            >
+              <PlayArrowIcon sx={{ fontSize: 48 }} />
+            </IconButton>
           </Box>
           <Box
             sx={{
