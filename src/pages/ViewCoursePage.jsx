@@ -87,7 +87,7 @@ const ViewCoursePage = () => {
           >
             <ReactPlayer
               ref={playerRef}
-              url="https://www.w3schools.com/html/mov_bbb.mp4"
+              url="https://youtu.be/hRt3JVZOq9U"
               playing={playing}
               light={webinar2}
               onClickPreview={() => {
