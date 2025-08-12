@@ -170,6 +170,26 @@ const ChapterDataPage = () => {
     fetchChapterData();
   }, [chapterName]);
 
+  useEffect(() => {
+    if (!chapterData) return;
+
+    document.title = chapterData.yoast_title || chapterData.name;
+
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        'content',
+        chapterData.yoast_description || chapterData?.name
+      );
+    } else {
+      metaDescription = document.createElement('meta');
+      metaDescription.name = 'description';
+      metaDescription.content =
+        chapterData.yoast_description || chapterData?.name;
+      document.head.appendChild(metaDescription);
+    }
+  }, [chapterData]);
+
   const handleChapterChange = async (event, value) => {
     setCurrentChapter(value);
     try {

@@ -47,6 +47,26 @@ const ChapterListPage = () => {
     fetchModulesChapterList();
   }, [moduleName]);
 
+  useEffect(() => {
+    if (!moduleData) return;
+
+    document.title = moduleData.yoast_title || moduleData.name;
+
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        'content',
+        moduleData.yoast_description || moduleData?.name
+      );
+    } else {
+      metaDescription = document.createElement('meta');
+      metaDescription.name = 'description';
+      metaDescription.content =
+        moduleData.yoast_description || moduleData?.name;
+      document.head.appendChild(metaDescription);
+    }
+  }, [moduleData]);
+
   const handleBookmark = (id) => {
     setBookmarked((prev) => ({
       ...prev,
