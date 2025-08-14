@@ -22,10 +22,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import abLogo from '../../assets/ab-logo.svg';
 import avatar from '../../assets/avatar.png';
-import {
-    default as appLogo,
-    default as logo,
-} from '../../assets/tradeschool.svg';
+import appLogo from '../../assets/tradeschoollogo.svg';
 import { dropdownData } from '../../utils/data';
 import Button from '../Button/Button';
 import './Navbar.scss';
@@ -113,7 +110,7 @@ const Navbar = () => {
       <Box sx={{ borderBottom: '1px solid #e5e7eb' }}>
         <a href="/">
           <img
-            src={logo}
+            src={appLogo}
             alt="App Logo"
             style={{ width: '120px', padding: '8px 16px', objectFit: 'cover' }}
           />
