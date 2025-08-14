@@ -22,7 +22,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import abLogo from '../../assets/ab-logo.svg';
 import avatar from '../../assets/avatar.png';
-import { default as appLogo, default as logo } from '../../assets/logo.png';
+import {
+    default as appLogo,
+    default as logo,
+} from '../../assets/tradeschool.svg';
 import { dropdownData } from '../../utils/data';
 import Button from '../Button/Button';
 import './Navbar.scss';
@@ -107,12 +110,12 @@ const Navbar = () => {
       }}
     >
       {/* Logo Section */}
-      <Box sx={{ p: 0.5, borderBottom: '1px solid #e5e7eb' }}>
+      <Box sx={{ borderBottom: '1px solid #e5e7eb' }}>
         <a href="/">
           <img
             src={logo}
             alt="App Logo"
-            style={{ width: '120px', height: '45px', objectFit: 'cover' }}
+            style={{ width: '120px', padding: '8px 16px', objectFit: 'cover' }}
           />
         </a>
       </Box>
