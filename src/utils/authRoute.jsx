@@ -5,7 +5,7 @@ const AuthRoute = ({
   protectedRoute = false,
   restricted = false,
 }) => {
-  const isAuthenticated = !!localStorage.getItem('user');
+  const isAuthenticated = !!sessionStorage.getItem('user');
 
   if (protectedRoute && !isAuthenticated) {
     return <Navigate to="/login" replace />;

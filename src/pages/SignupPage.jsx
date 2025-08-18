@@ -111,7 +111,7 @@ const SignupPage = () => {
           variant: 'success',
         });
         setStage(3);
-        localStorage.setItem('registerToken', response?.payload?.token || '');
+        sessionStorage.setItem('registerToken', response?.payload?.token || '');
       } else {
         enqueueSnackbar(response?.message || 'OTP verification failed', {
           variant: 'error',
@@ -138,7 +138,7 @@ const SignupPage = () => {
         password: values?.password,
         name: values?.name,
         phone: values?.phone,
-        token: localStorage.getItem('registerToken'),
+        token: sessionStorage.getItem('registerToken'),
       });
 
       if (response?.success && response?.payload?.data) {
@@ -146,7 +146,7 @@ const SignupPage = () => {
           variant: 'success',
         });
         navigate('/login');
-        localStorage.removeItem('registerToken');
+        sessionStorage.removeItem('registerToken');
       } else {
         enqueueSnackbar(response?.message || 'Signup failed', {
           variant: 'error',

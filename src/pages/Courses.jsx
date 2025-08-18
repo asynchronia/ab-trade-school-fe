@@ -130,7 +130,7 @@ const CoursesPage = () => {
   const navigate = useNavigate();
 
   const handleLearnMore = () => {
-    const user = localStorage.getItem('user');
+    const user = sessionStorage.getItem('user');
     if (!user) {
       enqueueSnackbar('Please login to learn more about this course.', {
         variant: 'warning',

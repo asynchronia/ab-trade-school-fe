@@ -6,20 +6,20 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Divider,
-  Grid,
-  IconButton,
-  InputAdornment,
-  Link,
-  Paper,
-  TextField,
-  Typography,
-  useMediaQuery,
-  useTheme,
+    Box,
+    Button,
+    CircularProgress,
+    Container,
+    Divider,
+    Grid,
+    IconButton,
+    InputAdornment,
+    Link,
+    Paper,
+    TextField,
+    Typography,
+    useMediaQuery,
+    useTheme,
 } from '@mui/material';
 import { Formik } from 'formik';
 import { enqueueSnackbar } from 'notistack';
@@ -37,14 +37,14 @@ import qrCode from '../assets/qrCode.svg';
 import signupImg from '../assets/signupImg.svg';
 import signupImgWebP from '../assets/signupImg.webp';
 import {
-  forgetPasswordReq,
-  loginReq,
-  resetPasswordReq,
+    forgetPasswordReq,
+    loginReq,
+    resetPasswordReq,
 } from '../service/auth.service';
 import {
-  LoginStage1Schema,
-  LoginStage2Schema,
-  LoginStage3Schema,
+    LoginStage1Schema,
+    LoginStage2Schema,
+    LoginStage3Schema,
 } from '../validations/LoginValidation';
 
 const LoginPage = () => {
@@ -87,9 +87,9 @@ const LoginPage = () => {
       });
 
       if (response?.success && response?.payload?.user) {
-        localStorage.setItem('user', JSON.stringify(response.payload.user));
+        sessionStorage.setItem('user', JSON.stringify(response.payload.user));
         enqueueSnackbar('User logged in successfully', { variant: 'success' });
-        localStorage.setItem('user', JSON.stringify(response.payload.user));
+        sessionStorage.setItem('user', JSON.stringify(response.payload.user));
         navigate('/courses');
       } else {
         enqueueSnackbar(response?.message || 'Login failed', {
